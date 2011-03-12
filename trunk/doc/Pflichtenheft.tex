@@ -1,106 +1,347 @@
-\documentclass{article}
+%% LyX 1.6.9 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[ngerman]{article}
+\usepackage[T1]{fontenc}
+\usepackage{CJKutf8}
+\usepackage{array}
 
-\usepackage [ngerman] {babel}
-\usepackage [UTF8] {inputenc}
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+\makeatother
+
+\usepackage{babel}
 
 \begin{document}
+\begin{CJK}{UTF8}{}%
+\flushright{EasyDiet} \flushright{Pflichtenheft (SRS - Software
+Requirements Specification)} \flushright{Version \guilsinglleft{}1.0\guilsinglright{}}
+\end{CJK}
+
+\flushleft{} 
 
 
-\flushright{EasyDiet}
-\flushright{Pflichtenheft  (SRS - Software Requirements Specification)}
-\flushright{Version \flq1.0\frq}
-
-\flushleft{}
 \section{Revisionsverlauf}
 
-\begin{tabular}{|l | l | l| l |}
+\begin{tabular}{|l|l|l|l|}
+\hline 
+Datum  & Version  & Beschreibung  & Author \tabularnewline
+\hline 
+03.03.2001  & 1.0  & Grundstruktur erstellen  & Manuel Tscholl \tabularnewline
 \hline
-Datum & Version & Beschreibung & Author \\ \hline
-03.03.2001 & 1.0 & Grundstruktur erstellen & Manuel Tscholl \\ \hline
 \end{tabular}
+
+
 \subsection{Subtitle}
+
 
 \section{Einführung}
 
-Manuel
+Manuel 
+
+
 \subsection{System}
+
+
 \subsection{Zweck}
+
+
 \subsection{Umfang}
+
+
 \subsection{Referenzen}
+
+
 \subsection{Überblick}
+
 Manuel ende
 
-Stephan
+Stephan 
+
+
 \section{Stakeholder- und Benuterbeschreibung}
-\subsection{\"Uberblick Stakeholder/Benutzer}
-\begin{tabular}[]{l|l|l}
-Name&Rolle/Funktion&interessiert an \\ \hline
+
+
+\subsection{Überblick Stakeholder/Benutzer}
+
+\begin{tabular}{|l|l|l|}
+\hline 
+Name & Rolle/Funktion & interessiert an \tabularnewline
+\hline
 \end{tabular}
+
+
 \subsection{Benutzerumgebung}
+
 Stephan ende
 
-Michael, Ali, Fritz
+
 \section{Produkt Überblick}
+
+
 \subsection{Zusammenfassung der Produktfähigkeiten/Eigenschaften}
-Das Produkt Easy-Diet soll die Diätassistentinen unterstützen in der Erstellung und Überwachung von Diäten.
+
+\begin{flushleft}
+Das Produkt EasyDiet soll die DiätassistentInnen bei der Erstellung
+und Überwachung von Diäten unterstützen.
+\par\end{flushleft}
+
+
+
+\begin{tabular}{|>{\raggedright}p{8cm}|l|}
+\hline 
+\textbf{Produktfähigkeit/-eigenschaft} & \textbf{Stakeholder Nutzen/Gewinn}\tabularnewline
+\hline 
+Stammdatenverwaltung & \tabularnewline
+\hline 
+Erfassung von Befunden & \tabularnewline
+\hline 
+Erfassung des Patientenstatus & \tabularnewline
+\hline 
+Erfassung von persönlichen und gesundheitlichen Ausschließungskriterien
+für Nahrungsmittel & \tabularnewline
+\hline 
+Erfassung von erhaltenen Parametern & \tabularnewline
+\hline 
+Anlegen neuer Parameter & \tabularnewline
+\hline 
+Führung eines Kontaktjournales für jeden Patienten & \tabularnewline
+\hline 
+Erfassung von Ernährungsprotokollen & \tabularnewline
+\hline 
+Auswertung von Ernährungsprotokollen & \tabularnewline
+\hline 
+Erstellung von Ernährungsempfehlungen & \tabularnewline
+\hline 
+Erstellung von Speiseplänen  & \tabularnewline
+\hline 
+Erstellung von Diätplänen & \tabularnewline
+\hline 
+Soll-Ist Analyse & \tabularnewline
+\hline 
+Berechnung von Über- bzw. Untergewicht & \tabularnewline
+\hline 
+Erstellung von Rezepten & \tabularnewline
+\hline 
+Auswertung von Rezepten & \tabularnewline
+\hline 
+Erstellung von Mahlzeiten & \tabularnewline
+\hline 
+Erstellung eines Rezeptbüchleins & \tabularnewline
+\hline 
+Erstellung einer Gut \& Schlecht Liste & \tabularnewline
+\hline 
+Drucken eines Erstellungsprotokollvordruckes & \tabularnewline
+\hline 
+Verwendung von Nährstofftabellen & \tabularnewline
+\hline
+\end{tabular}
+
+
 \subsection{Produkt Fähigkeiten/Eigenschaften}
-\subsubsection{Fähigkeit 1}
-\subsubsection{Fähigkeit 2}
+
+
+\subsubsection{Stammdatenverwaltung}
+
+
+\subsubsection{Erfassung von Befunden}
+
+
+\subsubsection{Erfassung des Patientenstatus}
+
+
+\subsubsection{Erfassung von persönlichen und gesundheitlichen Auschließungskriterien
+für Nahrungsmittel}
+
+
+\subsubsection{Erfassungvon erhaltenen Parametern}
+
+
+\subsubsection{Anlegen neuer Parameter}
+
+
+\subsubsection{Führung eines Kontaktjournales für jeden Patienten}
+
+
+\subsubsection{Erfassung von Ernährungsprotokollen}
+
+
+\subsubsection{Auswertung von Ernährungsprotokollen}
+
+
+\subsubsection{Erstellung von Ernährungsempfehlungen}
+
+
+\subsubsection{Erstellung von Speiseplänen}
+
+
+\subsubsection{Erstellung von Diätplänen}
+
+
+\subsubsection{Soll-Ist Analyse}
+
+
+\subsubsection{Berechnung von Über- bzw. Untergewicht}
+
+
+\subsubsection{Erstellung von Rezepten}
+
+
+\subsubsection{Auswertung von Rezepten}
+
+
+\subsubsection{Erstellung von Mahlzeiten}
+
+
+\subsubsection{Erstellung eines Rezeptbüchleins}
+
+
+\subsubsection{Erstellung einer Gut \& Schlecht Liste}
+
+
+\subsubsection{Drucken eines Erstellungsprotokollvordruckes}
+
+
+\subsubsection{Verwendung von Nährstofftabellen}
+
+
 \subsection{Annahmen und Abhängigkeiten}
-JVM muss auf dem Kunden OS lauffähig sein.
-Verbindung zum Datenbankserver muss Vorhanden sein und Adresse muss ebenfalls bekannt sein.
-Das OS muss GUIs unterstützen.
-Drucker muss vorhanden.
-M,A,F ende
+
+Es muss eine Java Virtual Machine für das vom Kunden eingesetzte Betriebssystem
+existieren. Die Verbindung zum Datenbankserver muss Vorhanden sein
+und Adresse zu diesem Server muss ebenfalls bekannt sein. Das Betriebssystem
+muss grafische Benutzeroberflächen unterstützen. Einer Drucker sollte
+vorhanden sein.
+
 
 \section{Domänenmodell}
+
+
 \subsection{Überblick}
+
+
 \subsection{Detailliertes Modell}
+
+
 \subsubsection{eine Klasse}
+
+
 \subsubsection{eine weitere Klasse}
 
+
 \section{Dynamisches Modell}
+
+
 \subsection{Detaillierte Benutzungsfälle (Usecases)}
+
+
 \subsubsection{Detaillierte Benutzungsfall/Beschreibung}
+
+
 \subsubsection{Sequenz Diagramm}
+
+
 \subsubsection{Kontrakte}
 
+
 \section{Nonfunktionale Anforderungen}
+
+
 \subsection{Regeln}
+
+
 \subsection{Usability}
+
+
 \subsection{Zuverlässigkeit}
+
+
 \subsection{Performanz}
+
+
 \subsection{Unterstützbarkeit}
+
+
 \subsection{Online Benutzerdokumentation und Help System}
+
+
 \subsection{zugekaufte Komponenten}
+
+
 \subsection{Schnittstellen}
+
+
 \subsubsection{Benutzerschnittstellen}
+
+
 \subsubsection{Software Schnittstellen}
+
+
 \subsubsection{Kommunikationsschnittstellen}
+
+
 \subsection{zusätzlicher Lizenzierungen}
+
+
 \subsection{Copyright und andere rechtliche Anforderungen}
+
+
 \subsection{Anzuwendende Standards}
 
+
 \section{Iterationsplan (Timeboxes)}
+
+
 \subsection{Überblick}
-\subsection{1. timebox}
+
+
+\subsection{1. Timebox}
+
+
 \subsubsection{Benutzungsfälle (UseCases)}
+
+
 \subsubsection{Architektur}
+
+
 \subsubsection{Deliverables}
+
+
 \subsubsection{Abhängikeiten}
+
 
 \subsection{2. Timebox}
+
+
 \subsubsection{Benutzungsfälle (UseCases)}
+
+
 \subsubsection{Architektur}
+
+
 \subsubsection{Deliverables}
+
+
 \subsubsection{Abhängikeiten}
+
 
 \subsection{3. Timebox}
+
+
 \subsubsection{Benutzungsfälle (UseCases)}
+
+
 \subsubsection{Architektur}
+
+
 \subsubsection{Deliverables}
+
+
 \subsubsection{Abhängikeiten}
 
-\subsection{Glossar}
 
+\subsection{Glossar}
 \end{document}
