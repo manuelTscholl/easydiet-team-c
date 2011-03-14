@@ -1,11 +1,12 @@
-#LyX file created by tex2lyx 1.6.9
-\lyxformat 264
+#LyX 1.6.9 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
 \begin_document
 \begin_header
-\textclass article
+\textclass scrartcl
 \begin_preamble
 \makeatother
 \end_preamble
+\use_default_options false
 \language ngerman
 \inputencoding auto
 \font_roman default
@@ -16,10 +17,12 @@
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
+
 \graphics default
 \paperfontsize default
 \spacing single
-\papersize default
+\use_hyperref false
+\papersize a4paper
 \use_geometry false
 \use_amsmath 1
 \use_esint 1
@@ -36,63 +39,17 @@
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
+\author "" 
+\author "" 
 \end_header
 
 \begin_body
 
 \begin_layout Standard
-
-
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
-
-
-\backslash
-begin{CJK}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-{
-\end_layout
-
-\end_inset
-
-UTF8
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-{}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -105,7 +62,7 @@ flushright
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 {
 \end_layout
@@ -116,7 +73,7 @@ EasyDiet
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 }
 \end_layout
@@ -127,7 +84,7 @@ status collapsed
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -140,7 +97,7 @@ flushright
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 {
 \end_layout
@@ -151,7 +108,7 @@ Pflichtenheft (SRS - Software Requirements Specification)
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 }
 \end_layout
@@ -162,7 +119,7 @@ status collapsed
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -175,7 +132,7 @@ flushright
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 {
 \end_layout
@@ -194,7 +151,7 @@ Version
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 }
 \end_layout
@@ -202,28 +159,13 @@ status collapsed
 \end_inset
 
  
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-
-\backslash
-end{CJK}
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
-
-
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 
 \backslash
@@ -236,7 +178,7 @@ flushleft
 \begin_inset ERT
 status collapsed
 
-\begin_layout Standard
+\begin_layout Plain Layout
 
 {}
 \end_layout
@@ -247,26 +189,22 @@ status collapsed
 \end_layout
 
 \begin_layout Section
-
 Revisionsverlauf
 \end_layout
 
 \begin_layout Standard
-
-
-\begin_inset Tabular 
+\begin_inset Tabular
 <lyxtabular version="3" rows="2" columns="4">
 <features>
-<column alignment="left" valignment="top" leftline="true" rightline="true">
-<column alignment="left" valignment="top" rightline="true">
-<column alignment="left" valignment="top" rightline="true">
-<column alignment="left" valignment="top" rightline="true">
-<row topline="true">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="0">
+<column alignment="left" valignment="top" width="0">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Datum 
 \end_layout
 
@@ -275,8 +213,7 @@ Datum
 <cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Version 
 \end_layout
 
@@ -285,8 +222,7 @@ Version
 <cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Beschreibung 
 \end_layout
 
@@ -295,20 +231,18 @@ Beschreibung
 <cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Author 
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true" bottomline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 03.03.2001 
 \end_layout
 
@@ -317,8 +251,7 @@ Author
 <cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 1.0 
 \end_layout
 
@@ -327,8 +260,7 @@ Author
 <cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Grundstruktur erstellen 
 \end_layout
 
@@ -337,8 +269,7 @@ Grundstruktur erstellen
 <cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Manuel Tscholl 
 \end_layout
 
@@ -353,111 +284,400 @@ Manuel Tscholl
 \end_layout
 
 \begin_layout Subsection
-
 Subtitle
 \end_layout
 
 \begin_layout Section
-
 Einführung
 \end_layout
 
 \begin_layout Subsection
-
 System
 \end_layout
 
 \begin_layout Standard
-
-Es handelt sich hier um eine Programm für Verwaltung und Planung von Diäten. Es ist möglich, viele verschiedene Patienten mit einer persönlichen Diät zu verwalten. Zugrundeliegend ist eine internationale Lebensmitteldatenbank.
+Es handelt sich hier um eine Programm für Verwaltung und Planung von Diäten.
+ Es ist möglich, viele verschiedene Patienten mit einer persönlichen Diät
+ zu verwalten.
+ Zugrundeliegend ist eine internationale Lebensmitteldatenbank.
 \end_layout
 
 \begin_layout Subsection
-
 Zweck
 \end_layout
 
 \begin_layout Standard
-
 Keine Ahnung was do iha söll
 \end_layout
 
 \begin_layout Subsection
-
 Umfang
 \end_layout
 
 \begin_layout Standard
-
-Dieses Diätprogramm soll die Diätsassistentin unterstützen, damit sie schnell und einfach Diätpläner erstellen kann und somit mehr Patienten in kürzerer zeit betreuen kann.
+Dieses Diätprogramm soll die Diätsassistentin unterstützen, damit sie schnell
+ und einfach Diätpläner erstellen kann und somit mehr Patienten in kürzerer
+ zeit betreuen kann.
 \end_layout
 
 \begin_layout Subsection
-
 Referenzen
 \end_layout
 
 \begin_layout Standard
-
-Die Kapitel 1-3 geben einen allgemeinen Überblick über dieses Programm. Diese beinhalten Stakeholder und einen kurzen Überblick über das Programm. Die restlichen Kapitel sind für Entwickler oder technisch interessierte Personen geschrieben und erklären die technischen Details und Funktionen des Produkts.
+Die Kapitel 1-3 geben einen allgemeinen Überblick über dieses Programm.
+ Diese beinhalten Stakeholder und einen kurzen Überblick über das Programm.
+ Die restlichen Kapitel sind für Entwickler oder technisch interessierte
+ Personen geschrieben und erklären die technischen Details und Funktionen
+ des Produkts.
 \end_layout
 
 \begin_layout Subsection
-
 Überblick
 \end_layout
 
-\begin_layout Standard
-
-Stephan
-\end_layout
-
 \begin_layout Section
-
-Stakeholder- und Benuterbeschreibung
-\end_layout
-
-\begin_layout Subsection
-
 Überblick Stakeholder/Benutzer
 \end_layout
 
 \begin_layout Standard
-
-
-\begin_inset Tabular 
-<lyxtabular version="3" rows="1" columns="3">
+\begin_inset Tabular
+<lyxtabular version="3" rows="11" columns="3">
 <features>
-<column alignment="left" valignment="top" leftline="true" rightline="true">
-<column alignment="left" valignment="top" rightline="true">
-<column alignment="left" valignment="top" rightline="true">
-<row topline="true" bottomline="true">
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<column alignment="none" valignment="top" width="30text%">
+<column alignment="none" valignment="top" width="40text%">
+<column alignment="none" valignment="top" width="30text%">
+<row>
+<cell alignment="none" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Name 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+<cell alignment="none" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Rolle/Funktion 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 interessiert an 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="none" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Diätassistent/in 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Erstellt Diätpläne, wertet Daten aus und prüft diese laufend, erstellt Protokoll
+e - Verantwortliche für Planung und Durchführung, bekommt Daten von der
+ Überweisung und vom Patienten zusätzliche Daten und Daten von der Bundeslebensm
+itteldatenbank 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Anthroprometische Daten, Wiegeprotokollen, Benutzerstammdaten, Laborwerten,
+ Diätregime, Ernährungspläne, Diagnose des Arztes, Anamnese, Erfolg des
+ Diätprogramms (Gewicht...,) 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="none" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Arzt 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+erstellt Diagnose, überweist den Patienten an die Diätassistenten, liefert
+ die Parametersets 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+anthropometrischen Daten, Einhaltung der Parameter (Blutwerte..., Laborwerte)
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="none" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Finanzamt 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Steuerabgabe, Buchhaltung 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="none" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Buchhaltung 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Leistungserfassung und Abrechnung mit Krankenkassen 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Besprechungen mit den Kunden und erstellten Leistungen 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="none" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Studenten 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Lernen bereits im Studium mit diesem Programm zu arbeiten mit Beispieldaten
+ ohne Verrechnung.
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+gesamten System -> verwenden es nach dem Studium 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="none" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Krankenkasse 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Abrechnung und Bezahlung der Behandlungskosten.
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Krankenkasse Abrechnung und Bezahlung der Behandlungskosten.
+ Korrekte Kosten/Daten und Rezeptaustellungen; Dauer der Besprechungen mit
+ den Kunden und erstellte Leistungen 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="none" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Patienten 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bekommt einen neuen bzw einen aktualisierten Diätplan von dem Diätassistenten,
+ welcher er für die Behandlung braucht.
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Optimalisierung seines Gewichtes.
+ Erstellt Wiegeprotokolle, die von der Assistentin eingetragen werden.
+ Geschmackliche Vielfalt 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="none" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Praktikant 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Warten das System, beheben Fehler 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Einfache Fehlerfindung, gute Dokumentation, leichte Wartbarkeit, Anforderungsbes
+chreibung, Feedback 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="none" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Systembesitzer 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+finanzierte Geräte 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="none" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Leistungssteigerung 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Diätkoch
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bereitstellung von verschiedenen Kochrezepten
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -471,45 +691,48 @@ interessiert an
 \end_layout
 
 \begin_layout Subsection
-
 Benutzerumgebung
 \end_layout
 
-\begin_layout Standard
-
-Stephan ende
-\end_layout
-
 \begin_layout Section
-
 Produkt Überblick
 \end_layout
 
 \begin_layout Subsection
-
 Zusammenfassung der Produktfähigkeiten/Eigenschaften
 \end_layout
 
 \begin_layout Standard
 \align left
-
-Das Produkt EasyDiet soll die DiätassistentInnen bei der Erstellung und Überwachung von Diäten unterstützen. Desweitern bietet das Programm die Möglichkeit zur Erstellung unterschiedlicher Ernährungspläne mit unterschiedlichen Genauigkeiten. Im Zuge der Erstellung von Ernährungsplänen ist es auch möglich, neue Rezepte, Mahlzeiten und Nahrungsmittel, die sich noch nicht in der umfangreichen, bereits mitgelieferten Datenbank befinden, hinzuzufügen. Das System bietet überdies noch die Funktion der Stammdatenverwaltung inklusive der Führung eines Kontaktjournals und der Erstellung von patientenspezifischen Parametersets zur Einhaltung und Kontrolle der Diät an. Um die Diätassistentin bestmöglich bei ihren Entscheidung im Bezug auf das weitere Vorgehen bei Diäten zu unterstützen, bietet das Produkt die Möglichkeit einer Soll-Ist Analyse des Patienten inklusive der Berechnung des Über- bzw Untergewichts durch benutzerdefinierte Berechnungsverfahren an. 
+Das Produkt EasyDiet soll die DiätassistentInnen bei der Erstellung und
+ Überwachung von Diäten unterstützen.
+ Desweitern bietet das Programm die Möglichkeit zur Erstellung unterschiedlicher
+ Ernährungspläne mit unterschiedlichen Genauigkeiten.
+ Im Zuge der Erstellung von Ernährungsplänen ist es auch möglich, neue Rezepte,
+ Mahlzeiten und Nahrungsmittel, die sich noch nicht in der umfangreichen,
+ bereits mitgelieferten Datenbank befinden, hinzuzufügen.
+ Das System bietet überdies noch die Funktion der Stammdatenverwaltung inklusive
+ der Führung eines Kontaktjournals und der Erstellung von patientenspezifischen
+ Parametersets zur Einhaltung und Kontrolle der Diät an.
+ Um die Diätassistentin bestmöglich bei ihren Entscheidung im Bezug auf
+ das weitere Vorgehen bei Diäten zu unterstützen, bietet das Produkt dNameie
+ Möglichkeit einer Soll-Ist Analyse des Patienten inklusive der Berechnung
+ des Über- bzw Untergewichts durch benutzerdefinierte Berechnungsverfahren
+ an.
+ 
 \end_layout
 
 \begin_layout Standard
-
-
-\begin_inset Tabular 
-<lyxtabular version="3" rows="22" columns="2">
+\begin_inset Tabular
+<lyxtabular version="3" rows="21" columns="2">
 <features>
-<column alignment="left" valignment="top" leftline="true" rightline="true" width="8cm">
-<column alignment="left" valignment="top" rightline="true">
-<row topline="true">
+<column alignment="left" valignment="top" width="40col%">
+<column alignment="left" valignment="top" width="60col%">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 
 \series bold
 Produktfähigkeit/-eigenschaft
@@ -522,371 +745,434 @@ Produktfähigkeit/-eigenschaft
 <cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 
 \series bold
 Stakeholder Nutzen/Gewinn
-\series default
-
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Stammdatenverwaltung 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+DA und Sekretärin können Patienten dadurch eindeutig identifizieren und
+ können sich einen allgemeinen Überblick schaffen
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Erfassung von Befunden 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Erfassung des Patientenstatus 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\end_inset
-</cell>
-</row>
-<row topline="true">
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-
-Erfassung von persönlichen und gesundheitlichen Ausschließungskriterien für Nahrungsmittel 
+\begin_layout Plain Layout
+diese Daten werden kontinuerlich aktualisiert -> DA hat dadurch aktuelle
+ Information über die Patienten
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\end_inset
-</cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
-Erfassung von erhaltenen Parametern 
+\begin_layout Plain Layout
+Erfassung von persönlichen und gesundheitlichen Ausschließungskriterien
+ für Nahrungsmittel 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+Auswahl an Nahrungsmittel bei der Erstellung von DP wird erleichtert für
+ DA
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
+\begin_layout Plain Layout
+Erfassung von erhaltenen Parametern
+\end_layout
 
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+geben der DA Information darüber, ob ein Nahrungsmittel für die Erstellung
+ von DP auswählbar ist; Der Arzt erfasst diese Parameter.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multicolumn="1" alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 Anlegen neuer Parameter 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+Da sich die Parameter laufend ändern können, muss das Programm eine Möglichkeit
+ besitzen diese anzupassen -> DA hat kann Parameter dadruch flexibel verwalten
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Führung eines Kontaktjournales für jeden Patienten 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+Ermöglicht der DA/Sekretärin Informationen über alle Termine eines Patienten
+ zu erhalten und auch darüber, welche Aktionen während eines bestimmten
+ Kontaktes gesetzt wurden.
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Erfassung von Ernährungsprotokollen 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+DA erhält dadurch einen Ausgangspunkt für die folgende Ernährungsplanung
+ eines Patienten.
+ Patient kann mehrere Ernährungsprotokolle führen
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Auswertung von Ernährungsprotokollen 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+DA kann diese Protokolle als Vorschlag für die Erstellung von DP verwenden
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Erstellung von Ernährungsempfehlungen 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\end_inset
-</cell>
-</row>
-<row topline="true">
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-
-Erstellung von Speiseplänen 
+\begin_layout Plain Layout
+Patient bekommt eine relativ freie Form der Ernährungsplanung
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\end_inset
-</cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
-Erstellung von Diätplänen 
+\begin_layout Plain Layout
+Erstellung von Plänen(Speiseplan,Diätplan)
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+Patient bekommt einen konkreten Plan für Mahlzeiten.
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Soll-Ist Analyse 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\end_inset
-</cell>
-</row>
-<row topline="true">
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-
-Berechnung von Über- bzw. Untergewicht 
+\begin_layout Plain Layout
+Erleichtert der DA das Erfassen eines Ernährungsprotokoll, da der Soll-Ist
+ Vergleich permanent eingeblendet wird und die Sollgrößen den zu überwachenden
+ Parametern entsprechen.
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+Berechnung von Über- bzw.
+ Untergewicht 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Die Bestimmung des Über- bzw.
+ Untergewichts dient der Diätassistentin als wichtiger Anhaltspunkt bei
+ der Bestimmung der zuzuführenden Energiemenge.
+ Patient sieht den Erfolg/Misserfolg der Diät
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Erstellung von Rezepten 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+ermöglicht der DA eine größere Auswahl an Rezepten und eine Rekonstruierbarkeit
+ eines Rezepts
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Auswertung von Rezepten 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+Durch das Auswerten von Rezepten kann die DA diejenigen Rezepte auswählen,
+ die für einen Patienten passend sind in Bezug auf Energie und Nährstoffe.
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Erstellung von Mahlzeiten 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+dient der DA ein Rezept zu erstellen und Speisepläne zu gruppieren Für einen
+ bestimmten Patienten können alle erstellten Mahlzeiten einer bestimmten
+ Tageszeit zugeordnet werden
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Erstellung eines Rezeptbüchleins 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+Bei der Erstellung eines DP deklariert die DA in diesem Büchlein alle zu
+ verwendenen Rezepte.
+ In Folge hat der Patient eine genaue Übersicht über alle Rezepte, die laut
+ Parameter für ihn valide sind.
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Erstellung einer Gut & Schlecht Liste 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+dient der DA passende Rezepte für den Diätplan eines Patienten zu erstellen
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Drucken eines Erstellungsprotokollvordruckes 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \end_inset
 </cell>
 </row>
-<row topline="true" bottomline="true">
+<row>
 <cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
-\begin_layout Standard
-
+\begin_layout Plain Layout
 Verwendung von Nährstofftabellen 
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="none" valignment="top" topline="true" bottomline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
 \begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \end_inset
 </cell>
@@ -899,337 +1185,740 @@ Verwendung von Nährstofftabellen
 \end_layout
 
 \begin_layout Subsection
-
 Produkt Fähigkeiten/Eigenschaften
 \end_layout
 
 \begin_layout Subsubsection
-
 Stammdatenverwaltung
 \end_layout
 
 \begin_layout Subsubsection
-
 Erfassung von Befunden
 \end_layout
 
 \begin_layout Subsubsection
-
 Erfassung des Patientenstatus
 \end_layout
 
 \begin_layout Subsubsection
-
-Erfassung von persönlichen und gesundheitlichen Auschließungskriterien für Nahrungsmittel
+Erfassung von persönlichen und gesundheitlichen Auschließungskriterien für
+ Nahrungsmittel
 \end_layout
 
 \begin_layout Subsubsection
-
 Erfassungvon erhaltenen Parametern
 \end_layout
 
 \begin_layout Subsubsection
-
 Anlegen neuer Parameter
 \end_layout
 
 \begin_layout Subsubsection
-
 Führung eines Kontaktjournales für jeden Patienten
 \end_layout
 
 \begin_layout Subsubsection
-
 Erfassung von Ernährungsprotokollen
 \end_layout
 
 \begin_layout Subsubsection
-
 Auswertung von Ernährungsprotokollen
 \end_layout
 
 \begin_layout Subsubsection
-
 Erstellung von Ernährungsempfehlungen
 \end_layout
 
 \begin_layout Subsubsection
-
 Erstellung von Speiseplänen
 \end_layout
 
 \begin_layout Subsubsection
-
 Erstellung von Diätplänen
 \end_layout
 
 \begin_layout Subsubsection
-
 Soll-Ist Analyse
 \end_layout
 
 \begin_layout Subsubsection
-
-Berechnung von Über- bzw. Untergewicht
+Berechnung von Über- bzw.
+ Untergewicht
 \end_layout
 
 \begin_layout Subsubsection
-
 Erstellung von Rezepten
 \end_layout
 
 \begin_layout Subsubsection
-
 Auswertung von Rezepten
 \end_layout
 
 \begin_layout Subsubsection
-
 Erstellung von Mahlzeiten
 \end_layout
 
 \begin_layout Subsubsection
-
 Erstellung eines Rezeptbüchleins
 \end_layout
 
 \begin_layout Subsubsection
-
 Erstellung einer Gut & Schlecht Liste
 \end_layout
 
 \begin_layout Subsubsection
-
 Drucken eines Erstellungsprotokollvordruckes
 \end_layout
 
 \begin_layout Subsubsection
-
 Verwendung von Nährstofftabellen
 \end_layout
 
 \begin_layout Subsection
-
 Annahmen und Abhängigkeiten
 \end_layout
 
 \begin_layout Standard
-
-Es muss eine Java Virtual Machine für das vom Kunden eingesetzte Betriebssystem existieren. Die Verbindung zum Datenbankserver muss Vorhanden sein und Adresse zu diesem Server muss ebenfalls bekannt sein. Das Betriebssystem muss grafische Benutzeroberflächen unterstützen, zusätzlich sollte auch noch ein Drucker vorhanden sein.
+Es muss eine Java Virtual Machine für das vom Kunden eingesetzte Betriebssystem
+ existieren.
+ Die Verbindung zum Datenbankserver muss Vorhanden sein und Adresse zu diesem
+ Server muss ebenfalls bekannt sein.
+ Das Betriebssystem muss grafische Benutzeroberflächen unterstützen, zusätzlich
+ sollte auch noch ein Drucker vorhanden sein.
 \end_layout
 
 \begin_layout Section
-
 Domänenmodell
 \end_layout
 
 \begin_layout Subsection
-
 Überblick
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Domänenmodell_ohne_attribute.jpg
+	width 70page%
+	rotateAngle 90
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Domänenmodell ohne Attribute
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Sozialanamnese
+\end_layout
+
+\begin_layout Subsubsection
+Ernährungsanamnese
+\end_layout
+
+\begin_layout Subsubsection
+Familienanamnese
+\end_layout
+
+\begin_layout Subsubsection
+Fragenkatalog
+\end_layout
+
+\begin_layout Subsubsection
+Frage
+\end_layout
+
+\begin_layout Subsubsection
+Kontaktjournal
+\end_layout
+
+\begin_layout Subsubsection
+Kontakt
+\end_layout
+
+\begin_layout Subsubsection
+Protokoll
+\end_layout
+
+\begin_layout Subsubsection
+Protokollzeile
+\end_layout
+
+\begin_layout Subsubsection
+Parameterset
+\end_layout
+
+\begin_layout Subsubsection
+Parameter
+\end_layout
+
+\begin_layout Subsubsection
+Eintrag
+\end_layout
+
+\begin_layout Subsubsection
+Diätassistentin
+\end_layout
+
+\begin_layout Subsubsection
+Gut & Schlecht Liste
+\end_layout
+
+\begin_layout Subsubsection
+Diätplan
+\end_layout
+
+\begin_layout Subsubsection
+Mahlzeitzeile
+\end_layout
+
+\begin_layout Subsubsection
+Mahlzeit
+\end_layout
+
+\begin_layout Subsubsection
+Speiseplan
+\end_layout
+
+\begin_layout Subsubsection
+Ernährungsplan
+\end_layout
+
+\begin_layout Subsubsection
+Ernährungsempfehlung
+\end_layout
+
+\begin_layout Subsubsection
+Blockdiät
+\end_layout
+
+\begin_layout Subsubsection
+Rezeptbüchlein
+\end_layout
+
+\begin_layout Subsubsection
+Rezept
+\end_layout
+
+\begin_layout Subsubsection
+Zutat
+\end_layout
+
+\begin_layout Subsubsection
+Nahrungsmittel
+\end_layout
+
+\begin_layout Subsubsection
+Nährstoff
+\end_layout
+
+\begin_layout Subsubsection
+Inhaltsstoff
+\end_layout
+
+\begin_layout Subsubsection
+Nahrungsmittelgruppe
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 Detailliertes Modell
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
-eine Klasse
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Domänenmodell_Patient.jpg
+	width 70page%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Patient
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Domänenmodell_Protokoll_Parameter_Diätassistentin.jpg
+	width 70page%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Diätassistentin, Protokoll, Parametersets
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Domänenmodell_Anamnese.jpg
+	width 70page%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Anamnese
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Domänenmodell_Diät.jpg
+	width 70page%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Diät
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Domänenmodell_Rezept_Nahrungsmittel.jpg
+	width 70page%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Rezept, Nahrungsmittel
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
+Patient
+\end_layout
 
-eine weitere Klasse
+\begin_layout Subsubsection
+Gewohnheiten
+\end_layout
+
+\begin_layout Subsubsection
+Befund
+\end_layout
+
+\begin_layout Subsubsection
+Nebenbefund
+\end_layout
+
+\begin_layout Subsubsection
+Laborbefund
+\end_layout
+
+\begin_layout Subsubsection
+Status
+\end_layout
+
+\begin_layout Subsubsection
+Anamnese
+\end_layout
+
+\begin_layout Subsubsection
+Sozialanamnese
+\end_layout
+
+\begin_layout Subsubsection
+Ernährungsanamnese
+\end_layout
+
+\begin_layout Subsubsection
+Familienanamnese
+\end_layout
+
+\begin_layout Subsubsection
+Fragenkatalog
+\end_layout
+
+\begin_layout Subsubsection
+Frage
+\end_layout
+
+\begin_layout Subsubsection
+Kontaktjournal
+\end_layout
+
+\begin_layout Subsubsection
+Kontakt
+\end_layout
+
+\begin_layout Subsubsection
+Protokoll
+\end_layout
+
+\begin_layout Subsubsection
+Protokollzeile
+\end_layout
+
+\begin_layout Subsubsection
+Parameterset
+\end_layout
+
+\begin_layout Subsubsection
+Parameter
+\end_layout
+
+\begin_layout Subsubsection
+Eintrag
+\end_layout
+
+\begin_layout Subsubsection
+Diätassistentin
+\end_layout
+
+\begin_layout Subsubsection
+Gut & Schlecht Liste
+\end_layout
+
+\begin_layout Subsubsection
+Diätplan
+\end_layout
+
+\begin_layout Subsubsection
+Mahlzeitzeile
+\end_layout
+
+\begin_layout Subsubsection
+Mahlzeit
+\end_layout
+
+\begin_layout Subsubsection
+Speiseplan
+\end_layout
+
+\begin_layout Subsubsection
+Ernährungsplan
+\end_layout
+
+\begin_layout Subsubsection
+Ernährungsempfehlung
+\end_layout
+
+\begin_layout Subsubsection
+Blockdiät
+\end_layout
+
+\begin_layout Subsubsection
+Rezeptbüchlein
+\end_layout
+
+\begin_layout Subsubsection
+Rezept
+\end_layout
+
+\begin_layout Subsubsection
+Zutat
+\end_layout
+
+\begin_layout Subsubsection
+Nahrungsmittel
+\end_layout
+
+\begin_layout Subsubsection
+Nährstoff
+\end_layout
+
+\begin_layout Subsubsection
+Inhaltsstoff
+\end_layout
+
+\begin_layout Subsubsection
+Nahrungsmittelgruppe
 \end_layout
 
 \begin_layout Section
-
 Dynamisches Modell
 \end_layout
 
 \begin_layout Subsection
-
 Detaillierte Benutzungsfälle (Usecases)
 \end_layout
 
 \begin_layout Subsubsection
-
 Detaillierte Benutzungsfall/Beschreibung
 \end_layout
 
 \begin_layout Subsubsection
-
 Sequenz Diagramm
 \end_layout
 
 \begin_layout Subsubsection
-
 Kontrakte
 \end_layout
 
 \begin_layout Section
-
 Nonfunktionale Anforderungen
 \end_layout
 
 \begin_layout Subsection
-
 Regeln
 \end_layout
 
 \begin_layout Subsection
-
 Usability
 \end_layout
 
 \begin_layout Subsection
-
 Zuverlässigkeit
 \end_layout
 
 \begin_layout Subsection
-
 Performanz
 \end_layout
 
 \begin_layout Subsection
-
 Unterstützbarkeit
 \end_layout
 
 \begin_layout Subsection
-
 Online Benutzerdokumentation und Help System
 \end_layout
 
 \begin_layout Subsection
-
 zugekaufte Komponenten
 \end_layout
 
 \begin_layout Subsection
-
 Schnittstellen
 \end_layout
 
 \begin_layout Subsubsection
-
 Benutzerschnittstellen
 \end_layout
 
 \begin_layout Subsubsection
-
 Software Schnittstellen
 \end_layout
 
 \begin_layout Subsubsection
-
 Kommunikationsschnittstellen
 \end_layout
 
 \begin_layout Subsection
-
 zusätzlicher Lizenzierungen
 \end_layout
 
 \begin_layout Subsection
-
 Copyright und andere rechtliche Anforderungen
 \end_layout
 
 \begin_layout Subsection
-
 Anzuwendende Standards
 \end_layout
 
 \begin_layout Section
-
 Iterationsplan (Timeboxes)
 \end_layout
 
 \begin_layout Subsection
-
 Überblick
 \end_layout
 
 \begin_layout Subsection
-
-1. Timebox
+1.
+ Timebox
 \end_layout
 
 \begin_layout Subsubsection
-
 Benutzungsfälle (UseCases)
 \end_layout
 
 \begin_layout Subsubsection
-
 Architektur
 \end_layout
 
 \begin_layout Subsubsection
-
 Deliverables
 \end_layout
 
 \begin_layout Subsubsection
-
 Abhängikeiten
 \end_layout
 
 \begin_layout Subsection
-
-2. Timebox
+2.
+ Timebox
 \end_layout
 
 \begin_layout Subsubsection
-
 Benutzungsfälle (UseCases)
 \end_layout
 
 \begin_layout Subsubsection
-
 Architektur
 \end_layout
 
 \begin_layout Subsubsection
-
 Deliverables
 \end_layout
 
 \begin_layout Subsubsection
-
 Abhängikeiten
 \end_layout
 
 \begin_layout Subsection
-
-3. Timebox
+3.
+ Timebox
 \end_layout
 
 \begin_layout Subsubsection
-
 Benutzungsfälle (UseCases)
 \end_layout
 
 \begin_layout Subsubsection
-
 Architektur
 \end_layout
 
 \begin_layout Subsubsection
-
 Deliverables
 \end_layout
 
 \begin_layout Subsubsection
-
 Abhängikeiten
 \end_layout
 
 \begin_layout Subsection
-
 Glossar
 \end_layout
 
