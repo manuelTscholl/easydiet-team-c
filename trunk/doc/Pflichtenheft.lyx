@@ -1631,20 +1631,47 @@ Rezept, Nahrungsmittel
 Patient
 \end_layout
 
+\begin_layout Standard
+Die Klasse Patient steht im Mittelpunkt unseres Modelles, da nahezu alles
+ von diesem abhängt.
+ Sie beinhaltet die Stammdaten sowie diverse Zusatzinformationen.
+ Zusätzliche Informationen kann man in dem Attribut Notizzettel unterbringen.
+\end_layout
+
 \begin_layout Subsubsection
 Gewohnheiten
+\end_layout
+
+\begin_layout Standard
+Diese Klasse bezieht sich auf einen bestimmten Patienten und dessen Essensgewohn
+heiten.
+ Hier bekommt das Programm den nötigen input um festzustellen welche Lebensmitte
+l der Patient mag und essen darf.
 \end_layout
 
 \begin_layout Subsubsection
 Befund
 \end_layout
 
+\begin_layout Standard
+Die Klasse Befund beinaltet die Befunde welche für diesen Patienten erstellt
+ werden.
+\end_layout
+
 \begin_layout Subsubsection
 Nebenbefund
 \end_layout
 
+\begin_layout Standard
+Im Nebenbefund sind die von einem Arzt interpretierte Daten.
+\end_layout
+
 \begin_layout Subsubsection
 Laborbefund
+\end_layout
+
+\begin_layout Standard
+Hier befinden sich die verschiedenen Werte auf die das Labor geprüft hat.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1679,16 +1706,39 @@ Frage
 Kontaktjournal
 \end_layout
 
+\begin_layout Standard
+Diese Klasse ist eine Sammlung von Kontakten die ein Patient mit unserem
+ System bzw den Ärzten hat, jeder Konakt wird im Kontaktjournal zu dem Patienten
+ gespeichert.
+\end_layout
+
 \begin_layout Subsubsection
 Kontakt
+\end_layout
+
+\begin_layout Standard
+Für jeden Aktivität die mit dem Patienten geschieht wird ein neuer Kontakt
+ angelegt.
+ Aktivitäten sind Gespräche und von unserem System erstellte Dinge wie zum
+ Beispiel Diätpläne.
 \end_layout
 
 \begin_layout Subsubsection
 Protokoll
 \end_layout
 
+\begin_layout Standard
+Diese Protokoll besteht aus Protokollzeilen, welches als gesamtes ein vom
+ Patienten geschriebenes Protokoll beinhaltet.
+\end_layout
+
 \begin_layout Subsubsection
 Protokollzeile
+\end_layout
+
+\begin_layout Standard
+Die einzelnen Informationen von dem Protokoll das der Patient erfasst hat
+ werden hier abgebildet.
 \end_layout
 
 \begin_layout Subsubsection
