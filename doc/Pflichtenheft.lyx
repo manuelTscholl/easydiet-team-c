@@ -1757,20 +1757,46 @@ Eintrag
 Diätassistentin
 \end_layout
 
+\begin_layout Standard
+Eine zentrale Klasse zur Verwaltung von dem ganzen System.
+\end_layout
+
 \begin_layout Subsubsection
 Gut & Schlecht Liste
+\end_layout
+
+\begin_layout Standard
+Eine Auflistung von Nahrungsmittel welche für einen Patient gut bzw schlecht
+ sind diese Liste wird von einer Diätassistent erfasst.
 \end_layout
 
 \begin_layout Subsubsection
 Diätplan
 \end_layout
 
+\begin_layout Standard
+Ein Diätplan ist einem bestimmten Patienten zugeordnet und von der Diätsassisten
+tin erstellt.
+ Er beinhaltet verschiedene Mahlzeitzeilen die der Diät von dem Patienten
+ entsprechen.
+ 
+\end_layout
+
 \begin_layout Subsubsection
 Mahlzeitzeile
 \end_layout
 
+\begin_layout Standard
+Eine Mahlzeitzeile ist von einem bestimmten Tageszeit abhängig (Frühstück,
+ Mittagessen, Abendessen) und beinhaltet verschiedene Mahlzeiten.
+\end_layout
+
 \begin_layout Subsubsection
 Mahlzeit
+\end_layout
+
+\begin_layout Standard
+Eine Mahlzeit hat einen eindeutigen BLS Code und sie beinhaltet Rezepte.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1789,16 +1815,40 @@ Ernährungsempfehlung
 Blockdiät
 \end_layout
 
+\begin_layout Standard
+Eine Blockdiät wird von der Diätassistentin erstellt und kann von vielen
+ verschiedenen Patienten verwenden werden.
+ Sie Beinhaltet Mahlzeitzeilen welchen den Nahrungsmittelkonsum für den
+ Patienten für eine bestimmte Tageszeit vorgeben.
+\end_layout
+
 \begin_layout Subsubsection
 Rezeptbüchlein
+\end_layout
+
+\begin_layout Standard
+Ein Rezeptbücklein ist eine Sammlung von verschiedenen Rezepten und ist
+ einem Diätplan zugeordnet.
 \end_layout
 
 \begin_layout Subsubsection
 Rezept
 \end_layout
 
+\begin_layout Standard
+Ein Rezept wird von der Diätsassistentin erstellt und besteht aus verschiedenen
+ Zustaten.
+ Es wird durch einen BLS Code eindeutig identifiziert.
+\end_layout
+
 \begin_layout Subsubsection
 Zutat
+\end_layout
+
+\begin_layout Standard
+Eine Zutat besteht aus verschiedenen Nahrungsmitteln diese werden durch
+ eine Gewichtsangabe in Gramm und in Haushaltsmengen (eine Messerspitze
+ Salz) konkretisiert..
 \end_layout
 
 \begin_layout Subsubsection
