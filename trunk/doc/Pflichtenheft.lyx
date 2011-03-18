@@ -1855,6 +1855,11 @@ Eine Zutat besteht aus verschiedenen Nahrungsmitteln diese werden durch
 Nahrungsmittel
 \end_layout
 
+\begin_layout Standard
+Ein Nahrungsmittel hat verschiedene Inhaltsstoffe sowie Nährstoffe und wird
+ in unserer Datenbank eindeutig mittels einem BLS Code identifiziert.
+\end_layout
+
 \begin_layout Subsubsection
 Nährstoff
 \end_layout
