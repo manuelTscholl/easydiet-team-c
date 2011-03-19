@@ -708,6 +708,14 @@ Bereitstellung von verschiedenen Kochrezepten
 Benutzerumgebung
 \end_layout
 
+\begin_layout Standard
+Das System EasyDiet wird von mehreren Benutzern zu gleich verwendet, wobei
+ immer nur ein Benutzer Änderungen an einem Datensatz duchführen kann.
+ Das System ist darauf ausgelegt dass zumindest auf den Geräten des Kunden
+ eine Java Virtual Machine laufen kann und es muss die möglichkeit des Druckens
+ bestehen.
+\end_layout
+
 \begin_layout Section
 Produkt Überblick
 \end_layout
