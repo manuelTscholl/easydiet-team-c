@@ -1299,30 +1299,95 @@ EasyDiet soll eine Übersicht über alle Kontakte bzw.
  Termine in der Diätologieabteilung liefern können.
  Dazu wird eine Struktur benötigt, in der alle Termine gespeichert und schnell
  abgefragt werden können.
+ Dies wird durch das Kontaktjournal ermöglicht, in welches jeder Termin
+ eines Patienten mit Art und Grund eingetragen wird.
 \end_layout
 
 \begin_layout Subsubsection
 Erfassen von Ernährungsprotokollen
 \end_layout
 
+\begin_layout Standard
+Das Ernährungsprotokoll ist wichtiger Bestandteil einer Diät, da es eine
+ chronologische Sicht auf die verzehrten Nahrungsmittel über einen bestimmten
+ Zeitraum ermöglicht.
+ Es wird selbständig vom Patienten geführt.
+ Von einem Patienten können in einem Zeitraum mehrere Ernährungsprotokolle
+ geführt werden.
+ Ausschlaggebend ist die Krankheit.
+ Bei durch Diätfehler negativ beeinträchtigten Krankheiten wird ein äußerst
+ genaues Ernährungsprotokoll vom Patienten verlangt.
+ Ansonsten reicht ein ungenaues Protokoll aus.
+\end_layout
+
 \begin_layout Subsubsection
 Auswertung von Ernährungsprotokollen
+\end_layout
+
+\begin_layout Standard
+Die Auswertung der Protokolle erfolgt unter Berücksichtigung von Parametersets,
+ die vom Diättyp, von Vorgaben durch den Arzt und vom Patientenstatus abhängig
+ sind.
+ Welche Parameter und wie diese zu berücksichtigen sind, entscheidet der
+ Diätassistent letztlich zum Zeitpunkt der Auswertung.
 \end_layout
 
 \begin_layout Subsubsection
 Erstellung von Ernährungsempfehlungen
 \end_layout
 
+\begin_layout Standard
+Die Ernährungsempfehlung ist bezüglich ihrer Struktur die freieste Form
+ der Ernährungsplanung.
+ Dementsprechend gibt es keine dem Speise- oder Diätplan vergleichbare Datenstru
+ktur.
+ Die Abgabe einer Ernährungsempfehlung ist jedoch ein protokollierungspflichtige
+s Ereignis.
+ Die Inhalte der Empfehlung werden als Text festgehalten.
+\end_layout
+
 \begin_layout Subsubsection
 Erstellung von Speiseplänen
+\end_layout
+
+\begin_layout Standard
+siehe Erstellung von Diätplan --> verarbeitungstechnisch äquivalent, nur
+ haben Speisepläne striktere Vorgaben als Diätlpläne.
 \end_layout
 
 \begin_layout Subsubsection
 Erstellung von Diätplänen
 \end_layout
 
+\begin_layout Standard
+Ein Diätplan stellt im Gegensatz zur Diätempfehlung eine exaktere Ernährungsvorg
+abe dar.
+ Im Diätplan wird genau geregelt, welche Nahrungsmittel der Patient in welcher
+ Menge essen darf.
+ Durch eine Zusammenstellung einer Liste austauschbarer Nahrungsmittel für
+ die jeweiligen Mahlzeiten wird dem Patienten eine gewisse Freiheit gelassen.
+ Dabei muß jedoch gewährleistet werden, daß Grenzwerte von zwingenden Parametern
+ keinesfalls über- oder unterschritten werden können.
+ Das Erfassen eines Diätplans und die Auswertung der vorgeschlagenen Daten
+ geschieht in einem Vorgang.
+ Die parallel stattfindende Auswertung hat den Sinn, daß nur solche Nahrungsmitt
+el vorgeschlagen werden, die den Parametergrenzwerten genügen.
+ Bei der Diätplanerstellung dürfen Nahrungsmittel mit fehlenden zwingenden
+ Parametern gar nicht auswählbar sein.
+ Bei freizügigen Parametern entscheidet die Diätassistentin aufgrund ihrer
+ Erfahrung und des individuellen Diätregimes, ob das Nahrungsmittel trotzdem
+ verwendet werden soll oder nicht.
+ 
+\end_layout
+
 \begin_layout Subsubsection
 Soll-Ist Analyse
+\end_layout
+
+\begin_layout Standard
+Der Soll-Ist Vergleich wird während der Erfassung von EPs durchgeführt.
+ Die anzuzeigenden Sollgrößen entsprechen den zu überwachenden Parametern.
+ 
 \end_layout
 
 \begin_layout Subsubsection
