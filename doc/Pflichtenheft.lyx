@@ -498,7 +498,7 @@ Buchhaltung
 \begin_inset Text
 
 \begin_layout Plain Layout
-Leistungserfassung und Abrechnung mit Krankenkassen 
+LeistungsErfassen und Abrechnung mit Krankenkassen 
 \end_layout
 
 \end_inset
@@ -802,7 +802,7 @@ DA und Sekretärin können Patienten dadurch eindeutig identifizieren und
 \begin_inset Text
 
 \begin_layout Plain Layout
-Erfassung von Befunden 
+Erfassen von Befunden 
 \end_layout
 
 \end_inset
@@ -822,7 +822,7 @@ Erfassung von Befunden
 \begin_inset Text
 
 \begin_layout Plain Layout
-Erfassung des Patientenstatus 
+Erfassen des Patientenstatus 
 \end_layout
 
 \end_inset
@@ -843,8 +843,8 @@ diese Daten werden kontinuerlich aktualisiert -> DA hat dadurch aktuelle
 \begin_inset Text
 
 \begin_layout Plain Layout
-Erfassung von persönlichen und gesundheitlichen Ausschließungskriterien
- für Nahrungsmittel 
+Erfassen von persönlichen und gesundheitlichen Ausschließungskriterien für
+ Nahrungsmittel 
 \end_layout
 
 \end_inset
@@ -865,7 +865,7 @@ Auswahl an Nahrungsmittel bei der Erstellung von DP wird erleichtert für
 \begin_inset Text
 
 \begin_layout Plain Layout
-Erfassung von erhaltenen Parametern
+Erfassen von erhaltenen Parametern
 \end_layout
 
 \end_inset
@@ -929,7 +929,7 @@ Ermöglicht der DA/Sekretärin Informationen über alle Termine eines Patienten
 \begin_inset Text
 
 \begin_layout Plain Layout
-Erfassung von Ernährungsprotokollen 
+Erfassen von Ernährungsprotokollen 
 \end_layout
 
 \end_inset
@@ -1214,33 +1214,95 @@ Produkt Fähigkeiten/Eigenschaften
 Stammdatenverwaltung
 \end_layout
 
-\begin_layout Subsubsection
-Erfassung von Befunden
+\begin_layout Standard
+Das Programm Easy-Diet soll eine einfache Form der Stammdatenverwaltung
+ unterstützen.
+ Es können neue Patienten hinzugefügt werden, sowie bestehende Patientenakten
+ verändert werden.
+ Zu den Stammdaten, die verwaltet werden gehören u.a.
+ Name, Adresse, Anamnesen, Parameter ,… Falls neue Stammdaten angelegt werden
+ sollen, wird ein übersichtliches Formular angeboten, in welches die erforderlic
+hen Daten eingetragen werden können.
+ Analog können auf gleiche Art und Weise entsprechende Stammdaten eines
+ Patienten geändert werden.
 \end_layout
 
 \begin_layout Subsubsection
-Erfassung des Patientenstatus
+Erfassen von Befunden
 \end_layout
 
 \begin_layout Subsubsection
-Erfassung von persönlichen und gesundheitlichen Auschließungskriterien für
+Erfassen des Patientenstatus
+\end_layout
+
+\begin_layout Standard
+Das Programm soll das laufende Erfassen von Status bei regelmäßigen Kontrollterm
+inen unterstützen.
+ Die regelmäßige Erhebung dieser Daten ermöglicht eine Auswertung der Entwicklun
+g einzelner Parameter während der diätetischen Betreuung.
+ Um einen Patientenstatus für einen bestimmten Patienten anzulegen, gibt
+ es in der Patientenakte die Möglichkeit ein neues Patientenstatusblatt
+ anzulegen.
+\end_layout
+
+\begin_layout Subsubsection
+Erfassen von persönlichen und gesundheitlichen Auschließungskriterien für
  Nahrungsmittel
 \end_layout
 
+\begin_layout Standard
+EasyDiet soll eine flexible Form der Diätplanung ermöglichen.
+ Dazu muss das Programm eine Möglichkeit bieten aus einer Vielzahl von Rezepten
+ bzw.
+ Nahrungsmitteln, diese auszuwählen, die für den Patienten passend sind.
+ Dazu müssen Ausschließungskriterien auf persönlicher Ebene- da die Diätplanung
+ selbstverständlich auf die Wünsche eines Patienten eingehen muss- sowie
+ auf gesundheitlicher Ebene beachtet werden.
+ Um nun ein solchen Ausschließungskriterium für einen Patienten einzutragen,
+ wird im Patientenstatus ein Notizfeld angeboten, in welches die gewünschten
+ Daten eingetragen werden können.
+\end_layout
+
 \begin_layout Subsubsection
-Erfassungvon erhaltenen Parametern
+Erfassen von erhaltenen Parametern
+\end_layout
+
+\begin_layout Standard
+Üblicherweise werden Parameter(sets) vom Arzt übergeben und sind für einen
+ bestimmten Zeitraum konstant.
+ Deshalb verfügt Easy-Diet über eine Möglichkeit, erhaltene Parameter für
+ einen Patienten zu speichern.
+ Das Hinzufügen eines Parameters zu einer Patientenakte erfolgt über eine
+ Maske, in die die erhaltenen Daten eingegeben werden können.
+ Die hinzugefügten Parameter sind dann in einem Parameterset zusammengefasst.
 \end_layout
 
 \begin_layout Subsubsection
 Anlegen neuer Parameter
 \end_layout
 
+\begin_layout Standard
+Sollten bei der Übergabe vom Arzt keine Parameter vorhanden sein, muss die
+ Diätassistentin selber Parameter definieren.
+ Weiters haben jede Veränderung des Krankheitsbildes, der Laborbefunde oder
+ auch das Ansprechen auf eine Diät, einen Einfluss auf die Parameter und
+ machen eine eventuelle Anpassung der Parametersets erforderlich.
+ Dies geschieht analog wie das Erfassen von erhaltenen Parametern.
+\end_layout
+
 \begin_layout Subsubsection
 Führung eines Kontaktjournales für jeden Patienten
 \end_layout
 
+\begin_layout Standard
+EasyDiet soll eine Übersicht über alle Kontakte bzw.
+ Termine in der Diätologieabteilung liefern können.
+ Dazu wird eine Struktur benötigt, in der alle Termine gespeichert und schnell
+ abgefragt werden können.
+\end_layout
+
 \begin_layout Subsubsection
-Erfassung von Ernährungsprotokollen
+Erfassen von Ernährungsprotokollen
 \end_layout
 
 \begin_layout Subsubsection
