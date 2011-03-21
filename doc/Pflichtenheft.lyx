@@ -341,9 +341,33 @@ Kontextdiagramm
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename Kontextdiagramm.jpg
 	width 70page%
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Kontexdiagramm
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -1619,158 +1643,6 @@ Patient
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Domänenmodell_Protokoll_Parameter_Diätassistentin.jpg
-	width 70page%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Diätassistentin, Protokoll, Parametersets
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Domänenmodell_Anamnese.jpg
-	width 70page%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Anamnese
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Domänenmodell_Diät.jpg
-	width 70page%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Diät
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Domänenmodell_Rezept_Nahrungsmittel.jpg
-	width 70page%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Rezept, Nahrungsmittel
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -1812,7 +1684,8 @@ Nebenbefund
 \end_layout
 
 \begin_layout Standard
-Im Nebenbefund sind die von einem Arzt interpretierte Daten.
+Im Nebenbefund sind die von einem Arzt interpretierte Daten die nicht direkt
+ etwas mit der Diät des Patienten zu tun haben.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1824,11 +1697,91 @@ Hier befinden sich die verschiedenen Werte auf die das Labor geprüft hat.
 \end_layout
 
 \begin_layout Subsubsection
-Status
+Laborbefundeinträge
+\end_layout
+
+\begin_layout Subsubsection
+Überweisungsbefund
+\end_layout
+
+\begin_layout Standard
+Eine vom Azrt erstellte Diagnose welche zufolge hat, dass der Patient zu
+ der Diätassistentin verwiesen wird
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Domänenmodell_Anamnese.jpg
+	width 70page%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Anamnese, Fragenkatalog
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Domänenmodell_Protokoll_Parameter_Diätassistentin.jpg
+	width 70page%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Diätassistentin, Protokoll, Parametersets
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
 Anamnese
+\end_layout
+
+\begin_layout Standard
+Krankheitsgeschichte des Patienten, in der auch Umgebungsparameter erhoben
+ werden, die in einem Zusammenhang mit dem Krankheitsverlauf stehen könnte
 \end_layout
 
 \begin_layout Subsubsection
@@ -1847,8 +1800,228 @@ Familienanamnese
 Fragenkatalog
 \end_layout
 
+\begin_layout Standard
+Ist eine Sammlung von Fragen welche für die Ernährungsanamnese benötigt
+ werden.
+\end_layout
+
 \begin_layout Subsubsection
 Frage
+\end_layout
+
+\begin_layout Standard
+Fragen sind einem Fragenkatalog zugeordnet und beziehen sich auf die Ernährungsa
+namnese.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Domänenmodell_Diät.jpg
+	width 70page%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Diät
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Gut & Schlecht Liste
+\end_layout
+
+\begin_layout Standard
+Eine Auflistung von Nahrungsmittel welche für einen Patient gut bzw schlecht
+ sind diese Liste wird von einer Diätassistent erfasst.
+\end_layout
+
+\begin_layout Subsubsection
+Diätplan
+\end_layout
+
+\begin_layout Standard
+Ein Diätplan ist einem bestimmten Patienten zugeordnet und von der Diätsassisten
+tin erstellt.
+ Er beinhaltet verschiedene Mahlzeitzeilen die der Diät von dem Patienten
+ entsprechen.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Mahlzeitzeile
+\end_layout
+
+\begin_layout Standard
+Eine Mahlzeitzeile ist von einem bestimmten Tageszeit abhängig (Frühstück,
+ Mittagessen, Abendessen) und beinhaltet verschiedene Mahlzeiten.
+\end_layout
+
+\begin_layout Subsubsection
+Mahlzeit
+\end_layout
+
+\begin_layout Standard
+Eine Mahlzeit hat einen eindeutigen BLS Code und sie beinhaltet Rezepte.
+\end_layout
+
+\begin_layout Subsubsection
+Speiseplan
+\end_layout
+
+\begin_layout Standard
+In einem Speiseplan ist jede Mahlzeit fest vorgegeben.
+ Speisepläne können für einen beliebigen Zeitraum erstellt werden.
+\end_layout
+
+\begin_layout Subsubsection
+Ernährungsplan
+\end_layout
+
+\begin_layout Standard
+Ist die SuperKlasse von Speis- und Diätplan, an solch ein Plan beschreibt
+ was der Patient essen muss.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Domänenmodell_Rezept_Nahrungsmittel.jpg
+	width 70page%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Rezept, Nahrungsmittel
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Rezeptbüchlein
+\end_layout
+
+\begin_layout Standard
+Ein Rezeptbücklein ist eine Sammlung von verschiedenen Rezepten und ist
+ einem Diätplan zugeordnet.
+\end_layout
+
+\begin_layout Subsubsection
+Nahrungsmittelgruppe
+\end_layout
+
+\begin_layout Subsubsection
+Rezept
+\end_layout
+
+\begin_layout Standard
+Ein Rezept wird von der Diätsassistentin erstellt und besteht aus verschiedenen
+ Zustaten.
+ Es wird durch einen BLS Code eindeutig identifiziert.
+\end_layout
+
+\begin_layout Subsubsection
+Zutat
+\end_layout
+
+\begin_layout Standard
+Eine Zutat besteht aus verschiedenen Nahrungsmitteln diese werden durch
+ eine Gewichtsangabe in Gramm und in Haushaltsmengen (eine Messerspitze
+ Salz) konkretisiert..
+\end_layout
+
+\begin_layout Subsubsection
+Nahrungsmittel
+\end_layout
+
+\begin_layout Standard
+Ein Nahrungsmittel hat verschiedene Inhaltsstoffe sowie Nährstoffe und wird
+ in unserer Datenbank eindeutig mittels einem BLS Code identifiziert.
+\end_layout
+
+\begin_layout Subsubsection
+Nährstoff
+\end_layout
+
+\begin_layout Standard
+Die energieliefernden Bestandteile der Nahrung.
+\end_layout
+
+\begin_layout Subsubsection
+Inhaltsstoff
+\end_layout
+
+\begin_layout Standard
+Dieser Begriff wird hier für alle im BLS angeführten Nahrungsbestandteile
+ verwendet, die nicht Grundnährstoffe sind.
+\end_layout
+
+\begin_layout Subsubsection
+Ernährungsempfehlung
+\end_layout
+
+\begin_layout Standard
+Die Ernährungsempfehlung ist bezüglich ihrer Struktur die freieste Form
+ der Ernährungsplanung.
+\end_layout
+
+\begin_layout Subsubsection
+Blockdiät
+\end_layout
+
+\begin_layout Standard
+Eine Blockdiät wird von der Diätassistentin erstellt und kann von vielen
+ verschiedenen Patienten verwenden werden.
+ Sie Beinhaltet Mahlzeitzeilen welchen den Nahrungsmittelkonsum für den
+ Patienten für eine bestimmte Tageszeit vorgeben.
+\end_layout
+
+\begin_layout Subsubsection
+Status
+\end_layout
+
+\begin_layout Standard
+Der Patientenstatus wird wiederkehrend ermittelt und spiegelt die Effekte
+ der Diättherapie auf den Patienten wieder.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1894,8 +2067,19 @@ Die einzelnen Informationen von dem Protokoll das der Patient erfasst hat
 Parameterset
 \end_layout
 
+\begin_layout Standard
+Ein Parameterset ist eine Kombination von Parametern, die für die Auswertung
+ bzw.
+ Erstellung von Ernährungsempfehlungen oder Diätplänen
+\end_layout
+
 \begin_layout Subsubsection
 Parameter
+\end_layout
+
+\begin_layout Standard
+Ist ein Medizinisch erfassbarer Wert.
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -1908,117 +2092,6 @@ Diätassistentin
 
 \begin_layout Standard
 Eine zentrale Klasse zur Verwaltung von dem ganzen System.
-\end_layout
-
-\begin_layout Subsubsection
-Gut & Schlecht Liste
-\end_layout
-
-\begin_layout Standard
-Eine Auflistung von Nahrungsmittel welche für einen Patient gut bzw schlecht
- sind diese Liste wird von einer Diätassistent erfasst.
-\end_layout
-
-\begin_layout Subsubsection
-Diätplan
-\end_layout
-
-\begin_layout Standard
-Ein Diätplan ist einem bestimmten Patienten zugeordnet und von der Diätsassisten
-tin erstellt.
- Er beinhaltet verschiedene Mahlzeitzeilen die der Diät von dem Patienten
- entsprechen.
- 
-\end_layout
-
-\begin_layout Subsubsection
-Mahlzeitzeile
-\end_layout
-
-\begin_layout Standard
-Eine Mahlzeitzeile ist von einem bestimmten Tageszeit abhängig (Frühstück,
- Mittagessen, Abendessen) und beinhaltet verschiedene Mahlzeiten.
-\end_layout
-
-\begin_layout Subsubsection
-Mahlzeit
-\end_layout
-
-\begin_layout Standard
-Eine Mahlzeit hat einen eindeutigen BLS Code und sie beinhaltet Rezepte.
-\end_layout
-
-\begin_layout Subsubsection
-Speiseplan
-\end_layout
-
-\begin_layout Subsubsection
-Ernährungsplan
-\end_layout
-
-\begin_layout Subsubsection
-Ernährungsempfehlung
-\end_layout
-
-\begin_layout Subsubsection
-Blockdiät
-\end_layout
-
-\begin_layout Standard
-Eine Blockdiät wird von der Diätassistentin erstellt und kann von vielen
- verschiedenen Patienten verwenden werden.
- Sie Beinhaltet Mahlzeitzeilen welchen den Nahrungsmittelkonsum für den
- Patienten für eine bestimmte Tageszeit vorgeben.
-\end_layout
-
-\begin_layout Subsubsection
-Rezeptbüchlein
-\end_layout
-
-\begin_layout Standard
-Ein Rezeptbücklein ist eine Sammlung von verschiedenen Rezepten und ist
- einem Diätplan zugeordnet.
-\end_layout
-
-\begin_layout Subsubsection
-Rezept
-\end_layout
-
-\begin_layout Standard
-Ein Rezept wird von der Diätsassistentin erstellt und besteht aus verschiedenen
- Zustaten.
- Es wird durch einen BLS Code eindeutig identifiziert.
-\end_layout
-
-\begin_layout Subsubsection
-Zutat
-\end_layout
-
-\begin_layout Standard
-Eine Zutat besteht aus verschiedenen Nahrungsmitteln diese werden durch
- eine Gewichtsangabe in Gramm und in Haushaltsmengen (eine Messerspitze
- Salz) konkretisiert..
-\end_layout
-
-\begin_layout Subsubsection
-Nahrungsmittel
-\end_layout
-
-\begin_layout Standard
-Ein Nahrungsmittel hat verschiedene Inhaltsstoffe sowie Nährstoffe und wird
- in unserer Datenbank eindeutig mittels einem BLS Code identifiziert.
-\end_layout
-
-\begin_layout Subsubsection
-Nährstoff
-\end_layout
-
-\begin_layout Subsubsection
-Inhaltsstoff
-\end_layout
-
-\begin_layout Subsubsection
-Nahrungsmittelgruppe
 \end_layout
 
 \begin_layout Section
