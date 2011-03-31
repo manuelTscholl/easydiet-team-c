@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<TabPane xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns="org.apache.pivot.wtk" styles="{tabOrientation:'vertical'}" collapsible="true">
+
+    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+        <TabPane.tabData>
+            <content:ButtonData icon="@collapse.gif" text="Suche"/>
+        </TabPane.tabData>
+                <Border styles="{padding:2}">
+            <Label text="240x180" preferredWidth="240" preferredHeight="180"
+                styles="{horizontalAlignment:'center', verticalAlignment:'center'}"/>
+        </Border>
+    </BoxPane>
+
+    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+        <TabPane.tabData>
+            <content:ButtonData icon="@collapse.gif" text="Stammdaten"/>
+        </TabPane.tabData>
+    </BoxPane>
+
+    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+        <TabPane.tabData>
+            <content:ButtonData icon="@collapse.gif" text="Navigation"/>
+        </TabPane.tabData>
+    </BoxPane>
+
+    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+        <TabPane.tabData>
+            <content:ButtonData icon="@collapse.gif" text="Bearbeiten"/>
+        </TabPane.tabData>
+    </BoxPane>
+</TabPane>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<TabPane xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns="org.apache.pivot.wtk">
+    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+        <TabPane.tabData>
+            <content:ButtonData text="Übersicht"/>
+        </TabPane.tabData>
+    </BoxPane>
+
+    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+        <TabPane.tabData>
+            <content:ButtonData text="Kontaktjournal"/>
+        </TabPane.tabData>
+    </BoxPane>
+
+    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+        <TabPane.tabData>
+            <content:ButtonData text="Diätplan"/>
+        </TabPane.tabData>
+    </BoxPane>
+</TabPane>
