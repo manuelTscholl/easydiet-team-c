@@ -6,8 +6,10 @@
  */
 package at.fhv.teamc.easydiet.view;
 
+import java.awt.Image;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -29,6 +31,8 @@ public class MainWindow extends ApplicationContext {
     private static JFrame sMAIN_FRAME;
     private static final String sMAIN_XML;
     private static boolean sINITALIZED;
+    private static int sWINDOW_HEIGHT;
+    private static int sWINDOW_WIDTH;
 
     static {
         sDESKTOP = new JDesktopPane();
@@ -36,23 +40,34 @@ public class MainWindow extends ApplicationContext {
         sMAIN_FRAME = new JFrame(sTITLE);
         sMAIN_XML = "bxml/main.xml";
         sINITALIZED = false;
+        sWINDOW_HEIGHT = 768;
+        sWINDOW_WIDTH = 1024;
 
-        // Start the callback timer
+        // Start the callback timer, necessary for pivot
         createTimer();
     }
 
-    public static void Init() {
+    /**
+     * Initialize GUI
+     */
+    public static void init() {
 
         if (!sINITALIZED) {
+
             // init main frame window
             sMAIN_FRAME.setContentPane(sDESKTOP);
             sMAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            sMAIN_FRAME.setSize(1024, 768);
+            sMAIN_FRAME.setSize(sWINDOW_WIDTH, sWINDOW_HEIGHT);
+            sMAIN_FRAME.setResizable(false);
             sMAIN_FRAME.setVisible(true);
+
+            // set application icon
+            Image icon = new ImageIcon(MainWindow.class.getResource("ico.png")).getImage();
+            sMAIN_FRAME.setIconImage(icon);
 
             // init pivot frame
             initPivotFrame();
-            
+
             sINITALIZED = true;
         }
     }
@@ -113,6 +128,7 @@ public class MainWindow extends ApplicationContext {
         internalFrame.setVisible(true);
         internalFrame.setResizable(false);
 
+        // ensure that this internal frame is selected
         try {
             internalFrame.setSelected(true);
         } catch (PropertyVetoException exception) {

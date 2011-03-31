@@ -1,34 +1,49 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <TabPane xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
-    xmlns="org.apache.pivot.wtk" styles="{tabOrientation:'vertical'}" collapsible="true">
+    xmlns="org.apache.pivot.wtk" styles="{tabOrientation:'vertical', activeTabColor:'#CFE4F1', 
+    inactiveTabColor:'#89CBF4', padding:'{top:20}'}"
+    collapsible="true">
 
-    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData icon="@collapse.gif" text="Suche"/>
         </TabPane.tabData>
-                <Border styles="{padding:2}">
-            <Label text="240x180" preferredWidth="240" preferredHeight="180"
-                styles="{horizontalAlignment:'center', verticalAlignment:'center'}"/>
-        </Border>
-    </BoxPane>
+        <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
+                horizontalSpacing:10, showVerticalGridLines:false, padding:'{left:10, right:10}'}"
+                xmlns:bxml="http://pivot.apache.org/bxml"
+                xmlns="org.apache.pivot.wtk">
+            <columns>
+                <TablePane.Column width="-1"/>
+            </columns>
 
-    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
-        <TabPane.tabData>
-            <content:ButtonData icon="@collapse.gif" text="Stammdaten"/>
-        </TabPane.tabData>
-    </BoxPane>
+            <TablePane.Row height="-1">
+                <TextInput bxml:id="searchTextInput" prompt="Suche" textSize="15"
+                xmlns:bxml="http://pivot.apache.org/bxml"
+                xmlns="org.apache.pivot.wtk"/>
+            </TablePane.Row>
+            <TablePane.Row>
+                <TablePane.Filler/>
+            </TablePane.Row>
+        </TablePane>
+        </BoxPane>
 
-    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
-        <TabPane.tabData>
-            <content:ButtonData icon="@collapse.gif" text="Navigation"/>
-        </TabPane.tabData>
-    </BoxPane>
+        <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+            <TabPane.tabData>
+                <content:ButtonData icon="@collapse.gif" text="Stammdaten"/>
+            </TabPane.tabData>
+        </BoxPane>
 
-    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
-        <TabPane.tabData>
-            <content:ButtonData icon="@collapse.gif" text="Bearbeiten"/>
-        </TabPane.tabData>
-    </BoxPane>
-</TabPane>
+        <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+            <TabPane.tabData>
+                <content:ButtonData icon="@collapse.gif" text="Navigation"/>
+            </TabPane.tabData>
+        </BoxPane>
+
+        <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+            <TabPane.tabData>
+                <content:ButtonData icon="@collapse.gif" text="Bearbeiten"/>
+            </TabPane.tabData>
+        </BoxPane>
+    </TabPane>
