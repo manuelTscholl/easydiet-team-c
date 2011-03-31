@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <TabPane xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
-    xmlns="org.apache.pivot.wtk">
+    xmlns="org.apache.pivot.wtk" styles="{activeTabColor:'#CFE4F1', inactiveTabColor:'#89CBF4'}">
     <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
         <TabPane.tabData>
-            <content:ButtonData text="Übersicht"/>
+            <content:ButtonData text="Ãœbersicht"/>
         </TabPane.tabData>
     </BoxPane>
 
@@ -17,7 +17,7 @@
 
     <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
         <TabPane.tabData>
-            <content:ButtonData text="Diätplan"/>
+            <content:ButtonData text="DiÃ¤tplan"/>
         </TabPane.tabData>
     </BoxPane>
 </TabPane>
