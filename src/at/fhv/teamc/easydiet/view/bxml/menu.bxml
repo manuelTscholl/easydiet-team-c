@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+            <MenuBar styles="{backgroundColor:11}"
+    xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns="org.apache.pivot.wtk">
+
+    <MenuBar.Item buttonData="Datei">
+        <Menu>
+            <Menu.Section>
+                <Menu.Item buttonData="Öffnen"/>
+                <Menu.Item buttonData="Drucken"/>
+
+            </Menu.Section>
+        </Menu>
+    </MenuBar.Item>
+
+    <MenuBar.Item buttonData="Patient">
+        <Menu>
+            <Menu.Section>
+                <Menu.Item>
+                    <buttonData>
+                        <content:MenuItemData text="Neuen Plan erstellen"/>
+                    </buttonData>
+                </Menu.Item>
+                <Menu.Item>
+                    <buttonData>
+                        <content:MenuItemData text="Aktuelle Parameter anzeigen"/>
+                    </buttonData>
+                </Menu.Item>
+                <Menu.Item>
+                    <buttonData>
+                        <content:MenuItemData text="Statistiken"/>
+                    </buttonData>
+                </Menu.Item>
+            </Menu.Section>
+        </Menu>
+    </MenuBar.Item>
+</MenuBar>
+

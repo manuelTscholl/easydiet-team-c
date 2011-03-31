@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+    Document   : main.xml
+    Created on : 30. März 2011, 14:06
+    Author     : Michael Sieber
+    Description:
+        Main window.
+-->
+
+<easyDiet:EasyDietWindow title="Pivot Window" maximized="true"
+xmlns:bxml="http://pivot.apache.org/bxml" 
+xmlns:easyDiet="at.fhv.teamc.easydiet.view"
+xmlns="org.apache.pivot.wtk">
+
+<!-- Main structure -->
+    <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
+    horizontalSpacing:1, showVerticalGridLines:false}"
+    xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns="org.apache.pivot.wtk">
+        <columns>
+            <TablePane.Column width="1000"/>
+            <TablePane.Column width="50"/>
+        </columns>
+
+    <!-- Menubar -->
+        <TablePane.Row height="-1">
+            <bxml:include bxml:id="menu" src="menu.bxml"/>
+        </TablePane.Row>
+
+    <!-- Content -->
+        <TablePane.Row height="530">
+
+            <!-- Content Table -->
+            <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
+            horizontalSpacing:10, showVerticalGridLines:false, padding:5}"
+            xmlns:bxml="http://pivot.apache.org/bxml"
+            xmlns="org.apache.pivot.wtk">
+                <columns>
+                    <TablePane.Column width="-1"/>
+                    <TablePane.Column width="1*"/>
+                </columns>
+
+                <TablePane.Row height="500">
+
+                    <!-- Navigation -->
+                    <bxml:include bxml:id="navigation" src="navigation.bxml"/>
+
+                    <!-- Content -->
+                    <bxml:include bxml:id="content" src="content.bxml"/>
+                </TablePane.Row>
+            </TablePane>
+        </TablePane.Row>
+    </TablePane>
+</easyDiet:EasyDietWindow>
