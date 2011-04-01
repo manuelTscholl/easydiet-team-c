@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-    Document   : main.xml
-    Created on : 30. März 2011, 14:06
-    Author     : Michael Sieber
-    Description:
-        Main window.
--->
-
 <easyDiet:EasyDietWindow title="Pivot Window" maximized="true"
 xmlns:bxml="http://pivot.apache.org/bxml" 
 xmlns:easyDiet="at.fhv.teamc.easydiet.view"
@@ -36,17 +28,17 @@ xmlns="org.apache.pivot.wtk">
             xmlns:bxml="http://pivot.apache.org/bxml"
             xmlns="org.apache.pivot.wtk">
                 <columns>
-                    <TablePane.Column bxml:id="navigationColumn" width="-1"/>
-                    <TablePane.Column bxml:id="contentColumn" width="1*"/>
+                    <TablePane.Column width="-1"/>
+                    <TablePane.Column width="1*"/>
                 </columns>
 
-                <TablePane.Row bxml:id="workSpaceRow" height="700">
+                <TablePane.Row height="700">
 
                     <!-- Navigation, left column -->
-                    <bxml:include bxml:id="navigation" src="navigation.bxml"/>
+                    <bxml:include src="navigation.bxml"/>
 
                     <!-- Content, right column -->
-                    <bxml:include bxml:id="content" src="content.bxml"/>
+                    <bxml:include src="content.bxml"/>
                 </TablePane.Row>
             </TablePane>
         </TablePane.Row>

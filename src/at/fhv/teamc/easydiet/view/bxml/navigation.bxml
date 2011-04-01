@@ -8,9 +8,14 @@
     collapsible="true">
 
     <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'top'}">
+
+<!-- Search Tab -->
+
         <TabPane.tabData>
             <content:ButtonData icon="@collapse.gif" text="Suche"/>
         </TabPane.tabData>
+
+        <!-- Search Content -->
         <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
                 horizontalSpacing:10, showVerticalGridLines:false, padding:'{left:10, right:10}'}"
                 xmlns:bxml="http://pivot.apache.org/bxml"
@@ -19,37 +24,90 @@
                 <TablePane.Column width="-1"/>
             </columns>
 
+            <!-- Search Textinput -->
             <TablePane.Row height="-1">
                 <TextInput bxml:id="searchTextInput" prompt="Suche" textSize="15"
                 xmlns:bxml="http://pivot.apache.org/bxml"
                 xmlns="org.apache.pivot.wtk"/>
             </TablePane.Row>
+
+            <!-- Search Result -->
             <TablePane.Row>
                 <BoxPane bxml:id="searchResultBoxPane" height="200"
                     styles="{horizontalAlignment:'left', verticalAlignment:'top',
                             padding:'{top:10}'}"
                     xmlns:bxml="http://pivot.apache.org/bxml"
                     xmlns="org.apache.pivot.wtk">
+                <Label text="DEMOTEXT1"/>
                 </BoxPane>
             </TablePane.Row>
         </TablePane>
+        <!-- End Search Content -->
         </BoxPane>
 
-        <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+<!-- End Search Tab -->
+
+<!-- Patientdata Tab -->
+        <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
             <TabPane.tabData>
                 <content:ButtonData icon="@collapse.gif" text="Stammdaten"/>
             </TabPane.tabData>
+                <BoxPane bxml:id="patientDataBoxPane" height="200"
+                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                    xmlns:bxml="http://pivot.apache.org/bxml"
+                    xmlns="org.apache.pivot.wtk">
+                    <Label text="DEMOTEXT2"/>
+                </BoxPane>
         </BoxPane>
 
-        <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+<!-- End Patientdata Tab -->
+
+<!-- Navigation Tab -->
+        <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
             <TabPane.tabData>
                 <content:ButtonData icon="@collapse.gif" text="Navigation"/>
             </TabPane.tabData>
+                <BoxPane bxml:id="navigationBoxPane" height="200"
+                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                    xmlns:bxml="http://pivot.apache.org/bxml"
+                    xmlns="org.apache.pivot.wtk">
+                    
+                    <TreeView bxml:id="treeView"
+                        xmlns:bxml="http://pivot.apache.org/bxml"
+                        xmlns:content="org.apache.pivot.wtk.content"
+                        xmlns="org.apache.pivot.wtk"
+                        styles="{spacing:'0', indent:'10', backgroundColor:'#CFE4F1'}"
+                        ComponentListener.parentChanged="treeView.expandAll();">
+
+                        <treeData>
+                          <content:TreeBranch>
+                            <content:TreeBranch text="Woche 1">
+                                <content:TreeNode text="Tag 1"/>
+                                <content:TreeNode text="Tag 2"/>
+                                <content:TreeNode text="Tag 3"/>
+                            </content:TreeBranch>
+                            <content:TreeBranch text="Woche 2">
+                                <content:TreeNode text="Tag 1"/>
+                            </content:TreeBranch>
+                          </content:TreeBranch>
+                       </treeData>
+                    </TreeView>
+               </BoxPane>
         </BoxPane>
 
-        <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+<!-- End Navigation Tab -->
+
+<!-- Edit Tab -->
+        <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
             <TabPane.tabData>
                 <content:ButtonData icon="@collapse.gif" text="Bearbeiten"/>
             </TabPane.tabData>
+                <BoxPane bxml:id="editBoxPane" height="200"
+                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                    xmlns:bxml="http://pivot.apache.org/bxml"
+                    xmlns="org.apache.pivot.wtk">
+                    <Label text="DEMOTEXT4"/>
+                </BoxPane>
         </BoxPane>
+<!-- End Edit Tab -->
 </easyDiet:NavigationTabPane>

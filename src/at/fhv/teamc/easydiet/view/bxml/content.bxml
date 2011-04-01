@@ -1,23 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<TabPane xmlns:bxml="http://pivot.apache.org/bxml"
+<easyDiet:ContentTabPane xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:easyDiet="at.fhv.teamc.easydiet.view"
     xmlns="org.apache.pivot.wtk" styles="{activeTabColor:'#CFE4F1', inactiveTabColor:'#89CBF4'}">
-    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+
+<!-- Appointment Tab -->
+    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top'}">
+        <TabPane.tabData>
+            <content:ButtonData text="Termine"/>
+        </TabPane.tabData>
+                <BoxPane bxml:id="appointmentBoxPane" height="200"
+                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                    xmlns:bxml="http://pivot.apache.org/bxml"
+                    xmlns="org.apache.pivot.wtk">
+                    <Label text="DEMOTEXT1"/>
+                </BoxPane>
+    </BoxPane>
+
+<!-- Overview Tab -->
+    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData text="Übersicht"/>
         </TabPane.tabData>
+                <BoxPane bxml:id="overviewBoxPane" height="200"
+                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                    xmlns:bxml="http://pivot.apache.org/bxml"
+                    xmlns="org.apache.pivot.wtk">
+                    <Label text="DEMOTEXT2"/>
+                </BoxPane>
     </BoxPane>
 
-    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+<!-- Contact Journal Tab -->
+    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData text="Kontaktjournal"/>
         </TabPane.tabData>
+                <BoxPane bxml:id="contactJournalBoxPane" height="200"
+                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                    xmlns:bxml="http://pivot.apache.org/bxml"
+                    xmlns="org.apache.pivot.wtk">
+                    <Label text="DEMOTEXT3"/>
+                </BoxPane>
     </BoxPane>
 
-    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}">
+<!-- Anamnesis Tab -->
+    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top'}">
+        <TabPane.tabData>
+            <content:ButtonData text="Anamnese"/>
+        </TabPane.tabData>
+                <BoxPane bxml:id="anamnesisBoxPane" height="200"
+                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                    xmlns:bxml="http://pivot.apache.org/bxml"
+                    xmlns="org.apache.pivot.wtk">
+                    <Label text="DEMOTEXT4"/>
+                </BoxPane>
+    </BoxPane>
+
+<!-- Dietry Plan Tab -->
+    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData text="Diätplan"/>
         </TabPane.tabData>
+                <BoxPane bxml:id="dietryPlanBoxPane" height="200"
+                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                    xmlns:bxml="http://pivot.apache.org/bxml"
+                    xmlns="org.apache.pivot.wtk">
+                    <Label text="DEMOTEXT5"/>
+                </BoxPane>
     </BoxPane>
-</TabPane>
+</easyDiet:ContentTabPane>

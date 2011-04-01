@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-            <MenuBar styles="{backgroundColor:'#89CBF4'}"
+<easyDiet:EasyDietMenuBar styles="{backgroundColor:'#89CBF4'}"
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:easyDiet="at.fhv.teamc.easydiet.view"
     xmlns="org.apache.pivot.wtk">
 
     <MenuBar.Item bxml:id="fileMenu" buttonData="Datei">
@@ -35,5 +36,5 @@
             </Menu.Section>
         </Menu>
     </MenuBar.Item>
-</MenuBar>
+</easyDiet:EasyDietMenuBar>
 
