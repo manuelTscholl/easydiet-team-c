@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<TabPane xmlns:bxml="http://pivot.apache.org/bxml"
+<easyDiet:NavigationTabPane xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:easyDiet="at.fhv.teamc.easydiet.view"
     xmlns="org.apache.pivot.wtk" styles="{tabOrientation:'vertical', activeTabColor:'#CFE4F1', 
     inactiveTabColor:'#89CBF4', padding:'{top:20}'}"
     collapsible="true">
@@ -24,7 +25,12 @@
                 xmlns="org.apache.pivot.wtk"/>
             </TablePane.Row>
             <TablePane.Row>
-                <TablePane.Filler/>
+                <BoxPane bxml:id="searchResultBoxPane" height="200"
+                    styles="{horizontalAlignment:'left', verticalAlignment:'top',
+                            padding:'{top:10}'}"
+                    xmlns:bxml="http://pivot.apache.org/bxml"
+                    xmlns="org.apache.pivot.wtk">
+                </BoxPane>
             </TablePane.Row>
         </TablePane>
         </BoxPane>
@@ -46,4 +52,4 @@
                 <content:ButtonData icon="@collapse.gif" text="Bearbeiten"/>
             </TabPane.tabData>
         </BoxPane>
-    </TabPane>
+</easyDiet:NavigationTabPane>
