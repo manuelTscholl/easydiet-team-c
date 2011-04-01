@@ -26,6 +26,12 @@ public class NavigationTabPane extends TabPane implements Bindable {
     private TextInput _searchTextInput;
     @BXML
     private BoxPane _searchResultBoxPane;
+    @BXML
+    private BoxPane _patientDataBoxPane;
+    @BXML
+    private BoxPane _navigationBoxPane;
+    @BXML
+    private BoxPane _editBoxPane;
 
     /**
      * First called after creating the GUI
@@ -38,5 +44,8 @@ public class NavigationTabPane extends TabPane implements Bindable {
         // get GUI components
         _searchTextInput = (TextInput) map.get("searchTextInput");
         _searchResultBoxPane = (BoxPane) map.get("searchResultBoxPane");
+        _patientDataBoxPane = (BoxPane) map.get("patientDataBoxPane");
+        _navigationBoxPane = (BoxPane) map.get("navigationBoxPane");
+        _editBoxPane = (BoxPane) map.get("editBoxPane");
     }
 }

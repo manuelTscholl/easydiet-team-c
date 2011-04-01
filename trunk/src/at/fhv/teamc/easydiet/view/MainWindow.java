@@ -33,6 +33,7 @@ public class MainWindow extends ApplicationContext {
     private static boolean sINITALIZED;
     private static int sWINDOW_HEIGHT;
     private static int sWINDOW_WIDTH;
+    private static String sICON;
 
     static {
         sDESKTOP = new JDesktopPane();
@@ -42,6 +43,7 @@ public class MainWindow extends ApplicationContext {
         sINITALIZED = false;
         sWINDOW_HEIGHT = 768;
         sWINDOW_WIDTH = 1024;
+        sICON = "ico.png";
 
         // Start the callback timer, necessary for pivot
         createTimer();
@@ -62,7 +64,7 @@ public class MainWindow extends ApplicationContext {
             sMAIN_FRAME.setVisible(true);
 
             // set application icon
-            Image icon = new ImageIcon(MainWindow.class.getResource("ico.png")).getImage();
+            Image icon = new ImageIcon(MainWindow.class.getResource(sICON)).getImage();
             sMAIN_FRAME.setIconImage(icon);
 
             // init pivot frame
