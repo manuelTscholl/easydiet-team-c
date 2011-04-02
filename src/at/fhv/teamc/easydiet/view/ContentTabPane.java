@@ -11,7 +11,7 @@ import org.apache.pivot.beans.BXML;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
-import org.apache.pivot.wtk.BoxPane;
+import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TabPane;
 
 /**
@@ -22,15 +22,15 @@ public class ContentTabPane extends TabPane implements Bindable {
 
     // instance variables
     @BXML
-    private BoxPane _appointmentBoxPane;
+    private ScrollPane _appointmentScrollPane;
     @BXML
-    private BoxPane _overviewBoxPane;
+    private ScrollPane _overviewScrollPanePane;
     @BXML
-    private BoxPane _contactJournalBoxPane;
+    private ScrollPane _contactJournalScrollPane;
     @BXML
-    private BoxPane _anamnesisBoxPane;
+    private ScrollPane _anamnesisScrollPane;
     @BXML
-    private BoxPane _dietryPlanBoxPane;
+    private ScrollPane _dietryPlanScrollPane;
 
     /**
      * First called after creating the GUI
@@ -41,10 +41,10 @@ public class ContentTabPane extends TabPane implements Bindable {
     public void initialize(Map<String, Object> map, URL url, Resources rsrcs) {
 
         // get GUI components
-        _appointmentBoxPane = (BoxPane) map.get("appointmentBoxPane");
-        _overviewBoxPane = (BoxPane) map.get("overviewBoxPane");
-        _contactJournalBoxPane = (BoxPane) map.get("contactJournalBoxPane");
-        _anamnesisBoxPane = (BoxPane) map.get("anamnesisBoxPane");
-        _dietryPlanBoxPane = (BoxPane) map.get("dietryPlanBoxPane");
+        _appointmentScrollPane = (ScrollPane) map.get("appointmentBoxPane");
+        _overviewScrollPanePane = (ScrollPane) map.get("overviewBoxPane");
+        _contactJournalScrollPane = (ScrollPane) map.get("contactJournalBoxPane");
+        _anamnesisScrollPane = (ScrollPane) map.get("anamnesisBoxPane");
+        _dietryPlanScrollPane = (ScrollPane) map.get("dietryPlanBoxPane");
     }
 }

@@ -56,7 +56,13 @@
                     styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
                     xmlns:bxml="http://pivot.apache.org/bxml"
                     xmlns="org.apache.pivot.wtk">
-                    <Label text="DEMOTEXT2"/>
+                    <Accordion preferredWidth="170" preferredHeight="660" styles="{backgroundColor:'#CFE4F1', buttonBackgroundColor:'#89CBF4'}"
+                        xmlns:bxml="http://pivot.apache.org/bxml"
+                        xmlns="org.apache.pivot.wtk">
+                            <Label Accordion.headerData="Stammdaten" text="Hello"/>
+                            <Label Accordion.headerData="Anamnese" text="World"/>
+                            <Label Accordion.headerData="Parameter" text="Pivot"/>
+                    </Accordion>
                 </BoxPane>
         </BoxPane>
 
