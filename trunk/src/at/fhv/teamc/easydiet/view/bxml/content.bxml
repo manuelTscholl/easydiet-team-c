@@ -6,67 +6,62 @@
     xmlns="org.apache.pivot.wtk" styles="{activeTabColor:'#CFE4F1', inactiveTabColor:'#89CBF4'}">
 
 <!-- Appointment Tab -->
-    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top'}">
+    <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData text="Termine"/>
         </TabPane.tabData>
-                <BoxPane bxml:id="appointmentBoxPane" height="200"
-                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                <ScrollPane bxml:id="appointmentScrollPane" horizontalScrollBarPolicy="auto" verticalScrollBarPolicy="auto" preferredHeight="665"
                     xmlns:bxml="http://pivot.apache.org/bxml"
-                    xmlns="org.apache.pivot.wtk">
-                    <Label text="DEMOTEXT1"/>
-                </BoxPane>
+                    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#CFE4F1'}">
+                        <TextArea text="@text_area.txt" styles="{font:'Arial 14 bold'}" editable="false"/>
+                </ScrollPane>
     </BoxPane>
 
 <!-- Overview Tab -->
-    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top'}">
+    <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData text="Übersicht"/>
         </TabPane.tabData>
-                <BoxPane bxml:id="overviewBoxPane" height="200"
-                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                <ScrollPane bxml:id="overviewScrollPane" horizontalScrollBarPolicy="auto" verticalScrollBarPolicy="auto" preferredHeight="665"
                     xmlns:bxml="http://pivot.apache.org/bxml"
-                    xmlns="org.apache.pivot.wtk">
-                    <Label text="DEMOTEXT2"/>
-                </BoxPane>
+                    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#CFE4F1'}">
+                        <TextArea text="@text_area.txt" styles="{font:'Arial 14 bold'}" editable="false"/>
+                </ScrollPane>
     </BoxPane>
 
 <!-- Contact Journal Tab -->
-    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top'}">
+    <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData text="Kontaktjournal"/>
         </TabPane.tabData>
-                <BoxPane bxml:id="contactJournalBoxPane" height="200"
-                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                <ScrollPane bxml:id="contactJournalScrollPane" horizontalScrollBarPolicy="auto" verticalScrollBarPolicy="auto" preferredHeight="665"
                     xmlns:bxml="http://pivot.apache.org/bxml"
-                    xmlns="org.apache.pivot.wtk">
-                    <Label text="DEMOTEXT3"/>
-                </BoxPane>
+                    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#CFE4F1'}">
+                        <TextArea text="@text_area.txt" styles="{font:'Arial 14 bold'}" editable="false"/>
+                </ScrollPane>
     </BoxPane>
 
 <!-- Anamnesis Tab -->
-    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top'}">
+    <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData text="Anamnese"/>
         </TabPane.tabData>
-                <BoxPane bxml:id="anamnesisBoxPane" height="200"
-                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                <ScrollPane bxml:id="anamnesisScrollPane" horizontalScrollBarPolicy="auto" verticalScrollBarPolicy="auto" preferredHeight="665"
                     xmlns:bxml="http://pivot.apache.org/bxml"
-                    xmlns="org.apache.pivot.wtk">
-                    <Label text="DEMOTEXT4"/>
-                </BoxPane>
+                    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#CFE4F1'}">
+                        <TextArea text="@text_area.txt" styles="{font:'Arial 14 bold'}" editable="false"/>
+                </ScrollPane>
     </BoxPane>
 
 <!-- Dietry Plan Tab -->
-    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top'}">
+    <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData text="Diätplan"/>
         </TabPane.tabData>
-                <BoxPane bxml:id="dietryPlanBoxPane" height="200"
-                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
+                <ScrollPane bxml:id="dietryPlanScrollPane" horizontalScrollBarPolicy="auto" verticalScrollBarPolicy="auto" preferredHeight="665"
                     xmlns:bxml="http://pivot.apache.org/bxml"
-                    xmlns="org.apache.pivot.wtk">
-                    <Label text="DEMOTEXT5"/>
-                </BoxPane>
+                    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#CFE4F1'}">
+                        <TextArea text="@text_area.txt" styles="{font:'Arial 14 bold'}" editable="false"/>
+                </ScrollPane>
     </BoxPane>
 </easyDiet:ContentTabPane>
