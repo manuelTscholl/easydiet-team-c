@@ -16,7 +16,7 @@ xmlns="org.apache.pivot.wtk">
 
     <!-- Menubar -->
         <TablePane.Row height="-1">
-            <bxml:include bxml:id="menuBar" src="menu.bxml"/>
+            <bxml:include src="menu.bxml"/>
         </TablePane.Row>
 
     <!-- Content -->

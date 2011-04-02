@@ -20,18 +20,6 @@ import org.apache.pivot.wtk.TabPane;
  */
 public class ContentTabPane extends TabPane implements Bindable {
 
-    // instance variables
-    @BXML
-    private ScrollPane _appointmentScrollPane;
-    @BXML
-    private ScrollPane _overviewScrollPanePane;
-    @BXML
-    private ScrollPane _contactJournalScrollPane;
-    @BXML
-    private ScrollPane _anamnesisScrollPane;
-    @BXML
-    private ScrollPane _dietryPlanScrollPane;
-
     /**
      * First called after creating the GUI
      * @param map Contains all UI elements in content.bxml by id name
@@ -40,11 +28,5 @@ public class ContentTabPane extends TabPane implements Bindable {
      */
     public void initialize(Map<String, Object> map, URL url, Resources rsrcs) {
 
-        // get GUI components
-        _appointmentScrollPane = (ScrollPane) map.get("appointmentBoxPane");
-        _overviewScrollPanePane = (ScrollPane) map.get("overviewBoxPane");
-        _contactJournalScrollPane = (ScrollPane) map.get("contactJournalBoxPane");
-        _anamnesisScrollPane = (ScrollPane) map.get("anamnesisBoxPane");
-        _dietryPlanScrollPane = (ScrollPane) map.get("dietryPlanBoxPane");
     }
 }

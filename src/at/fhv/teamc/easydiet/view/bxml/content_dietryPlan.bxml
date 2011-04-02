@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<easyDiet:ContentDietryPlanScrollPane bxml:id="dietryPlanScrollPane" horizontalScrollBarPolicy="auto" verticalScrollBarPolicy="auto" preferredHeight="665"
+    xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:easyDiet="at.fhv.teamc.easydiet.view"
+    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#CFE4F1'}">
+</easyDiet:ContentDietryPlanScrollPane>
