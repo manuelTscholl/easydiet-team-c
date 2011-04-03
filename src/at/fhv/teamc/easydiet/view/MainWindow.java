@@ -39,7 +39,7 @@ public class MainWindow extends ApplicationContext {
         sDESKTOP = new JDesktopPane();
         sTITLE = "EasyDiet";
         sMAIN_FRAME = new JFrame(sTITLE);
-        sMAIN_XML = "bxml/main.xml";
+        sMAIN_XML = "bxml/main.bxml";
         sINITALIZED = false;
         sWINDOW_HEIGHT = 768;
         sWINDOW_WIDTH = 1024;

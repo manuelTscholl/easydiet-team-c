@@ -10,7 +10,7 @@
         <TabPane.tabData>
             <content:ButtonData text="Termine"/>
         </TabPane.tabData>
-             <bxml:include src="content_appointment.bxml"/>
+        <bxml:include src="content_appointment.bxml"/>
     </BoxPane>
 
 <!-- Overview Tab -->
@@ -18,7 +18,7 @@
         <TabPane.tabData>
             <content:ButtonData text="Übersicht"/>
         </TabPane.tabData>
-            <bxml:include src="content_overview.bxml"/>
+        <bxml:include src="content_overview.bxml"/>
     </BoxPane>
 
 <!-- Contact Journal Tab -->
@@ -26,7 +26,7 @@
         <TabPane.tabData>
             <content:ButtonData text="Kontaktjournal"/>
         </TabPane.tabData>
-            <bxml:include src="content_contactJournal.bxml"/>
+        <bxml:include src="content_contactJournal.bxml"/>
     </BoxPane>
 
 <!-- Anamnesis Tab -->
@@ -34,7 +34,7 @@
         <TabPane.tabData>
             <content:ButtonData text="Anamnese"/>
         </TabPane.tabData>
-            <bxml:include src="content_anamnesis.bxml"/>
+        <bxml:include src="content_anamnesis.bxml"/>
     </BoxPane>
 
 <!-- Dietry Plan Tab -->
@@ -42,6 +42,6 @@
         <TabPane.tabData>
             <content:ButtonData text="Diätplan"/>
         </TabPane.tabData>
-           <bxml:include src="content_dietryPlan.bxml"/>
+        <bxml:include src="content_dietryPlan.bxml"/>
     </BoxPane>
 </easyDiet:ContentTabPane>

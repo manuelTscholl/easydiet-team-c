@@ -38,82 +38,82 @@
                             padding:'{top:10}'}"
                     xmlns:bxml="http://pivot.apache.org/bxml"
                     xmlns="org.apache.pivot.wtk">
-                <Label text="DEMOTEXT1"/>
+                    <Label text="DEMOTEXT1"/>
                 </BoxPane>
             </TablePane.Row>
         </TablePane>
         <!-- End Search Content -->
-        </BoxPane>
+    </BoxPane>
 
 <!-- End Search Tab -->
 
 <!-- Patientdata Tab -->
-        <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
-            <TabPane.tabData>
-                <content:ButtonData icon="@collapse.gif" text="Stammdaten"/>
-            </TabPane.tabData>
-                <BoxPane bxml:id="patientDataBoxPane" height="200"
+    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
+        <TabPane.tabData>
+            <content:ButtonData icon="@collapse.gif" text="Stammdaten"/>
+        </TabPane.tabData>
+        <BoxPane bxml:id="patientDataBoxPane" height="200"
                     styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
                     xmlns:bxml="http://pivot.apache.org/bxml"
                     xmlns="org.apache.pivot.wtk">
-                    <Accordion preferredWidth="170" preferredHeight="660" styles="{backgroundColor:'#CFE4F1', buttonBackgroundColor:'#89CBF4'}"
+            <Accordion preferredWidth="170" preferredHeight="660" styles="{backgroundColor:'#CFE4F1', buttonBackgroundColor:'#89CBF4'}"
                         xmlns:bxml="http://pivot.apache.org/bxml"
                         xmlns="org.apache.pivot.wtk">
-                            <Label Accordion.headerData="Stammdaten" text="Hello"/>
-                            <Label Accordion.headerData="Anamnese" text="World"/>
-                            <Label Accordion.headerData="Parameter" text="Pivot"/>
-                    </Accordion>
-                </BoxPane>
+                <Label Accordion.headerData="Stammdaten" text="Hello"/>
+                <Label Accordion.headerData="Anamnese" text="World"/>
+                <Label Accordion.headerData="Parameter" text="Pivot"/>
+            </Accordion>
         </BoxPane>
+    </BoxPane>
 
 <!-- End Patientdata Tab -->
 
 <!-- Navigation Tab -->
-        <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
-            <TabPane.tabData>
-                <content:ButtonData icon="@collapse.gif" text="Navigation"/>
-            </TabPane.tabData>
-                <BoxPane bxml:id="navigationBoxPane" height="200"
+    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
+        <TabPane.tabData>
+            <content:ButtonData icon="@collapse.gif" text="Navigation"/>
+        </TabPane.tabData>
+        <BoxPane bxml:id="navigationBoxPane" height="200"
                     styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
                     xmlns:bxml="http://pivot.apache.org/bxml"
                     xmlns="org.apache.pivot.wtk">
                     
-                    <TreeView bxml:id="treeView"
+            <TreeView bxml:id="treeView"
                         xmlns:bxml="http://pivot.apache.org/bxml"
                         xmlns:content="org.apache.pivot.wtk.content"
                         xmlns="org.apache.pivot.wtk"
                         styles="{spacing:'0', indent:'10', backgroundColor:'#CFE4F1'}"
                         ComponentListener.parentChanged="treeView.expandAll();">
 
-                        <treeData>
-                          <content:TreeBranch>
-                            <content:TreeBranch text="Woche 1">
-                                <content:TreeNode text="Tag 1"/>
-                                <content:TreeNode text="Tag 2"/>
-                                <content:TreeNode text="Tag 3"/>
-                            </content:TreeBranch>
-                            <content:TreeBranch text="Woche 2">
-                                <content:TreeNode text="Tag 1"/>
-                            </content:TreeBranch>
-                          </content:TreeBranch>
-                       </treeData>
-                    </TreeView>
-               </BoxPane>
+                <treeData>
+                    <content:TreeBranch>
+                        <content:TreeBranch text="Woche 1">
+                            <content:TreeNode text="Tag 1"/>
+                            <content:TreeNode text="Tag 2"/>
+                            <content:TreeNode text="Tag 3"/>
+                        </content:TreeBranch>
+                        <content:TreeBranch text="Woche 2">
+                            <content:TreeNode text="Tag 1"/>
+                        </content:TreeBranch>
+                    </content:TreeBranch>
+                </treeData>
+            </TreeView>
         </BoxPane>
+    </BoxPane>
 
 <!-- End Navigation Tab -->
 
 <!-- Edit Tab -->
-        <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
-            <TabPane.tabData>
-                <content:ButtonData icon="@collapse.gif" text="Bearbeiten"/>
-            </TabPane.tabData>
-                <BoxPane bxml:id="editBoxPane" height="200"
+    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
+        <TabPane.tabData>
+            <content:ButtonData icon="@collapse.gif" text="Bearbeiten"/>
+        </TabPane.tabData>
+        <BoxPane bxml:id="editBoxPane" height="200"
                     styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
                     xmlns:bxml="http://pivot.apache.org/bxml"
                     xmlns="org.apache.pivot.wtk">
-                    <Label text="DEMOTEXT4"/>
-                </BoxPane>
+            <Label text="DEMOTEXT4"/>
         </BoxPane>
+    </BoxPane>
 <!-- End Edit Tab -->
 </easyDiet:NavigationTabPane>
