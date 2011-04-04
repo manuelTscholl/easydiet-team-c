@@ -70,6 +70,7 @@ public class MainWindow extends ApplicationContext {
             sMAIN_FRAME.setContentPane(sDESKTOP);
             sMAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             sMAIN_FRAME.setSize(sWINDOW_WIDTH, sWINDOW_HEIGHT);
+            sMAIN_FRAME.setExtendedState(JFrame.MAXIMIZED_BOTH);
             sMAIN_FRAME.setResizable(true);
             sMAIN_FRAME.setVisible(true);
             sGUI_Controller = guic;
