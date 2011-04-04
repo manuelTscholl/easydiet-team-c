@@ -7,11 +7,11 @@
 package at.fhv.teamc.easydiet.view;
 
 import java.net.URL;
+import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Border;
-import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TablePane;
 
@@ -30,7 +30,7 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable 
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
         
         // EXAMPLE
-        example();
+        //example();
         // END EXAMPLE
     }
 

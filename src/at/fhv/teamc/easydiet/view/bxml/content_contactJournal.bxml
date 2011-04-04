@@ -2,6 +2,6 @@
 
 <ScrollPane bxml:id="contactJournalScrollPane" horizontalScrollBarPolicy="auto" verticalScrollBarPolicy="auto" preferredHeight="665"
     xmlns:bxml="http://pivot.apache.org/bxml"
-    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#CFE4F1'}">
+    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#BFFFB0'}">
     <TextArea text="@text_area.txt" styles="{font:'Arial 14 bold'}" editable="false"/>
 </ScrollPane>

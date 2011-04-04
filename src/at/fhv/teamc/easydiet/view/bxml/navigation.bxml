@@ -3,8 +3,8 @@
 <easyDiet:NavigationTabPane xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
     xmlns:easyDiet="at.fhv.teamc.easydiet.view"
-    xmlns="org.apache.pivot.wtk" styles="{tabOrientation:'vertical', activeTabColor:'#CFE4F1', 
-    inactiveTabColor:'#89CBF4', padding:'{top:20}'}"
+    xmlns="org.apache.pivot.wtk" styles="{tabOrientation:'vertical', activeTabColor:'#BFFFB0',
+    inactiveTabColor:'#E2FFDC', padding:'{top:20}'}"
     collapsible="true">
 
     <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'top'}">
@@ -26,9 +26,14 @@
 
             <!-- Search Textinput -->
             <TablePane.Row height="-1">
+                <BoxPane>
                 <TextInput bxml:id="searchTextInput" prompt="Suche" textSize="15"
                 xmlns:bxml="http://pivot.apache.org/bxml"
                 xmlns="org.apache.pivot.wtk"/>
+                <ActivityIndicator preferredWidth="20" preferredHeight="20" active="true"
+                        xmlns:bxml="http://pivot.apache.org/bxml"
+                        xmlns="org.apache.pivot.wtk"/>
+                </BoxPane>
             </TablePane.Row>
 
             <!-- Search Result -->
@@ -56,7 +61,7 @@
                     styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
                     xmlns:bxml="http://pivot.apache.org/bxml"
                     xmlns="org.apache.pivot.wtk">
-            <Accordion preferredWidth="170" preferredHeight="660" styles="{backgroundColor:'#CFE4F1', buttonBackgroundColor:'#89CBF4'}"
+            <Accordion preferredWidth="170" preferredHeight="660" styles="{backgroundColor:'#BFFFB0', buttonBackgroundColor:'#95E89F'}"
                         xmlns:bxml="http://pivot.apache.org/bxml"
                         xmlns="org.apache.pivot.wtk">
                 <Label Accordion.headerData="Stammdaten" text="Hello"/>
@@ -82,7 +87,8 @@
                         xmlns:bxml="http://pivot.apache.org/bxml"
                         xmlns:content="org.apache.pivot.wtk.content"
                         xmlns="org.apache.pivot.wtk"
-                        styles="{spacing:'0', indent:'10', backgroundColor:'#CFE4F1'}"
+                        styles="{spacing:'0', indent:'10', backgroundColor:'#BFFFB0', selectionBackgroundColor:'#95E89F',
+                        highlightBackgroundColor:'#95E89F', selectionColor:'#000000', branchControlSelectionColor:'#000000'}"
                         ComponentListener.parentChanged="treeView.expandAll();">
 
                 <treeData>

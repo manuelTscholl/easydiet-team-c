@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<easyDiet:EasyDietMenuBar styles="{backgroundColor:'#89CBF4'}"
+<easyDiet:EasyDietMenuBar styles="{backgroundColor:'#BFFFB0'}"
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
     xmlns:easyDiet="at.fhv.teamc.easydiet.view"
