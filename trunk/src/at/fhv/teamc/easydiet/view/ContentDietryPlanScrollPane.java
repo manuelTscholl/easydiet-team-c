@@ -7,7 +7,7 @@
 package at.fhv.teamc.easydiet.view;
 
 import java.net.URL;
-import org.apache.pivot.beans.BXMLSerializer;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
@@ -21,6 +21,9 @@ import org.apache.pivot.wtk.TablePane;
  */
 public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable {
 
+    // class variables
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentDietryPlanScrollPane.class);
+
     /**
      * First called after creating the GUI
      * @param namespace Contains all UI elements in content_dietryPlan.bxml by id name
@@ -28,14 +31,13 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable 
      * @param rsrcs
      */
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
-        
         // EXAMPLE
         //example();
         // END EXAMPLE
     }
 
     private void example() {
-        
+
         // new week
         Border weekOne = new Border();
         weekOne.setTitle("Woche 1");
