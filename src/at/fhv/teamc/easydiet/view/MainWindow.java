@@ -80,7 +80,6 @@ public class MainWindow extends ApplicationContext {
     private static void initPivotFrame() {
         SwingUtilities.invokeLater(new Runnable() {
 
-            @Override
             public void run() {
                 createPivotFrame();
             }

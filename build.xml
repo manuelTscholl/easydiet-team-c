@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Easy Diet" default="easyDiet" basedir=".">
+
+	<!-- General Project Build -->
+	<import file="../common.xml"/>
+
+	<target name="easyDiet">
+		<!-- Execute Building -->
+		<antcall target="build-and-package">
+			<param name="executable-name" value="EasyDiet.jar" />
+			<param name="main-class" value="at.fhv.dku2375.browser.BrowserUiApplication" />
+		</antcall>
+	</target>
+
+</project>
