@@ -3,7 +3,7 @@
 <easyDiet:ContentTabPane xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
     xmlns:easyDiet="at.fhv.teamc.easydiet.view"
-    xmlns="org.apache.pivot.wtk" styles="{activeTabColor:'#CFE4F1', inactiveTabColor:'#89CBF4'}">
+    xmlns="org.apache.pivot.wtk" styles="{activeTabColor:'#BFFFB0', inactiveTabColor:'#E2FFDC'}">
 
 <!-- Appointment Tab -->
     <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">

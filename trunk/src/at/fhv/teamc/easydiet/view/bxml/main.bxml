@@ -6,7 +6,7 @@ xmlns:easyDiet="at.fhv.teamc.easydiet.view"
 xmlns="org.apache.pivot.wtk">
 
 <!-- Main structure -->
-    <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
+    <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:true,
     horizontalSpacing:1, showVerticalGridLines:false, backgroundColor:'#EBEDEF'}"
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns="org.apache.pivot.wtk">
@@ -35,7 +35,7 @@ xmlns="org.apache.pivot.wtk">
                 <TablePane.Row height="700">
 
                     <!-- Navigation, left column -->
-                    <bxml:include src="navigation.bxml"/>
+                    <bxml:include bxml:id="test" src="navigation.bxml"/>
 
                     <!-- Content, right column -->
                     <bxml:include src="content.bxml"/>
