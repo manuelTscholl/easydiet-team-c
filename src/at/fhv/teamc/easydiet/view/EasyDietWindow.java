@@ -4,10 +4,10 @@
  * created by: Michael
  * file: EasyDietWindow.java
  */
-
 package at.fhv.teamc.easydiet.view;
 
 import java.net.URL;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
@@ -19,8 +19,10 @@ import org.apache.pivot.wtk.Window;
  */
 public class EasyDietWindow extends Window implements Bindable {
 
+    // class variables
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(EasyDietWindow.class);
     // instance variables
-
+    private Map<String, Object> _namespace;
 
     /**
      * First called after creating the GUI
@@ -29,8 +31,10 @@ public class EasyDietWindow extends Window implements Bindable {
      * @param rsrcs
      */
     public void initialize(Map<String, Object> map, URL url, Resources rsrcs) {
-
-        // get GUI components
+        _namespace = map;
     }
 
+    public Map<String, Object> getRessources() {
+        return _namespace;
+    }
 }

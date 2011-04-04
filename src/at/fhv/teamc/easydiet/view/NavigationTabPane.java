@@ -7,6 +7,7 @@
 package at.fhv.teamc.easydiet.view;
 
 import java.net.URL;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.pivot.beans.BXML;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
@@ -21,6 +22,8 @@ import org.apache.pivot.wtk.TextInput;
  */
 public class NavigationTabPane extends TabPane implements Bindable {
 
+    // class variables
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(NavigationTabPane.class);
     // instance variables
     @BXML
     private TextInput _searchTextInput;
@@ -47,5 +50,9 @@ public class NavigationTabPane extends TabPane implements Bindable {
         _patientDataBoxPane = (BoxPane) map.get("patientDataBoxPane");
         _navigationBoxPane = (BoxPane) map.get("navigationBoxPane");
         _editBoxPane = (BoxPane) map.get("editBoxPane");
+    }
+
+    public TextInput getSearchTextInput() {
+        return _searchTextInput;
     }
 }

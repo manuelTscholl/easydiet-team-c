@@ -6,6 +6,7 @@
  */
 package at.fhv.teamc.easydiet.view;
 
+import at.fhv.teamc.easydiet.controller.GUIController;
 import java.awt.Image;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
@@ -14,10 +15,10 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.SwingUtilities;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.serialization.SerializationException;
 import org.apache.pivot.wtk.ApplicationContext;
-import org.apache.pivot.wtk.Window;
 
 /**
  * MainWindow entry of the application's UI
@@ -26,6 +27,7 @@ import org.apache.pivot.wtk.Window;
 public class MainWindow extends ApplicationContext {
 
     // class variables
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(MainWindow.class);
     private static JDesktopPane sDESKTOP;
     private static final String sTITLE;
     private static JFrame sMAIN_FRAME;
@@ -34,6 +36,7 @@ public class MainWindow extends ApplicationContext {
     private static int sWINDOW_HEIGHT;
     private static int sWINDOW_WIDTH;
     private static String sICON;
+    private static GUIController sGUI_Controller;
 
     static {
         sDESKTOP = new JDesktopPane();
@@ -52,7 +55,7 @@ public class MainWindow extends ApplicationContext {
     /**
      * Initialize GUI
      */
-    public static void init() {
+    public static void init(GUIController guic) {
 
         if (!sINITALIZED) {
 
@@ -62,6 +65,7 @@ public class MainWindow extends ApplicationContext {
             sMAIN_FRAME.setSize(sWINDOW_WIDTH, sWINDOW_HEIGHT);
             sMAIN_FRAME.setResizable(false);
             sMAIN_FRAME.setVisible(true);
+            sGUI_Controller = guic;
 
             // set application icon
             Image icon = new ImageIcon(MainWindow.class.getResource(sICON)).getImage();
@@ -111,9 +115,9 @@ public class MainWindow extends ApplicationContext {
 
         // Load the Pivot window
         BXMLSerializer bxmlSerializer = new BXMLSerializer();
-        Window window;
+        EasyDietWindow window;
         try {
-            window = (Window) bxmlSerializer.readObject(MainWindow.class.getResource(sMAIN_XML));
+            window = (EasyDietWindow) bxmlSerializer.readObject(MainWindow.class.getResource(sMAIN_XML));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         } catch (SerializationException exception) {
@@ -135,5 +139,8 @@ public class MainWindow extends ApplicationContext {
         } catch (PropertyVetoException exception) {
             throw new RuntimeException(exception);
         }
+
+        // add gui controller to window
+        sGUI_Controller.addWindow(window);
     }
 }
