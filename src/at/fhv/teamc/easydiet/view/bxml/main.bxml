@@ -11,11 +11,11 @@ xmlns="org.apache.pivot.wtk">
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns="org.apache.pivot.wtk">
         <columns>
-            <TablePane.Column bxml:id="mainTableColumn" width="1024"/>
+            <TablePane.Column bxml:id="mainTableColumn"/>
         </columns>
 
     <!-- Menubar -->
-        <TablePane.Row height="-1">
+        <TablePane.Row height="-1" bxml:id="menuBarTableRow">
             <bxml:include bxml:id="menuBar" src="menu.bxml"/>
         </TablePane.Row>
 
@@ -24,7 +24,7 @@ xmlns="org.apache.pivot.wtk">
 
             <!-- Content Table -->
             <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
-            horizontalSpacing:10, showVerticalGridLines:false, padding:'{top:5, left:5, right:15}'}"
+            horizontalSpacing:5, showVerticalGridLines:false, padding:'{top:5, left:5, right:5}'}"
             xmlns:bxml="http://pivot.apache.org/bxml"
             xmlns="org.apache.pivot.wtk" bxml:id="mainContentTablePane">
                 <columns>
@@ -32,7 +32,7 @@ xmlns="org.apache.pivot.wtk">
                     <TablePane.Column width="1*"/>
                 </columns>
 
-                <TablePane.Row height="700">
+                <TablePane.Row>
 
                     <!-- Navigation, left column -->
                     <bxml:include bxml:id="navTab" src="navigation.bxml"/>
