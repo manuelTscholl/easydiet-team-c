@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ScrollPane bxml:id="anamnesisScrollPane" horizontalScrollBarPolicy="auto" verticalScrollBarPolicy="auto" preferredHeight="665"
+<easyDiet:ContentAnamnesisScrollPane bxml:id="anamnesisScrollPane" horizontalScrollBarPolicy="never" verticalScrollBarPolicy="auto" preferredHeight="665"
     xmlns:bxml="http://pivot.apache.org/bxml"
-    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#BFFFB0'}">
+    xmlns:easyDiet="at.fhv.teamc.easydiet.view"
+    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
     <TextArea text="@text_area.txt" styles="{font:'Arial 14 bold'}" editable="false"/>
-</ScrollPane>
+</easyDiet:ContentAnamnesisScrollPane>
