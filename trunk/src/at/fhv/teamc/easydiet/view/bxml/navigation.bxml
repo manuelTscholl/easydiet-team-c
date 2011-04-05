@@ -38,14 +38,14 @@
 
             <!-- Search Result -->
             <TablePane.Row>
-                <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
+                    <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
                     horizontalSpacing:1, showVerticalGridLines:false, padding:'{top:10}'}"
                     xmlns:bxml="http://pivot.apache.org/bxml"
                     xmlns="org.apache.pivot.wtk" bxml:id="searchResultTablePane">
-                    <columns>
-                        <TablePane.Column width="-1"/>
-                    </columns>
-                </TablePane>
+                        <columns>
+                            <TablePane.Column width="-1"/>
+                        </columns>
+                    </TablePane>
             </TablePane.Row>
         </TablePane>
         <!-- End Search Content -->
