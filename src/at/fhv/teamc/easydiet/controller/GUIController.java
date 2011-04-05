@@ -6,11 +6,13 @@
  */
 package at.fhv.teamc.easydiet.controller;
 
+import at.easydiet.model.Patient;
 import at.fhv.teamc.easydiet.view.ContentTabPane;
 import at.fhv.teamc.easydiet.view.EasyDietMenuBar;
 import at.fhv.teamc.easydiet.view.EasyDietWindow;
 import at.fhv.teamc.easydiet.view.KeyAdapter;
 import at.fhv.teamc.easydiet.view.NavigationTabPane;
+import java.util.Set;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.TextInput;
@@ -23,7 +25,6 @@ public class GUIController {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(GUIController.class);
-
     // instance variables
     private EasyDietWindow _easyDietWindow;
     private Map<String, Object> _guiNamespaces;
@@ -52,10 +53,18 @@ public class GUIController {
 
             @Override
             public boolean keyTyped(Component component, char character) {
-                _businessLogicController.searchPatient(((TextInput)component).getText());
+                _businessLogicController.searchPatient(((TextInput) component).getText());
                 return true;
             }
         });
 
+    }
+
+    /**
+     * Update search results in navigation search tab with received set
+     * @param patients
+     */
+    public void updateSearchResult(Set<Patient> patients) {
+        _navTab.updateSearchResult(patients);
     }
 }
