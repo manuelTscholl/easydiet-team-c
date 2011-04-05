@@ -1,6 +1,6 @@
-<mockup version="1.0" skin="sketch" measuredW="1504" measuredH="863" mockupW="1024" mockupH="768">
+<mockup version="1.0" skin="sketch" measuredW="1504" measuredH="912" mockupW="1024" mockupH="797">
   <controls>
-    <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="480" y="95" w="1024" h="768" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="480" y="144" w="1024" h="768" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
         <text>EasyDiet%20-%20Patient%3A%20Hans%20Huber</text>
         <verticalScrollbar>false</verticalScrollbar>
@@ -11,38 +11,28 @@
         <text>Datei%09%20%20%20%20%20Patient%20%20%20%20%20%20Rezept</text>
       </controlProperties>
     </control>
-    <control controlID="8" controlTypeID="__group__" x="732" y="145" w="772" h="694" measuredW="772" measuredH="694" zOrder="2" locked="false" isInGroup="-1">
+    <control controlID="8" controlTypeID="__group__" x="736" y="145" w="768" h="694" measuredW="768" measuredH="694" zOrder="2" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
-        <control controlID="0" controlTypeID="com.balsamiq.mockups::TabBar" x="0" y="0" w="772" h="694" measuredW="421" measuredH="100" zOrder="0" locked="false" isInGroup="8">
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::TabBar" x="0" y="0" w="768" h="694" measuredW="410" measuredH="100" zOrder="0" locked="false" isInGroup="8">
           <controlProperties>
             <markup>false</markup>
-            <text>%DCbersicht%2C%20Kontaktjournal%2C%20Di%E4tplan%2C%20Analyse%2C%20...</text>
+            <text>Di%E4tplan%2C%20Kontaktjournal%2C%20Di%E4tplan%2C%20Analyse%2C%20...</text>
             <verticalScrollbar>false</verticalScrollbar>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
     </control>
-    <control controlID="11" controlTypeID="com.balsamiq.mockups::Accordion" x="524" y="169" w="208" h="667" measuredW="150" measuredH="250" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::Accordion" x="524" y="169" w="182" h="667" measuredW="150" measuredH="293" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Stammdaten%0AAnamnese%0AParameter%0A...</text>
+        <text>Navigation%0A%20%0AItem%20Two%0A-%20Sub-Item%202.1%0A-%20Sub-Item%202.2%0AItem%20Three%0AItem%20Four</text>
       </controlProperties>
     </control>
-    <control controlID="13" controlTypeID="com.balsamiq.mockups::Canvas" x="480" y="196" w="37" h="98" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="-1">
-      <controlProperties>
-        <color>13421772</color>
-      </controlProperties>
-    </control>
-    <control controlID="15" controlTypeID="com.balsamiq.mockups::Canvas" x="717" y="294" w="34" h="98" measuredW="100" measuredH="70" zOrder="7" locked="false" isInGroup="-1">
-      <controlProperties>
-        <color>13421772</color>
-      </controlProperties>
-    </control>
-    <control controlID="22" controlTypeID="com.balsamiq.mockups::Canvas" x="480" y="392" w="37" h="98" measuredW="100" measuredH="70" zOrder="9" locked="false" isInGroup="-1">
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Canvas" x="699" y="633" w="37" h="84" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="-1">
       <controlProperties>
         <color>14540253</color>
       </controlProperties>
     </control>
-    <control controlID="23" controlTypeID="com.balsamiq.mockups::Label" x="485" y="406" w="25" h="70" measuredW="25" measuredH="69" zOrder="10" locked="false" isInGroup="-1">
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::Label" x="706" y="640" w="25" h="70" measuredW="25" measuredH="69" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
         <color>0</color>
         <size>13</size>
@@ -50,54 +40,12 @@
         <textOrientation>up</textOrientation>
       </controlProperties>
     </control>
-    <control controlID="24" controlTypeID="com.balsamiq.mockups::Label" x="717" y="318" w="25" h="49" measuredW="25" measuredH="49" zOrder="8" locked="false" isInGroup="-1">
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::Label" x="546" y="205" w="-1" h="-1" measuredW="60" measuredH="25" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
-        <color>0</color>
-        <size>13</size>
-        <text>Patient</text>
-        <textOrientation>up</textOrientation>
+        <text>Woche%201</text>
       </controlProperties>
     </control>
-    <control controlID="25" controlTypeID="com.balsamiq.mockups::Label" x="480" y="220" w="25" h="42" measuredW="25" measuredH="42" zOrder="5" locked="false" isInGroup="-1">
-      <controlProperties>
-        <color>0</color>
-        <size>13</size>
-        <text>Suche</text>
-        <textOrientation>up</textOrientation>
-      </controlProperties>
-    </control>
-    <control controlID="26" controlTypeID="com.balsamiq.mockups::VerticalScrollBar" x="717" y="205" w="-1" h="539" measuredW="16" measuredH="100" zOrder="6" locked="false" isInGroup="-1"/>
-    <control controlID="27" controlTypeID="com.balsamiq.mockups::Label" x="532" y="237" w="-1" h="-1" measuredW="61" measuredH="25" zOrder="11" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Vorname%3A</text>
-      </controlProperties>
-    </control>
-    <control controlID="28" controlTypeID="com.balsamiq.mockups::Label" x="532" y="262" w="-1" h="-1" measuredW="74" measuredH="25" zOrder="12" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Nachname%3A</text>
-      </controlProperties>
-    </control>
-    <control controlID="29" controlTypeID="com.balsamiq.mockups::Label" x="532" y="287" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="13" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>SVN%3A</text>
-      </controlProperties>
-    </control>
-    <control controlID="30" controlTypeID="com.balsamiq.mockups::Label" x="621" y="237" w="-1" h="-1" measuredW="36" measuredH="25" zOrder="14" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Hans</text>
-      </controlProperties>
-    </control>
-    <control controlID="31" controlTypeID="com.balsamiq.mockups::Label" x="621" y="261" w="-1" h="-1" measuredW="43" measuredH="25" zOrder="15" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Huber</text>
-      </controlProperties>
-    </control>
-    <control controlID="32" controlTypeID="com.balsamiq.mockups::Label" x="621" y="286" w="-1" h="-1" measuredW="86" measuredH="25" zOrder="16" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>1024301088</text>
-      </controlProperties>
-    </control>
-    <control controlID="40" controlTypeID="com.balsamiq.mockups::DataGrid" x="742" y="196" w="747" h="634" measuredW="686" measuredH="94" zOrder="17" locked="false" isInGroup="-1">
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::DataGrid" x="809" y="205" w="410" h="201" measuredW="204" measuredH="182" zOrder="7" locked="false" isInGroup="-1">
       <controlProperties>
         <borderStyle>square</borderStyle>
         <color>16777215</color>
@@ -106,20 +54,138 @@
         <markup>true</markup>
         <rowHeight>16</rowHeight>
         <selectedIndex>-1</selectedIndex>
-        <text>Datum%2C%20%2C%20Notiz%0A10.10.2011%2C%20Plan%2C%20Neuer%20Termin%20da%20Magen%20OP%0A10.10.2011%2C%20Besuch%2C%20Patinet%20war%20zur%20Kontrolle%20hier%0A10.10.2011%2C%20Befund%2C%20Laborbefund%20hinzugef%FCgt%20PLAINTEXT%20PLAINTEXT%20PLAINTEXT%20PLAINTEXT%20...</text>
+        <text>Fr%FChst%FCck%20+%0A%20Apfel%201%20St%FCck%0A%20%0AMittag%20+%0A%20Wiener%20Schnitzel%20mit%20Pommes%0A%20%0AAbendessen%20+%0A%20....</text>
+        <value>0</value>
+        <verticalScrollbar>false</verticalScrollbar>
+        <vLines>true</vLines>
+      </controlProperties>
+    </control>
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::DataGrid" x="742" y="174" w="747" h="31" measuredW="301" measuredH="28" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <color>16777215</color>
+        <hasHeader>true</hasHeader>
+        <hLines>false</hLines>
+        <markup>true</markup>
+        <rowHeight>16</rowHeight>
+        <selectedIndex>-1</selectedIndex>
+        <text>Di%E4tplan%3A%20von%2011.03.2011%20bis%2010.04.2011</text>
         <value>0</value>
         <verticalScrollbar>true</verticalScrollbar>
         <vLines>true</vLines>
       </controlProperties>
     </control>
-    <control controlID="44" controlTypeID="com.balsamiq.mockups::NumericStepper" x="809" y="195" w="20" h="-1" measuredW="41" measuredH="26" zOrder="18" locked="false" isInGroup="-1">
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::DataGrid" x="806" y="677" w="173" h="34" measuredW="107" measuredH="28" zOrder="9" locked="false" isInGroup="-1">
       <controlProperties>
-        <text/>
+        <borderStyle>square</borderStyle>
+        <color>16777215</color>
+        <hasHeader>true</hasHeader>
+        <hLines>false</hLines>
+        <markup>true</markup>
+        <rowHeight>16</rowHeight>
+        <selectedIndex>-1</selectedIndex>
+        <text>+neuer%20Tag</text>
+        <value>0</value>
+        <verticalScrollbar>true</verticalScrollbar>
+        <vLines>true</vLines>
       </controlProperties>
     </control>
-    <control controlID="45" controlTypeID="com.balsamiq.mockups::ComboBox" x="836" y="195" w="-1" h="-1" measuredW="54" measuredH="25" zOrder="19" locked="false" isInGroup="-1">
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::Label" x="742" y="196" w="32" h="560" measuredW="34" measuredH="91" zOrder="10" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Art</text>
+        <align>center</align>
+        <size>20</size>
+        <text>Woche%201</text>
+        <textOrientation>up</textOrientation>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::DataGrid" x="1226" y="205" w="257" h="375" measuredW="237" measuredH="116" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <color>16777215</color>
+        <hasHeader>true</hasHeader>
+        <hLines>false</hLines>
+        <markup>true</markup>
+        <rowHeight>16</rowHeight>
+        <selectedIndex>-1</selectedIndex>
+        <text>Parameter%0A%20%0AAmpel%0A%20%0AParametername%3A%20Vitamin%20C%2010/50%B5g</text>
+        <value>0</value>
+        <verticalScrollbar>false</verticalScrollbar>
+        <vLines>true</vLines>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::Label" x="774" y="255" w="32" h="168" measuredW="29" measuredH="50" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <size>16</size>
+        <text>Tag%201</text>
+        <textOrientation>up</textOrientation>
+      </controlProperties>
+    </control>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::DataGrid" x="806" y="423" w="410" h="245" measuredW="170" measuredH="226" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <color>16777215</color>
+        <hasHeader>true</hasHeader>
+        <hLines>false</hLines>
+        <markup>true</markup>
+        <rowHeight>16</rowHeight>
+        <selectedIndex>-1</selectedIndex>
+        <text>Fr%FChst%FCck%20+%0A%20M%FCsli%2050%20g%0A%20%0AMittag%20+%0A%20Gem%FCseauflauf%20....%20g%0A%20%0AAbendessen%20+%0A%20....%0A%20%0A+Mahlzeittyp%20hinzuf%FCgen</text>
+        <value>0</value>
+        <verticalScrollbar>false</verticalScrollbar>
+        <vLines>true</vLines>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::Label" x="774" y="488" w="32" h="168" measuredW="29" measuredH="50" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <size>16</size>
+        <text>Tag%202</text>
+        <textOrientation>up</textOrientation>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::Label" x="568" y="230" w="-1" h="-1" measuredW="50" measuredH="25" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>-Tag%201</text>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::Label" x="568" y="255" w="-1" h="-1" measuredW="50" measuredH="25" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>-Tag%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::Label" x="546" y="326" w="63" h="25" measuredW="59" measuredH="25" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Woche%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::Label" x="568" y="280" w="-1" h="-1" measuredW="23" measuredH="25" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>...</text>
+      </controlProperties>
+    </control>
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::Label" x="568" y="351" w="-1" h="-1" measuredW="50" measuredH="25" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>-Tag%201</text>
+      </controlProperties>
+    </control>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::Label" x="568" y="376" w="-1" h="-1" measuredW="50" measuredH="25" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>-Tag%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="61" controlTypeID="com.balsamiq.mockups::Label" x="568" y="401" w="-1" h="-1" measuredW="23" measuredH="25" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>...</text>
+      </controlProperties>
+    </control>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::VerticalScrollBar" x="1483" y="174" w="-1" h="665" measuredW="16" measuredH="100" zOrder="22" locked="false" isInGroup="-1"/>
+    <control controlID="65" controlTypeID="com.balsamiq.mockups::Label" x="499" y="633" w="25" h="84" measuredW="25" measuredH="72" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>0</color>
+        <size>13</size>
+        <text>Bearbeiten</text>
+        <textOrientation>up</textOrientation>
       </controlProperties>
     </control>
   </controls>
