@@ -9,10 +9,11 @@ package at.fhv.teamc.easydiet.controller;
 import at.fhv.teamc.easydiet.view.ContentTabPane;
 import at.fhv.teamc.easydiet.view.EasyDietMenuBar;
 import at.fhv.teamc.easydiet.view.EasyDietWindow;
-import at.fhv.teamc.easydiet.view.MainWindow;
+import at.fhv.teamc.easydiet.view.KeyAdapter;
 import at.fhv.teamc.easydiet.view.NavigationTabPane;
-import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.pivot.collections.Map;
+import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.TextInput;
 
 /**
  * Controls and knows all GUI elements
@@ -29,6 +30,7 @@ public class GUIController {
     private NavigationTabPane _navTab;
     private EasyDietMenuBar _menuBar;
     private ContentTabPane _contentTab;
+    private BusinessLogicController _businessLogicController;
 
     /**
      * Add a window to the controller and get the ressources
@@ -37,8 +39,23 @@ public class GUIController {
     public void addWindow(EasyDietWindow eadw) {
         _easyDietWindow = eadw;
         _guiNamespaces = _easyDietWindow.getRessources();
+
+        _businessLogicController = new BusinessLogicController();
+
+        // get gui containers
         _navTab = (NavigationTabPane) _guiNamespaces.get("navTab");
         _menuBar = (EasyDietMenuBar) _guiNamespaces.get("menuBar");
         _contentTab = (ContentTabPane) _guiNamespaces.get("contentTab");
+
+        // add key event for search textinput field
+        _navTab.getSearchTextInput().getComponentKeyListeners().add(new KeyAdapter() {
+
+            @Override
+            public boolean keyTyped(Component component, char character) {
+                _businessLogicController.searchPatient(((TextInput)component).getText());
+                return true;
+            }
+        });
+
     }
 }
