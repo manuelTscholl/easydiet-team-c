@@ -18,6 +18,9 @@ import org.apache.pivot.wtk.ScrollPane;
  */
 public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable, Resizable {
 
+    // class variables
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentAnamnesisScrollPane.class);
+
     /**
      * First called after creating the GUI
      * @param namespace Contains all UI elements in content_anamnesis.bxml by id name

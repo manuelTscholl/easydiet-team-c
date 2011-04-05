@@ -18,6 +18,9 @@ import org.apache.pivot.wtk.ScrollPane;
  */
 public class ContentAppointmentScrollPane extends ScrollPane implements Bindable, Resizable {
 
+    // class variables
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentAppointmentScrollPane.class);
+
     /**
      * First called after creating the GUI
      * @param namespace Contains all UI elements in content_appointment.bxml by id name
