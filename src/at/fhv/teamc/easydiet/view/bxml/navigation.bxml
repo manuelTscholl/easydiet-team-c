@@ -12,7 +12,7 @@
 <!-- Search Tab -->
 
         <TabPane.tabData>
-            <content:ButtonData icon="@collapse.gif" text="Suche"/>
+            <content:ButtonData icon="@magnifier.png" text="Suche"/>
         </TabPane.tabData>
 
         <!-- Search Content -->
@@ -61,7 +61,7 @@
 <!-- Patientdata Tab -->
     <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
         <TabPane.tabData>
-            <content:ButtonData icon="@collapse.gif" text="Stammdaten"/>
+            <content:ButtonData icon="@table.png" text="Stammdaten"/>
         </TabPane.tabData>
         <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
             horizontalSpacing:1, showVerticalGridLines:false}"
@@ -87,7 +87,7 @@
 <!-- Navigation Tab -->
     <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
         <TabPane.tabData>
-            <content:ButtonData icon="@collapse.gif" text="Navigation"/>
+            <content:ButtonData icon="@odata.png" text="Navigation"/>
         </TabPane.tabData>
         <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
                 horizontalSpacing:1, showVerticalGridLines:false}"
@@ -130,7 +130,7 @@
 <!-- Edit Tab -->
     <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
         <TabPane.tabData>
-            <content:ButtonData icon="@collapse.gif" text="Bearbeiten"/>
+            <content:ButtonData icon="@pencil.png" text="Bearbeiten"/>
         </TabPane.tabData>
         <BoxPane bxml:id="editBoxPane" height="200"
                     styles="{horizontalAlignment:'left', verticalAlignment:'top'}"

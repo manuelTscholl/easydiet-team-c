@@ -6,6 +6,7 @@
  */
 package at.fhv.teamc.easydiet.view;
 
+import at.easydiet.model.Patient;
 import java.net.URL;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
@@ -18,7 +19,7 @@ import org.apache.pivot.wtk.TablePane;
  * Represents the application's content dietry plan tab (content_dietryPlan.bxml)
  * @author Michael
  */
-public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable, Resizable {
+public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable, Resizable, PatientDataListener {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentDietryPlanScrollPane.class);
@@ -90,5 +91,13 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
      */
     public void resize(int height, int width) {
         setPreferredHeight(height - 70);
+    }
+
+    /**
+     * Update patient data
+     * @param p
+     */
+    public void updatePatientData(Patient p) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
