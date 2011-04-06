@@ -14,40 +14,40 @@
 <!-- Appointment Tab -->
     <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
-            <content:ButtonData text="Termine"/>
+            <content:ButtonData icon="@calendar-day.png" text="Termine"/>
         </TabPane.tabData>
-        <bxml:include src="content_appointment.bxml"/>
+        <bxml:include bxml:id="content_appointment" src="content_appointment.bxml"/>
     </BoxPane>
 
 <!-- Overview Tab -->
     <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
-            <content:ButtonData text="Übersicht"/>
+            <content:ButtonData icon="@document-list.png" text="Übersicht"/>
         </TabPane.tabData>
-        <bxml:include src="content_overview.bxml"/>
+        <bxml:include bxml:id="content_overview" src="content_overview.bxml"/>
     </BoxPane>
 
 <!-- Contact Journal Tab -->
     <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
-            <content:ButtonData text="Kontaktjournal"/>
+            <content:ButtonData icon="@address-book-open.png" text="Kontaktjournal"/>
         </TabPane.tabData>
-        <bxml:include src="content_contactJournal.bxml"/>
+        <bxml:include bxml:id="content_contactJournal" src="content_contactJournal.bxml"/>
     </BoxPane>
 
 <!-- Anamnesis Tab -->
     <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
-            <content:ButtonData text="Anamnese"/>
+            <content:ButtonData icon="@pin.png" text="Anamnese"/>
         </TabPane.tabData>
-        <bxml:include src="content_anamnesis.bxml"/>
+        <bxml:include bxml:id="content_anamnesis" src="content_anamnesis.bxml"/>
     </BoxPane>
 
 <!-- Dietry Plan Tab -->
     <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
-            <content:ButtonData text="Diätplan"/>
+            <content:ButtonData icon="@report-paper.png" text="Diätplan"/>
         </TabPane.tabData>
-        <bxml:include src="content_dietryPlan.bxml"/>
+        <bxml:include bxml:id="content_dietryPlan" src="content_dietryPlan.bxml"/>
     </BoxPane>
 </easyDiet:ContentTabPane>

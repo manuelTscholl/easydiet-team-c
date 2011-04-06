@@ -6,6 +6,7 @@
  */
 package at.fhv.teamc.easydiet.view;
 
+import at.easydiet.model.Patient;
 import java.net.URL;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
@@ -16,7 +17,7 @@ import org.apache.pivot.wtk.ScrollPane;
  * Represents the application's content overview tab (content_overview.bxml)
  * @author Michael
  */
-public class ContentOverviewScrollPane extends ScrollPane implements Bindable, Resizable {
+public class ContentOverviewScrollPane extends ScrollPane implements Bindable, Resizable, PatientDataListener {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentOverviewScrollPane.class);
@@ -40,5 +41,13 @@ public class ContentOverviewScrollPane extends ScrollPane implements Bindable, R
      */
     public void resize(int height, int width) {
         setPreferredHeight(height - 70);
+    }
+
+    /**
+     * Update patient data
+     * @param p
+     */
+    public void updatePatientData(Patient p) {
+        LOGGER.trace("not implemented");
     }
 }

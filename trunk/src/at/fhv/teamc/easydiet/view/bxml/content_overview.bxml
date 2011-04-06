@@ -4,5 +4,5 @@
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:easyDiet="at.fhv.teamc.easydiet.view"
     xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
-    <TextArea text="@text_area.txt" styles="{font:'Arial 14 bold'}" editable="false"/>
+    
 </easyDiet:ContentOverviewScrollPane>
