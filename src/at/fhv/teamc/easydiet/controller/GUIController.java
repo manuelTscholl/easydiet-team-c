@@ -35,10 +35,11 @@ public class GUIController implements PatientListener {
     private BusinessLogicController _businessLogicController;
 
     /**
-     * Add a window to the controller and get the ressources
-     * @param eadw
+     * Constructor
+     * @param eadw Window with all gui ressources
      */
-    public void addWindow(EasyDietWindow eadw) {
+    public GUIController(EasyDietWindow eadw) {
+        
         _easyDietWindow = eadw;
         _guiNamespaces = _easyDietWindow.getRessources();
 
@@ -86,5 +87,9 @@ public class GUIController implements PatientListener {
      */
     public void updatePatientData(Patient p){
         _contentTab.updatePatientData(p);
+
+        // update patient name window bar
+        String title = _easyDietWindow.getTitle();
+        _easyDietWindow.setTitle(title + " Patient: " + p.getForename() + " " + p.getLastname().toUpperCase());
     }
 }

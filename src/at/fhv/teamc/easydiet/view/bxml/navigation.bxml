@@ -71,7 +71,7 @@
                 <TablePane.Column width="-1"/>
             </columns>
             <TablePane.Row height="-1">
-                <Accordion preferredHeight="660" styles="{backgroundColor:'#CCE8FC', buttonBackgroundColor:'#DFF1FD'}"
+                <Accordion styles="{backgroundColor:'#CCE8FC', buttonBackgroundColor:'#DFF1FD'}"
                         xmlns:bxml="http://pivot.apache.org/bxml"
                         xmlns="org.apache.pivot.wtk">
                     <Label Accordion.headerData="Stammdaten" text="Hello"/>
@@ -132,7 +132,7 @@
         <TabPane.tabData>
             <content:ButtonData icon="@pencil.png" text="Bearbeiten"/>
         </TabPane.tabData>
-        <BoxPane bxml:id="editBoxPane" height="200"
+        <BoxPane bxml:id="editBoxPane"
                     styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
                     xmlns:bxml="http://pivot.apache.org/bxml"
                     xmlns="org.apache.pivot.wtk">

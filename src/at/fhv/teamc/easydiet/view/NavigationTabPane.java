@@ -31,7 +31,7 @@ import org.apache.pivot.wtk.content.ButtonData;
  * Represents the application's navigation tabpane (navigation.bxml)
  * @author Michael
  */
-public class NavigationTabPane extends TabPane implements Bindable, Resizable {
+public class NavigationTabPane extends TabPane implements Bindable {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(NavigationTabPane.class);
@@ -69,9 +69,6 @@ public class NavigationTabPane extends TabPane implements Bindable, Resizable {
         _editBoxPane = (BoxPane) map.get("editBoxPane");
         _searchResultTablePane = (TablePane) map.get("searchResultTablePane");
         _searchResultScrollPane = (ScrollPane) map.get("searchResultScrollPane");
-
-        // register for resize
-        MainWindow.registerResizableComponent(this);
     }
 
     /**
@@ -139,15 +136,6 @@ public class NavigationTabPane extends TabPane implements Bindable, Resizable {
             tro.add(innerTp);
             _searchResultTablePane.getRows().add(tro);
         }
-    }
-
-    /**
-     * Resize navigation.xml
-     * @param height
-     * @param width
-     */
-    public void resize(int height, int width) {
-        _searchResultScrollPane.setPreferredHeight(height - 85);
     }
 
     /**

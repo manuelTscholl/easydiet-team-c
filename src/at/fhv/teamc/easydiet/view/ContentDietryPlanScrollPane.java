@@ -19,7 +19,7 @@ import org.apache.pivot.wtk.TablePane;
  * Represents the application's content dietry plan tab (content_dietryPlan.bxml)
  * @author Michael
  */
-public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable, Resizable, PatientDataListener {
+public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable, PatientDataListener {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentDietryPlanScrollPane.class);
@@ -31,9 +31,6 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
      * @param rsrcs
      */
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
-
-        // register window in main window
-        MainWindow.registerResizableComponent(this);
 
         // EXAMPLE
         //example();
@@ -82,15 +79,6 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
      * Add a new dietry day
      */
     public void addDay() {
-    }
-
-    /**
-     * Resize content_dietaryPlan.xml
-     * @param height
-     * @param width
-     */
-    public void resize(int height, int width) {
-        setPreferredHeight(height - 70);
     }
 
     /**

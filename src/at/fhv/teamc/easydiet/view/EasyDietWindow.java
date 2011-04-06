@@ -17,7 +17,7 @@ import org.apache.pivot.wtk.Window;
  * Represents the application's main entry point into the UI (main.xml)
  * @author Michael
  */
-public class EasyDietWindow extends Window implements Bindable, Resizable {
+public class EasyDietWindow extends Window implements Bindable {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(EasyDietWindow.class);
@@ -35,9 +35,6 @@ public class EasyDietWindow extends Window implements Bindable, Resizable {
     public void initialize(Map<String, Object> map, URL url, Resources rsrcs) {
         _namespace = map;
 
-        // register window in main window
-        MainWindow.registerResizableComponent(this);
-
         // get GUI elements
         _content = (TablePane) map.get("mainContentTablePane");
         _menuBarColumn = (TablePane.Column)map.get("mainTableColumn");
@@ -49,19 +46,5 @@ public class EasyDietWindow extends Window implements Bindable, Resizable {
      */
     public Map<String, Object> getRessources() {
         return _namespace;
-    }
-
-    /**
-     * Resize main.xml
-     * @param height
-     * @param width
-     */
-    public void resize(int height, int width) {
-
-        // resize content
-        _content.getRows().get(0).setHeight(height - 35);
-
-        // resize menu bar
-        _menuBarColumn.setWidth(width);
     }
 }
