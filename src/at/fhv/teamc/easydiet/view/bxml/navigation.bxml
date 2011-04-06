@@ -4,7 +4,7 @@
     xmlns:content="org.apache.pivot.wtk.content"
     xmlns:easyDiet="at.fhv.teamc.easydiet.view"
     xmlns="org.apache.pivot.wtk" styles="{tabOrientation:'vertical', activeTabColor:'#CCE8FC',
-    inactiveTabColor:'#DFF1FD', padding:'{top:20}', buttonSpacing:'0'}"
+    inactiveTabColor:'#DFF1FD', padding:'{top:10}', buttonSpacing:'0'}"
     collapsible="true">
 
     <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'top'}">
@@ -38,6 +38,10 @@
 
             <!-- Search Result -->
             <TablePane.Row>
+                <ScrollPane xmlns:bxml="http://pivot.apache.org/bxml"
+                    xmlns:explorer="org.apache.pivot.tutorials.explorer"
+                    xmlns="org.apache.pivot.wtk" bxml:id="searchResultScrollPane" horizontalScrollBarPolicy="never"
+                    verticalScrollBarPolicy="auto" styles="{backgroundColor:'#CCE8FC'}">
                     <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
                     horizontalSpacing:1, showVerticalGridLines:false, padding:'{top:10}'}"
                     xmlns:bxml="http://pivot.apache.org/bxml"
@@ -46,6 +50,7 @@
                             <TablePane.Column width="-1"/>
                         </columns>
                     </TablePane>
+                </ScrollPane>
             </TablePane.Row>
         </TablePane>
         <!-- End Search Content -->
