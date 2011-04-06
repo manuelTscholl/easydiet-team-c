@@ -10,13 +10,13 @@ public class DietTreatmentSystemUser  implements java.io.Serializable {
 
 
      private int dietTreatmentSystemUserId;
-     private SystemUser systemUser;
+     private SystemUserBo systemUser;
      private SystemUserFunction function;
 
     public DietTreatmentSystemUser() {
     }
 
-    public DietTreatmentSystemUser(SystemUser systemUser, SystemUserFunction function) {
+    public DietTreatmentSystemUser(SystemUserBo systemUser, SystemUserFunction function) {
        this.systemUser = systemUser;
        this.function = function;
     }
@@ -28,11 +28,11 @@ public class DietTreatmentSystemUser  implements java.io.Serializable {
     public void setDietTreatmentSystemUserId(int dietTreatmentSystemUserId) {
         this.dietTreatmentSystemUserId = dietTreatmentSystemUserId;
     }
-    public SystemUser getSystemUser() {
+    public SystemUserBo getSystemUser() {
         return this.systemUser;
     }
     
-    public void setSystemUser(SystemUser systemUser) {
+    public void setSystemUser(SystemUserBo systemUser) {
         this.systemUser = systemUser;
     }
     public SystemUserFunction getFunction() {

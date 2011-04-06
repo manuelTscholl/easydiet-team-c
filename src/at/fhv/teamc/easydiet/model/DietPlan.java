@@ -17,20 +17,20 @@ public class DietPlan  implements java.io.Serializable {
      private Date createdOn;
      private PlanType planType;
      private Set dietParameters = new HashSet(0);
-     private SystemUser creator;
+     private SystemUserBo creator;
      private Set timeSpans = new HashSet(0);
 
     public DietPlan() {
     }
 
 	
-    public DietPlan(String name, Date createdOn, PlanType planType, SystemUser creator) {
+    public DietPlan(String name, Date createdOn, PlanType planType, SystemUserBo creator) {
         this.name = name;
         this.createdOn = createdOn;
         this.planType = planType;
         this.creator = creator;
     }
-    public DietPlan(String name, Date createdOn, PlanType planType, Set dietParameters, SystemUser creator, Set timeSpans) {
+    public DietPlan(String name, Date createdOn, PlanType planType, Set dietParameters, SystemUserBo creator, Set timeSpans) {
        this.name = name;
        this.createdOn = createdOn;
        this.planType = planType;
@@ -74,11 +74,11 @@ public class DietPlan  implements java.io.Serializable {
     public void setDietParameters(Set dietParameters) {
         this.dietParameters = dietParameters;
     }
-    public SystemUser getCreator() {
+    public SystemUserBo getCreator() {
         return this.creator;
     }
     
-    public void setCreator(SystemUser creator) {
+    public void setCreator(SystemUserBo creator) {
         this.creator = creator;
     }
     public Set getTimeSpans() {

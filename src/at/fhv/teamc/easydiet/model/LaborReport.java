@@ -16,18 +16,18 @@ public class LaborReport  implements java.io.Serializable {
      private long laborReportId;
      private Date date;
      private Clob notice;
-     private SystemUser creator;
+     private SystemUserBo creator;
      private Set dietParameters = new HashSet(0);
 
     public LaborReport() {
     }
 
 	
-    public LaborReport(Date date, SystemUser creator) {
+    public LaborReport(Date date, SystemUserBo creator) {
         this.date = date;
         this.creator = creator;
     }
-    public LaborReport(Date date, Clob notice, SystemUser creator, Set dietParameters) {
+    public LaborReport(Date date, Clob notice, SystemUserBo creator, Set dietParameters) {
        this.date = date;
        this.notice = notice;
        this.creator = creator;
@@ -55,11 +55,11 @@ public class LaborReport  implements java.io.Serializable {
     public void setNotice(Clob notice) {
         this.notice = notice;
     }
-    public SystemUser getCreator() {
+    public SystemUserBo getCreator() {
         return this.creator;
     }
     
-    public void setCreator(SystemUser creator) {
+    public void setCreator(SystemUserBo creator) {
         this.creator = creator;
     }
     public Set getDietParameters() {

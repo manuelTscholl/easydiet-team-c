@@ -23,19 +23,19 @@ public class PatientState  implements java.io.Serializable {
      private int compliance;
      private int motivation;
      private PatientStateType type;
-     private SystemUser creator;
+     private SystemUserBo creator;
      private Set laborReports = new HashSet(0);
 
     public PatientState() {
     }
 
 	
-    public PatientState(Date date, PatientStateType type, SystemUser creator) {
+    public PatientState(Date date, PatientStateType type, SystemUserBo creator) {
         this.date = date;
         this.type = type;
         this.creator = creator;
     }
-    public PatientState(Date date, Clob anamnesis, Integer weight, float weightPercentile, Integer height, float heightPercentile, int compliance, int motivation, PatientStateType type, SystemUser creator, Set laborReports) {
+    public PatientState(Date date, Clob anamnesis, Integer weight, float weightPercentile, Integer height, float heightPercentile, int compliance, int motivation, PatientStateType type, SystemUserBo creator, Set laborReports) {
        this.date = date;
        this.anamnesis = anamnesis;
        this.weight = weight;
@@ -119,11 +119,11 @@ public class PatientState  implements java.io.Serializable {
     public void setType(PatientStateType type) {
         this.type = type;
     }
-    public SystemUser getCreator() {
+    public SystemUserBo getCreator() {
         return this.creator;
     }
     
-    public void setCreator(SystemUser creator) {
+    public void setCreator(SystemUserBo creator) {
         this.creator = creator;
     }
     public Set getLaborReports() {

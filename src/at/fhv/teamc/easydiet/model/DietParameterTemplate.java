@@ -10,7 +10,7 @@ public class DietParameterTemplate  implements java.io.Serializable {
 
 
      private long dietParameterTemplateId;
-     private CheckOperator checkOperator;
+     private CheckOperatorBo checkOperator;
      private int duration;
      private String value;
      private DietParameterType dietParameterType;
@@ -20,12 +20,12 @@ public class DietParameterTemplate  implements java.io.Serializable {
     }
 
 	
-    public DietParameterTemplate(CheckOperator checkOperator, DietParameterType dietParameterType, ParameterDefinition parameterDefinition) {
+    public DietParameterTemplate(CheckOperatorBo checkOperator, DietParameterType dietParameterType, ParameterDefinition parameterDefinition) {
         this.checkOperator = checkOperator;
         this.dietParameterType = dietParameterType;
         this.parameterDefinition = parameterDefinition;
     }
-    public DietParameterTemplate(CheckOperator checkOperator, int duration, String value, DietParameterType dietParameterType, ParameterDefinition parameterDefinition) {
+    public DietParameterTemplate(CheckOperatorBo checkOperator, int duration, String value, DietParameterType dietParameterType, ParameterDefinition parameterDefinition) {
        this.checkOperator = checkOperator;
        this.duration = duration;
        this.value = value;
@@ -40,11 +40,11 @@ public class DietParameterTemplate  implements java.io.Serializable {
     public void setDietParameterTemplateId(long dietParameterTemplateId) {
         this.dietParameterTemplateId = dietParameterTemplateId;
     }
-    public CheckOperator getCheckOperator() {
+    public CheckOperatorBo getCheckOperator() {
         return this.checkOperator;
     }
     
-    public void setCheckOperator(CheckOperator checkOperator) {
+    public void setCheckOperator(CheckOperatorBo checkOperator) {
         this.checkOperator = checkOperator;
     }
     public int getDuration() {
