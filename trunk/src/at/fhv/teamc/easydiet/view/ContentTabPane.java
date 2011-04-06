@@ -11,7 +11,8 @@ import java.net.URL;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
-import org.apache.pivot.wtk.ScrollPane;
+import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.DesktopApplicationContext;
 import org.apache.pivot.wtk.TabPane;
 
 /**
@@ -44,6 +45,22 @@ public class ContentTabPane extends TabPane implements Bindable {
         _contactJournalScrollPane = (ContentContactJournalScrollPane)map.get("content_contactJournal");
         _anamnesisScrollPane = (ContentAnamnesisScrollPane)map.get("content_anamnesis");
         _dietryPlanScrollPane = (ContentDietryPlanScrollPane)map.get("content_dietryPlan");
+
+        // add listener for resizing
+        getComponentListeners().add(new ComponentListenerAdapter() {
+
+            @Override
+            public void sizeChanged(Component component, int previousWidth, int previousHeight) {
+                int height = component.getHeight() - 20;
+                _appointmentScrollPane.setPreferredHeight(height);
+                _overviewScrollPane.setPreferredHeight(height);
+                _contactJournalScrollPane.setPreferredHeight(height);
+                _anamnesisScrollPane.setPreferredHeight(height);
+                _dietryPlanScrollPane.setPreferredHeight(height);
+
+            }
+
+        });
     }
 
     /**
@@ -52,9 +69,6 @@ public class ContentTabPane extends TabPane implements Bindable {
      */
     public void updatePatientData(Patient p){
         LOGGER.debug("update patients received");
-
-        // update patient name window bar
-        MainWindow.setPatientName(p.getForename() + " " + p.getLastname().toUpperCase());
 
         // select overview tab
 

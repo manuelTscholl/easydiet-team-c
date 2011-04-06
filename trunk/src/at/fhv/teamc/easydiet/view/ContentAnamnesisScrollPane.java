@@ -17,7 +17,7 @@ import org.apache.pivot.wtk.ScrollPane;
  * Represents the application's content anamnesis tab (content_anamnesis.bxml)
  * @author Michael
  */
-public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable, Resizable, PatientDataListener {
+public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable, PatientDataListener {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentAnamnesisScrollPane.class);
@@ -30,17 +30,6 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable, 
      */
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
 
-        // register window in main window
-        MainWindow.registerResizableComponent(this);
-    }
-
-    /**
-     * Resize content_anamnesis.xml
-     * @param height
-     * @param width
-     */
-    public void resize(int height, int width) {
-        setPreferredHeight(height - 70);
     }
 
     /**

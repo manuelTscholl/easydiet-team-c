@@ -17,7 +17,7 @@ import org.apache.pivot.wtk.ScrollPane;
  * Represents the application's content contact journal tab (content_contactJournal.bxml)
  * @author Michael
  */
-public class ContentContactJournalScrollPane extends ScrollPane implements Bindable, Resizable, PatientDataListener {
+public class ContentContactJournalScrollPane extends ScrollPane implements Bindable, PatientDataListener {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentContactJournalScrollPane.class);
@@ -30,17 +30,6 @@ public class ContentContactJournalScrollPane extends ScrollPane implements Binda
      */
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
 
-        // register window in main window
-        MainWindow.registerResizableComponent(this);
-    }
-
-    /**
-     * Resize content_contactJournal.xml
-     * @param height
-     * @param width
-     */
-    public void resize(int height, int width) {
-        setPreferredHeight(height - 70);
     }
 
     /**

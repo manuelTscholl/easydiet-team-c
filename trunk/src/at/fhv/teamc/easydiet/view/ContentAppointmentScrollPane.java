@@ -17,7 +17,7 @@ import org.apache.pivot.wtk.ScrollPane;
  * Represents the application's content appointment tab (content_appointment.bxml)
  * @author Michael
  */
-public class ContentAppointmentScrollPane extends ScrollPane implements Bindable, Resizable, PatientDataListener {
+public class ContentAppointmentScrollPane extends ScrollPane implements Bindable, PatientDataListener {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentAppointmentScrollPane.class);
@@ -29,18 +29,6 @@ public class ContentAppointmentScrollPane extends ScrollPane implements Bindable
      * @param rsrcs
      */
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
-
-        // register window in main window
-        MainWindow.registerResizableComponent(this);
-    }
-
-    /**
-     * Resize content_appointment.xml
-     * @param height
-     * @param width
-     */
-    public void resize(int height, int width) {
-        setPreferredHeight(height - 70);
     }
 
     /**

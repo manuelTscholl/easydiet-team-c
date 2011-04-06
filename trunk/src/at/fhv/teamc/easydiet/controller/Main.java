@@ -6,8 +6,9 @@
  */
 package at.fhv.teamc.easydiet.controller;
 
-import at.fhv.teamc.easydiet.view.MainWindow;
+import at.fhv.teamc.easydiet.view.EasyDiet;
 import org.apache.log4j.xml.DOMConfigurator;
+import org.apache.pivot.wtk.DesktopApplicationContext;
 
 /**
  * Main entry point of the application
@@ -25,9 +26,9 @@ public class Main {
     public static void main(String[] args) {
 
         // init log4j
-        DOMConfigurator.configure(MainWindow.class.getResource("../easyDietGlobalLog.xml"));
+        DOMConfigurator.configure(Main.class.getResource("../easyDietGlobalLog.xml"));
 
-        GUIController guic = new GUIController();
-        MainWindow.init(guic);
+        // init gui
+        DesktopApplicationContext.main(EasyDiet.class, args);
     }
 }

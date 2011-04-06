@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<easyDiet:EasyDietWindow title="Pivot Window" maximized="true"
+<easyDiet:EasyDietWindow title="EasyDiet" maximized="true"
+bxml:id="easyDietWindow"
 xmlns:bxml="http://pivot.apache.org/bxml" 
 xmlns:easyDiet="at.fhv.teamc.easydiet.view"
-xmlns="org.apache.pivot.wtk">
-
+xmlns="org.apache.pivot.wtk" icon="@wien_wappen.png">
+    
 <!-- Main structure -->
     <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:true,
     horizontalSpacing:1, showVerticalGridLines:false, backgroundColor:'#EBEDEF'}"
@@ -15,12 +16,12 @@ xmlns="org.apache.pivot.wtk">
         </columns>
 
     <!-- Menubar -->
-        <TablePane.Row height="-1" bxml:id="menuBarTableRow">
+        <TablePane.Row bxml:id="menuBarTableRow">
             <bxml:include bxml:id="menuBar" src="menu.bxml"/>
         </TablePane.Row>
 
     <!-- Content -->
-        <TablePane.Row height="-1">
+        <TablePane.Row bxml:id="mainTableRow">
 
             <!-- Content Table -->
             <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
