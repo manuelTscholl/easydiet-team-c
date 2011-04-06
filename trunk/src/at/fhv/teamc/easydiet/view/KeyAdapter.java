@@ -15,7 +15,7 @@ import org.apache.pivot.wtk.Keyboard.KeyLocation;
  * Adapter for Pivot KeyListener
  * @author Michael
  */
-public class KeyAdapter implements ComponentKeyListener {
+public abstract class KeyAdapter implements ComponentKeyListener {
 
     public boolean keyTyped(Component component, char character) {
         return true;

@@ -50,7 +50,7 @@ public class MainWindow extends ApplicationContext {
         sINITALIZED = false;
         sWINDOW_HEIGHT = 768;
         sWINDOW_WIDTH = 1024;
-        sICON = "ico.png";
+        sICON = "wien_wappen.png";
         sRESIZABLES = new ArrayList<Resizable>();
 
         // Start the callback timer, necessary for pivot

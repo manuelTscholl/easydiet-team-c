@@ -5,6 +5,12 @@
     xmlns:easyDiet="at.fhv.teamc.easydiet.view"
     xmlns="org.apache.pivot.wtk" styles="{activeTabColor:'#CCE8FC', inactiveTabColor:'#DFF1FD'}">
 
+    <corner>
+        <BoxPane bxml:id="cornerBoxPane" styles="{horizontalAlignment:'right'}">
+            <ImageView image="@akh.gif" preferredHeight="20"/>
+        </BoxPane>
+    </corner>
+
 <!-- Appointment Tab -->
     <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>

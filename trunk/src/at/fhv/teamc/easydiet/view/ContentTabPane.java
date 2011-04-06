@@ -6,6 +6,7 @@
  */
 package at.fhv.teamc.easydiet.view;
 
+import at.easydiet.model.Patient;
 import java.net.URL;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
@@ -28,5 +29,17 @@ public class ContentTabPane extends TabPane implements Bindable {
      * @param rsrcs
      */
     public void initialize(Map<String, Object> map, URL url, Resources rsrcs) {
+    }
+
+    /**
+     * Update patient data in tabs
+     * @param p
+     */
+    public void updatePatientData(Patient p){
+        LOGGER.debug("update patients received");
+
+        // select overview tab
+
+        // set data
     }
 }

@@ -12,6 +12,7 @@ import at.fhv.teamc.easydiet.view.EasyDietMenuBar;
 import at.fhv.teamc.easydiet.view.EasyDietWindow;
 import at.fhv.teamc.easydiet.view.KeyAdapter;
 import at.fhv.teamc.easydiet.view.NavigationTabPane;
+import at.fhv.teamc.easydiet.view.PatientListener;
 import java.util.Set;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.wtk.Component;
@@ -21,7 +22,7 @@ import org.apache.pivot.wtk.TextInput;
  * Controls and knows all GUI elements
  * @author Michael
  */
-public class GUIController {
+public class GUIController implements PatientListener {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(GUIController.class);
@@ -48,6 +49,9 @@ public class GUIController {
         _menuBar = (EasyDietMenuBar) _guiNamespaces.get("menuBar");
         _contentTab = (ContentTabPane) _guiNamespaces.get("contentTab");
 
+        // register for patient events
+        _navTab.registerListener(this);
+
         // add key event for search textinput field
         _navTab.getSearchTextInput().getComponentKeyListeners().add(new KeyAdapter() {
 
@@ -66,5 +70,21 @@ public class GUIController {
      */
     public void updateSearchResult(Set<Patient> patients) {
         _navTab.updateSearchResult(patients);
+    }
+
+    /**
+     * Set a new active patient
+     * @param p
+     */
+    public void chooseActivePatient(Patient p) {
+        _businessLogicController.chooseActivePatient(p);
+    }
+
+    /**
+     * Update patient data in content tabs
+     * @param p
+     */
+    public void updatePatientData(Patient p){
+        _contentTab.updatePatientData(p);
     }
 }
