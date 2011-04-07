@@ -7,6 +7,7 @@
 package at.fhv.teamc.easydiet.controller;
 
 import at.easydiet.model.Patient;
+import at.fhv.teamc.easydiet.model.PatientBo;
 import at.fhv.teamc.easydiet.view.ContentTabPane;
 import at.fhv.teamc.easydiet.view.EasyDietMenuBar;
 import at.fhv.teamc.easydiet.view.EasyDietWindow;
@@ -77,7 +78,7 @@ public class GUIController implements PatientListener {
      * Set a new active patient
      * @param p
      */
-    public void chooseActivePatient(Patient p) {
+    public void chooseActivePatient(PatientBo p) {
         _businessLogicController.chooseActivePatient(p);
     }
 
@@ -85,7 +86,7 @@ public class GUIController implements PatientListener {
      * Update patient data in content tabs
      * @param p
      */
-    public void updatePatientData(Patient p){
+    public void updatePatientData(PatientBo p){
         _contentTab.updatePatientData(p);
 
         // update patient name window bar

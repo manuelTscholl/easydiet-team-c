@@ -6,13 +6,13 @@
  */
 package at.fhv.teamc.easydiet.view;
 
-import at.easydiet.model.Patient;
+import at.fhv.teamc.easydiet.model.PatientBo;
 import java.net.URL;
+import java.util.ArrayList;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Component;
-import org.apache.pivot.wtk.DesktopApplicationContext;
 import org.apache.pivot.wtk.TabPane;
 
 /**
@@ -30,6 +30,11 @@ public class ContentTabPane extends TabPane implements Bindable {
     private ContentContactJournalScrollPane _contactJournalScrollPane;
     private ContentAnamnesisScrollPane _anamnesisScrollPane;
     private ContentDietryPlanScrollPane _dietryPlanScrollPane;
+    private ArrayList<PatientDataListener> _patientDataListeners;
+
+    {
+        _patientDataListeners = new ArrayList<PatientDataListener>();
+    }
 
     /**
      * First called after creating the GUI
@@ -41,10 +46,15 @@ public class ContentTabPane extends TabPane implements Bindable {
 
         // get tab content
         _appointmentScrollPane = (ContentAppointmentScrollPane)map.get("content_appointment");
+        _patientDataListeners.add(_appointmentScrollPane);
         _overviewScrollPane = (ContentOverviewScrollPane)map.get("content_overview");
+        _patientDataListeners.add(_overviewScrollPane);
         _contactJournalScrollPane = (ContentContactJournalScrollPane)map.get("content_contactJournal");
+        _patientDataListeners.add(_contactJournalScrollPane);
         _anamnesisScrollPane = (ContentAnamnesisScrollPane)map.get("content_anamnesis");
+        _patientDataListeners.add(_anamnesisScrollPane);
         _dietryPlanScrollPane = (ContentDietryPlanScrollPane)map.get("content_dietryPlan");
+        _patientDataListeners.add(_dietryPlanScrollPane);
 
         // add listener for resizing
         getComponentListeners().add(new ComponentListenerAdapter() {
@@ -67,12 +77,14 @@ public class ContentTabPane extends TabPane implements Bindable {
      * Update patient data in tabs
      * @param p
      */
-    public void updatePatientData(Patient p){
-        LOGGER.debug("update patients received");
-
+    public void updatePatientData(PatientBo p){
+        
         // select overview tab
+        setSelectedIndex(1);
 
-        // set data
-        _overviewScrollPane.updatePatientData(p);
+        // update patient data in tabs
+        for(PatientDataListener pdl:_patientDataListeners){
+           pdl.updatePatientData(p);
+        }
     }
 }

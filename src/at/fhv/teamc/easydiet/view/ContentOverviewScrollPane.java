@@ -6,7 +6,7 @@
  */
 package at.fhv.teamc.easydiet.view;
 
-import at.easydiet.model.Patient;
+import at.fhv.teamc.easydiet.model.PatientBo;
 import java.net.URL;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
@@ -36,7 +36,7 @@ public class ContentOverviewScrollPane extends ScrollPane implements Bindable, P
      * Update patient data
      * @param p
      */
-    public void updatePatientData(Patient p) {
+    public void updatePatientData(PatientBo p) {
         LOGGER.trace("not implemented");
     }
 }
