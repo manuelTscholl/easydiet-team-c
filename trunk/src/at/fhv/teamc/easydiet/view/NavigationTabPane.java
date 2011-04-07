@@ -6,7 +6,7 @@
  */
 package at.fhv.teamc.easydiet.view;
 
-import at.easydiet.model.Patient;
+import at.fhv.teamc.easydiet.model.PatientBo;
 import java.awt.Font;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -83,9 +83,9 @@ public class NavigationTabPane extends TabPane implements Bindable {
      * Update search results with received set
      * @param patients
      */
-    public void updateSearchResult(Set<Patient> patients) {
+    public void updateSearchResult(Set<PatientBo> patients) {
 
-        for (Patient p : patients) {
+        for (PatientBo p : patients) {
             TablePane.Row tro = new TablePane.Row();
 
             // create new inner table
@@ -100,7 +100,7 @@ public class NavigationTabPane extends TabPane implements Bindable {
             nameLabel.getStyles().put("font", new Font("Verdana", Font.BOLD, 11));
             ButtonData nameButtonData = new ButtonData(p.getForename() + " " + p.getLastname().toUpperCase());
             LinkButton nameButton = new LinkButton(nameButtonData);
-            final Patient patient = p;
+            final PatientBo patient = p;
             nameButton.getButtonPressListeners().add(new ButtonPressListener() {
 
                 public void buttonPressed(Button button) {
@@ -154,7 +154,7 @@ public class NavigationTabPane extends TabPane implements Bindable {
      * Notify patient listeners, a patient is selected as active
      * @param p Patient which wants to be active
      */
-    private void notifyPatientListeners(Patient p){
+    private void notifyPatientListeners(PatientBo p){
         for(PatientListener pl:_patientListeners){
             pl.chooseActivePatient(p);
         }

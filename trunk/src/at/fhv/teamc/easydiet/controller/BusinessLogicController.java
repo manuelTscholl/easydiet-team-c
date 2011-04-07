@@ -6,7 +6,7 @@
  */
 package at.fhv.teamc.easydiet.controller;
 
-import at.easydiet.model.Patient;
+import at.fhv.teamc.easydiet.model.PatientBo;
 
 /**
  * Controller for business logic
@@ -29,7 +29,7 @@ public class BusinessLogicController {
      * Search patient in database
      * @param search string
      */
-    public void chooseActivePatient(Patient p) {
+    public void chooseActivePatient(PatientBo p) {
         LOGGER.trace("Patient: " + p.getInsuranceNumber());
     }
 }
