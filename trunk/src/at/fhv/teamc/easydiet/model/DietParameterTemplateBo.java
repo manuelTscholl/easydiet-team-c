@@ -12,75 +12,70 @@ import at.easydiet.model.DietParameterTemplate;
 public class DietParameterTemplateBo  implements java.io.Serializable {
 
     private DietParameterTemplate _dietParameterTemplate;
-     private long dietParameterTemplateId;
      private CheckOperatorBo _checkOperatorBo;
-     private int duration;
-     private String value;
-     private DietParameterType dietParameterType;
-     private ParameterDefinition parameterDefinition;
+     private DietParameterTypeBo _dietParameterTypeBo;
+     private ParameterDefinitionBo _parameterDefinitionBo;
 
     public DietParameterTemplateBo() {
     }
 
     public DietParameterTemplateBo(DietParameterTemplate dietParameterTemplate){
-        setDietParameterTemplate(dietParameterTemplate);
+        this._dietParameterTemplate=dietParameterTemplate;
     }
 
 	
-    public DietParameterTemplateBo(CheckOperatorBo checkOperatorBo, DietParameterType dietParameterType, ParameterDefinition parameterDefinition) {
-        setCheckOperator(checkOperatorBo);
-        this.dietParameterType = dietParameterType;
-        this.parameterDefinition = parameterDefinition;
+    public DietParameterTemplateBo(CheckOperatorBo checkOperatorBo, DietParameterTypeBo dietParameterType, ParameterDefinitionBo parameterDefinition) {
+        this._checkOperatorBo=checkOperatorBo;
+        this._dietParameterTypeBo = dietParameterType;
+        this._parameterDefinitionBo = parameterDefinition;
     }
-    public DietParameterTemplateBo(CheckOperatorBo checkOperator, int duration, String value, DietParameterType dietParameterType, ParameterDefinition parameterDefinition) {
-       this._checkOperatorBo = checkOperator;
-       this.duration = duration;
-       this.value = value;
-       this.dietParameterType = dietParameterType;
-       this.parameterDefinition = parameterDefinition;
+    public DietParameterTemplateBo(CheckOperatorBo checkOperator, int duration, String value, DietParameterTypeBo dietParameterType, ParameterDefinitionBo parameterDefinition) {
+       this(checkOperator, dietParameterType, parameterDefinition);
+       _dietParameterTemplate.setDuration(duration);
+       _dietParameterTemplate.setValue(value);
     }
    
     public long getDietParameterTemplateId() {
-        return this.dietParameterTemplateId;
+        return _dietParameterTemplate.getDietParameterTemplateId();
     }
     
     public void setDietParameterTemplateId(long dietParameterTemplateId) {
-        this.dietParameterTemplateId = dietParameterTemplateId;
+        this._dietParameterTemplate.setDietParameterTemplateId(dietParameterTemplateId);
     }
     public CheckOperatorBo getCheckOperatorBo() {
         return this._checkOperatorBo;
     }
     
-    public void setCheckOperator(CheckOperatorBo checkOperator) {
+    public void setCheckOperatorBo(CheckOperatorBo checkOperator) {
         this._checkOperatorBo = checkOperator;
     }
     public int getDuration() {
-        return this.duration;
+        return _dietParameterTemplate.getDuration();
     }
     
     public void setDuration(int duration) {
-        this.duration = duration;
+        this._dietParameterTemplate.setDuration(duration);
     }
     public String getValue() {
-        return this.value;
+        return _dietParameterTemplate.getValue();
     }
     
     public void setValue(String value) {
-        this.value = value;
+        this._dietParameterTemplate.setValue(value);
     }
-    public DietParameterType getDietParameterType() {
-        return this.dietParameterType;
-    }
-    
-    public void setDietParameterType(DietParameterType dietParameterType) {
-        this.dietParameterType = dietParameterType;
-    }
-    public ParameterDefinition getParameterDefinition() {
-        return this.parameterDefinition;
+    public DietParameterTypeBo getDietParameterType() {
+        return this._dietParameterTypeBo;
     }
     
-    public void setParameterDefinition(ParameterDefinition parameterDefinition) {
-        this.parameterDefinition = parameterDefinition;
+    public void setDietParameterType(DietParameterTypeBo dietParameterType) {
+        this._dietParameterTypeBo = dietParameterType;
+    }
+    public ParameterDefinitionBo getParameterDefinition() {
+        return this._parameterDefinitionBo;
+    }
+    
+    public void setParameterDefinition(ParameterDefinitionBo parameterDefinition) {
+        this._parameterDefinitionBo = parameterDefinition;
     }
 
     /**

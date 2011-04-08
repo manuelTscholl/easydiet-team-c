@@ -11,12 +11,12 @@ public class NutrimentParameter  implements java.io.Serializable {
 
      private long nutrimentParameterId;
      private String value;
-     private ParameterDefinition parameterDefinition;
+     private ParameterDefinitionBo parameterDefinition;
 
     public NutrimentParameter() {
     }
 
-    public NutrimentParameter(String value, ParameterDefinition parameterDefinition) {
+    public NutrimentParameter(String value, ParameterDefinitionBo parameterDefinition) {
        this.value = value;
        this.parameterDefinition = parameterDefinition;
     }
@@ -35,11 +35,11 @@ public class NutrimentParameter  implements java.io.Serializable {
     public void setValue(String value) {
         this.value = value;
     }
-    public ParameterDefinition getParameterDefinition() {
+    public ParameterDefinitionBo getParameterDefinition() {
         return this.parameterDefinition;
     }
     
-    public void setParameterDefinition(ParameterDefinition parameterDefinition) {
+    public void setParameterDefinition(ParameterDefinitionBo parameterDefinition) {
         this.parameterDefinition = parameterDefinition;
     }
 

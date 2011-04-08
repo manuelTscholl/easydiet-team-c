@@ -20,7 +20,7 @@ public class ContactJournalBo  implements java.io.Serializable {
     }
 
     public ContactJournalBo(ContactJournal contactjournal){
-        setContactjournal(contactjournal);
+        this._contactjournal=contactjournal;
     }
 
 	

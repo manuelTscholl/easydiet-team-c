@@ -14,7 +14,7 @@ public class CheckOperatorBo  implements java.io.Serializable {
     }
 
     public CheckOperatorBo(CheckOperator checkoperator) {
-        setCheckOperator(checkoperator);
+        this._checkoperator=checkoperator;
     }
 
     public CheckOperatorBo(CheckOperator checkoperator, String name) {
@@ -23,7 +23,7 @@ public class CheckOperatorBo  implements java.io.Serializable {
     }
 
     public void setCheckOperator(CheckOperator checkOperator){
-        _checkoperator=checkOperator;
+        this._checkoperator=checkOperator;
     }
    
     public String getName() {

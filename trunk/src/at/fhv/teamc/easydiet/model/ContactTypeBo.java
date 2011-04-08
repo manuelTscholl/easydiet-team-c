@@ -18,7 +18,7 @@ public class ContactTypeBo  implements java.io.Serializable {
     }
 
     public ContactTypeBo(ContactType contactType){
-        setContactType(contactType);
+        this._contactType=contactType;
     }
 
     public ContactTypeBo(String name, ContactType contactType) {
