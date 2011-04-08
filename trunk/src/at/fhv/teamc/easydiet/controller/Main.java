@@ -26,7 +26,7 @@ public class Main {
     public static void main(String[] args) {
 
         // init log4j
-        DOMConfigurator.configure(Main.class.getResource("../easyDietGlobalLog.xml"));
+        DOMConfigurator.configure(Main.class.getResource("easyDietGlobalLog.xml"));
 
         // init gui
         DesktopApplicationContext.main(EasyDiet.class, args);
