@@ -6,7 +6,6 @@
  */
 package at.fhv.teamc.easydiet.controller;
 
-import at.easydiet.model.Patient;
 import at.fhv.teamc.easydiet.model.PatientBo;
 import at.fhv.teamc.easydiet.view.ContentTabPane;
 import at.fhv.teamc.easydiet.view.EasyDietMenuBar;
@@ -70,7 +69,7 @@ public class GUIController implements PatientListener {
      * Update search results in navigation search tab with received set
      * @param patients
      */
-    public void updateSearchResult(Set<Patient> patients) {
+    public void updateSearchResult(Set<PatientBo> patients) {
         _navTab.updateSearchResult(patients);
     }
 
