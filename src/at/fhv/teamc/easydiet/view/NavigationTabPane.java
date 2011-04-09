@@ -16,6 +16,7 @@ import org.apache.pivot.beans.BXML;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.ActivityIndicator;
 import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
@@ -48,6 +49,8 @@ public class NavigationTabPane extends TabPane implements Bindable {
     private TablePane _searchResultTablePane;
     @BXML
     private ScrollPane _searchResultScrollPane;
+    @BXML
+    private ActivityIndicator _searchActivityIndicator;
     private ArrayList<PatientListener> _patientListeners;
 
     {
@@ -69,6 +72,7 @@ public class NavigationTabPane extends TabPane implements Bindable {
         _editBoxPane = (BoxPane) map.get("editBoxPane");
         _searchResultTablePane = (TablePane) map.get("searchResultTablePane");
         _searchResultScrollPane = (ScrollPane) map.get("searchResultScrollPane");
+        _searchActivityIndicator=(ActivityIndicator)map.get("searchActivityIndicator");
     }
 
     /**

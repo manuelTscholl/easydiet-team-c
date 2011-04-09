@@ -13,9 +13,15 @@ import at.fhv.teamc.easydiet.view.EasyDietWindow;
 import at.fhv.teamc.easydiet.view.KeyAdapter;
 import at.fhv.teamc.easydiet.view.NavigationTabPane;
 import at.fhv.teamc.easydiet.view.PatientListener;
+
+import java.awt.event.KeyEvent;
 import java.util.Set;
 import org.apache.pivot.collections.Map;
+import org.apache.pivot.wtk.ActivityIndicator;
 import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.Container;
+import org.apache.pivot.wtk.Keyboard.KeyCode;
+import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtk.TextInput;
 
 /**
@@ -59,7 +65,19 @@ public class GUIController implements PatientListener {
             @Override
             public boolean keyTyped(Component component, char character) {
                 _businessLogicController.searchPatient(((TextInput) component).getText());
-                return true;
+               return true;
+            }
+            @Override
+            public boolean keyPressed(Component component, int keyCode,
+            		KeyLocation keyLocation) {
+            	// TODO Auto-generated method stub
+            	if(keyCode==KeyEvent.VK_ENTER){
+            		//set search activity indicator            
+            		ActivityIndicator ai=(ActivityIndicator)_guiNamespaces.get("test");
+            		
+            		
+            	}
+            	return true;
             }
         });
 
