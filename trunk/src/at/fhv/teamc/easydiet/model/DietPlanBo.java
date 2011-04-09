@@ -2,6 +2,7 @@ package at.fhv.teamc.easydiet.model;
 // Generated 02.04.2011 00:41:04 by Hibernate Tools 3.4.0.CR1
 
 
+import at.easydiet.model.DietPlan;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,81 +13,84 @@ import java.util.Set;
 public class DietPlanBo  implements java.io.Serializable {
 
 
-     private long dietPlanId;
-     private String name;
-     private Date createdOn;
-     private PlanTypeBo planType;
-     private Set dietParameters = new HashSet(0);
-     private SystemUserBo creator;
-     private Set timeSpans = new HashSet(0);
+    
+    private PlanTypeBo _planType;
+    private SystemUserBo _creator;
+     
+    private DietPlan _DietPlan;
 
     public DietPlanBo() {
     }
 
-	
-    public DietPlanBo(String name, Date createdOn, PlanTypeBo planType, SystemUserBo creator) {
-        this.name = name;
-        this.createdOn = createdOn;
-        this.planType = planType;
-        this.creator = creator;
+    public DietPlanBo(DietPlan dietPlan){
+        this._DietPlan=dietPlan;
     }
-    public DietPlanBo(String name, Date createdOn, PlanTypeBo planType, Set dietParameters, SystemUserBo creator, Set timeSpans) {
-       this.name = name;
-       this.createdOn = createdOn;
-       this.planType = planType;
-       this.dietParameters = dietParameters;
-       this.creator = creator;
-       this.timeSpans = timeSpans;
+
+	
+    public DietPlanBo(DietPlan dietPlan, String name, Date createdOn, PlanTypeBo planTypeBo, SystemUserBo creatorBo) {
+        this(dietPlan);
+        this._planType = planTypeBo;
+        this._creator = creatorBo;
+        this._DietPlan.setName(name);
+        this._DietPlan.setCreatedOn(createdOn);
+
+        this._DietPlan.setPlanType(planTypeBo.getPlanType());
+        this._DietPlan.setCreator(creatorBo.getSystemUser());
+    }
+    public DietPlanBo(DietPlan dietPlan, String name, Date createdOn, PlanTypeBo planType, Set dietParameters, SystemUserBo creator, Set timeSpans) {
+       this(dietPlan, name, createdOn, planType, creator);
+       this._DietPlan.setDietParameters(dietParameters);
+       this._DietPlan.setTimeSpans(timeSpans);
     }
    
     public long getDietPlanId() {
-        return this.dietPlanId;
+        return this._DietPlan.getDietPlanId();
     }
     
     public void setDietPlanId(long dietPlanId) {
-        this.dietPlanId = dietPlanId;
+        this._DietPlan.setDietPlanId(dietPlanId);
     }
     public String getName() {
-        return this.name;
+        return this._DietPlan.getName();
     }
     
     public void setName(String name) {
-        this.name = name;
+        this._DietPlan.setName(name);
     }
     public Date getCreatedOn() {
-        return this.createdOn;
+        return this._DietPlan.getCreatedOn();
     }
     
     public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
+        this._DietPlan.setCreatedOn(createdOn);
     }
     public PlanTypeBo getPlanType() {
-        return this.planType;
+        return this._planType;
     }
     
     public void setPlanType(PlanTypeBo planType) {
-        this.planType = planType;
+        this._planType = planType;
     }
     public Set getDietParameters() {
-        return this.dietParameters;
+        return this._DietPlan.getDietParameters();
     }
     
     public void setDietParameters(Set dietParameters) {
-        this.dietParameters = dietParameters;
+        this._DietPlan.setDietParameters(dietParameters);
     }
     public SystemUserBo getCreator() {
-        return this.creator;
+        return this._creator;
     }
     
     public void setCreator(SystemUserBo creator) {
-        this.creator = creator;
+        this._creator = creator;
     }
     public Set getTimeSpans() {
-        return this.timeSpans;
+        return this._DietPlan.getTimeSpans();
     }
     
     public void setTimeSpans(Set timeSpans) {
-        this.timeSpans = timeSpans;
+        this._DietPlan.setTimeSpans(timeSpans);
     }
 
 

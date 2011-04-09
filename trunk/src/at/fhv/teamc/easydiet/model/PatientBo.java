@@ -28,7 +28,7 @@ public class PatientBo  implements java.io.Serializable {
      private String[] illnesses;
      private String regime;
      private Clob notice;
-     private Gender gender;
+     private GenderBo gender;
      private Set familyanamnesis = new HashSet(0);
      private Set patientstate = new HashSet(0);
      private Set laborReports = new HashSet(0);
@@ -39,7 +39,7 @@ public class PatientBo  implements java.io.Serializable {
     }
 
 	
-    public PatientBo(String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, Gender gender) {
+    public PatientBo(String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, GenderBo gender) {
         this.insuranceNumber = insuranceNumber;
         this.forename = forename;
         this.lastname = lastname;
@@ -51,7 +51,7 @@ public class PatientBo  implements java.io.Serializable {
         this.birthday = birthday;
         this.gender = gender;
     }
-    public PatientBo(String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, String job, String religion, String[] illnesses, String regime, Clob notice, Gender gender, Set familyanamnesis, Set patientstate, Set laborReports, Set treatments, Set disfavors) {
+    public PatientBo(String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, String job, String religion, String[] illnesses, String regime, Clob notice, GenderBo gender, Set familyanamnesis, Set patientstate, Set laborReports, Set treatments, Set disfavors) {
        this.insuranceNumber = insuranceNumber;
        this.forename = forename;
        this.lastname = lastname;
@@ -179,11 +179,11 @@ public class PatientBo  implements java.io.Serializable {
     public void setNotice(Clob notice) {
         this.notice = notice;
     }
-    public Gender getGender() {
+    public GenderBo getGender() {
         return this.gender;
     }
     
-    public void setGender(Gender gender) {
+    public void setGender(GenderBo gender) {
         this.gender = gender;
     }
     public Set getFamilyanamnesis() {

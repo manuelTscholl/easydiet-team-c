@@ -21,7 +21,7 @@ public class NutritionProtocol extends at.fhv.teamc.easydiet.model.DietPlanBo im
 
 	
     public NutritionProtocol(String name, Date createdOn, PlanTypeBo planType, SystemUserBo creator, Date date) {
-        super(name, createdOn, planType, creator);        
+        super(name, createdOn, planType, creator);
         this.date = date;
     }
     public NutritionProtocol(String name, Date createdOn, PlanTypeBo planType, Set dietParameters, SystemUserBo creator, Set timeSpans, Date date, String contact, Clob notice) {

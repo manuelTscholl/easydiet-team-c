@@ -2,6 +2,7 @@ package at.fhv.teamc.easydiet.model;
 // Generated 02.04.2011 00:41:04 by Hibernate Tools 3.4.0.CR1
 
 
+import at.easydiet.model.SystemUser;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,100 +11,107 @@ import java.util.Set;
  */
 public class SystemUserBo  implements java.io.Serializable {
 
-
-     private long systemUserId;
-     private String username;
-     private String password;
-     private String name;
-     private String email;
-     private String directDial;
-     private String department;
-     private String job;
-     private Set rights = new HashSet(0);
+     private SystemUser _SystemUser;
 
     public SystemUserBo() {
     }
 
-	
-    public SystemUserBo(String username, String password, String name, String email) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.email = email;
+    public SystemUserBo(SystemUser systemUser){
+        this._SystemUser=systemUser;
     }
-    public SystemUserBo(String username, String password, String name, String email, String directDial, String department, String job, Set rights) {
-       this.username = username;
-       this.password = password;
-       this.name = name;
-       this.email = email;
-       this.directDial = directDial;
-       this.department = department;
-       this.job = job;
-       this.rights = rights;
+
+	
+    public SystemUserBo(SystemUser systemUser, String username, String password, String name, String email) {
+        this(systemUser);
+        this._SystemUser.setUsername(username);
+        this._SystemUser.setPassword(password);
+        this._SystemUser.setName(name);
+        this._SystemUser.setEmail(email);
+    }
+    public SystemUserBo(SystemUser systemUser, String username, String password, String name, String email, String directDial, String department, String job, Set rights) {
+       this(systemUser, username, password, name, email);
+       this._SystemUser.setDirectDial(directDial);
+       this._SystemUser.setDepartment(department);
+       this._SystemUser.setJob(job);
+       this._SystemUser.setRights(rights);
     }
    
     public long getSystemUserId() {
-        return this.systemUserId;
+        return this._SystemUser.getSystemUserId();
     }
     
     public void setSystemUserId(long systemUserId) {
-        this.systemUserId = systemUserId;
+        this._SystemUser.setSystemUserId(systemUserId);
     }
     public String getUsername() {
-        return this.username;
+        return this._SystemUser.getUsername();
     }
     
     public void setUsername(String username) {
-        this.username = username;
+        this._SystemUser.setUsername(username);
     }
     public String getPassword() {
-        return this.password;
+        return this._SystemUser.getPassword();
     }
     
     public void setPassword(String password) {
-        this.password = password;
+        this._SystemUser.setPassword(password);
     }
     public String getName() {
-        return this.name;
+        return this._SystemUser.getName();
     }
     
     public void setName(String name) {
-        this.name = name;
+        this._SystemUser.setName(name);
     }
     public String getEmail() {
-        return this.email;
+        return this._SystemUser.getEmail();
     }
     
     public void setEmail(String email) {
-        this.email = email;
+        this._SystemUser.setEmail(email);
     }
     public String getDirectDial() {
-        return this.directDial;
+        return this._SystemUser.getDirectDial();
     }
     
     public void setDirectDial(String directDial) {
-        this.directDial = directDial;
+        this._SystemUser.setDirectDial(directDial);
     }
     public String getDepartment() {
-        return this.department;
+        return this._SystemUser.getDepartment();
     }
     
     public void setDepartment(String department) {
-        this.department = department;
+        this._SystemUser.setDepartment(department);
     }
     public String getJob() {
-        return this.job;
+        return this._SystemUser.getJob();
     }
     
     public void setJob(String job) {
-        this.job = job;
+        this._SystemUser.setJob(job);
     }
     public Set getRights() {
-        return this.rights;
+        return this._SystemUser.getRights();
     }
     
     public void setRights(Set rights) {
-        this.rights = rights;
+        this._SystemUser.setRights(rights);
+    }
+
+    /**
+     * @return the _SystemUser
+     */
+    public SystemUser getSystemUser() {
+        return _SystemUser;
+    }
+
+    /**
+     * @param SystemUser the _SystemUser to set
+     */
+    public void setSystemUser(SystemUser SystemUser) {
+        this._SystemUser = SystemUser;
     }
 
 

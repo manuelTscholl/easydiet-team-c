@@ -27,11 +27,11 @@ public class PlanTypeBo  implements java.io.Serializable {
     }
    
     public String getName() {
-        return this._PlanType.getName();
+        return this.getPlanType().getName();
     }
     
     public void setName(String name) {
-        this._PlanType.setName(name);
+        this.getPlanType().setName(name);
     }
 
     /**
@@ -39,6 +39,13 @@ public class PlanTypeBo  implements java.io.Serializable {
      */
     public void setPlanType(PlanType PlanType) {
         this._PlanType = PlanType;
+    }
+
+    /**
+     * @return the _PlanType
+     */
+    public PlanType getPlanType() {
+        return _PlanType;
     }
 
 
