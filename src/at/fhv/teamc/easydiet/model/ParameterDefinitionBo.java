@@ -30,32 +30,32 @@ public class ParameterDefinitionBo  implements java.io.Serializable {
     }
    
     public long getParameterDefinitionId() {
-        return _ParameterDefinition.getParameterDefinitionId();
+        return getParameterDefinition().getParameterDefinitionId();
     }
     
     public void setParameterDefinitionId(long parameterDefinitionId) {
-        this._ParameterDefinition.setParameterDefinitionId(parameterDefinitionId);
+        this.getParameterDefinition().setParameterDefinitionId(parameterDefinitionId);
     }
     public String getName() {
-        return this._ParameterDefinition.getName();
+        return this.getParameterDefinition().getName();
     }
     
     public void setName(String name) {
-        this._ParameterDefinition.setName(name);
+        this.getParameterDefinition().setName(name);
     }
     public String getUnit() {
-        return this._ParameterDefinition.getUnit();
+        return this.getParameterDefinition().getUnit();
     }
     
     public void setUnit(String unit) {
-        this._ParameterDefinition.setUnit(unit);
+        this.getParameterDefinition().setUnit(unit);
     }
     public String getCheckPattern() {
-        return this._ParameterDefinition.getCheckPattern();
+        return this.getParameterDefinition().getCheckPattern();
     }
     
     public void setCheckPattern(String checkPattern) {
-        this._ParameterDefinition.setCheckPattern(checkPattern);
+        this.getParameterDefinition().setCheckPattern(checkPattern);
     }
     public ParameterDefinitionDataTypeBo getType() {
         return this._type;
@@ -63,6 +63,20 @@ public class ParameterDefinitionBo  implements java.io.Serializable {
     
     public void setType(ParameterDefinitionDataTypeBo type) {
         this._type = type;
+    }
+
+    /**
+     * @return the _ParameterDefinition
+     */
+    public ParameterDefinition getParameterDefinition() {
+        return _ParameterDefinition;
+    }
+
+    /**
+     * @param ParameterDefinition the _ParameterDefinition to set
+     */
+    public void setParameterDefinition(ParameterDefinition ParameterDefinition) {
+        this._ParameterDefinition = ParameterDefinition;
     }
 
 
