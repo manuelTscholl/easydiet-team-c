@@ -30,9 +30,11 @@
                     <TextInput bxml:id="searchTextInput" prompt="Suche" textSize="15"
                 xmlns:bxml="http://pivot.apache.org/bxml"
                 xmlns="org.apache.pivot.wtk"/>
-                    <ActivityIndicator preferredWidth="20" preferredHeight="20" active="true"
+                    <ActivityIndicator bxml:id="searchActivityIndicator" name="test" preferredWidth="15" preferredHeight="15" active="true"
                         xmlns:bxml="http://pivot.apache.org/bxml"
-                        xmlns="org.apache.pivot.wtk"/>
+                        xmlns="org.apache.pivot.wtk"
+                       
+                        />
                 </BoxPane>
             </TablePane.Row>
 
