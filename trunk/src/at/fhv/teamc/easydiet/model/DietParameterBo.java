@@ -29,11 +29,11 @@ public class DietParameterBo extends at.fhv.teamc.easydiet.model.DietParameterTe
     }
    
     public Date getStart() {
-        return _dieDietParameter.getStart();
+        return getDieDietParameter().getStart();
     }
     
     public void setStart(Date start) {
-        _dieDietParameter.setStart(start);
+        getDieDietParameter().setStart(start);
     }
 
     /**
@@ -41,6 +41,13 @@ public class DietParameterBo extends at.fhv.teamc.easydiet.model.DietParameterTe
      */
     public void setDieDietParameter(DietParameter dieDietParameter) {
         this._dieDietParameter = dieDietParameter;
+    }
+
+    /**
+     * @return the _dieDietParameter
+     */
+    protected DietParameter getDieDietParameter() {
+        return _dieDietParameter;
     }
 
 

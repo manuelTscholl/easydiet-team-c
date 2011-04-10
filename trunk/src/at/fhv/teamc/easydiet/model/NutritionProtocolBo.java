@@ -56,7 +56,7 @@ public class NutritionProtocolBo extends at.fhv.teamc.easydiet.model.DietPlanBo 
     /**
      * @return the _NutritionProtocol
      */
-    public NutritionProtocol getNutritionProtocol() {
+    protected NutritionProtocol getNutritionProtocol() {
         return _NutritionProtocol;
     }
 

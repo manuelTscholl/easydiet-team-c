@@ -71,7 +71,7 @@ public class TimeSpanBo  implements java.io.Serializable {
     /**
      * @return the _TimeSpan
      */
-    public TimeSpan getTimeSpan() {
+    protected TimeSpan getTimeSpan() {
         return _TimeSpan;
     }
 

@@ -65,7 +65,7 @@ public class UserRightsBo
     /**
      * @return the _UserRights
      */
-    public UserRights getUserRights() {
+    protected UserRights getUserRights() {
         return _UserRights;
     }
 

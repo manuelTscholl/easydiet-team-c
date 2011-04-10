@@ -39,7 +39,7 @@ public class UserRightBo  implements java.io.Serializable {
     /**
      * @return the _UserRight
      */
-    public UserRight getUserRight() {
+    protected UserRight getUserRight() {
         return _UserRight;
     }
 

@@ -47,13 +47,14 @@ public class NutrimentParameterBo  implements java.io.Serializable {
     }
     
     public void setParameterDefinition(ParameterDefinitionBo parameterDefinition) {
+        this._NutrimentParameter.setParameterDefinition(parameterDefinition.getParameterDefinition());
         this._parameterDefinition = parameterDefinition;
     }
 
     /**
      * @return the _NutrimentParameter
      */
-    public NutrimentParameter getNutrimentParameter() {
+    protected NutrimentParameter getNutrimentParameter() {
         return _NutrimentParameter;
     }
 

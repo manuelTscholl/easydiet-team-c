@@ -13,28 +13,7 @@ import java.util.Set;
  */
 public class PatientBo  implements java.io.Serializable {
 
-
-     private long patientId;
-     private String insuranceNumber;
-     private String forename;
-     private String lastname;
-     private String title;
-     private String street;
-     private String zip;
-     private String place;
-     private String country;
-     private Date birthday;
-     private String job;
-     private String religion;
-     private String[] illnesses;
-     private String regime;
-     private Clob notice;
      private GenderBo _GenderBo;
-     private Set familyanamnesis = new HashSet(0);
-     private Set patientstates = new HashSet(0);
-     private Set laborReports = new HashSet(0);
-     private Set treatments = new HashSet(0);
-     private Set disfavors = new HashSet(0);
 
      private Patient _Patient;
 
@@ -74,152 +53,166 @@ public class PatientBo  implements java.io.Serializable {
     }
    
     public long getPatientId() {
-        return this._Patient.getPatientId();
+        return this.getPatient().getPatientId();
     }
     
     public void setPatientId(long patientId) {
-        this._Patient.setPatientId(patientId);
+        this.getPatient().setPatientId(patientId);
     }
     public String getInsuranceNumber() {
-        return this._Patient.getInsuranceNumber();
+        return this.getPatient().getInsuranceNumber();
     }
     
     public void setInsuranceNumber(String insuranceNumber) {
-        this._Patient.setInsuranceNumber(insuranceNumber);
+        this.getPatient().setInsuranceNumber(insuranceNumber);
     }
     public String getForename() {
-        return this._Patient.getForename();
+        return this.getPatient().getForename();
     }
     
     public void setForename(String forename) {
-        this._Patient.setForename(forename);
+        this.getPatient().setForename(forename);
     }
     public String getLastname() {
-        return this._Patient.getLastname();
+        return this.getPatient().getLastname();
     }
     
     public void setLastname(String lastname) {
-        this._Patient.setLastname(lastname);
+        this.getPatient().setLastname(lastname);
     }
     public String getTitle() {
-        return this._Patient.getTitle();
+        return this.getPatient().getTitle();
     }
     
     public void setTitle(String title) {
-        this._Patient.setTitle(title);
+        this.getPatient().setTitle(title);
     }
     public String getStreet() {
-        return this._Patient.getStreet();
+        return this.getPatient().getStreet();
     }
     
     public void setStreet(String street) {
-        this._Patient.setStreet(street);
+        this.getPatient().setStreet(street);
     }
     public String getZip() {
-        return this._Patient.getZip();
+        return this.getPatient().getZip();
     }
     
     public void setZip(String zip) {
-        this._Patient.setZip(zip);
+        this.getPatient().setZip(zip);
     }
     public String getPlace() {
-        return this._Patient.getPlace();
+        return this.getPatient().getPlace();
     }
     
     public void setPlace(String place) {
-        this._Patient.setPlace(place);
+        this.getPatient().setPlace(place);
     }
     public String getCountry() {
-        return this._Patient.getCountry();
+        return this.getPatient().getCountry();
     }
     
     public void setCountry(String country) {
-        this._Patient.setCountry(country);
+        this.getPatient().setCountry(country);
     }
     public Date getBirthday() {
-        return this._Patient.getBirthday();
+        return this.getPatient().getBirthday();
     }
     
     public void setBirthday(Date birthday) {
-        this._Patient.setBirthday(birthday);
+        this.getPatient().setBirthday(birthday);
     }
     public String getJob() {
-        return this._Patient.getJob();
+        return this.getPatient().getJob();
     }
     
     public void setJob(String job) {
-        this._Patient.setJob(job);
+        this.getPatient().setJob(job);
     }
     public String getReligion() {
-        return this._Patient.getReligion();
+        return this.getPatient().getReligion();
     }
     
     public void setReligion(String religion) {
-        this._Patient.setReligion(religion);
+        this.getPatient().setReligion(religion);
     }
     public String[] getIllnesses() {
-        return this._Patient.getIllnesses();
+        return this.getPatient().getIllnesses();
     }
     
     public void setIllnesses(String[] illnesses) {
-        this._Patient.setIllnesses(illnesses);
+        this.getPatient().setIllnesses(illnesses);
     }
     public String getRegime() {
-        return this._Patient.getRegime();
+        return this.getPatient().getRegime();
     }
     
     public void setRegime(String regime) {
-        this._Patient.setRegime(regime);
+        this.getPatient().setRegime(regime);
     }
     public Clob getNotice() {
-        return this._Patient.getNotice();
+        return this.getPatient().getNotice();
     }
     
     public void setNotice(Clob notice) {
-        this._Patient.setNotice(notice);
+        this.getPatient().setNotice(notice);
     }
     public GenderBo getGender() {
         return this._GenderBo;
     }
     
     public void setGender(GenderBo gender) {
-        this._Patient.setGender(gender.getGender());
-        this._GenderBo.setGender(_Patient.getGender());
+        this.getPatient().setGender(gender.getGender());
+        this._GenderBo.setGender(getPatient().getGender());
     }
     public Set getFamilyanamnesis() {
-        return this._Patient.getFamilyanamnesis();
+        return this.getPatient().getFamilyanamnesis();
     }
     
     public void setFamilyanamnesis(Set familyanamnesis) {
-        this._Patient.setFamilyanamnesis(familyanamnesis);
+        this.getPatient().setFamilyanamnesis(familyanamnesis);
     }
     public Set getPatientstate() {
-        return this._Patient.getPatientstate();
+        return this.getPatient().getPatientstate();
     }
     
     public void setPatientstate(Set patientstate) {
-        this._Patient.setPatientstate(patientstate);
+        this.getPatient().setPatientstate(patientstate);
     }
     public Set getLaborReports() {
-        return this._Patient.getLaborReports();
+        return this.getPatient().getLaborReports();
     }
     
     public void setLaborReports(Set laborReports) {
-        this._Patient.setLaborReports(laborReports);
+        this.getPatient().setLaborReports(laborReports);
     }
     public Set getTreatments() {
-        return this._Patient.getTreatments();
+        return this.getPatient().getTreatments();
     }
     
     public void setTreatments(Set treatments) {
-        this._Patient.setTreatments(treatments);
+        this.getPatient().setTreatments(treatments);
     }
     public Set getDisfavors() {
-        return this._Patient.getDisfavors();
+        return this.getPatient().getDisfavors();
     }
     
     public void setDisfavors(Set disfavors) {
-        this._Patient.setDisfavors(disfavors);
+        this.getPatient().setDisfavors(disfavors);
+    }
+
+    /**
+     * @return the _Patient
+     */
+    protected Patient getPatient() {
+        return _Patient;
+    }
+
+    /**
+     * @param Patient the _Patient to set
+     */
+    public void setPatient(Patient Patient) {
+        this._Patient = Patient;
     }
 
 

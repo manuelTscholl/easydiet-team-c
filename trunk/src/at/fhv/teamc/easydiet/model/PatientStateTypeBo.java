@@ -11,29 +11,33 @@ import at.easydiet.model.PatientStateType;
  */
 public class PatientStateTypeBo  implements java.io.Serializable {
 
-
-     private String name;
      private PatientStateType _PatientStateType;
 
     public PatientStateTypeBo() {
     }
 
-    public PatientStateTypeBo(String name) {
-       this.name = name;
+    public PatientStateTypeBo(PatientStateType patientStateType){
+        this._PatientStateType=patientStateType;
+    }
+
+
+    public PatientStateTypeBo(PatientStateType patientStateType, String name) {
+        this(patientStateType);
+       this._PatientStateType.setName(name);
     }
    
     public String getName() {
-        return this.name;
+        return this._PatientStateType.getName();
     }
     
     public void setName(String name) {
-        this.name = name;
+        this._PatientStateType.setName(name);
     }
 
     /**
      * @return the _PatientStateType
      */
-    public PatientStateType getPatientStateType() {
+    protected PatientStateType getPatientStateType() {
         return _PatientStateType;
     }
 

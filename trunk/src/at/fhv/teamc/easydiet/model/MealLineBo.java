@@ -77,13 +77,14 @@ public class MealLineBo  implements java.io.Serializable {
     }
     
     public void setRecipe(RecipeBo recipe) {
+        this._MealLine.setRecipe(recipe.getRecipe());
         this._recipe = recipe;
     }
 
     /**
      * @return the _MealLine
      */
-    public MealLine getMealLine() {
+    protected MealLine getMealLine() {
         return _MealLine;
     }
 

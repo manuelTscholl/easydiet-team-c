@@ -62,13 +62,14 @@ public class ParameterDefinitionBo  implements java.io.Serializable {
     }
     
     public void setType(ParameterDefinitionDataTypeBo type) {
+        this._ParameterDefinition.setType(type.getParameterDefinitionDataType());
         this._type = type;
     }
 
     /**
      * @return the _ParameterDefinition
      */
-    public ParameterDefinition getParameterDefinition() {
+    protected ParameterDefinition getParameterDefinition() {
         return _ParameterDefinition;
     }
 

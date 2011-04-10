@@ -27,11 +27,11 @@ public class DietParameterTypeBo  implements java.io.Serializable {
     }
    
     public String getName() {
-        return _DietParameterType.getName();
+        return getDietParameterType().getName();
     }
     
     public void setName(String name) {
-        _DietParameterType.setName(name);
+        getDietParameterType().setName(name);
     }
 
     /**
@@ -39,6 +39,13 @@ public class DietParameterTypeBo  implements java.io.Serializable {
      */
     public void setDietParameterType(DietParameterType dietParameterType) {
         this._DietParameterType = dietParameterType;
+    }
+
+    /**
+     * @return the _DietParameterType
+     */
+    protected DietParameterType getDietParameterType() {
+        return _DietParameterType;
     }
 
 

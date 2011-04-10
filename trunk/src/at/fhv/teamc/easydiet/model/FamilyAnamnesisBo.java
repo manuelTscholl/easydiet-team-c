@@ -56,7 +56,7 @@ public class FamilyAnamnesisBo  implements java.io.Serializable {
     /**
      * @return the _FamilyAnamnesis
      */
-    public FamilyAnamnesis getFamilyAnamnesis() {
+    protected FamilyAnamnesis getFamilyAnamnesis() {
         return _FamilyAnamnesis;
     }
 

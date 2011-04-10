@@ -12,7 +12,6 @@ public class ContactTypeBo  implements java.io.Serializable {
 
 
     private ContactType _contactType;
-     private String name;
 
     public ContactTypeBo() {
     }
@@ -27,11 +26,11 @@ public class ContactTypeBo  implements java.io.Serializable {
     }
    
     public String getName() {
-        return _contactType.getName();
+        return getContactType().getName();
     }
     
     public void setName(String name) {
-        _contactType.setName(name);
+        getContactType().setName(name);
     }
 
     /**
@@ -39,6 +38,13 @@ public class ContactTypeBo  implements java.io.Serializable {
      */
     public void setContactType(ContactType contactType) {
         setContactType(contactType);
+    }
+
+    /**
+     * @return the _contactType
+     */
+    protected  ContactType getContactType() {
+        return _contactType;
     }
 
 }

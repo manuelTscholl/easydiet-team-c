@@ -44,7 +44,7 @@ public class PlanTypeBo  implements java.io.Serializable {
     /**
      * @return the _PlanType
      */
-    public PlanType getPlanType() {
+    protected PlanType getPlanType() {
         return _PlanType;
     }
 

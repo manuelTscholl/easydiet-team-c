@@ -38,39 +38,54 @@ public class LaborReportBo  implements java.io.Serializable {
     }
    
     public long getLaborReportId() {
-        return this._LaborReport.getLaborReportId();
+        return this.getLaborReport().getLaborReportId();
     }
     
     public void setLaborReportId(long laborReportId) {
-        this._LaborReport.setLaborReportId(laborReportId);
+        this.getLaborReport().setLaborReportId(laborReportId);
     }
     public Date getDate() {
-        return this._LaborReport.getDate();
+        return this.getLaborReport().getDate();
     }
     
     public void setDate(Date date) {
-        this._LaborReport.setDate(date);
+        this.getLaborReport().setDate(date);
     }
     public Clob getNotice() {
-        return this._LaborReport.getNotice();
+        return this.getLaborReport().getNotice();
     }
     
     public void setNotice(Clob notice) {
-        this._LaborReport.setNotice(notice);
+        this.getLaborReport().setNotice(notice);
     }
     public SystemUserBo getCreator() {
         return this._creator;
     }
     
     public void setCreator(SystemUserBo creatorBo) {
+        this.getLaborReport().setCreator(creatorBo.getSystemUser());
         this._creator = creatorBo;
     }
     public Set getDietParameters() {
-        return this._LaborReport.getDietParameters();
+        return this.getLaborReport().getDietParameters();
     }
     
     public void setDietParameters(Set dietParameters) {
-        this._LaborReport.setDietParameters(dietParameters);
+        this.getLaborReport().setDietParameters(dietParameters);
+    }
+
+    /**
+     * @return the _LaborReport
+     */
+    protected LaborReport getLaborReport() {
+        return _LaborReport;
+    }
+
+    /**
+     * @param LaborReport the _LaborReport to set
+     */
+    public void setLaborReport(LaborReport LaborReport) {
+        this._LaborReport = LaborReport;
     }
 
 

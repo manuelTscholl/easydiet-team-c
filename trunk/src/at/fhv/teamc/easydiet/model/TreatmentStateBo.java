@@ -35,7 +35,7 @@ public class TreatmentStateBo  implements java.io.Serializable {
     /**
      * @return the _TreatmentState
      */
-    public TreatmentState getTreatmentState() {
+    protected TreatmentState getTreatmentState() {
         return _TreatmentState;
     }
 

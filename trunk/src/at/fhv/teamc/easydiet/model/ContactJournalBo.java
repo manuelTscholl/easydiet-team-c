@@ -39,40 +39,40 @@ public class ContactJournalBo  implements java.io.Serializable {
     }
    
     public long getContactJournalId() {
-        return _contactjournal.getContactJournalId();
+        return getContactjournal().getContactJournalId();
     }
     
     public void setContactJournalId(long contactJournalId) {
-        _contactjournal.setContactJournalId(contactJournalId);
+        getContactjournal().setContactJournalId(contactJournalId);
     }
     public Date getDate() {
-        return _contactjournal.getDate();
+        return getContactjournal().getDate();
 
     }
     
     public void setDate(Date date) {
-        _contactjournal.setDate(date);
+        getContactjournal().setDate(date);
     }
     public Clob getDescription() {
-        return _contactjournal.getDescription();
+        return getContactjournal().getDescription();
     }
     
     public void setDescription(Clob description) {
-        _contactjournal.setDescription(description);
+        getContactjournal().setDescription(description);
     }
     public SystemUser getCreatedBy() {
-        return _contactjournal.getCreatedBy();
+        return getContactjournal().getCreatedBy();
     }
     
     public void setCreatedBy(SystemUser createdBy) {
-        _contactjournal.setCreatedBy(createdBy);
+        getContactjournal().setCreatedBy(createdBy);
     }
     public ContactType getContactType() {
-        return _contactjournal.getContactType();
+        return getContactjournal().getContactType();
     }
     
     public void setContactType(ContactType contactType) {
-        _contactjournal.setContactType(contactType);
+        getContactjournal().setContactType(contactType);
     }
 
     /**
@@ -80,6 +80,13 @@ public class ContactJournalBo  implements java.io.Serializable {
      */
     public void setContactjournal(ContactJournal contactjournal) {
         this._contactjournal = contactjournal;
+    }
+
+    /**
+     * @return the _contactjournal
+     */
+    protected ContactJournal getContactjournal() {
+        return _contactjournal;
     }
 
 

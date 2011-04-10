@@ -11,13 +11,6 @@ import java.util.Set;
  */
 public class MealBo  implements java.io.Serializable {
 
-
-     private long mealId;
-     private String code;
-     private String name;
-     private Set dietParameters = new HashSet(0);
-     private Set mealLines = new HashSet(0);
-
      private  Meal _Meal;
 
     public MealBo() {
@@ -39,39 +32,53 @@ public class MealBo  implements java.io.Serializable {
     }
    
     public long getMealId() {
-        return this._Meal.getMealId();
+        return this.getMeal().getMealId();
     }
     
     public void setMealId(long mealId) {
-        this._Meal.setMealId(mealId);
+        this.getMeal().setMealId(mealId);
     }
     public String getCode() {
-        return this._Meal.getCode();
+        return this.getMeal().getCode();
     }
     
     public void setCode(String code) {
-        this._Meal.setCode(code);
+        this.getMeal().setCode(code);
     }
     public String getName() {
-        return this._Meal.getName();
+        return this.getMeal().getName();
     }
     
     public void setName(String name) {
-        this._Meal.setName(name);
+        this.getMeal().setName(name);
     }
     public Set getDietParameters() {
-        return this._Meal.getDietParameters();
+        return this.getMeal().getDietParameters();
     }
     
     public void setDietParameters(Set dietParameters) {
-        this._Meal.setDietParameters(dietParameters);
+        this.getMeal().setDietParameters(dietParameters);
     }
     public Set getMealLines() {
-        return this._Meal.getMealLines();
+        return this.getMeal().getMealLines();
     }
     
     public void setMealLines(Set mealLines) {
-        this._Meal.setMealLines(mealLines);
+        this.getMeal().setMealLines(mealLines);
+    }
+
+    /**
+     * @return the _Meal
+     */
+    protected Meal getMeal() {
+        return _Meal;
+    }
+
+    /**
+     * @param Meal the _Meal to set
+     */
+    public void setMeal(Meal Meal) {
+        this._Meal = Meal;
     }
 
 
