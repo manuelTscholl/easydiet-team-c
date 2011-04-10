@@ -28,11 +28,11 @@ public class ParameterDefinitionDataTypeBo  implements java.io.Serializable {
     }
    
     public String getName() {
-        return this._ParameterDefinitionDataType.getName();
+        return this.getParameterDefinitionDataType().getName();
     }
     
     public void setName(String name) {
-        this._ParameterDefinitionDataType.setName(name);
+        this.getParameterDefinitionDataType().setName(name);
     }
 
     /**
@@ -40,6 +40,13 @@ public class ParameterDefinitionDataTypeBo  implements java.io.Serializable {
      */
     public void setParameterDefinitionDataType(ParameterDefinitionDataType ParameterDefinitionDataType) {
         this._ParameterDefinitionDataType = ParameterDefinitionDataType;
+    }
+
+    /**
+     * @return the _ParameterDefinitionDataType
+     */
+    protected ParameterDefinitionDataType getParameterDefinitionDataType() {
+        return _ParameterDefinitionDataType;
     }
 
 

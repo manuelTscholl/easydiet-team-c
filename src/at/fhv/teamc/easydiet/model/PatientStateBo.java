@@ -13,19 +13,8 @@ import java.util.Set;
  */
 public class PatientStateBo  implements java.io.Serializable {
 
-
-     private long patientStateId;
-     private Date date;
-     private Clob anamnesis;
-     private Integer weight;
-     private float weightPercentile;
-     private Integer height;
-     private float heightPercentile;
-     private int compliance;
-     private int motivation;
      private PatientStateTypeBo _type;
      private SystemUserBo _creator;
-     private Set laborReports = new HashSet(0);
 
      private PatientState _PatientState;
 
@@ -123,6 +112,7 @@ public class PatientStateBo  implements java.io.Serializable {
     }
     
     public void setType(PatientStateTypeBo type) {
+        this._PatientState.setType(type.getPatientStateType());
         this._type = type;
     }
     public SystemUserBo getCreator() {
@@ -144,7 +134,7 @@ public class PatientStateBo  implements java.io.Serializable {
     /**
      * @return the _PatientState
      */
-    public PatientState getPatientState() {
+    protected PatientState getPatientState() {
         return _PatientState;
     }
 

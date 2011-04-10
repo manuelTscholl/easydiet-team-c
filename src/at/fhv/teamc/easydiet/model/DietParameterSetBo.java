@@ -11,9 +11,6 @@ import java.util.Set;
  */
 public class DietParameterSetBo  implements java.io.Serializable {
 
-
-     private Set dietParameterTemplates = new HashSet(0);
-
      private DietParameterSet _dietParameterSet;
 
     public DietParameterSetBo() {
@@ -34,25 +31,25 @@ public class DietParameterSetBo  implements java.io.Serializable {
     }
    
     public long getDietParameterSetId() {
-        return _dietParameterSet.getDietParameterSetId();
+        return getDietParameterSet().getDietParameterSetId();
     }
     
     public void setDietParameterSetId(long dietParameterSetId) {
-        _dietParameterSet.setDietParameterSetId(dietParameterSetId);
+        getDietParameterSet().setDietParameterSetId(dietParameterSetId);
     }
     public String getName() {
-        return _dietParameterSet.getName();
+        return getDietParameterSet().getName();
     }
     
     public void setName(String name) {
-        _dietParameterSet.setName(name);
+        getDietParameterSet().setName(name);
     }
     public Set getDietParameterTemplates() {
-        return _dietParameterSet.getDietParameterTemplates();
+        return getDietParameterSet().getDietParameterTemplates();
     }
     
     public void setDietParameterTemplates(Set dietParameterTemplates) {
-        _dietParameterSet.setDietParameterTemplates(dietParameterTemplates);
+        getDietParameterSet().setDietParameterTemplates(dietParameterTemplates);
     }
 
     /**
@@ -60,6 +57,13 @@ public class DietParameterSetBo  implements java.io.Serializable {
      */
     public void setDietParameterSet(DietParameterSet dietParameterSet) {
         this._dietParameterSet = dietParameterSet;
+    }
+
+    /**
+     * @return the _dietParameterSet
+     */
+    protected DietParameterSet getDietParameterSet() {
+        return _dietParameterSet;
     }
 
 

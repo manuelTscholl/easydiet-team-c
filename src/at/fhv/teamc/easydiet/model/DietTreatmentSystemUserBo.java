@@ -27,17 +27,18 @@ public class DietTreatmentSystemUserBo  implements java.io.Serializable {
     }
    
     public int getDietTreatmentSystemUserId() {
-        return this._DietTreatmentSystemUser.getDietTreatmentSystemUserId();
+        return this.getDietTreatmentSystemUser().getDietTreatmentSystemUserId();
     }
     
     public void setDietTreatmentSystemUserId(int dietTreatmentSystemUserId) {
-        this._DietTreatmentSystemUser.setDietTreatmentSystemUserId(dietTreatmentSystemUserId);
+        this.getDietTreatmentSystemUser().setDietTreatmentSystemUserId(dietTreatmentSystemUserId);
     }
     public SystemUserBo getSystemUser() {
         return this._SystemUser;
     }
     
     public void setSystemUser(SystemUserBo systemUser) {
+        this.getDietTreatmentSystemUser().setSystemUser(systemUser.getSystemUser());
         this._SystemUser = systemUser;
     }
     public SystemUserFunctionBo getFunction() {
@@ -45,7 +46,22 @@ public class DietTreatmentSystemUserBo  implements java.io.Serializable {
     }
     
     public void setFunction(SystemUserFunctionBo function) {
+        this.getDietTreatmentSystemUser().setFunction(function.getSystemUserFunction());
         this._Function = function;
+    }
+
+    /**
+     * @return the _DietTreatmentSystemUser
+     */
+    protected DietTreatmentSystemUser getDietTreatmentSystemUser() {
+        return _DietTreatmentSystemUser;
+    }
+
+    /**
+     * @param DietTreatmentSystemUser the _DietTreatmentSystemUser to set
+     */
+    public void setDietTreatmentSystemUser(DietTreatmentSystemUser DietTreatmentSystemUser) {
+        this._DietTreatmentSystemUser = DietTreatmentSystemUser;
     }
 
 

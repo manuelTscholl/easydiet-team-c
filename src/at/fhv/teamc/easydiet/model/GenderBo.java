@@ -36,7 +36,7 @@ public class GenderBo  implements java.io.Serializable {
     /**
      * @return the _Gender
      */
-    public Gender getGender() {
+    protected Gender getGender() {
         return _Gender;
     }
 

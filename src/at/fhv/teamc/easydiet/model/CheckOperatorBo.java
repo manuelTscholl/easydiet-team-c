@@ -23,15 +23,29 @@ public class CheckOperatorBo  implements java.io.Serializable {
     }
 
     public void setCheckOperator(CheckOperator checkOperator){
-        this._checkoperator=checkOperator;
+        this.setCheckoperator(checkOperator);
     }
    
     public String getName() {
-        return _checkoperator.getName();
+        return getCheckoperator().getName();
     }
     
     public void setName(String name) {
-        _checkoperator.setName(name);
+        getCheckoperator().setName(name);
+    }
+
+    /**
+     * @return the _checkoperator
+     */
+    protected CheckOperator getCheckoperator() {
+        return this._checkoperator;
+    }
+
+    /**
+     * @param checkoperator the _checkoperator to set
+     */
+    public void setCheckoperator(CheckOperator checkoperator) {
+        this._checkoperator = checkoperator;
     }
 
 

@@ -103,7 +103,7 @@ public class SystemUserBo  implements java.io.Serializable {
     /**
      * @return the _SystemUser
      */
-    public SystemUser getSystemUser() {
+    protected SystemUser getSystemUser() {
         return _SystemUser;
     }
 

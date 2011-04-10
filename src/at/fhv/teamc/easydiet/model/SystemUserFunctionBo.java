@@ -36,7 +36,7 @@ public class SystemUserFunctionBo  implements java.io.Serializable {
     /**
      * @return the _SystemUserFunction
      */
-    public SystemUserFunction getSystemUserFunction() {
+    protected SystemUserFunction getSystemUserFunction() {
         return _SystemUserFunction;
     }
 

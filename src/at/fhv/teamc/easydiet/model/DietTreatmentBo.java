@@ -39,81 +39,96 @@ public class DietTreatmentBo  implements java.io.Serializable {
     }
    
     public long getDietTreatmentId() {
-        return this._DietTreatment.getDietTreatmentId();
+        return this.getDietTreatment().getDietTreatmentId();
     }
     
     public void setDietTreatmentId(long dietTreatmentId) {
-        this._DietTreatment.setDietTreatmentId(dietTreatmentId);
+        this.getDietTreatment().setDietTreatmentId(dietTreatmentId);
     }
     public Date getStart() {
-        return this._DietTreatment.getStart();
+        return this.getDietTreatment().getStart();
     }
     
     public void setStart(Date start) {
-        this._DietTreatment.setStart(start);
+        this.getDietTreatment().setStart(start);
     }
     public int getDuration() {
-        return this._DietTreatment.getDuration();
+        return this.getDietTreatment().getDuration();
     }
     
     public void setDuration(int duration) {
-        this._DietTreatment.setDuration(duration);
+        this.getDietTreatment().setDuration(duration);
     }
     public String getName() {
-        return this._DietTreatment.getName();
+        return this.getDietTreatment().getName();
     }
     
     public void setName(String name) {
-        this._DietTreatment.setName(name);
+        this.getDietTreatment().setName(name);
     }
     public Set getNutritionProtocols() {
-        return this._DietTreatment.getNutritionProtocols();
+        return this.getDietTreatment().getNutritionProtocols();
     }
     
     public void setNutritionProtocols(Set nutritionProtocols) {
-        this._DietTreatment.setNutritionProtocols(nutritionProtocols);
+        this.getDietTreatment().setNutritionProtocols(nutritionProtocols);
     }
     public Set getDietPlans() {
-        return this._DietTreatment.getDietPlans();
+        return this.getDietTreatment().getDietPlans();
     }
     
     public void setDietPlans(Set dietPlans) {
-        this._DietTreatment.setDietPlans(dietPlans);
+        this.getDietTreatment().setDietPlans(dietPlans);
     }
     public Set getDietParameters() {
-        return this._DietTreatment.getDietParameters();
+        return this.getDietTreatment().getDietParameters();
     }
     
     public void setDietParameters(Set dietParameters) {
-        this._DietTreatment.setDietParameters(dietParameters);
+        this.getDietTreatment().setDietParameters(dietParameters);
     }
     public Set getPatientStates() {
-        return this._DietTreatment.getPatientStates();
+        return this.getDietTreatment().getPatientStates();
     }
     
     public void setPatientStates(Set patientStates) {
-        this._DietTreatment.setPatientStates(patientStates);
+        this.getDietTreatment().setPatientStates(patientStates);
     }
     public Set getSystemUsers() {
-        return this._DietTreatment.getSystemUsers();
+        return this.getDietTreatment().getSystemUsers();
     }
     
     public void setSystemUsers(Set systemUsers) {
-        this._DietTreatment.setSystemUsers(systemUsers);
+        this.getDietTreatment().setSystemUsers(systemUsers);
     }
     public Set getContactJournals() {
-        return this._DietTreatment.getContactJournals();
+        return this.getDietTreatment().getContactJournals();
     }
     
     public void setContactJournals(Set contactJournals) {
-        this._DietTreatment.setContactJournals(contactJournals);
+        this.getDietTreatment().setContactJournals(contactJournals);
     }
     public TreatmentStateBo getTreatmentState() {
         return this.treatmentState;
     }
     
     public void setTreatmentState(TreatmentStateBo treatmentState) {
+        this.getDietTreatment().setTreatmentState(treatmentState.getTreatmentState());
         this.treatmentState = treatmentState;
+    }
+
+    /**
+     * @return the _DietTreatment
+     */
+    protected DietTreatment getDietTreatment() {
+        return _DietTreatment;
+    }
+
+    /**
+     * @param DietTreatment the _DietTreatment to set
+     */
+    public void setDietTreatment(DietTreatment DietTreatment) {
+        this._DietTreatment = DietTreatment;
     }
 
 
