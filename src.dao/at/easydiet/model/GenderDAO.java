@@ -1,4 +1,6 @@
-package at.easydiet.model;
+package at.easydiet.dao;
+
+import at.easydiet.model.Gender;
 
 /**
  * A DAO implementation for Gender objects.

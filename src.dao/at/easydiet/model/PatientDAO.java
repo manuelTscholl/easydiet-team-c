@@ -1,4 +1,6 @@
-package at.easydiet.model;
+package at.easydiet.dao;
+
+import at.easydiet.model.Patient;
 
 /**
  * A DAO implementation for Patient objects.
