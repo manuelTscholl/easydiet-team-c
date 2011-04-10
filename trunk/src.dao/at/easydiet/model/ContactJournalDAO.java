@@ -1,4 +1,6 @@
-package at.easydiet.model;
+package at.easydiet.dao;
+
+import at.easydiet.model.ContactJournal;
 
 /**
  * A DAO implementation for ContactJournal objects.

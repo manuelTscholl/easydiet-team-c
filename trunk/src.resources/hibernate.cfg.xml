@@ -12,6 +12,6 @@
   <property name="show_sql">true</property>
   <!-- only for setup -->
   <property name="hbm2ddl.auto">create-drop</property>
-  <mapping resource="/EasyDiet.hbm.xml"/>
+  <mapping resource="EasyDiet.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

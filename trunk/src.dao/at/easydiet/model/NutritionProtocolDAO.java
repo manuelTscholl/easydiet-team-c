@@ -1,4 +1,6 @@
-package at.easydiet.model;
+package at.easydiet.dao;
+
+import at.easydiet.model.NutritionProtocol;
 
 /**
  * A DAO implementation for NutritionProtocol objects.
