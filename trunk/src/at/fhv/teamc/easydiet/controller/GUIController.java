@@ -19,8 +19,6 @@ import java.util.Set;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.wtk.ActivityIndicator;
 import org.apache.pivot.wtk.Component;
-import org.apache.pivot.wtk.Container;
-import org.apache.pivot.wtk.Keyboard.KeyCode;
 import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtk.TextInput;
 
@@ -45,7 +43,7 @@ public class GUIController implements PatientListener {
      * @param eadw Window with all gui ressources
      */
     public GUIController(EasyDietWindow eadw) {
-        
+
         _easyDietWindow = eadw;
         _guiNamespaces = _easyDietWindow.getRessources();
 
@@ -65,19 +63,12 @@ public class GUIController implements PatientListener {
             @Override
             public boolean keyTyped(Component component, char character) {
                 _businessLogicController.searchPatient(((TextInput) component).getText());
-               return true;
-            }
-            @Override
-            public boolean keyPressed(Component component, int keyCode,
-            		KeyLocation keyLocation) {
-            	// TODO Auto-generated method stub
-            	if(keyCode==KeyEvent.VK_ENTER){
-            		//set search activity indicator            
-            		ActivityIndicator ai=(ActivityIndicator)_guiNamespaces.get("test");
-            		
-            		
-            	}
-            	return true;
+
+                // check if activity indicator is already active
+                if (!_navTab.getActivityIndicator().isActive()) {
+                    _navTab.getActivityIndicator().setActive(true);
+                }
+                return true;
             }
         });
 
@@ -103,7 +94,7 @@ public class GUIController implements PatientListener {
      * Update patient data in content tabs
      * @param p
      */
-    public void updatePatientData(PatientBo p){
+    public void updatePatientData(PatientBo p) {
         _contentTab.updatePatientData(p);
 
         // update patient name window bar

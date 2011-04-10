@@ -84,6 +84,14 @@ public class NavigationTabPane extends TabPane implements Bindable {
     }
 
     /**
+     * Getter for the search activity indicator
+     * @return
+     */
+    public ActivityIndicator getActivityIndicator(){
+        return _searchActivityIndicator;
+    }
+
+    /**
      * Update search results with received set
      * @param patients
      */
@@ -140,6 +148,9 @@ public class NavigationTabPane extends TabPane implements Bindable {
             tro.add(innerTp);
             _searchResultTablePane.getRows().add(tro);
         }
+
+        // stop activityIndicator
+        _searchActivityIndicator.setActive(false);
     }
 
     /**
