@@ -5,19 +5,15 @@ horizontalScrollBarPolicy="never" verticalScrollBarPolicy="auto" preferredHeight
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:easyDiet="at.fhv.teamc.easydiet.view"
     xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
-    <TablePane bxml:id="dietryPlanTablePane" styles="{verticalSpacing:1, showHorizontalGridLines:true,
-    horizontalSpacing:1, showVerticalGridLines:false, backgroundColor:'#000000'}"
-    size="${dietryPlanScrollPane.size}"
+        
+    <TablePane bxml:id="dietryPlanTablePane" styles="{verticalSpacing:1, showHorizontalGridLines:false,
+    horizontalSpacing:1, showVerticalGridLines:false, padding:{top:5, left:5, right:5}}"
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns="org.apache.pivot.wtk">
         <columns>
-            <TablePane.Column width="2*"/>
-            <TablePane.Column width="1*"/>
+            <TablePane.Column bxml:id="planColumn"/>
+            <TablePane.Column bxml:id="parameterColumn" width="200"/>
         </columns>
 
-        <TablePane.Row height="-1">
-            <Label text="50000000000000000000000000000000" styles="{horizontalAlignment:'center', color:'#ffffff'}"/>
-            <Label text="-1" styles="{horizontalAlignment:'center', color:'#ffffff'}"/>
-        </TablePane.Row>
     </TablePane>
 </easyDiet:ContentDietryPlanScrollPane>

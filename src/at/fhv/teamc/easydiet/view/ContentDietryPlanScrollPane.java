@@ -8,10 +8,13 @@ package at.fhv.teamc.easydiet.view;
 
 import at.fhv.teamc.easydiet.model.PatientBo;
 import java.net.URL;
+import java.util.ArrayList;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Border;
+import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.Expander;
 import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TablePane;
 
@@ -23,6 +26,14 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentDietryPlanScrollPane.class);
+    // instance variables
+    private Map<String, Object> _namespace;
+    private TablePane _mainTable;
+    private ArrayList<DietWeek> _dietWeeks;
+
+    {
+        _dietWeeks = new ArrayList<DietWeek>();
+    }
 
     /**
      * First called after creating the GUI
@@ -32,53 +43,59 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
      */
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
 
+        // get GUI components
+        _namespace = namespace;
+        _mainTable = (TablePane) _namespace.get("dietryPlanTablePane");
+        ((TablePane.Column) _namespace.get("planColumn")).setWidth(getPreferredWidth());
+
+        getComponentListeners().add(new ComponentListenerAdapter() {
+
+            @Override
+            public void sizeChanged(Component component, int previousWidth, int previousHeight) {
+                int width = ((TablePane.Column) _namespace.get("parameterColumn")).getWidth();
+                ((TablePane.Column) _namespace.get("planColumn")).setWidth(component.getWidth() - width);
+            }
+        });
+
         // EXAMPLE
-        //example();
-        // END EXAMPLE
-    }
-
-    private void example() {
-
-        // new week
-        Border weekOne = new Border();
-        weekOne.setTitle("Woche 1");
-        weekOne.getStyles().put("backgroundColor", "#CFE4F1");
-        weekOne.getStyles().put("padding", "2");
-        weekOne.setPreferredWidth(600);
-        setView(weekOne);
-
-        // add tablepane to week
-        TablePane tablePane = new TablePane();
-        tablePane.getColumns().add(new TablePane.Column());
-        weekOne.setContent(tablePane);
-
-        // day 1
-        TablePane.Row tro1 = new TablePane.Row();
-        Border dayOne = new Border();
-        dayOne.setTitle("Tag 1");
-        dayOne.getStyles().put("backgroundColor", "#CFE4F1");
-        tro1.add(dayOne);
-        tablePane.getRows().add(tro1);
-
-        // day 2
-        TablePane.Row tro2 = new TablePane.Row();
-        Border dayTwo = new Border();
-        dayTwo.setTitle("Tag 2");
-        dayTwo.getStyles().put("backgroundColor", "#CFE4F1");
-        tro2.add(dayTwo);
-        tablePane.getRows().add(tro2);
+        int end = 15;
+        for (int i = 0; i < end; i++) {
+            addDay();
+        }
     }
 
     /**
      * Add a new dietry week
      */
-    public void addWeek() {
+    private void addWeek() {
+        _dietWeeks.add(new DietWeek(_mainTable, _dietWeeks.size() + 1));
     }
 
     /**
      * Add a new dietry day
      */
     public void addDay() {
+        int actualWeek;
+
+        // check for existing weeks
+        if (_dietWeeks.isEmpty()) {
+            addWeek();
+            actualWeek = _dietWeeks.size() - 1;
+            _dietWeeks.get(actualWeek).addDay();
+        } else { // existing week
+
+            // get actual week
+            actualWeek = _dietWeeks.size() - 1;
+
+            // check week is full
+            if (_dietWeeks.get(actualWeek).size() >= 7) {
+                addWeek();
+                actualWeek = _dietWeeks.size() - 1;
+                _dietWeeks.get(actualWeek).addDay();
+            } else {
+                _dietWeeks.get(actualWeek).addDay();
+            }
+        }
     }
 
     /**

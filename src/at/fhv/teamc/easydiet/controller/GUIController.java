@@ -14,12 +14,9 @@ import at.fhv.teamc.easydiet.view.KeyAdapter;
 import at.fhv.teamc.easydiet.view.NavigationTabPane;
 import at.fhv.teamc.easydiet.view.PatientListener;
 
-import java.awt.event.KeyEvent;
 import java.util.Set;
 import org.apache.pivot.collections.Map;
-import org.apache.pivot.wtk.ActivityIndicator;
 import org.apache.pivot.wtk.Component;
-import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtk.TextInput;
 
 /**
@@ -67,6 +64,11 @@ public class GUIController implements PatientListener {
                 // check if activity indicator is already active
                 if (!_navTab.getActivityIndicator().isActive()) {
                     _navTab.getActivityIndicator().setActive(true);
+                }
+
+                // check if text field is empty, if empty stop activity indicator
+                if(_navTab.getSearchTextInput().getText().equals("")){
+                    _navTab.getActivityIndicator().setActive(false);
                 }
                 return true;
             }
