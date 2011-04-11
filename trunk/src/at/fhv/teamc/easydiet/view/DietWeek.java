@@ -11,6 +11,7 @@ import org.apache.pivot.wtk.Border;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ComponentMouseButtonListener;
 import org.apache.pivot.wtk.Expander;
+import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.Mouse.Button;
 import org.apache.pivot.wtk.TablePane;
 
@@ -22,12 +23,18 @@ public class DietWeek {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(DietWeek.class);
+    private static boolean sIS_DRAWN;
+    private static TablePane sPLAN_TABLE;
     // instance variables
     private ArrayList<DietDay> _days;
     private TablePane _srcTablePane;
     private Expander _weekExpander;
     private TablePane _weekTable;
     private int _weekNumber;
+
+    static {
+        sPLAN_TABLE = new TablePane();
+    }
 
     /**
      * Constructor
@@ -41,30 +48,44 @@ public class DietWeek {
         drawWeek();
     }
 
+    private void initMainTable() {
+
+        // check if already drawn
+        if (!sIS_DRAWN) {
+            TablePane.Row planTableRow = new TablePane.Row();
+            planTableRow.add(sPLAN_TABLE);
+            _srcTablePane.getRows().add(planTableRow);
+            sIS_DRAWN = true;
+        }
+    }
+
     /**
      * Draw this week
      */
     private void drawWeek() {
-        _srcTablePane.getStyles().put("verticalSpacing", "5");
+        initMainTable();
 
-        // outer table row
-        TablePane.Row weekRow = new TablePane.Row();
-
+        // Expander
         _weekExpander = new Expander();
         _weekExpander.setTitle("Woche: " + _weekNumber);
         _weekExpander.getStyles().put("backgroundColor", "#EBEDEF");
 
-        // inner table
+        // Expander inner table
         _weekTable = new TablePane();
-        _weekTable.getStyles().put("verticalSpacing", "5");
-        _weekTable.getColumns().add(new TablePane.Column());
-        TablePane.Row innerRow = new TablePane.Row();
-
         _weekExpander.setContent(_weekTable);
-        _weekTable.getRows().add(innerRow);
 
-        weekRow.add(_weekExpander);
-        _srcTablePane.getRows().add(weekRow);
+        // add to planTable
+        TablePane.Row planTableRow = new TablePane.Row();
+        planTableRow.add(_weekExpander);
+        sPLAN_TABLE.getRows().add(planTableRow);
+
+        //initListeners();
+    }
+
+    /**
+     * Initialzie listeners
+     */
+    private void initListeners() {
 
         // set expander listener
         _weekExpander.getComponentMouseButtonListeners().add(new ComponentMouseButtonListener() {
@@ -91,16 +112,57 @@ public class DietWeek {
         });
 
         // add listener for resizing
+        sPLAN_TABLE.getComponentListeners().add(new ComponentListenerAdapter() {
+
+            @Override
+            public void sizeChanged(Component component, int previousWidth, int previousHeight) {
+                _weekExpander.setWidth(component.getWidth() - 10);
+            }
+        });
+
+        // add listener for resizing
         _weekExpander.getComponentListeners().add(new ComponentListenerAdapter() {
 
             @Override
             public void sizeChanged(Component component, int previousWidth, int previousHeight) {
-                for(DietDay d:_days){
+                for (DietDay d : _days) {
                     d.resize(component.getWidth(), component.getHeight());
                 }
             }
-
         });
+    }
+
+    /**
+     * Draw this week
+     */
+    private void drawWeek1() {
+        _srcTablePane.getStyles().put("verticalSpacing", "5");
+        sPLAN_TABLE = new TablePane();
+        sPLAN_TABLE.getColumns().add(new TablePane.Column());
+
+        // outer table row
+        TablePane.Row weekRow = new TablePane.Row();
+
+        _weekExpander = new Expander();
+        _weekExpander.setTitle("Woche: " + _weekNumber);
+        _weekExpander.getStyles().put("backgroundColor", "#EBEDEF");
+
+        // inner table
+        _weekTable = new TablePane();
+        _weekTable.getStyles().put("verticalSpacing", "5");
+        _weekTable.getColumns().add(new TablePane.Column());
+        TablePane.Row innerRow = new TablePane.Row();
+
+        _weekExpander.setContent(_weekTable);
+        _weekTable.getRows().add(innerRow);
+
+        weekRow.add(_weekExpander);
+
+        TablePane.Row planRow = new TablePane.Row();
+        planRow.add(sPLAN_TABLE);
+        planRow.add(new Label("adfasdf"));
+        _srcTablePane.getRows().add(planRow);
+        sPLAN_TABLE.getRows().add(weekRow);
     }
 
     /**
@@ -156,8 +218,8 @@ public class DietWeek {
          * @param width
          * @param height
          */
-        private void resize(int width, int height){
-            _dayBorder.setPreferredWidth(width - 10);
+        private void resize(int width, int height) {
+            _dayBorder.setPreferredWidth(width);
         }
     }
 }
