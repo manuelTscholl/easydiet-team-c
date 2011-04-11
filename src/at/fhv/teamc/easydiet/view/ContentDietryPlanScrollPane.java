@@ -33,6 +33,7 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
         _dietWeeks = new ArrayList<DietWeek>();
     }
 
+
     /**
      * First called after creating the GUI
      * @param namespace Contains all UI elements in content_dietryPlan.bxml by id name
