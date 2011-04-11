@@ -1,6 +1,4 @@
-package at.easydiet.dao;
-
-import at.easydiet.model.UserRight;
+package at.easydiet.model;
 
 /**
  * A DAO implementation for UserRight objects.
