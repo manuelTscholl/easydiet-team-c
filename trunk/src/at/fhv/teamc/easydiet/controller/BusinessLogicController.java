@@ -6,6 +6,7 @@
  */
 package at.fhv.teamc.easydiet.controller;
 
+import at.easydiet.model.Patient;
 import at.fhv.teamc.easydiet.model.PatientBo;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,6 +24,7 @@ public class BusinessLogicController
     // class variables
     public static final org.apache.log4j.Logger LOGGER     = org.apache.log4j.Logger
                                                                    .getLogger(BusinessLogicController.class);
+    private PatientBo _activePatient; 
 
     // connects to the database and gets all the needed data.
     DatabaseController                          controller = new DatabaseController();
@@ -38,14 +40,23 @@ public class BusinessLogicController
     }
 
     /**
-     * Not implemented
-     * 
+     * Sets the active Patient
+     * @param p the patient which should be set to active
+     */
+    public void setActivePatient(PatientBo p)
+    {
+        _activePatient = p;
+    }
+    
+    /**
+     * Gets the active Patient which was set from the GUI Controller before     * 
      * @param p
      */
-    public void chooseActivePatient(PatientBo p)
+    public PatientBo getActivePatient()
     {
-        LOGGER.trace("Patient: " + p.getInsuranceNumber());
-    }
+        return _activePatient;
+    }   
+    
 
     /**
      * This method calls the DB-controller which finally gets the required
