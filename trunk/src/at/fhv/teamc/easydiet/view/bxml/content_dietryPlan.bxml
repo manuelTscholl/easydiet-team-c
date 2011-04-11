@@ -6,8 +6,8 @@ horizontalScrollBarPolicy="never" verticalScrollBarPolicy="auto" preferredHeight
     xmlns:easyDiet="at.fhv.teamc.easydiet.view"
     xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
         
-    <TablePane bxml:id="dietryPlanTablePane" styles="{verticalSpacing:1, showHorizontalGridLines:true,
-    horizontalSpacing:1, showVerticalGridLines:true, padding:{top:5, left:5, right:5}}"
+    <TablePane bxml:id="dietryPlanTablePane" styles="{verticalSpacing:1, showHorizontalGridLines:false,
+    horizontalSpacing:1, showVerticalGridLines:false, padding:{top:5, left:5, right:5}}"
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns="org.apache.pivot.wtk">
         <columns>

@@ -33,6 +33,7 @@ public class DietWeek {
     private int _weekNumber;
 
     static {
+        sIS_DRAWN = false;
         sPLAN_TABLE = new TablePane();
     }
 
@@ -52,9 +53,14 @@ public class DietWeek {
 
         // check if already drawn
         if (!sIS_DRAWN) {
+            sPLAN_TABLE.getColumns().add(new TablePane.Column());
+            sPLAN_TABLE.getStyles().put("verticalSpacing", "5");
+
             TablePane.Row planTableRow = new TablePane.Row();
             planTableRow.add(sPLAN_TABLE);
             _srcTablePane.getRows().add(planTableRow);
+            _srcTablePane.getStyles().put("verticalSpacing", "5");
+            
             sIS_DRAWN = true;
         }
     }
@@ -72,6 +78,8 @@ public class DietWeek {
 
         // Expander inner table
         _weekTable = new TablePane();
+        _weekTable.getColumns().add(new TablePane.Column());
+        _weekTable.getStyles().put("verticalSpacing", "5");
         _weekExpander.setContent(_weekTable);
 
         // add to planTable
@@ -79,7 +87,7 @@ public class DietWeek {
         planTableRow.add(_weekExpander);
         sPLAN_TABLE.getRows().add(planTableRow);
 
-        //initListeners();
+        initListeners();
     }
 
     /**
@@ -130,39 +138,6 @@ public class DietWeek {
                 }
             }
         });
-    }
-
-    /**
-     * Draw this week
-     */
-    private void drawWeek1() {
-        _srcTablePane.getStyles().put("verticalSpacing", "5");
-        sPLAN_TABLE = new TablePane();
-        sPLAN_TABLE.getColumns().add(new TablePane.Column());
-
-        // outer table row
-        TablePane.Row weekRow = new TablePane.Row();
-
-        _weekExpander = new Expander();
-        _weekExpander.setTitle("Woche: " + _weekNumber);
-        _weekExpander.getStyles().put("backgroundColor", "#EBEDEF");
-
-        // inner table
-        _weekTable = new TablePane();
-        _weekTable.getStyles().put("verticalSpacing", "5");
-        _weekTable.getColumns().add(new TablePane.Column());
-        TablePane.Row innerRow = new TablePane.Row();
-
-        _weekExpander.setContent(_weekTable);
-        _weekTable.getRows().add(innerRow);
-
-        weekRow.add(_weekExpander);
-
-        TablePane.Row planRow = new TablePane.Row();
-        planRow.add(sPLAN_TABLE);
-        planRow.add(new Label("adfasdf"));
-        _srcTablePane.getRows().add(planRow);
-        sPLAN_TABLE.getRows().add(weekRow);
     }
 
     /**

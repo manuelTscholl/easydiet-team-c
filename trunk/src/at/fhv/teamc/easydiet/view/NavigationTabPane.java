@@ -95,6 +95,14 @@ public class NavigationTabPane extends TabPane implements Bindable {
     }
 
     /**
+     * Set active tab
+     * @param id Tab id
+     */
+    public void setActiveTab(int id){
+        setSelectedIndex(id);
+    }
+
+    /**
      * Update search results with received set
      * @param patients
      */
