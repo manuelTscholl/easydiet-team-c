@@ -19,6 +19,10 @@ public class NutritionProtocolBo extends at.fhv.teamc.easydiet.model.DietPlanBo 
     public NutritionProtocolBo() {
     }
 
+    public NutritionProtocolBo(NutritionProtocol nutritionProtocol){
+        this._NutritionProtocol=nutritionProtocol;
+    }
+
 	
     public NutritionProtocolBo(NutritionProtocol nutritionProtocol, DietPlan dietPlan, String name, Date createdOn, PlanTypeBo planType, SystemUserBo creator, Date date) {
         super(dietPlan, name, createdOn, planType, creator);

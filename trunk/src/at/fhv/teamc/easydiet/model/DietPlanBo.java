@@ -2,7 +2,9 @@ package at.fhv.teamc.easydiet.model;
 // Generated 02.04.2011 00:41:04 by Hibernate Tools 3.4.0.CR1
 
 
+import at.easydiet.model.DietParameter;
 import at.easydiet.model.DietPlan;
+import at.easydiet.model.TimeSpan;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +21,7 @@ public class DietPlanBo  implements java.io.Serializable {
      
     private DietPlan _DietPlan;
 
-    public DietPlanBo() {
+    private DietPlanBo() {
     }
 
     public DietPlanBo(DietPlan dietPlan){
@@ -27,20 +29,21 @@ public class DietPlanBo  implements java.io.Serializable {
     }
 
 	
-    public DietPlanBo(DietPlan dietPlan, String name, Date createdOn, PlanTypeBo planTypeBo, SystemUserBo creatorBo) {
-        this(dietPlan);
+    public DietPlanBo( String name, Date createdOn, PlanTypeBo planTypeBo, SystemUserBo creatorBo) {
+        this(new DietPlan(name, createdOn, planTypeBo.getPlanType(), creatorBo.getSystemUser()));
         this._planType = planTypeBo;
         this._creator = creatorBo;
-        this._DietPlan.setName(name);
-        this._DietPlan.setCreatedOn(createdOn);
-
-        this._DietPlan.setPlanType(planTypeBo.getPlanType());
-        this._DietPlan.setCreator(creatorBo.getSystemUser());
     }
-    public DietPlanBo(DietPlan dietPlan, String name, Date createdOn, PlanTypeBo planType, Set dietParameters, SystemUserBo creator, Set timeSpans) {
-       this(dietPlan, name, createdOn, planType, creator);
-       this._DietPlan.setDietParameters(dietParameters);
-       this._DietPlan.setTimeSpans(timeSpans);
+    public DietPlanBo(String name, Date createdOn, PlanTypeBo planType, Set<DietParameterBo> dietParameters, SystemUserBo creator, Set<TimeSpanBo> timeSpans) {
+       this(name, createdOn, planType, creator);
+
+        for (DietParameterBo dietParameterBo : dietParameters) {
+            this._DietPlan.getDietParameters().add(dietParameterBo.getDieDietParameter());
+        }
+
+        for (TimeSpanBo timeSpanBo : timeSpans) {
+            this._DietPlan.getTimeSpans().add(timeSpanBo.getTimeSpan());
+        }
     }
    
     public long getDietPlanId() {
@@ -72,12 +75,18 @@ public class DietPlanBo  implements java.io.Serializable {
         this.getDietPlan().setPlanType(planType.getPlanType());
         this._planType = planType;
     }
-    public Set getDietParameters() {
-        return this.getDietPlan().getDietParameters();
+    public Set<DietParameterBo> getDietParameters() {
+        Set<DietParameterBo> temp = new HashSet<DietParameterBo>(this._DietPlan.getDietParameters().size());
+        for (DietParameter dietParameter : this._DietPlan.getDietParameters()) {
+            temp.add(new DietParameterBo(dietParameter));
+        }
+        return temp;
     }
     
-    public void setDietParameters(Set dietParameters) {
-        this.getDietPlan().setDietParameters(dietParameters);
+    public void setDietParameters(Set<DietParameterBo> dietParametersBo) {
+        for (DietParameterBo dietParameterBo : dietParametersBo) {
+            this._DietPlan.getDietParameters().add(dietParameterBo.getDieDietParameter());
+        }
     }
     public SystemUserBo getCreator() {
         return this._creator;
@@ -87,12 +96,18 @@ public class DietPlanBo  implements java.io.Serializable {
         this.getDietPlan().setCreator(creator.getSystemUser());
         this._creator = creator;
     }
-    public Set getTimeSpans() {
-        return this.getDietPlan().getTimeSpans();
+    public Set<TimeSpanBo> getTimeSpans() {
+        Set<TimeSpanBo> temp = new HashSet<TimeSpanBo>(this._DietPlan.getTimeSpans().size());
+        for (TimeSpan timeSpan : this._DietPlan.getTimeSpans()) {
+            temp.add(new TimeSpanBo(timeSpan));
+        }
+        return temp;
     }
     
-    public void setTimeSpans(Set timeSpans) {
-        this.getDietPlan().setTimeSpans(timeSpans);
+    public void setTimeSpans(Set<TimeSpanBo> timeSpansBo) {
+        for (TimeSpanBo timeSpanBo : timeSpansBo) {
+            this._DietPlan.getTimeSpans().add(timeSpanBo.getTimeSpan());
+        }
     }
 
     /**

@@ -28,7 +28,6 @@ public class MealLineBo  implements java.io.Serializable {
     public MealLineBo(MealLine mealLine, float quantity, boolean add, RecipeBo recipeBo) {
         this(mealLine);
         this._MealLine.setQuantity(quantity);
-        this._MealLine.setAdd(add);
         this._recipe = recipeBo;
     }
     public MealLineBo(MealLine mealLine, float quantity, Clob info, boolean add, Set mealLines, RecipeBo recipeBo) {
@@ -58,13 +57,7 @@ public class MealLineBo  implements java.io.Serializable {
     public void setInfo(Clob info) {
         this.getMealLine().setInfo(info);
     }
-    public boolean isAdd() {
-        return this.getMealLine().isAdd();
-    }
     
-    public void setAdd(boolean add) {
-        this.getMealLine().setAdd(add);
-    }
     public Set getMealLines() {
         return this.getMealLine().getMealLines();
     }

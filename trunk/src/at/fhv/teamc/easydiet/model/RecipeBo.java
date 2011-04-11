@@ -32,7 +32,7 @@ public class RecipeBo  implements java.io.Serializable {
        this._Recipe.setDescription(description);
        this._Recipe.setBenefits(benefits);
        this._Recipe.setCookInstructions(cookInstructions);
-       this._Recipe.setRecipes(recipes);
+       this._Recipe.setIngredients(recipes);
        this._Recipe.setNutrimentParameters(nutrimentParameters);
     }
    
@@ -86,11 +86,11 @@ public class RecipeBo  implements java.io.Serializable {
         this.getRecipe().setCookInstructions(cookInstructions);
     }
     public Set getRecipes() {
-        return this.getRecipe().getRecipes();
+        return this.getRecipe().getIngredients();
     }
     
     public void setRecipes(Set recipes) {
-        this.getRecipe().setRecipes(recipes);
+        this.getRecipe().setIngredients(recipes);
     }
     public Set getNutrimentParameters() {
         return this.getRecipe().getNutrimentParameters();
