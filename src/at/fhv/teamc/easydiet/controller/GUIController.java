@@ -89,7 +89,7 @@ public class GUIController implements PatientListener {
      * @param p
      */
     public void chooseActivePatient(PatientBo p) {
-        _businessLogicController.chooseActivePatient(p);
+        _businessLogicController.setActivePatient(p);
     }
 
     /**
