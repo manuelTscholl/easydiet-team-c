@@ -1,0 +1,2 @@
+Patient _patientstate zu _patientstates
+LaborReport zu LabReport --> weil LaborReport gleich Arbeitsbericht
