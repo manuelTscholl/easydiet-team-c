@@ -17,7 +17,9 @@ public class Recipe  implements java.io.Serializable
     private Clob _description;
     private Clob _benefits;
     private Clob _cookInstructions;
-    private Set<Recipe> _recipes = new HashSet<Recipe>(0);
+    private float _amount;
+    private ParameterDefinitionUnit _unit;
+    private Set<RecipeIngredient> _ingredients = new HashSet<RecipeIngredient>(0);
     private Set<NutrimentParameter> _nutrimentParameters = new HashSet<NutrimentParameter>(0);
 
     /**
@@ -47,10 +49,12 @@ public class Recipe  implements java.io.Serializable
      * @param description the description to set for this instance
      * @param benefits the benefits to set for this instance
      * @param cookInstructions the cookInstructions to set for this instance
-     * @param recipes the recipes to set for this instance
+     * @param amount the amount to set for this instance
+     * @param unit the unit to set for this instance
+     * @param ingredients the ingredients to set for this instance
      * @param nutrimentParameters the nutrimentParameters to set for this instance
      */
-    public Recipe(String name, String blsCode, int difficulty, Clob description, Clob benefits, Clob cookInstructions, Set<Recipe> recipes, Set<NutrimentParameter> nutrimentParameters) 
+    public Recipe(String name, String blsCode, int difficulty, Clob description, Clob benefits, Clob cookInstructions, float amount, ParameterDefinitionUnit unit, Set<RecipeIngredient> ingredients, Set<NutrimentParameter> nutrimentParameters) 
     {
        _name = name;
        _blsCode = blsCode;
@@ -58,7 +62,9 @@ public class Recipe  implements java.io.Serializable
        _description = description;
        _benefits = benefits;
        _cookInstructions = cookInstructions;
-       _recipes = recipes;
+       _amount = amount;
+       _unit = unit;
+       _ingredients = ingredients;
        _nutrimentParameters = nutrimentParameters;
     }
    
@@ -189,21 +195,57 @@ public class Recipe  implements java.io.Serializable
     }
     
     /**       
-     * Gets the recipes of this instance. 
-     * @return the recipes currently set for this instance.
+     * Gets the amount of this instance. 
+     * @return the amount currently set for this instance.
      */
-    public Set<Recipe> getRecipes() 
+    public float getAmount() 
     {
-        return _recipes;
+        return _amount;
     }
     
     /**       
-     * Sets the recipes of this instance. 
-     * @param recipes the new recipes of this instance.
+     * Sets the amount of this instance. 
+     * @param amount the new amount of this instance.
      */    
-    public void setRecipes(Set<Recipe> recipes) 
+    public void setAmount(float amount) 
     {
-        _recipes = recipes;
+        _amount = amount;
+    }
+    
+    /**       
+     * Gets the unit of this instance. 
+     * @return the unit currently set for this instance.
+     */
+    public ParameterDefinitionUnit getUnit() 
+    {
+        return _unit;
+    }
+    
+    /**       
+     * Sets the unit of this instance. 
+     * @param unit the new unit of this instance.
+     */    
+    public void setUnit(ParameterDefinitionUnit unit) 
+    {
+        _unit = unit;
+    }
+    
+    /**       
+     * Gets the ingredients of this instance. 
+     * @return the ingredients currently set for this instance.
+     */
+    public Set<RecipeIngredient> getIngredients() 
+    {
+        return _ingredients;
+    }
+    
+    /**       
+     * Sets the ingredients of this instance. 
+     * @param ingredients the new ingredients of this instance.
+     */    
+    public void setIngredients(Set<RecipeIngredient> ingredients) 
+    {
+        _ingredients = ingredients;
     }
     
     /**       

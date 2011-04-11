@@ -1,6 +1,4 @@
-package at.easydiet.dao;
-
-import at.easydiet.model.CheckOperator;
+package at.easydiet.model;
 
 /**
  * A DAO implementation for CheckOperator objects.
