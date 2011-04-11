@@ -10,50 +10,60 @@ import at.fhv.teamc.easydiet.model.PatientBo;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
-import javax.print.attribute.SetOfIntegerSyntax;
-import org.omg.CORBA.SystemException;
+import java.util.Set;
 
 /**
  * Controller for business logic
+ * 
  * @author Michael
  */
-public class BusinessLogicController {
+public class BusinessLogicController
+{
 
     // class variables
-    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BusinessLogicController.class);
-    private String _name;
-    private int _svn;
-    private Date _bday;
+    public static final org.apache.log4j.Logger LOGGER     = org.apache.log4j.Logger
+                                                                   .getLogger(BusinessLogicController.class);
 
-
-    DatabaseController controller = new DatabaseController();//einfach probe
+    // connects to the database and gets all the needed data.
+    DatabaseController                          controller = new DatabaseController();
 
     /**
-     * Search patient in database
-     * @param search string
+     * Not implemented
+     * 
+     * @param search
      */
-    public void searchPatient(String search) {
+    public void searchPatient(String search)
+    {
         LOGGER.trace("Sucheingabe: " + search);
     }
 
-        /**
-     * Search patient in database
-     * @param search string
+    /**
+     * Not implemented
+     * 
+     * @param p
      */
-    public void chooseActivePatient(PatientBo p) {
+    public void chooseActivePatient(PatientBo p)
+    {
         LOGGER.trace("Patient: " + p.getInsuranceNumber());
     }
 
-    /*
-     * This method calls the DB-controller which finally gets the required patient objects
+    /**
+     * This method calls the DB-controller which finally gets the required
+     * patient objects
+     * 
+     * @param search
+     *            the complete string which will be parsed in firstname,
+     *            secondname, svn and date
+     * @return a list of PatientBo's which matched to the specified search
+     *         string
      */
-    public Set<PatientBo> getPatients(String search) {
+    public Set<PatientBo> getPatients(String search)
+    {
 
-
-        String []t;
+        String[] t;
 
         String name1 = "";
-        String name2 ="";
+        String name2 = "";
         String SVN = "";
         Date date = new Date();
 
@@ -63,40 +73,47 @@ public class BusinessLogicController {
 
         t = search.split(" ");
 
-        if(t==null || t.length > 4) {
+        if (t == null || t.length > 4)
+        {
 
             return null;
         }
 
-        for(int i= 0; i<t.length; i++) {
+        for (int i = 0; i < t.length; i++)
+        {
 
-            if(t[i].matches(regexName)) {
+            if (t[i].matches(regexName))
+            {
 
-                if(name1.equals("")) {
+                if (name1.equals(""))
+                {
 
                     name1 = t[i];
                 }
-                else {
+                else
+                {
                     name2 = t[i];
                 }
             }
-            else if(t[i].matches(regexSVN)) {
+            else if (t[i].matches(regexSVN))
+            {
 
                 SVN = t[i];
             }
-            else if(t[i].matches(regexDATE)) {
+            else if (t[i].matches(regexDATE))
+            {
 
-                try {
+                try
+                {
                     date = DateFormat.getInstance().parse(t[i]);
                 }
-                catch(ParseException p) {
+                catch (ParseException p)
+                {
 
-                    
+                    LOGGER.error(p);
                 }
             }
-
-           return controller.getPatients(name1, name2, SVN, date);
-
         }
+        return controller.getPatients(name1, name2, SVN, date);
     }
 }
