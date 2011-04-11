@@ -26,7 +26,8 @@ public class PatientBo  implements java.io.Serializable {
 
 	
     public PatientBo(Patient patient, String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, GenderBo genderBo) {
-        this(patient);
+        this();
+
         this._Patient.setInsuranceNumber(insuranceNumber);
         this._Patient.setForename(forename);
         this._Patient.setLastname(lastname);

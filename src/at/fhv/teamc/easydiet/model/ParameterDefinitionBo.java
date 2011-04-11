@@ -25,7 +25,7 @@ public class ParameterDefinitionBo  implements java.io.Serializable {
     public ParameterDefinitionBo(ParameterDefinition parameterDefinition, String name, String unit, String checkPattern, ParameterDefinitionDataTypeBo type) {
         this(parameterDefinition, type);
         this._ParameterDefinition.setName(name);
-        this._ParameterDefinition.setUnit(unit);
+        this._ParameterDefinition.setUnits(unit);
         this._ParameterDefinition.setCheckPattern(checkPattern);
     }
    

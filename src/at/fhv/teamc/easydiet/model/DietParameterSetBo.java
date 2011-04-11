@@ -3,6 +3,7 @@ package at.fhv.teamc.easydiet.model;
 
 
 import at.easydiet.model.DietParameterSet;
+import at.easydiet.model.DietParameterTemplate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,13 +22,16 @@ public class DietParameterSetBo  implements java.io.Serializable {
     }
 
 	
-    public DietParameterSetBo(DietParameterSet dietParameterSet, String name) {
-        this(dietParameterSet);
-        setName(name);
+    public DietParameterSetBo(String name) {
+        this(new DietParameterSet(name));
     }
-    public DietParameterSetBo(DietParameterSet dietParameterSet, String name, Set dietParameterTemplates) {
-        this(dietParameterSet,name);
-       setDietParameterTemplates(dietParameterTemplates);
+
+    public DietParameterSetBo(String name, Set<DietParameterTemplateBo> dietParameterTemplatesBo) {
+        this(name);
+        //extract DB-Objects from dietParameterTemplatesBo and include them to DietParameterSet
+        for(DietParameterTemplateBo dptb: dietParameterTemplatesBo){
+            this._dietParameterSet.getDietParameterTemplates().add(dptb.getDietParameterTemplate());
+        }
     }
    
     public long getDietParameterSetId() {
@@ -44,12 +48,23 @@ public class DietParameterSetBo  implements java.io.Serializable {
     public void setName(String name) {
         getDietParameterSet().setName(name);
     }
-    public Set getDietParameterTemplates() {
-        return getDietParameterSet().getDietParameterTemplates();
+    public Set<DietParameterTemplateBo> getDietParameterTemplates() {
+
+        Set<DietParameterTemplateBo> temp = new HashSet<DietParameterTemplateBo>(getDietParameterSet().getDietParameterTemplates().size());
+
+        for(DietParameterTemplate dpt: getDietParameterSet().getDietParameterTemplates()){
+            temp.add(new DietParameterTemplateBo(dpt));
+        }
+
+        return temp;
     }
     
-    public void setDietParameterTemplates(Set dietParameterTemplates) {
-        getDietParameterSet().setDietParameterTemplates(dietParameterTemplates);
+    public void setDietParameterTemplates(Set<DietParameterTemplateBo> dietParameterTemplates) {
+        
+        for(DietParameterTemplateBo dptb: dietParameterTemplates){
+            this._dietParameterSet.getDietParameterTemplates().add(dptb.getDietParameterTemplate());
+        }
+
     }
 
     /**
