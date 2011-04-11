@@ -16,7 +16,8 @@ import at.easydiet.dao.PatientDAO;
 import at.easydiet.model.Patient;
 import at.fhv.teamc.easydiet.model.*;
 
-/**
+/** 
+ * Will get all data from database via the different class dow's
  * @author Manuel
  *
  */
