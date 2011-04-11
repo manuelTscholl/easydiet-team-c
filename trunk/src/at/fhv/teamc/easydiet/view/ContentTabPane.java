@@ -23,7 +23,6 @@ public class ContentTabPane extends TabPane implements Bindable {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentTabPane.class);
-
     // instance variables
     private ContentAppointmentScrollPane _appointmentScrollPane;
     private ContentOverviewScrollPane _overviewScrollPane;
@@ -45,15 +44,15 @@ public class ContentTabPane extends TabPane implements Bindable {
     public void initialize(Map<String, Object> map, URL url, Resources rsrcs) {
 
         // get tab content
-        _appointmentScrollPane = (ContentAppointmentScrollPane)map.get("content_appointment");
+        _appointmentScrollPane = (ContentAppointmentScrollPane) map.get("content_appointment");
         _patientDataListeners.add(_appointmentScrollPane);
-        _overviewScrollPane = (ContentOverviewScrollPane)map.get("content_overview");
+        _overviewScrollPane = (ContentOverviewScrollPane) map.get("content_overview");
         _patientDataListeners.add(_overviewScrollPane);
-        _contactJournalScrollPane = (ContentContactJournalScrollPane)map.get("content_contactJournal");
+        _contactJournalScrollPane = (ContentContactJournalScrollPane) map.get("content_contactJournal");
         _patientDataListeners.add(_contactJournalScrollPane);
-        _anamnesisScrollPane = (ContentAnamnesisScrollPane)map.get("content_anamnesis");
+        _anamnesisScrollPane = (ContentAnamnesisScrollPane) map.get("content_anamnesis");
         _patientDataListeners.add(_anamnesisScrollPane);
-        _dietryPlanScrollPane = (ContentDietryPlanScrollPane)map.get("content_dietryPlan");
+        _dietryPlanScrollPane = (ContentDietryPlanScrollPane) map.get("content_dietryPlan");
         _patientDataListeners.add(_dietryPlanScrollPane);
 
         // add listener for resizing
@@ -69,22 +68,24 @@ public class ContentTabPane extends TabPane implements Bindable {
                 _dietryPlanScrollPane.setPreferredHeight(height);
 
             }
-
         });
+
+        // register component
+        GUIComponents.put(getName(), this);
     }
 
     /**
      * Update patient data in tabs
      * @param p
      */
-    public void updatePatientData(PatientBo p){
-        
+    public void updatePatientData(PatientBo p) {
+
         // select overview tab
         setSelectedIndex(1);
 
         // update patient data in tabs
-        for(PatientDataListener pdl:_patientDataListeners){
-           pdl.updatePatientData(p);
+        for (PatientDataListener pdl : _patientDataListeners) {
+            pdl.updatePatientData(p);
         }
     }
 }

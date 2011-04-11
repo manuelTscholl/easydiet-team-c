@@ -3,6 +3,7 @@
 <easyDiet:NavigationTabPane xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
     xmlns:easyDiet="at.fhv.teamc.easydiet.view"
+    bxml:id="navTab"
     xmlns="org.apache.pivot.wtk" styles="{tabOrientation:'vertical', activeTabColor:'#CCE8FC',
     inactiveTabColor:'#DFF1FD', padding:'{top:10}', buttonSpacing:'0'}"
     collapsible="true">

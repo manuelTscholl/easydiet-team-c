@@ -30,6 +30,8 @@ public class ContentContactJournalScrollPane extends ScrollPane implements Binda
      */
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
 
+        // register component
+        GUIComponents.put(getName(), this);
     }
 
     /**

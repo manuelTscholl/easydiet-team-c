@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <easyDiet:EasyDietMenuBar styles="{backgroundColor:'#CCE8FC', font:{bold:false}}"
     xmlns:bxml="http://pivot.apache.org/bxml"
+    bxml:id="menuBar"
     xmlns:content="org.apache.pivot.wtk.content"
     xmlns:easyDiet="at.fhv.teamc.easydiet.view"
     xmlns="org.apache.pivot.wtk">

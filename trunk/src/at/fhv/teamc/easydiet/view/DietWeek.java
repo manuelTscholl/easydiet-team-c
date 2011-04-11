@@ -11,7 +11,6 @@ import org.apache.pivot.wtk.Border;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ComponentMouseButtonListener;
 import org.apache.pivot.wtk.Expander;
-import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.Mouse.Button;
 import org.apache.pivot.wtk.TablePane;
 
