@@ -2,6 +2,7 @@
 
 <easyDiet:ContentTabPane xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
+    bxml:id="contentTabPane"
     xmlns:easyDiet="at.fhv.teamc.easydiet.view"
     xmlns="org.apache.pivot.wtk" styles="{activeTabColor:'#CCE8FC', inactiveTabColor:'#DFF1FD'}">
 

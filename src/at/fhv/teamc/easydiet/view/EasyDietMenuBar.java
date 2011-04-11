@@ -28,5 +28,8 @@ public class EasyDietMenuBar extends MenuBar implements Bindable {
      * @param rsrcs
      */
     public void initialize(Map<String, Object> map, URL url, Resources rsrcs) {
+
+        // register component
+        GUIComponents.put(getName(), this);
     }
 }

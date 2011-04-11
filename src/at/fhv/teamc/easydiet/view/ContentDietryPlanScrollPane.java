@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
-import org.apache.pivot.wtk.Border;
 import org.apache.pivot.wtk.Component;
-import org.apache.pivot.wtk.Expander;
 import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TablePane;
 
@@ -56,6 +54,9 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
                 ((TablePane.Column) _namespace.get("planColumn")).setWidth(component.getWidth() - width);
             }
         });
+
+        // register component
+        GUIComponents.put(getName(), this);
 
         // EXAMPLE
         int end = 15;

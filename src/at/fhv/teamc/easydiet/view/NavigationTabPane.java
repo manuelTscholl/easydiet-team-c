@@ -72,7 +72,10 @@ public class NavigationTabPane extends TabPane implements Bindable {
         _editBoxPane = (BoxPane) map.get("editBoxPane");
         _searchResultTablePane = (TablePane) map.get("searchResultTablePane");
         _searchResultScrollPane = (ScrollPane) map.get("searchResultScrollPane");
-        _searchActivityIndicator=(ActivityIndicator)map.get("searchActivityIndicator");
+        _searchActivityIndicator = (ActivityIndicator) map.get("searchActivityIndicator");
+
+        // register component
+        GUIComponents.put(getName(), this);
     }
 
     /**
@@ -87,7 +90,7 @@ public class NavigationTabPane extends TabPane implements Bindable {
      * Getter for the search activity indicator
      * @return
      */
-    public ActivityIndicator getActivityIndicator(){
+    public ActivityIndicator getActivityIndicator() {
         return _searchActivityIndicator;
     }
 
@@ -157,10 +160,10 @@ public class NavigationTabPane extends TabPane implements Bindable {
      * Register a new patient listener
      * @param pl patientListener Object
      */
-    public void registerListener(PatientListener pl){
+    public void registerListener(PatientListener pl) {
 
         // check if already registerd
-        if(!_patientListeners.contains(pl)){
+        if (!_patientListeners.contains(pl)) {
             _patientListeners.add(pl);
         }
     }
@@ -169,8 +172,8 @@ public class NavigationTabPane extends TabPane implements Bindable {
      * Notify patient listeners, a patient is selected as active
      * @param p Patient which wants to be active
      */
-    private void notifyPatientListeners(PatientBo p){
-        for(PatientListener pl:_patientListeners){
+    private void notifyPatientListeners(PatientBo p) {
+        for (PatientListener pl : _patientListeners) {
             pl.chooseActivePatient(p);
         }
     }
