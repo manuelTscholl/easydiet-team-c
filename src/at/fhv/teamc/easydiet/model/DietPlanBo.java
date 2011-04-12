@@ -21,7 +21,7 @@ public class DietPlanBo  implements java.io.Serializable {
      
     private DietPlan _DietPlan;
 
-    private DietPlanBo() {
+    protected DietPlanBo() {
     }
 
     public DietPlanBo(DietPlan dietPlan){
