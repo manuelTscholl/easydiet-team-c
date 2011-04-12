@@ -16,6 +16,10 @@ public class DietTreatmentSystemUserBo  implements java.io.Serializable, Saveabl
 
      private DietTreatmentSystemUser _DietTreatmentSystemUser;
 
+     private DietTreatmentSystemUserBo(){
+         
+     }
+
     public DietTreatmentSystemUserBo(DietTreatmentSystemUser dietTreatmentSystemUser) {
         this._DietTreatmentSystemUser = dietTreatmentSystemUser;
     }

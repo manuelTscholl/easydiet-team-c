@@ -18,7 +18,7 @@ public class LaborReportBo  implements java.io.Serializable, Saveable {
 
      private LaborReport _LaborReport;
 
-    public LaborReportBo() {
+    private LaborReportBo() {
     }
 
     public LaborReportBo(LaborReport laborReport){

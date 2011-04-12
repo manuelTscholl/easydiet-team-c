@@ -13,7 +13,7 @@ public class FamilyAnamnesisBo  implements java.io.Serializable, Saveable {
 
     private FamilyAnamnesis _FamilyAnamnesis;
 
-    public FamilyAnamnesisBo() {
+    private FamilyAnamnesisBo() {
     }
 
     public FamilyAnamnesisBo(FamilyAnamnesis familyAnamnesis){

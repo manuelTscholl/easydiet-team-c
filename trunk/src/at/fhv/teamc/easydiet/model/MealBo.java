@@ -2,7 +2,9 @@ package at.fhv.teamc.easydiet.model;
 // Generated 02.04.2011 00:41:04 by Hibernate Tools 3.4.0.CR1
 
 
+import at.easydiet.model.DietParameter;
 import at.easydiet.model.Meal;
+import at.easydiet.model.MealLine;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,22 +15,27 @@ public class MealBo  implements java.io.Serializable {
 
      private  Meal _Meal;
 
-    public MealBo() {
+    private MealBo() {
     }
 
     public MealBo(Meal meal){
         this._Meal = meal;
     }
 
-    public MealBo(Meal meal, String code, String name) {
-        this(meal);
-        this._Meal.setCode(code);
-        this._Meal.setName(name);
+    public MealBo(String code, String name) {
+        this(new Meal(code, name));
     }
-    public MealBo(Meal meal, String code, String name, Set dietParameters, Set mealLines) {
-       this(meal, code, name);
-       this._Meal.setDietParameters(dietParameters);
-       this._Meal.setMealLines(mealLines);
+    public MealBo(String code, String name, Set<DietParameterBo> dietParameters, Set<MealLineBo> mealLines) {
+       this(code, name);
+
+        for (DietParameterBo dietParameterBo : dietParameters) {
+            this._Meal.getDietParameters().add(dietParameterBo.getDieDietParameter());
+        }
+
+        for (MealLineBo mealLineBo : mealLines) {
+            this._Meal.getMealLines().add(mealLineBo.getMealLine());
+        }
+       
     }
    
     public long getMealId() {
@@ -52,19 +59,31 @@ public class MealBo  implements java.io.Serializable {
     public void setName(String name) {
         this.getMeal().setName(name);
     }
-    public Set getDietParameters() {
-        return this.getMeal().getDietParameters();
+    public Set<DietParameterBo> getDietParameters() {
+        Set<DietParameterBo> temp = new HashSet<DietParameterBo>(this._Meal.getDietParameters().size());
+        for (DietParameter dietParameter : this._Meal.getDietParameters()) {
+            temp.add(new DietParameterBo(dietParameter));
+        }
+        return temp;
     }
     
-    public void setDietParameters(Set dietParameters) {
-        this.getMeal().setDietParameters(dietParameters);
+    public void setDietParameters(Set<DietParameterBo> dietParametersBo) {
+        for (DietParameterBo dietParameterBo : dietParametersBo) {
+            this._Meal.getDietParameters().add(dietParameterBo.getDieDietParameter());
+        }
     }
-    public Set getMealLines() {
-        return this.getMeal().getMealLines();
+    public Set<MealLineBo> getMealLines() {
+        Set<MealLineBo> temp = new HashSet<MealLineBo>(this._Meal.getMealLines().size());
+        for (MealLine mealLine : this._Meal.getMealLines()) {
+            temp.add(new MealLineBo(mealLine));
+        }
+        return temp;
     }
     
-    public void setMealLines(Set mealLines) {
-        this.getMeal().setMealLines(mealLines);
+    public void setMealLines(Set<MealLineBo> mealLinesBo) {
+        for (MealLineBo mealLineBo : mealLinesBo) {
+            this._Meal.getMealLines().add(mealLineBo.getMealLine());
+        }
     }
 
     /**

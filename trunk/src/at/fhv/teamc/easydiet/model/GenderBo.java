@@ -13,7 +13,7 @@ public class GenderBo  implements java.io.Serializable, Saveable {
 
      private Gender _Gender;
 
-    public GenderBo() {
+    private GenderBo() {
     }
 
     public GenderBo(Gender gender) {

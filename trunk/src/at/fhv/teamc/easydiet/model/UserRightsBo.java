@@ -17,17 +17,22 @@ public class UserRightsBo
     
     private UserRights _UserRights;
 
+    private UserRightsBo(){
+
+    }
+
+    private UserRightsBo(UserRights userRights){
+        this._UserRights=userRights;
+    }
+
     /** 
      * Initializes a new instance of the {@link UserRightsBo} class.
      * @param userRightId
      * @param name
      */
-    public UserRightsBo(UserRights userRights, Long userRightId, String name)
+    public UserRightsBo(Long userRightId, String name)
     {
-        super();
-        this._UserRights=userRights;
-        this._UserRights.setUserRightId(userRightId);
-        this._UserRights.setName(name);
+        this(new UserRights(userRightId, name));
     }
     /**
      * Gets the userRightId.

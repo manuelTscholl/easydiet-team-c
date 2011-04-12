@@ -2,7 +2,12 @@ package at.fhv.teamc.easydiet.model;
 // Generated 02.04.2011 00:41:04 by Hibernate Tools 3.4.0.CR1
 
 
+import at.easydiet.model.DietTreatment;
+import at.easydiet.model.FamilyAnamnesis;
+import at.easydiet.model.LaborReport;
 import at.easydiet.model.Patient;
+import at.easydiet.model.PatientState;
+import at.easydiet.model.Recipe;
 import java.sql.Clob;
 import java.util.Date;
 import java.util.HashSet;
@@ -17,7 +22,7 @@ public class PatientBo  implements java.io.Serializable {
 
      private Patient _Patient;
 
-    public PatientBo() {
+    private PatientBo() {
     }
 
     public PatientBo(Patient patient){
@@ -25,32 +30,36 @@ public class PatientBo  implements java.io.Serializable {
     }
 
 	
-    public PatientBo(Patient patient, String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, GenderBo genderBo) {
-        this();
-
-        this._Patient.setInsuranceNumber(insuranceNumber);
-        this._Patient.setForename(forename);
-        this._Patient.setLastname(lastname);
-        this._Patient.setTitle(title);
-        this._Patient.setStreet(street);
-        this._Patient.setZip(zip);
-        this._Patient.setPlace(place);
-        this._Patient.setCountry(country);
-        this._Patient.setBirthday(birthday);
-        this._Patient.setGender(genderBo.getGender());
+    public PatientBo(String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, GenderBo genderBo) {
+        this(new Patient(insuranceNumber, forename, lastname, title, street, zip, place, country, birthday, genderBo.getGender()));
     }
-    public PatientBo(Patient patient, String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, String job, String religion, String[] illnesses, String regime, Clob notice, GenderBo genderBo, Set familyanamnesis, Set patientstates, Set laborReports, Set treatments, Set disfavors) {
-       this(patient, insuranceNumber, forename,lastname,title,street,zip,place,country,birthday,genderBo);
+    public PatientBo(String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, String job, String religion, String[] illnesses, String regime, Clob notice, GenderBo genderBo, Set<FamilyAnamnesisBo> familyanamnesisBo, Set<PatientStateBo> patientstatesBo, Set<LaborReportBo> laborReportsBo, Set<DietTreatmentBo> treatmentsBo, Set<RecipeBo> disfavorsBo) {
+       this(insuranceNumber, forename,lastname,title,street,zip,place,country,birthday,genderBo);
        this._Patient.setJob(job);
        this._Patient.setReligion(religion);
        this._Patient.setIllnesses(illnesses);
        this._Patient.setRegime(regime);
        this._Patient.setNotice(notice);
-       this._Patient.setFamilyanamnesis(familyanamnesis);
-       this._Patient.setPatientstate(patientstates);
-       this._Patient.setLaborReports(laborReports);
-       this._Patient.setTreatments(treatments);
-       this._Patient.setDisfavors(disfavors);
+
+        for (FamilyAnamnesisBo familyAnamnesisBo : familyanamnesisBo) {
+            this._Patient.getFamilyanamnesis().add(familyAnamnesisBo.getFamilyAnamnesis());
+        }
+
+        for (PatientStateBo patientStateBo : patientstatesBo) {
+            this._Patient.getPatientstate().add(patientStateBo.getPatientState());
+        }
+
+        for(LaborReportBo laborReportBo:laborReportsBo){
+            this._Patient.getLaborReports().add(laborReportBo.getLaborReport());
+        }
+
+        for(DietTreatmentBo dietTreatmentBo: treatmentsBo){
+            this._Patient.getTreatments().add(dietTreatmentBo.getDietTreatment());
+        }
+
+        for(RecipeBo recipeBo: disfavorsBo){
+            this._Patient.getDisfavors().add(recipeBo.getRecipe());
+        }
     }
    
     public long getPatientId() {
@@ -166,40 +175,70 @@ public class PatientBo  implements java.io.Serializable {
         this.getPatient().setGender(gender.getGender());
         this._GenderBo.setGender(getPatient().getGender());
     }
-    public Set getFamilyanamnesis() {
-        return this.getPatient().getFamilyanamnesis();
+    public Set<FamilyAnamnesisBo> getFamilyanamnesis() {
+        Set<FamilyAnamnesisBo> temp = new HashSet<FamilyAnamnesisBo>(this._Patient.getFamilyanamnesis().size());
+        for (FamilyAnamnesis familyAnamnesis : this._Patient.getFamilyanamnesis()) {
+            temp.add(new FamilyAnamnesisBo(familyAnamnesis));
+        }
+        return temp;
     }
     
-    public void setFamilyanamnesis(Set familyanamnesis) {
-        this.getPatient().setFamilyanamnesis(familyanamnesis);
+    public void setFamilyanamnesis(Set<FamilyAnamnesisBo> familyanamnesisBo) {
+        for (FamilyAnamnesisBo familyAnamnesisBo : familyanamnesisBo) {
+            this._Patient.getFamilyanamnesis().add(familyAnamnesisBo.getFamilyAnamnesis());
+        }
     }
-    public Set getPatientstate() {
-        return this.getPatient().getPatientstate();
-    }
-    
-    public void setPatientstate(Set patientstate) {
-        this.getPatient().setPatientstate(patientstate);
-    }
-    public Set getLaborReports() {
-        return this.getPatient().getLaborReports();
-    }
-    
-    public void setLaborReports(Set laborReports) {
-        this.getPatient().setLaborReports(laborReports);
-    }
-    public Set getTreatments() {
-        return this.getPatient().getTreatments();
+    public Set<PatientStateBo> getPatientstates() {
+        Set<PatientStateBo> temp=new HashSet<PatientStateBo>(this._Patient.getPatientstate().size());
+        for (PatientState patientState : this._Patient.getPatientstate()) {
+            temp.add(new PatientStateBo(patientState));
+        }
+        return temp;
     }
     
-    public void setTreatments(Set treatments) {
-        this.getPatient().setTreatments(treatments);
+    public void setPatientstates(Set<PatientStateBo> patientstatesBo) {
+        for (PatientStateBo patientStateBo : patientstatesBo) {
+            this._Patient.getPatientstate().add(patientStateBo.getPatientState());
+        }
     }
-    public Set getDisfavors() {
-        return this.getPatient().getDisfavors();
+    public Set<LaborReportBo> getLaborReports() {
+        Set<LaborReportBo> temp=new HashSet<LaborReportBo>(this._Patient.getLaborReports().size());
+        for(LaborReport laborReport : this._Patient.getLaborReports()){
+            temp.add(new LaborReportBo(laborReport));
+        }
+        return temp;
     }
     
-    public void setDisfavors(Set disfavors) {
-        this.getPatient().setDisfavors(disfavors);
+    public void setLaborReports(Set<LaborReportBo> laborReportsBo) {
+        for(LaborReportBo laborReportBo:laborReportsBo){
+            this._Patient.getLaborReports().add(laborReportBo.getLaborReport());
+        }
+    }
+    public Set<DietTreatmentBo> getTreatments() {
+        Set<DietTreatmentBo> temp = new HashSet<DietTreatmentBo>(this._Patient.getTreatments().size());
+        for(DietTreatment dietTreatment: this._Patient.getTreatments()){
+            temp.add(new DietTreatmentBo(dietTreatment));
+        }
+        return temp;
+    }
+    
+    public void setTreatments(Set<DietTreatmentBo> treatmentsBo) {
+        for(DietTreatmentBo dietTreatmentBo: treatmentsBo){
+            this._Patient.getTreatments().add(dietTreatmentBo.getDietTreatment());
+        }
+    }
+    public Set<RecipeBo> getDisfavors() {
+        Set<RecipeBo> temp = new HashSet<RecipeBo>(this._Patient.getDisfavors().size());
+        for(Recipe recipe: this._Patient.getDisfavors()){
+            temp.add(new RecipeBo(recipe));
+        }
+        return temp;
+    }
+    
+    public void setDisfavors(Set<RecipeBo> disfavorsBo) {
+        for(RecipeBo recipeBo: disfavorsBo){
+            this._Patient.getDisfavors().add(recipeBo.getRecipe());
+        }
     }
 
     /**
