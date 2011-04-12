@@ -8,6 +8,7 @@ import at.easydiet.model.LaborReport;
 import at.easydiet.model.Patient;
 import at.easydiet.model.PatientState;
 import at.easydiet.model.Recipe;
+import at.fhv.teamc.easydiet.controller.PatientData;
 import java.sql.Clob;
 import java.util.Date;
 import java.util.HashSet;

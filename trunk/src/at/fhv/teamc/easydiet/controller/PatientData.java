@@ -7,7 +7,13 @@
 
 package at.fhv.teamc.easydiet.controller;
 
+import java.util.Date;
+
 
 public interface PatientData {
 
+    public String getForename();
+    public String getLastname();
+    public Date getBirthday();
+    public String getInsuranceNumber();
 }

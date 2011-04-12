@@ -32,15 +32,21 @@ public class BusinessLogicController {
      * @param search
      */
     public Set<PatientData> searchPatient(String search) {
+
+        // start search only if at least 2 characters are available
+        if(search.length() >= 2){
             return _searchPatientController.getPatients(search);
+        }
+
+        return null;
     }
 
     /**
      * Sets the active Patient
      * @param p the patient which should be set to active
      */
-    public void setActivePatient(PatientBo p) {
-        _activePatient = p;
+    public void setActivePatient(PatientData p) {
+        _activePatient = (PatientBo)p;
     }
 
     /**
