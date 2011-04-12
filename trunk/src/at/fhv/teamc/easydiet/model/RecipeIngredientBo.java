@@ -6,7 +6,7 @@ import at.easydiet.model.RecipeIngredient;
 /**
  * Represents a RecipeIngredient
  */
-public class RecipeIngredientBo  implements java.io.Serializable
+public class RecipeIngredientBo  implements java.io.Serializable, Saveable
 {
 
     
@@ -103,6 +103,10 @@ public class RecipeIngredientBo  implements java.io.Serializable
      */
     public void setRecipeIngredient(RecipeIngredient RecipeIngredient) {
         this._RecipeIngredient = RecipeIngredient;
+    }
+
+    public boolean save() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
     
