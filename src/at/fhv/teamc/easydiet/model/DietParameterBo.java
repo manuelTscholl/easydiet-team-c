@@ -25,8 +25,8 @@ public class DietParameterBo extends at.fhv.teamc.easydiet.model.DietParameterTe
     }
     public DietParameterBo(CheckOperatorBo checkOperator, int duration, String value, DietParameterTypeBo dietParameterType, ParameterDefinitionBo parameterDefinition, Date start) {
         this(checkOperator, dietParameterType, parameterDefinition);
-        this._dieDietParameter.setDuration(duration);
-        this._dieDietParameter.setValue(value);
+//        this._dieDietParameter.setDuration(duration);
+//        this._dieDietParameter.setValue(value);
         this._dieDietParameter.setStart(start);
     }
    
