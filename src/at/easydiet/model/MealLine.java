@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Represents a MealLine
  */
-public class MealLine  implements java.io.Serializable
+final public class MealLine  implements java.io.Serializable
 {
 
     /**

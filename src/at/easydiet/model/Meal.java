@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Represents a Meal
  */
-public class Meal  implements java.io.Serializable
+final public class Meal  implements java.io.Serializable
 {
 
     /**

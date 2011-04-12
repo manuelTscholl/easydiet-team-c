@@ -4,7 +4,7 @@ package at.easydiet.model;
 /**
  * Represents a DietTreatmentSystemUser
  */
-public class DietTreatmentSystemUser  implements java.io.Serializable
+final public class DietTreatmentSystemUser  implements java.io.Serializable
 {
 
     /**

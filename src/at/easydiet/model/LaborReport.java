@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Represents a LaborReport
  */
-public class LaborReport  implements java.io.Serializable
+final public class LaborReport  implements java.io.Serializable
 {
 
     /**

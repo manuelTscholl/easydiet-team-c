@@ -4,7 +4,7 @@ package at.easydiet.model;
 /**
  * Represents a UserRight
  */
-public class UserRight  implements java.io.Serializable
+final public class UserRight  implements java.io.Serializable
 {
 
     /**

@@ -4,7 +4,7 @@ package at.easydiet.model;
 /**
  * Represents a Gender
  */
-public class Gender  implements java.io.Serializable
+final public class Gender  implements java.io.Serializable
 {
 
     /**

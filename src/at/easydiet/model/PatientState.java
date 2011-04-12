@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Represents a PatientState
  */
-public class PatientState  implements java.io.Serializable
+final public class PatientState  implements java.io.Serializable
 {
 
     /**

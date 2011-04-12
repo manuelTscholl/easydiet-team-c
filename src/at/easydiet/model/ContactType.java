@@ -4,7 +4,7 @@ package at.easydiet.model;
 /**
  * Represents a ContactType
  */
-public class ContactType  implements java.io.Serializable
+final public class ContactType  implements java.io.Serializable
 {
 
     /**

@@ -4,7 +4,7 @@ package at.easydiet.model;
 /**
  * Represents a FamilyAnamnesis
  */
-public class FamilyAnamnesis  implements java.io.Serializable
+final public class FamilyAnamnesis  implements java.io.Serializable
 {
 
     /**
