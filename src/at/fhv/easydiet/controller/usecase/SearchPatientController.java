@@ -23,11 +23,15 @@ import java.util.Set;
  */
 public class SearchPatientController {
 
-// class variables
+    // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BusinessLogicController.class);
     // instance variables
     DatabaseController _dbController;
 
+    {
+        _dbController = new DatabaseController();
+    }
+    
     /**
      * Get patient from search string
      * @param search
@@ -88,7 +92,7 @@ public class SearchPatientController {
 
         // check if database set is not empty
         if (patients != null) {
-            
+
             // convert business patient data to gui patient data
             for (PatientBo pbo : patients) {
                 patientDatas.add(pbo);

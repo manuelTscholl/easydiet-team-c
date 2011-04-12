@@ -14,6 +14,7 @@ import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.PatientDAO;
 import at.easydiet.model.Patient;
 import at.fhv.teamc.easydiet.model.*;
+import org.apache.velocity.runtime.directive.Foreach;
 
 /** 
  * Will get all data from database via the different class dow's
@@ -42,7 +43,8 @@ public class DatabaseController {
     public Set<PatientBo> getPatients(String name1, String name2, String svn, Date birthday) {
 
         PatientDAO patientDao = DAOFactory.getInstance().getPatientDAO();
-        Set<PatientBo> patients = new HashSet<PatientBo>();
+        Set<Patient> patients = new HashSet<Patient>();
+        Set<PatientBo> patientsBo = new HashSet<PatientBo>();
 
         //Solves the problem that fore and lastname can be insert in a different order
         Patient tempPFornameFirst = new Patient();
@@ -60,14 +62,19 @@ public class DatabaseController {
 
         //adding all founded patients to the list
         for (Patient patient : patientDao.findByExample(tempPFornameFirst, null)) {
-            patients.add(new PatientBo(patient));
+            patients.add(patient);
         }
         for (Patient patient : patientDao.findByExample(tempPLastnameFirst, null)) {//if the object is not already added
             if (!patients.contains(patient)) {
-                patients.add(new PatientBo(patient));
+                patients.add(patient);
             }
         }
 
-        return patients;
+        // create Bo list
+        for(Patient p:patients){
+            patientsBo.add(new PatientBo(p));
+        }
+
+        return patientsBo;
     }
 }
