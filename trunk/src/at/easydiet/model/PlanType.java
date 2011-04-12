@@ -4,7 +4,7 @@ package at.easydiet.model;
 /**
  * Represents a PlanType
  */
-public class PlanType  implements java.io.Serializable
+final public class PlanType  implements java.io.Serializable
 {
 
     /**

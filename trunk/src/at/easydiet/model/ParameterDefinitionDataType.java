@@ -4,7 +4,7 @@ package at.easydiet.model;
 /**
  * Represents a ParameterDefinitionDataType
  */
-public class ParameterDefinitionDataType  implements java.io.Serializable
+final public class ParameterDefinitionDataType  implements java.io.Serializable
 {
 
     /**

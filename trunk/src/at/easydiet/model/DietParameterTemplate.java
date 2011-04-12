@@ -4,7 +4,7 @@ package at.easydiet.model;
 /**
  * Represents a DietParameterTemplate
  */
-public class DietParameterTemplate  implements java.io.Serializable
+final public class DietParameterTemplate  implements java.io.Serializable
 {
 
     /**

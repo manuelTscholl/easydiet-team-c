@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Represents a NutritionProtocol
  */
-public class NutritionProtocol extends at.easydiet.model.DietPlan implements java.io.Serializable
+final public class NutritionProtocol extends at.easydiet.model.DietPlan implements java.io.Serializable
 {
 
     /**

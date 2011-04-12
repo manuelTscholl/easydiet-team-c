@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Represents a Recipe
  */
-public class Recipe  implements java.io.Serializable
+final public class Recipe  implements java.io.Serializable
 {
 
     /**
