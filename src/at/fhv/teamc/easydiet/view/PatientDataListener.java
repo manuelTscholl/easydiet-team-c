@@ -7,7 +7,7 @@
 
 package at.fhv.teamc.easydiet.view;
 
-import at.fhv.teamc.easydiet.model.PatientBo;
+import at.fhv.teamc.easydiet.controller.PatientData;
 
 /**
  * Listener for patient data
@@ -15,5 +15,5 @@ import at.fhv.teamc.easydiet.model.PatientBo;
  */
 public interface PatientDataListener {
 
-    public void updatePatientData(PatientBo p);
+    public void updatePatientData(PatientData p);
 }

@@ -6,7 +6,6 @@
  */
 package at.fhv.teamc.easydiet.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,19 +20,17 @@ import at.fhv.teamc.easydiet.model.*;
  * @author Manuel
  *
  */
-public class DatabaseController
-{
-    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
-                                                               .getLogger(DatabaseController.class);
+public class DatabaseController {
+
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(DatabaseController.class);
 
     /** 
      * Initializes a new instance of the {@link DatabaseController} class. 
      */
-    public DatabaseController()
-    {
+    public DatabaseController() {
         super();
     }
-    
+
     /**
      * Searches in the Database for the special Patient 
      * @param name1
@@ -42,12 +39,11 @@ public class DatabaseController
      * @param birthday
      * @return all Patients with the wanted data as a HashSet
      */
-    public Set<PatientBo> getPatients(String name1,String name2,  String svn, Date birthday)
-    {
-        
+    public Set<PatientBo> getPatients(String name1, String name2, String svn, Date birthday) {
+
         PatientDAO patientDao = DAOFactory.getInstance().getPatientDAO();
         Set<PatientBo> patients = new HashSet<PatientBo>();
-        
+
         //Solves the problem that fore and lastname can be insert in a different order
         Patient tempPFornameFirst = new Patient();
         tempPFornameFirst.setBirthday(birthday);
@@ -60,22 +56,18 @@ public class DatabaseController
         tempPLastnameFirst.setInsuranceNumber(svn);
         tempPLastnameFirst.setForename(name2);
         tempPLastnameFirst.setLastname(name1);
-        
-        
+
+
         //adding all founded patients to the list
-        for (Patient patient : patientDao.findByExample(tempPFornameFirst, null))
-        {
+        for (Patient patient : patientDao.findByExample(tempPFornameFirst, null)) {
             patients.add(new PatientBo(patient));
         }
-        for (Patient patient : patientDao.findByExample(tempPLastnameFirst, null))
-        {//if the object is not already added
-            if(!patients.contains(patient))
-            patients.add(new PatientBo(patient));
+        for (Patient patient : patientDao.findByExample(tempPLastnameFirst, null)) {//if the object is not already added
+            if (!patients.contains(patient)) {
+                patients.add(new PatientBo(patient));
+            }
         }
-        
-        
+
         return patients;
     }
-    
-    
 }

@@ -7,7 +7,7 @@
 
 package at.fhv.teamc.easydiet.view;
 
-import at.fhv.teamc.easydiet.model.PatientBo;
+import at.fhv.teamc.easydiet.controller.PatientData;
 
 /**
  * Listener for gui patient chooser
@@ -15,5 +15,5 @@ import at.fhv.teamc.easydiet.model.PatientBo;
  */
 public interface PatientListener {
 
-    public void chooseActivePatient(PatientBo p);
+    public void chooseActivePatient(PatientData p);
 }

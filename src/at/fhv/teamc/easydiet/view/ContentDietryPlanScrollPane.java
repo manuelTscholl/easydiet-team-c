@@ -6,7 +6,7 @@
  */
 package at.fhv.teamc.easydiet.view;
 
-import at.fhv.teamc.easydiet.model.PatientBo;
+import at.fhv.teamc.easydiet.controller.PatientData;
 import java.net.URL;
 import java.util.ArrayList;
 import org.apache.pivot.beans.Bindable;
@@ -104,7 +104,7 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
      * Update patient data
      * @param p
      */
-    public void updatePatientData(PatientBo p) {
+    public void updatePatientData(PatientData p) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
