@@ -20,6 +20,7 @@ import org.apache.pivot.wtk.ActivityIndicator;
 import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
+import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.LinkButton;
 import org.apache.pivot.wtk.ScrollPane;
@@ -76,6 +77,16 @@ public class NavigationTabPane extends TabPane implements Bindable {
 
         // register component
         GUIComponents.put(getName(), this);
+
+        // listener for resizing
+        getComponentListeners().add(new ComponentListenerAdapter() {
+
+            @Override
+            public void sizeChanged(Component component, int previousWidth, int previousHeight) {
+                _searchResultScrollPane.setPreferredHeight(component.getHeight() - 35);
+            }
+
+        });
     }
 
     /**
