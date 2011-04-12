@@ -43,6 +43,7 @@
                     xmlns:explorer="org.apache.pivot.tutorials.explorer"
                     xmlns="org.apache.pivot.wtk" bxml:id="searchResultScrollPane" horizontalScrollBarPolicy="never"
                     verticalScrollBarPolicy="auto" styles="{backgroundColor:'#CCE8FC'}">
+                        
                     <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
                     horizontalSpacing:1, showVerticalGridLines:false, padding:'{top:10}'}"
                     xmlns:bxml="http://pivot.apache.org/bxml"
