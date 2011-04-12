@@ -12,7 +12,7 @@ import java.util.HashMap;
  * Contains all registered GUI Components by id
  * @author Michael
  */
-class GUIComponents {
+public class GUIComponents {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentTabPane.class);
