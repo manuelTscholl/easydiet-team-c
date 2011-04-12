@@ -43,7 +43,7 @@ public class SearchPatientController {
         String name1 = "";
         String name2 = "";
         String svn = "";
-        Date date = new Date();
+        Date date= null;
 
         String regexName = "[a-zA-Z]{2,}";
         String regexSVN = "[0-9]{10}";
@@ -80,6 +80,7 @@ public class SearchPatientController {
 
                     // date format dd.MM.yyyy or dd.MM.yy
                     SimpleDateFormat sdfFormat = new SimpleDateFormat("dd.MM.y");
+                    date = new Date();
                     date = sdfFormat.parse(t[i]);
                 } catch (ParseException p) {
                     LOGGER.error(p);

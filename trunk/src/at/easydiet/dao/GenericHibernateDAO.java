@@ -108,6 +108,19 @@ public abstract class GenericHibernateDAO<T, ID extends Serializable>
         crit.add(example);
         return crit.list();
     }
+    
+    /**
+     * Loads a list of items, matching the properties set in the given instance.
+     * @param exampleInstance The instance which conains the set properties.
+     * @param excludeProperty The properties to ignore on compare
+     * @return A list of all items matching the set properties of the given
+     *         instance.
+     */
+    @SuppressWarnings("unchecked")
+    public List<T> findByExample(T exampleInstance)
+    {
+        return findByExample(exampleInstance, new String[0]);
+    }
 
     /**
      * Either save(Object) or update(Object) the given instance, depending upon
