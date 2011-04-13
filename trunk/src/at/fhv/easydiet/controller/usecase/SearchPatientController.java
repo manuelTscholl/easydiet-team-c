@@ -26,7 +26,7 @@ public class SearchPatientController {
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BusinessLogicController.class);
     // instance variables
-    DatabaseController _dbController;
+    private DatabaseController _dbController;
 
     {
         _dbController = new DatabaseController();

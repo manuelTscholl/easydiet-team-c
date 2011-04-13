@@ -22,16 +22,12 @@ public class BusinessLogicController {
     private PatientBo _activePatient;
     SearchPatientController _searchPatientController;
 
-    public BusinessLogicController(){
-        _searchPatientController = new SearchPatientController();
-    }
-
     /**
-     * Not implemented
-     * 
+     * Search patient
      * @param search
      */
     public Set<PatientData> searchPatient(String search) {
+        _searchPatientController = new SearchPatientController();
 
         // start search only if at least 2 characters are available
         if(search.length() >= 2){
