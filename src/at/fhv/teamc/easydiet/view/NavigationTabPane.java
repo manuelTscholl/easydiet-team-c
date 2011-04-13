@@ -120,61 +120,68 @@ public class NavigationTabPane extends TabPane implements Bindable {
 
         // check if row exists
         if (_searchResultTablePane.getRows().getLength() > 0) {
-            LOGGER.debug("deleted");
 
             // remove all existing rows
             _searchResultTablePane.getRows().remove(0, _searchResultTablePane.getRows().getLength());
         }
 
-        for (PatientData p : patients) {
+        // check if result is empty
+        if (patients != null && !patients.isEmpty()) {
+
+            for (PatientData p : patients) {
+                TablePane.Row tro = new TablePane.Row();
+
+                // create new inner table
+                TablePane innerTp = new TablePane();
+                innerTp.getColumns().add(new TablePane.Column(-1));
+                innerTp.getColumns().add(new TablePane.Column(-1));
+
+                // add name
+                TablePane.Row innerNameTro = new TablePane.Row();
+                innerNameTro.setHeight(15);
+                Label nameLabel = new Label("Name: ");
+                nameLabel.getStyles().put("font", new Font("Verdana", Font.BOLD, 11));
+                ButtonData nameButtonData = new ButtonData(p.getForename() + " " + p.getLastname().toUpperCase());
+                LinkButton nameButton = new LinkButton(nameButtonData);
+                final PatientData patient = p;
+                nameButton.getButtonPressListeners().add(new ButtonPressListener() {
+
+                    public void buttonPressed(Button button) {
+                        notifyPatientListeners(patient);
+                    }
+                });
+                innerNameTro.add(nameLabel);
+                innerNameTro.add(nameButton);
+                innerTp.getRows().add(innerNameTro);
+
+                // add birthdate
+                TablePane.Row innerBdayTro = new TablePane.Row();
+                innerBdayTro.setHeight(15);
+                Label bdayLabel = new Label("Geburtstag: ");
+                bdayLabel.getStyles().put("font", new Font("Verdana", Font.BOLD, 11));
+                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                Label bday = new Label(format.format(p.getBirthday()));
+                innerBdayTro.add(bdayLabel);
+                innerBdayTro.add(bday);
+                innerTp.getRows().add(innerBdayTro);
+
+                // add svn number
+                TablePane.Row innerSvnTro = new TablePane.Row();
+                innerSvnTro.setHeight(15);
+                Label svnLLabel = new Label("SVN: ");
+                svnLLabel.getStyles().put("font", new Font("Verdana", Font.BOLD, 11));
+                Label svn = new Label(p.getInsuranceNumber());
+                innerSvnTro.add(svnLLabel);
+                innerSvnTro.add(svn);
+                innerTp.getRows().add(innerSvnTro);
+
+                // add inner table to top table
+                tro.add(innerTp);
+                _searchResultTablePane.getRows().add(tro);
+            }
+        } else { // result is empty
             TablePane.Row tro = new TablePane.Row();
-
-            // create new inner table
-            TablePane innerTp = new TablePane();
-            innerTp.getColumns().add(new TablePane.Column(-1));
-            innerTp.getColumns().add(new TablePane.Column(-1));
-
-            // add name
-            TablePane.Row innerNameTro = new TablePane.Row();
-            innerNameTro.setHeight(15);
-            Label nameLabel = new Label("Name: ");
-            nameLabel.getStyles().put("font", new Font("Verdana", Font.BOLD, 11));
-            ButtonData nameButtonData = new ButtonData(p.getForename() + " " + p.getLastname().toUpperCase());
-            LinkButton nameButton = new LinkButton(nameButtonData);
-            final PatientData patient = p;
-            nameButton.getButtonPressListeners().add(new ButtonPressListener() {
-
-                public void buttonPressed(Button button) {
-                    notifyPatientListeners(patient);
-                }
-            });
-            innerNameTro.add(nameLabel);
-            innerNameTro.add(nameButton);
-            innerTp.getRows().add(innerNameTro);
-
-            // add birthdate
-            TablePane.Row innerBdayTro = new TablePane.Row();
-            innerBdayTro.setHeight(15);
-            Label bdayLabel = new Label("Geburtstag: ");
-            bdayLabel.getStyles().put("font", new Font("Verdana", Font.BOLD, 11));
-            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-            Label bday = new Label(format.format(p.getBirthday()));
-            innerBdayTro.add(bdayLabel);
-            innerBdayTro.add(bday);
-            innerTp.getRows().add(innerBdayTro);
-
-            // add svn number
-            TablePane.Row innerSvnTro = new TablePane.Row();
-            innerSvnTro.setHeight(15);
-            Label svnLLabel = new Label("SVN: ");
-            svnLLabel.getStyles().put("font", new Font("Verdana", Font.BOLD, 11));
-            Label svn = new Label(p.getInsuranceNumber());
-            innerSvnTro.add(svnLLabel);
-            innerSvnTro.add(svn);
-            innerTp.getRows().add(innerSvnTro);
-
-            // add inner table to top table
-            tro.add(innerTp);
+            tro.add(new Label("Keine passenden Patienten"));
             _searchResultTablePane.getRows().add(tro);
         }
 

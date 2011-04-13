@@ -59,22 +59,21 @@ public class GUIController implements PatientListener {
 
             @Override
             public boolean keyTyped(Component component, char character) {
-                Set<PatientData> patientData = _businessLogicController.searchPatient(((TextInput) component).getText());
 
                 // check if activity indicator is already active
                 if (!_navTab.getActivityIndicator().isActive()) {
                     _navTab.getActivityIndicator().setActive(true);
                 }
 
+                // search
+                Set<PatientData> patientData = _businessLogicController.searchPatient(((TextInput) component).getText());
+
                 // check if text field is empty, if empty stop activity indicator
-                if(_navTab.getSearchTextInput().getText().equals("")){
+                if (_navTab.getSearchTextInput().getText().equals("")) {
                     _navTab.getActivityIndicator().setActive(false);
                 }
 
-                // check if searchResult is not empty
-                if(patientData != null){
-                    updateSearchResult(patientData);
-                }
+                updateSearchResult(patientData);
 
                 return true;
             }
