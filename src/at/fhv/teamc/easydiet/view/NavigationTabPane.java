@@ -85,7 +85,6 @@ public class NavigationTabPane extends TabPane implements Bindable {
             public void sizeChanged(Component component, int previousWidth, int previousHeight) {
                 _searchResultScrollPane.setPreferredHeight(component.getHeight() - 35);
             }
-
         });
     }
 
@@ -109,7 +108,7 @@ public class NavigationTabPane extends TabPane implements Bindable {
      * Set active tab
      * @param id Tab id
      */
-    public void setActiveTab(int id){
+    public void setActiveTab(int id) {
         setSelectedIndex(id);
     }
 
@@ -118,6 +117,14 @@ public class NavigationTabPane extends TabPane implements Bindable {
      * @param patients
      */
     public void updateSearchResult(Set<PatientData> patients) {
+
+        // check if row exists
+        if (_searchResultTablePane.getRows().getLength() > 0) {
+            LOGGER.debug("deleted");
+
+            // remove all existing rows
+            _searchResultTablePane.getRows().remove(0, _searchResultTablePane.getRows().getLength());
+        }
 
         for (PatientData p : patients) {
             TablePane.Row tro = new TablePane.Row();
