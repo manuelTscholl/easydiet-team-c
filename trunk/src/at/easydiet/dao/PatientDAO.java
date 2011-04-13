@@ -24,9 +24,9 @@ public class PatientDAO extends GenericHibernateDAO<Patient, Long>
         //Solves the problem that fore and lastname can be insert in a different order
         Patient tempPFornameFirst = new Patient();
         tempPFornameFirst.setBirthday(birthday);
-        tempPFornameFirst.setInsuranceNumber(svn==""?null:svn);
-        tempPFornameFirst.setForename(name1==""?null:name1);
-        tempPFornameFirst.setLastname(name2==""?null:name2);
+        tempPFornameFirst.setInsuranceNumber(svn.equals("")?null:svn);
+        tempPFornameFirst.setForename(name1.equals("")?null:name1);
+        tempPFornameFirst.setLastname(name2.equals("")?null:name2);
         
 //FIXME: Geburtsdatum Suche funktioniert noch nicht ganz
 //FIXME: Vor und Zuname muss noch vertuascht abgefragt werden
@@ -52,6 +52,16 @@ public class PatientDAO extends GenericHibernateDAO<Patient, Long>
         LOGGER.info(String.format("Results found %s",results.size()));
         
         return results;
+        
+    }
+    
+    private String formatData(String item)
+    {
+        //TODO: zwei Methoden in einer String Utility class IsNull wenn nicht trim()
+        if(item!=null)
+            item = item.trim();
+        
+        return item;
     }
     
     
