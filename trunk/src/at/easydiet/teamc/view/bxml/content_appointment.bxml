@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<easyDiet:ContentAppointmentScrollPane bxml:id="appointmentScrollPane" horizontalScrollBarPolicy="never" verticalScrollBarPolicy="auto" preferredHeight="650"
+    xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:easyDiet="at.easydiet.teamc.view"
+    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
+    
+</easyDiet:ContentAppointmentScrollPane>

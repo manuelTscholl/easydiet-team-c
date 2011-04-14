@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<easyDiet:ContentAnamnesisScrollPane bxml:id="anamnesisScrollPane" horizontalScrollBarPolicy="never" verticalScrollBarPolicy="auto" preferredHeight="665"
+    xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:easyDiet="at.easydiet.teamc.view"
+    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
+    
+</easyDiet:ContentAnamnesisScrollPane>
