@@ -10,28 +10,55 @@ import at.fhv.teamc.easydiet.controller.BusinessLogicController;
 import at.fhv.teamc.easydiet.controller.DatabaseController;
 import at.fhv.teamc.easydiet.controller.PatientData;
 import at.fhv.teamc.easydiet.model.PatientBo;
+import at.fhv.teamc.easydiet.util.Event;
+import at.fhv.teamc.easydiet.util.EventArgs;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import sun.print.resources.serviceui;
+
 /**
  * Controller for use case: search patient
  *
  * @author Michael
  */
-public class SearchPatientController {
+public class SearchPatientController{
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BusinessLogicController.class);
     // instance variables
     private DatabaseController _dbController;
+    private static SearchPatientController _searchPatientController = null;
 
+        
+
+
+    /** 
+     * Initializes a new instance of the {@link SearchPatientController} class. 
+     */
+    private SearchPatientController()
     {
-        _dbController = new DatabaseController();
+        _dbController = DatabaseController.getInstance();
+    }
+
+
+    /**
+     * Singelton
+     * @return Will return the existing Instance or if no exists a new Instance of {@link SearchPatientController}
+     */
+    public static SearchPatientController getInstance()
+    {
+        if(_searchPatientController==null)
+            _searchPatientController= new SearchPatientController();
+        return _searchPatientController;
+        
     }
     
+
     /**
      * Get patient from search string
      * @param search

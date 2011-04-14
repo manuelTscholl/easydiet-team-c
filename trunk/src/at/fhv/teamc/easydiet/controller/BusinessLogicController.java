@@ -15,22 +15,38 @@ import java.util.Set;
  * 
  * @author Michael
  */
-public class BusinessLogicController {
+public class BusinessLogicController
+{
 
     // class variables
-    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BusinessLogicController.class);
-    private PatientBo _activePatient;
-    SearchPatientController _searchPatientController;
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
+                                                               .getLogger(BusinessLogicController.class);
+    private PatientBo                           _activePatient;
+    SearchPatientController                     _searchPatientController;
+    private static BusinessLogicController      _businessLogicController;
+
+    private BusinessLogicController()
+    {}
+
+    public static BusinessLogicController getInstance()
+    {
+        if (_businessLogicController == null)
+            _businessLogicController = new BusinessLogicController();
+
+        return _businessLogicController;
+    }
 
     /**
      * Search patient
+     * 
      * @param search
      */
-    public Set<PatientData> searchPatient(String search) {
-        _searchPatientController = new SearchPatientController();
-
+    public Set<PatientData> searchPatient(String search)
+    {
+        _searchPatientController = SearchPatientController.getInstance();
         // start search only if at least 2 characters are available
-        if(search.length() >= 2){
+        if (search.length() >= 2)
+        {
             return _searchPatientController.getPatients(search);
         }
 
@@ -39,17 +55,22 @@ public class BusinessLogicController {
 
     /**
      * Sets the active Patient
-     * @param p the patient which should be set to active
+     * 
+     * @param p
+     *            the patient which should be set to active
      */
-    public void setActivePatient(PatientData p) {
-        _activePatient = (PatientBo)p;
+    public void setActivePatient(PatientData p)
+    {
+        _activePatient = (PatientBo) p;
     }
 
     /**
-     * Gets the active Patient which was set from the GUI Controller before     * 
+     * Gets the active Patient which was set from the GUI Controller before *
+     * 
      * @param p
      */
-    public PatientBo getActivePatient() {
+    public PatientBo getActivePatient()
+    {
         return _activePatient;
     }
 }
