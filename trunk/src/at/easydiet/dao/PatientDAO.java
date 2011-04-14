@@ -6,11 +6,8 @@ import java.util.List;
 
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.SimpleExpression;
 
 import at.easydiet.model.Patient;
-import at.fhv.teamc.easydiet.controller.DatabaseController;
 
 //FIX: Must run in a own thread, may we start the controller in an own class.
 //Fix: Lazy loading from database
