@@ -44,7 +44,7 @@ public class GUIController implements PatientListener {
         _easyDietWindow = eadw;
         _guiNamespaces = _easyDietWindow.getRessources();
 
-        _businessLogicController = new BusinessLogicController();
+        _businessLogicController = BusinessLogicController.getInstance();
 
         // get gui containers
         _navTab = (NavigationTabPane) _guiNamespaces.get("navTab");

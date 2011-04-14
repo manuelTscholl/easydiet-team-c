@@ -28,12 +28,12 @@ import org.hibernate.criterion.MatchMode;
 public class DatabaseController {
 
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(DatabaseController.class);
+    private static DatabaseController _databaseController;
 
     /** 
      * Initializes a new instance of the {@link DatabaseController} class. 
      */
-    public DatabaseController() {
-        super();
+    private DatabaseController() {
     }
 
     /**
@@ -59,5 +59,18 @@ public class DatabaseController {
         }
 
         return patientsBo;
+    }
+
+
+    /**
+     * Singelton crates a new instance of this class or returns the existing
+     * @return
+     */
+    public static DatabaseController getInstance()
+    {
+        if(_databaseController==null)
+            _databaseController = new DatabaseController();
+        
+        return _databaseController;
     }
 }

@@ -10,7 +10,7 @@
     </appender> 
     
     <category name="at.easydiet">
-    	<priority value ="info" />     	
+    	<priority value ="warn" />     	
     </category>
     
     
