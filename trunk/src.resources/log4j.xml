@@ -9,13 +9,8 @@
         </layout> 
     </appender> 
     
-    <category name="at.easydiet">
-    	<priority value ="warn" />     	
-    </category>
-    
-    
     <root> 
-        <priority value ="error" /> 
+        <priority value ="info" /> 
         <appender-ref ref="console" /> 
     </root>
     
