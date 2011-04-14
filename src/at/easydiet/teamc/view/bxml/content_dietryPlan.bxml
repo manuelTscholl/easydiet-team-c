@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<easyDiet:ContentDietryPlanScrollPane bxml:id="dietryPlanScrollPane"
+horizontalScrollBarPolicy="never" verticalScrollBarPolicy="auto" preferredHeight="665"
+    xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:easyDiet="at.easydiet.teamc.view"
+    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
+        
+    <TablePane bxml:id="dietryPlanTablePane" styles="{verticalSpacing:1, showHorizontalGridLines:false,
+    horizontalSpacing:1, showVerticalGridLines:false, padding:{top:5, left:5, right:5}}"
+    xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns="org.apache.pivot.wtk">
+        <columns>
+            <TablePane.Column bxml:id="planColumn"/>
+            <TablePane.Column bxml:id="parameterColumn" width="200"/>
+        </columns>
+
+    </TablePane>
+</easyDiet:ContentDietryPlanScrollPane>

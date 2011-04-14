@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<easyDiet:EasyDietWindow title="EasyDiet" maximized="true"
+bxml:id="easyDietWindow"
+xmlns:bxml="http://pivot.apache.org/bxml" 
+xmlns:easyDiet="at.easydiet.teamc.view"
+xmlns="org.apache.pivot.wtk" icon="@wien_wappen.png">
+    
+<!-- Main structure	 -->
+    <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:true,
+    horizontalSpacing:1, showVerticalGridLines:false, backgroundColor:'#EBEDEF'}"
+    xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns="org.apache.pivot.wtk">
+        <columns>
+            <TablePane.Column bxml:id="mainTableColumn"/>
+        </columns>
+
+    <!-- Menubar -->
+        <TablePane.Row bxml:id="menuBarTableRow">
+            <bxml:include bxml:id="menuBar" src="menu.bxml"/>
+        </TablePane.Row>
+
+    <!-- Content -->
+        <TablePane.Row bxml:id="mainTableRow">
+
+            <!-- Content Table -->
+            <TablePane styles="{verticalSpacing:1, showHorizontalGridLines:false,
+            horizontalSpacing:5, showVerticalGridLines:false, padding:'{top:5, left:5, right:5}'}"
+            xmlns:bxml="http://pivot.apache.org/bxml"
+            xmlns="org.apache.pivot.wtk" bxml:id="mainContentTablePane">
+                <columns>
+                    <TablePane.Column width="-1"/>
+                    <TablePane.Column width="1*"/>
+                </columns>
+
+                <TablePane.Row>
+
+                    <!-- Navigation, left column -->
+                    <bxml:include bxml:id="navTab" src="navigation.bxml"/>
+
+                    <!-- Content, right column -->
+                    <bxml:include bxml:id="contentTab" src="content.bxml"/>
+                </TablePane.Row>
+            </TablePane>
+        </TablePane.Row>
+    </TablePane>
+</easyDiet:EasyDietWindow>

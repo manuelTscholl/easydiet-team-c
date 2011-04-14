@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<easyDiet:ContentTabPane xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    bxml:id="contentTabPane"
+    xmlns:easyDiet="at.easydiet.teamc.view"
+    xmlns="org.apache.pivot.wtk" styles="{activeTabColor:'#CCE8FC', inactiveTabColor:'#DFF1FD'}">
+
+    <corner>
+        <BoxPane bxml:id="cornerBoxPane" styles="{horizontalAlignment:'right'}">
+            <ImageView image="@akh.gif" preferredHeight="20"/>
+        </BoxPane>
+    </corner>
+
+<!-- Appointment Tab -->
+    <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
+        <TabPane.tabData>
+            <content:ButtonData icon="@calendar-day.png" text="Termine"/>
+        </TabPane.tabData>
+        <bxml:include bxml:id="content_appointment" src="content_appointment.bxml"/>
+    </BoxPane>
+
+<!-- Overview Tab -->
+    <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
+        <TabPane.tabData>
+            <content:ButtonData icon="@document-list.png" text="Übersicht"/>
+        </TabPane.tabData>
+        <bxml:include bxml:id="content_overview" src="content_overview.bxml"/>
+    </BoxPane>
+
+<!-- Contact Journal Tab -->
+    <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
+        <TabPane.tabData>
+            <content:ButtonData icon="@address-book-open.png" text="Kontaktjournal"/>
+        </TabPane.tabData>
+        <bxml:include bxml:id="content_contactJournal" src="content_contactJournal.bxml"/>
+    </BoxPane>
+
+<!-- Anamnesis Tab -->
+    <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
+        <TabPane.tabData>
+            <content:ButtonData icon="@pin.png" text="Anamnese"/>
+        </TabPane.tabData>
+        <bxml:include bxml:id="content_anamnesis" src="content_anamnesis.bxml"/>
+    </BoxPane>
+
+<!-- Dietry Plan Tab -->
+    <BoxPane orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
+        <TabPane.tabData>
+            <content:ButtonData icon="@report-paper.png" text="Diätplan"/>
+        </TabPane.tabData>
+        <bxml:include bxml:id="content_dietryPlan" src="content_dietryPlan.bxml"/>
+    </BoxPane>
+</easyDiet:ContentTabPane>
