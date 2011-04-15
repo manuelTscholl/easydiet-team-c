@@ -29,7 +29,7 @@ public class FamilyAnamnesisBo  implements java.io.Serializable, Saveable {
         this(new FamilyAnamnesis(person));
     }
 
-    public FamilyAnamnesisBo(String person, Set<String> illnesses) {
+    public FamilyAnamnesisBo(String person, String[] illnesses) {
         this(person);
        this._FamilyAnamnesis.setIllnesses(illnesses);
     }
@@ -48,11 +48,11 @@ public class FamilyAnamnesisBo  implements java.io.Serializable, Saveable {
     public void setPerson(String person) {
         this.getFamilyAnamnesis().setPerson(person);
     }
-    public Set<String> getIllnesses() {
+    public String[] getIllnesses() {
         return this.getFamilyAnamnesis().getIllnesses();
     }
     
-    public void setIllnesses(Set<String> illnesses) {
+    public void setIllnesses(String[] illnesses) {
         this.getFamilyAnamnesis().setIllnesses(illnesses);
     }
 
