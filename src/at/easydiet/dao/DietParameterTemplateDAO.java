@@ -2,7 +2,6 @@ package at.easydiet.dao;
 
 import at.easydiet.model.DietParameterTemplate;
 
-
 /**
  * A DAO implementation for DietParameterTemplate objects.
  */

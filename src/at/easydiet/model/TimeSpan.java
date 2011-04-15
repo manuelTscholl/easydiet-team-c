@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Represents a TimeSpan
  */
-final public class TimeSpan  implements java.io.Serializable
+public class TimeSpan  implements java.io.Serializable
 {
 
     /**

@@ -2,10 +2,8 @@ package at.easydiet.dao;
 
 import org.hibernate.Session;
 
-import at.easydiet.dao.*;
-
 /**
- * A Factory which provides instances for all DAOs. 
+ * A Factory which provides instances for all DAOs.
  * @author Daniel
  */
 public class DAOFactory
@@ -14,7 +12,7 @@ public class DAOFactory
 
     /**
      * Returns the globally useable {@link DAOFactory}.
-     * @return the instance. 
+     * @return the instance.
      */
     public static DAOFactory getInstance()
     {

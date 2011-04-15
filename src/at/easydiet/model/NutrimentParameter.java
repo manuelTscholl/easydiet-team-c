@@ -4,16 +4,17 @@ package at.easydiet.model;
 /**
  * Represents a NutrimentParameter
  */
-final public class NutrimentParameter  implements java.io.Serializable
+public class NutrimentParameter  implements java.io.Serializable
 {
 
     /**
      * A unique serialization id. 
      */
-    private static final long serialVersionUID = -1053222620315888506L;
+    private static final long serialVersionUID = 2579863774576179705L;
     private long _nutrimentParameterId;
     private String _value;
     private ParameterDefinition _parameterDefinition;
+    private ParameterDefinitionUnit _unit;
 
     /**
      * Initializes a new instance of the {@link NutrimentParameter} class.
@@ -28,11 +29,13 @@ final public class NutrimentParameter  implements java.io.Serializable
      * Initializes a new instance of the {@link NutrimentParameter} class.
      * @param value the value to set for this instance
      * @param parameterDefinition the parameterDefinition to set for this instance
+     * @param unit the unit to set for this instance
      */
-    public NutrimentParameter(String value, ParameterDefinition parameterDefinition) 
+    public NutrimentParameter(String value, ParameterDefinition parameterDefinition, ParameterDefinitionUnit unit) 
     {
        _value = value;
        _parameterDefinition = parameterDefinition;
+       _unit = unit;
     }
    
     /**       
@@ -87,6 +90,24 @@ final public class NutrimentParameter  implements java.io.Serializable
     public void setParameterDefinition(ParameterDefinition parameterDefinition) 
     {
         _parameterDefinition = parameterDefinition;
+    }
+    
+    /**       
+     * Gets the unit of this instance. 
+     * @return the unit currently set for this instance.
+     */
+    public ParameterDefinitionUnit getUnit() 
+    {
+        return _unit;
+    }
+    
+    /**       
+     * Sets the unit of this instance. 
+     * @param unit the new unit of this instance.
+     */    
+    public void setUnit(ParameterDefinitionUnit unit) 
+    {
+        _unit = unit;
     }
     
     /**

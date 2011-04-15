@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Represents a ContactJournal
  */
-final public class ContactJournal  implements java.io.Serializable
+public class ContactJournal  implements java.io.Serializable
 {
 
     /**

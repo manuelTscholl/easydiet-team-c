@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Represents a DietTreatment
  */
-final public class DietTreatment  implements java.io.Serializable
+public class DietTreatment  implements java.io.Serializable
 {
 
     /**

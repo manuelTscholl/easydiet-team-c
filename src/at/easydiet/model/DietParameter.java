@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Represents a DietParameter
  */
-final public class DietParameter extends at.easydiet.model.DietParameterTemplate implements java.io.Serializable
+public class DietParameter extends at.easydiet.model.DietParameterTemplate implements java.io.Serializable
 {
 
     /**

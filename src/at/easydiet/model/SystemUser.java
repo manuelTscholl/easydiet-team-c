@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Represents a SystemUser
  */
-final public class SystemUser  implements java.io.Serializable
+public class SystemUser  implements java.io.Serializable
 {
 
     /**

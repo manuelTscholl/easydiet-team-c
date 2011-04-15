@@ -4,7 +4,7 @@ package at.easydiet.model;
 /**
  * Represents a SystemUserFunction
  */
-final public class SystemUserFunction  implements java.io.Serializable
+public class SystemUserFunction  implements java.io.Serializable
 {
 
     /**

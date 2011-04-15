@@ -4,7 +4,7 @@ package at.easydiet.model;
 /**
  * Represents a CheckOperator
  */
-final public class CheckOperator  implements java.io.Serializable
+public class CheckOperator  implements java.io.Serializable
 {
 
     /**
