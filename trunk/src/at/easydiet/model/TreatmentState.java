@@ -4,7 +4,7 @@ package at.easydiet.model;
 /**
  * Represents a TreatmentState
  */
-final public class TreatmentState  implements java.io.Serializable
+public class TreatmentState  implements java.io.Serializable
 {
 
     /**

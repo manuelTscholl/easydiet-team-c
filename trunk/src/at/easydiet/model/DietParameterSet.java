@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Represents a DietParameterSet
  */
-final public class DietParameterSet  implements java.io.Serializable
+public class DietParameterSet  implements java.io.Serializable
 {
 
     /**

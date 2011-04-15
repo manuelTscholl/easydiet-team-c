@@ -10,7 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 
 import at.easydiet.model.Patient;
-import at.fhv.teamc.easydiet.controller.DatabaseController;
+import at.easydiet.teamc.controller.DatabaseController;
 
 //FIX: Must run in a own thread, may we start the controller in an own class.
 //Fix: Lazy loading from database

@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Represents a ParameterDefinition
  */
-final public class ParameterDefinition  implements java.io.Serializable
+public class ParameterDefinition  implements java.io.Serializable
 {
 
     /**

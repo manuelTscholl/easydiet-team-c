@@ -4,7 +4,7 @@ package at.easydiet.model;
 /**
  * Represents a RecipeIngredient
  */
-final public class RecipeIngredient  implements java.io.Serializable
+public class RecipeIngredient  implements java.io.Serializable
 {
 
     /**
