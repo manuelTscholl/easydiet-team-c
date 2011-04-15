@@ -24,7 +24,7 @@ public class NutrimentParameterBo  implements java.io.Serializable, Saveable {
     }
 
     public NutrimentParameterBo(String value, ParameterDefinitionBo parameterDefinitionBo, ParameterDefinitionUnit unit) {
-       this(new NutrimentParameter(value, parameterDefinitionBo.getParameterDefinition()));
+       this(new NutrimentParameter(value, parameterDefinitionBo.getParameterDefinition(),unit));
        
     }
    

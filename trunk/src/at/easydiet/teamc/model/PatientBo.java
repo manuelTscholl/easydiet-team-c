@@ -37,7 +37,7 @@ public class PatientBo  implements java.io.Serializable, Saveable, PatientData{
     public PatientBo(String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, GenderBo genderBo) {
         this(new Patient(insuranceNumber, forename, lastname, title, street, zip, place, country, birthday, genderBo.getGender()));
     }
-    public PatientBo(String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, String job, String religion, String[] illnesses, String regime, Clob notice, GenderBo genderBo, Set<FamilyAnamnesisBo> familyanamnesisBo, Set<PatientStateBo> patientstatesBo, Set<LaborReportBo> laborReportsBo, Set<DietTreatmentBo> treatmentsBo, Set<RecipeBo> disfavorsBo) {
+    public PatientBo(String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, String job, String religion, Set<String> illnesses, String regime, Clob notice, GenderBo genderBo, Set<FamilyAnamnesisBo> familyanamnesisBo, Set<PatientStateBo> patientstatesBo, Set<LaborReportBo> laborReportsBo, Set<DietTreatmentBo> treatmentsBo, Set<RecipeBo> disfavorsBo) {
        this(insuranceNumber, forename,lastname,title,street,zip,place,country,birthday,genderBo);
        this._Patient.setJob(job);
        this._Patient.setReligion(religion);
@@ -154,11 +154,11 @@ public class PatientBo  implements java.io.Serializable, Saveable, PatientData{
     public void setReligion(String religion) {
         this.getPatient().setReligion(religion);
     }
-    public String[] getIllnesses() {
+    public Set<String> getIllnesses() {
         return this.getPatient().getIllnesses();
     }
     
-    public void setIllnesses(String[] illnesses) {
+    public void setIllnesses(Set<String> illnesses) {
         this.getPatient().setIllnesses(illnesses);
     }
     public String getRegime() {
