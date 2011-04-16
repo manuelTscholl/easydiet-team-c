@@ -6,6 +6,7 @@
  */
 package at.easydiet.teamc.view;
 
+import at.easydiet.teamc.controller.PatientData;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -14,10 +15,6 @@ import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.TabPane;
-
-import at.easydiet.teamc.model.PatientBo;
-
-import at.easydiet.teamc.model.PatientBo;
 
 
 
@@ -85,14 +82,24 @@ public class ContentTabPane extends TabPane implements Bindable {
      * Update patient data in tabs
      * @param p
      */
-    public void updatePatientData(PatientBo p) {
-
-        // select overview tab
-        setSelectedIndex(1);
+    public void updatePatientData(PatientData p) {
 
         // update patient data in tabs
         for (PatientDataListener pdl : _patientDataListeners) {
             pdl.updatePatientData(p);
+        }
+    }
+
+    /**
+     * Select a Tab by his bxml id
+     * @param name BXML ID
+     */
+    public void setSelectedTabByName(String name) {
+        for (int i = 0; i < getTabs().getLength(); i++) {
+            if (getTabs().get(i).getName().equals(name)) {
+                setSelectedIndex(i);
+                return;
+            }
         }
     }
 }

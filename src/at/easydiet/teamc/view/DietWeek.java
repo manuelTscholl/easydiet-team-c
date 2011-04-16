@@ -60,7 +60,7 @@ public class DietWeek {
             planTableRow.add(sPLAN_TABLE);
             _srcTablePane.getRows().add(planTableRow);
             _srcTablePane.getStyles().put("verticalSpacing", "5");
-            
+
             sIS_DRAWN = true;
         }
     }
@@ -110,12 +110,17 @@ public class DietWeek {
 
             @Override
             public boolean mouseClick(Component component, Button button, int x, int y, int count) {
+                final int titleBarHeight = 20;
 
-                // check if expander is open
-                if (_weekExpander.isExpanded()) {
-                    _weekExpander.setExpanded(false);
-                } else {
-                    _weekExpander.setExpanded(true);
+                // check if title bar is clicked and not content
+                if (y <= titleBarHeight) {
+
+                    // check if expander is open
+                    if (_weekExpander.isExpanded()) {
+                        _weekExpander.setExpanded(false);
+                    } else {
+                        _weekExpander.setExpanded(true);
+                    }
                 }
 
                 return true;

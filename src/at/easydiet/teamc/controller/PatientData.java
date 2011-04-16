@@ -12,6 +12,7 @@ import java.util.Date;
 
 public interface PatientData {
 
+    public long getPatientId();
     public String getForename();
     public String getLastname();
     public Date getBirthday();

@@ -19,65 +19,55 @@ import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.util.Event;
 import at.easydiet.teamc.util.EventArgs;
 
-
-
 /**
  * Controller for use case: search patient
  *
  * @author Michael
  */
-public class SearchPatientController  extends Event<EventArgs>{
+public class SearchPatientController extends Event<EventArgs> {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BusinessLogicDelegationController.class);
+    private static volatile SearchPatientController _searchPatientController = null;
     // instance variables
     private DatabaseController _dbController;
-    private static SearchPatientController _searchPatientController = null;
-    private Set<PatientData>                    _lastSearchResult;
-        
+    private Set<PatientData> _lastSearchResult;
 
     /**
      * Gets the lastSearchResult.
      * @return the lastSearchResult
      */
-    public synchronized Set<PatientData> getLastSearchResult()
-    {
+    public synchronized Set<PatientData> getLastSearchResult() {
         return _lastSearchResult;
     }
-
 
     /**
      * Sets the lastSearchResult.
      * @param lastSearchResult the lastSearchResult to set
      */
-    public synchronized void setLastSearchResult(Set<PatientData> lastSearchResult)
-    {
+    public synchronized void setLastSearchResult(Set<PatientData> lastSearchResult) {
         _lastSearchResult = lastSearchResult;
     }
-
 
     /** 
      * Initializes a new instance of the {@link SearchPatientController} class. 
      */
-    private SearchPatientController(Object sender)
-    {
+    private SearchPatientController(Object sender) {
         super(sender);
         _dbController = DatabaseController.getInstance();
     }
-
 
     /**
      * Singelton
      * @return Will return the existing Instance or if no exists a new Instance of {@link SearchPatientController}
      */
-    public static SearchPatientController getInstance()
-    {
-        if(_searchPatientController==null)
-            _searchPatientController= new SearchPatientController(null);
+    public static SearchPatientController getInstance() {
+        if (_searchPatientController == null) {
+            _searchPatientController = new SearchPatientController(null);
+        }
         return _searchPatientController;
-        
+
     }
-    
 
     /**
      * Get patient from search string
@@ -90,7 +80,7 @@ public class SearchPatientController  extends Event<EventArgs>{
         String name1 = "";
         String name2 = "";
         String svn = "";
-        Date date= null;
+        Date date = null;
 
         String regexName = "[a-zA-Z]{2,}";
         String regexSVN = "[0-9]{0,10}";
@@ -146,7 +136,7 @@ public class SearchPatientController  extends Event<EventArgs>{
                 patientDatas.add(pbo);
             }
         }
-        
+
         setLastSearchResult(patientDatas);
 
         return patientDatas;

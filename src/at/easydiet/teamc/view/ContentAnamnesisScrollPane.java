@@ -45,6 +45,6 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable, 
      */
     @Override
     public void updatePatientData(PatientData p) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        LOGGER.trace("NOT IMPLEMENTED");
     }
 }

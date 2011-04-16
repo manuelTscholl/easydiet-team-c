@@ -14,6 +14,7 @@ import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.ScrollPane;
 
 import at.easydiet.teamc.controller.PatientData;
+import org.apache.pivot.wtk.Label;
 
 
 
@@ -45,6 +46,8 @@ public class ContentOverviewScrollPane extends ScrollPane implements Bindable, P
      */
     @Override
     public void updatePatientData(PatientData p) {
+        Label l = new Label(p.getForename() + " " + p.getLastname());
+        setView(l);
         LOGGER.trace("not implemented");
     }
 }
