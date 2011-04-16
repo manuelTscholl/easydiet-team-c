@@ -12,9 +12,6 @@ import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.util.Vote;
-import org.apache.pivot.wtk.Component;
-import org.apache.pivot.wtk.ComponentMouseButtonListener;
-import org.apache.pivot.wtk.Mouse.Button;
 import org.apache.pivot.wtk.TabPane;
 import org.apache.pivot.wtk.TabPaneSelectionListener;
 import org.apache.pivot.wtk.TablePane;
@@ -51,6 +48,9 @@ public class EasyDietWindow extends Window implements Bindable {
         _navTab = (NavigationTabPane) map.get("navTab");
         _contentTab = (ContentTabPane) map.get("contentTab");
 
+        // register
+        GUIComponents.put("easyDietWindow", this);
+
         // listener for content tab to change navigation tab
         _contentTab.getTabPaneSelectionListeners().add(new TabPaneSelectionListener() {
 
@@ -75,6 +75,7 @@ public class EasyDietWindow extends Window implements Bindable {
                     //TODO placeholder implement if necessary
                 } else if (tp.getSelectedTab().getName().equals("dietryPlanTab")) { // dietryPlan Tab clicked
                     _navTab.setSelectedTabByName("editTab");
+                    _navTab.setDietryPlanMode();
                 }
             }
         });

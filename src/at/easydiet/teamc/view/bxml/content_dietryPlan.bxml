@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <easyDiet:ContentDietryPlanScrollPane bxml:id="dietryPlanScrollPane"
-horizontalScrollBarPolicy="never" verticalScrollBarPolicy="auto" preferredHeight="665"
+horizontalScrollBarPolicy="never" verticalScrollBarPolicy="auto"
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:easyDiet="at.easydiet.teamc.view"
     xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">

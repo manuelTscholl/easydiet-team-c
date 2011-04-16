@@ -6,6 +6,7 @@
  */
 package at.easydiet.teamc.view;
 
+import at.easydiet.teamc.controller.DietryPlanData;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -17,8 +18,10 @@ import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TablePane;
 
 import at.easydiet.teamc.controller.PatientData;
-
-
+import org.apache.pivot.wtk.Bounds;
+import org.apache.pivot.wtk.ScrollPaneListener;
+import org.apache.pivot.wtk.Viewport;
+import org.apache.pivot.wtk.ViewportListener;
 
 /**
  * Represents the application's content dietry plan tab (content_dietryPlan.bxml)
@@ -36,7 +39,6 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
     {
         _dietWeeks = new ArrayList<DietWeek>();
     }
-
 
     /**
      * First called after creating the GUI
@@ -64,9 +66,20 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
         // register component
         GUIComponents.put(getName(), this);
 
-        // EXAMPLE
-        int end = 15;
+        //TODO EXAMPLE
+        int end = 200;
         for (int i = 0; i < end; i++) {
+            addDay();
+        }
+        //EXAMPLE END
+    }
+
+    /**
+     * Draw the dietry plan
+     * @param dpd Plan to draw
+     */
+    public void drawDietryPlan(DietryPlanData dpd) {
+        for (int i = 0; i < dpd.getDuration(); i++) {
             addDay();
         }
     }

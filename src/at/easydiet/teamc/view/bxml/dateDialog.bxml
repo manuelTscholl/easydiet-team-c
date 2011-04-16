@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<Dialog bxml:id="dialog" title="Datum auswählen" modal="true"
+<easyDiet:DateDialog bxml:id="dialog" title="Datum auswählen" modal="true"
     xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:easyDiet="at.easydiet.teamc.view"
     xmlns="org.apache.pivot.wtk">
     <TablePane preferredWidth="200" preferredHeight="80" styles="{verticalSpacing:10}">
         <columns>
@@ -29,4 +30,4 @@
             </BoxPane>
         </TablePane.Row>
     </TablePane>
-</Dialog>
+</easyDiet:DateDialog>

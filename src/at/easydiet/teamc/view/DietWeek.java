@@ -73,6 +73,7 @@ public class DietWeek {
 
         // Expander
         _weekExpander = new Expander();
+        _weekExpander.setName("expander_week_" + _weekNumber);
         _weekExpander.setTitle("Woche: " + _weekNumber);
         _weekExpander.getStyles().put("backgroundColor", "#EBEDEF");
 
