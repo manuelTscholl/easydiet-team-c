@@ -12,8 +12,6 @@ import org.apache.pivot.collections.Map;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.TextInput;
 
-import at.easydiet.teamc.model.PatientBo;
-import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
 import at.easydiet.teamc.view.ContentTabPane;
@@ -120,6 +118,8 @@ public class GUIController implements PatientListener {
      */
     @Override
     public void chooseActivePatient(PatientData p) {
+        _contentTab.setSelectedTabByName("overviewTab");
+        updatePatientData(p);
         _businessLogicDelegationController.setActivePatient(p);
     }
 
@@ -127,11 +127,10 @@ public class GUIController implements PatientListener {
      * Update patient data in content tabs
      * @param p
      */
-    public void updatePatientData(PatientBo p) {
+    public void updatePatientData(PatientData p) {
         _contentTab.updatePatientData(p);
 
-        // update patient name window bar
-        String title = _easyDietWindow.getTitle();
-        _easyDietWindow.setTitle(title + " Patient: " + p.getForename() + " " + p.getLastname().toUpperCase());
+        // update patient name in window bar
+        _easyDietWindow.setTitle("EasyDiet - Patient: " + p.getForename() + " " + p.getLastname().toUpperCase());
     }
 }

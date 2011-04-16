@@ -30,10 +30,6 @@ public class EasyDiet implements Application {
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(EasyDiet.class);
     private static final String sTITLE;
     private static final String sMAIN_XML;
-    private static boolean sINITALIZED;
-    private static int sWINDOW_HEIGHT;
-    private static int sWINDOW_WIDTH;
-    private static String sICON;
     
     // instance variables
     private GUIController _guiController;
@@ -42,10 +38,6 @@ public class EasyDiet implements Application {
     static {
         sTITLE = "EasyDiet";
         sMAIN_XML = "bxml/main.bxml";
-        sINITALIZED = false;
-        sWINDOW_HEIGHT = 768;
-        sWINDOW_WIDTH = 1024;
-        sICON = "wien_wappen.png";
     }
     
     // instance variables

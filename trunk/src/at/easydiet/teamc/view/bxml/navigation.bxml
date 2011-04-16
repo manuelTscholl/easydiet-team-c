@@ -8,9 +8,9 @@
     inactiveTabColor:'#DFF1FD', padding:'{top:10}', buttonSpacing:'0'}"
     collapsible="true">
 
-    <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'top'}">
-
 <!-- Search Tab -->
+
+    <BoxPane bxml:id="searchTab" styles="{horizontalAlignment:'center', verticalAlignment:'top'}">
 
         <TabPane.tabData>
             <content:ButtonData icon="@magnifier.png" text="Suche"/>
@@ -30,7 +30,7 @@
                 <BoxPane>
                     <TextInput bxml:id="searchTextInput" prompt="Suche" textSize="15"
                 xmlns:bxml="http://pivot.apache.org/bxml"
-                xmlns="org.apache.pivot.wtk"/>
+                xmlns="org.apache.pivot.wtk" maximumLength="100"/>
                     <ActivityIndicator bxml:id="searchActivityIndicator" preferredWidth="20" preferredHeight="20" active="false"
                         xmlns:bxml="http://pivot.apache.org/bxml"
                         xmlns="org.apache.pivot.wtk"/>
@@ -61,7 +61,7 @@
 <!-- End Search Tab -->
 
 <!-- Patientdata Tab -->
-    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
+    <BoxPane bxml:id="patientDataTab" styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
         <TabPane.tabData>
             <content:ButtonData icon="@table.png" text="Stammdaten"/>
         </TabPane.tabData>
@@ -87,7 +87,7 @@
 <!-- End Patientdata Tab -->
 
 <!-- Navigation Tab -->
-    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
+    <BoxPane bxml:id="navigationTab" styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
         <TabPane.tabData>
             <content:ButtonData icon="@odata.png" text="Navigation"/>
         </TabPane.tabData>
@@ -130,7 +130,7 @@
 <!-- End Navigation Tab -->
 
 <!-- Edit Tab -->
-    <BoxPane styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
+    <BoxPane bxml:id="editTab" styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
         <TabPane.tabData>
             <content:ButtonData icon="@pencil.png" text="Bearbeiten"/>
         </TabPane.tabData>

@@ -11,6 +11,12 @@ import java.net.URL;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.util.Vote;
+import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.ComponentMouseButtonListener;
+import org.apache.pivot.wtk.Mouse.Button;
+import org.apache.pivot.wtk.TabPane;
+import org.apache.pivot.wtk.TabPaneSelectionListener;
 import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.Window;
 
@@ -26,6 +32,8 @@ public class EasyDietWindow extends Window implements Bindable {
     private Map<String, Object> _namespace;
     private TablePane _content;
     private TablePane.Column _menuBarColumn;
+    private NavigationTabPane _navTab;
+    private ContentTabPane _contentTab;
 
     /**
      * First called after creating the GUI
@@ -39,7 +47,37 @@ public class EasyDietWindow extends Window implements Bindable {
 
         // get GUI elements
         _content = (TablePane) map.get("mainContentTablePane");
-        _menuBarColumn = (TablePane.Column)map.get("mainTableColumn");
+        _menuBarColumn = (TablePane.Column) map.get("mainTableColumn");
+        _navTab = (NavigationTabPane) map.get("navTab");
+        _contentTab = (ContentTabPane) map.get("contentTab");
+
+        // listener for content tab to change navigation tab
+        _contentTab.getTabPaneSelectionListeners().add(new TabPaneSelectionListener() {
+
+            // TabPane tp contains the tap from which we are coming and his index
+            public Vote previewSelectedIndexChange(TabPane tp, int i) {
+                return Vote.APPROVE;
+            }
+
+            public void selectedIndexChangeVetoed(TabPane tp, Vote vote) {
+            }
+
+            // TabPane tp contains the actual clicked tap and his index
+            public void selectedIndexChanged(TabPane tp, int i) {
+
+                // appointment Tab clicked
+                if (tp.getSelectedTab().getName().equals("appointmentTab")) {
+                } else if (tp.getSelectedTab().getName().equals("overviewTab")) { // overview Tab clicked
+                    //TODO placeholder implement if necessary
+                } else if (tp.getSelectedTab().getName().equals("contactJournalTab")) { // contactJournal Tab clicked
+                    //TODO placeholder implement if necessary
+                } else if (tp.getSelectedTab().getName().equals("anamnesisTab")) { // anamnesis Tab clicked
+                    //TODO placeholder implement if necessary
+                } else if (tp.getSelectedTab().getName().equals("dietryPlanTab")) { // dietryPlan Tab clicked
+                    _navTab.setSelectedTabByName("editTab");
+                }
+            }
+        });
     }
 
     /**
