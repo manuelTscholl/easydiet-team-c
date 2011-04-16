@@ -6,13 +6,17 @@
  */
 package at.easydiet.teamc.view;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.pivot.beans.BXML;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
+import org.apache.pivot.serialization.SerializationException;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.ActivityIndicator;
 import org.apache.pivot.wtk.BoxPane;
@@ -23,6 +27,10 @@ import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.TextInput;
 
 import at.easydiet.teamc.controller.PatientData;
+import org.apache.pivot.beans.BXMLSerializer;
+import org.apache.pivot.wtk.Button;
+import org.apache.pivot.wtk.ButtonPressListener;
+import org.apache.pivot.wtk.PushButton;
 
 /**
  * Represents the application's navigation tabpane (navigation.bxml)
@@ -150,10 +158,37 @@ public class NavigationTabPane extends TabPane implements Bindable {
      */
     public void setSelectedTabByName(String name) {
         for (int i = 0; i < getTabs().getLength(); i++) {
-            if(getTabs().get(i).getName().equals(name)){
+            if (getTabs().get(i).getName().equals(name)) {
                 setSelectedIndex(i);
                 return;
             }
         }
+    }
+
+    /**
+     * Set dietry plan mode. Change content of each tab
+     * to provide usefull informations for the dietry plan
+     */
+    public void setDietryPlanMode() {
+        Button b = new PushButton("Neuen Diätplan erstellen");
+        _editBoxPane.add(b);
+
+        b.getButtonPressListeners().add(new ButtonPressListener() {
+
+            public void buttonPressed(Button button) {
+
+                BXMLSerializer bxml = new BXMLSerializer();
+                DateDialog d;
+                try {
+                    d = (DateDialog) bxml.readObject(DateDialog.class, "bxml/dateDialog.bxml");
+                    EasyDietWindow window = (EasyDietWindow) GUIComponents.get("easyDietWindow");
+                    d.open(window);
+                } catch (IOException ex) {
+                    LOGGER.error(ex);
+                } catch (SerializationException ex) {
+                    LOGGER.error(ex);
+                }
+            }
+        });
     }
 }

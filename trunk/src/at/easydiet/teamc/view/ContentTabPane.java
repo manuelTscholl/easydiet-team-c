@@ -64,7 +64,7 @@ public class ContentTabPane extends TabPane implements Bindable {
 
             @Override
             public void sizeChanged(Component component, int previousWidth, int previousHeight) {
-                int height = component.getHeight() - 20;
+                int height = component.getHeight() - 37;
                 _appointmentScrollPane.setPreferredHeight(height);
                 _overviewScrollPane.setPreferredHeight(height);
                 _contactJournalScrollPane.setPreferredHeight(height);
