@@ -11,7 +11,7 @@
             <Menu.Section>
                 <Menu.Item bxml:id="openMenuItem" buttonData="Öffnen"/>
                 <Menu.Item bxml:id="printMenuItem" buttonData="Drucken"/>
-
+				<Menu.Item bxml:id="close" buttonData="Schliessen"/>
             </Menu.Section>
         </Menu>
     </MenuBar.Item>
