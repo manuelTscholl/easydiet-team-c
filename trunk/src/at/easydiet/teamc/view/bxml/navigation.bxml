@@ -134,12 +134,17 @@
         <TabPane.tabData>
             <content:ButtonData icon="@pencil.png" text="Bearbeiten"/>
         </TabPane.tabData>
-        <BoxPane bxml:id="editBoxPane"
-                    styles="{horizontalAlignment:'left', verticalAlignment:'top'}"
-                    xmlns:bxml="http://pivot.apache.org/bxml"
-                    xmlns="org.apache.pivot.wtk">
-            <Label text="Bearbeiten" styles="{font:{bold:true}}"/>
-        </BoxPane>
+        <TablePane bxml:id="editTablePane" styles="{verticalSpacing:1, showHorizontalGridLines:false,
+                horizontalSpacing:10, showVerticalGridLines:false, padding:'{left:10, right:10}'}"
+                xmlns:bxml="http://pivot.apache.org/bxml"
+                xmlns="org.apache.pivot.wtk">
+            <columns>
+                <TablePane.Column width="-1"/>
+            </columns>
+            <TablePane.Row height="-1">
+                <Label text="Bearbeiten" styles="{font:{bold:true}}"/>
+            </TablePane.Row>
+        </TablePane>
     </BoxPane>
 <!-- End Edit Tab -->
 </easyDiet:NavigationTabPane>

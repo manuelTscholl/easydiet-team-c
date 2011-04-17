@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.pivot.beans.BXML;
 import org.apache.pivot.beans.Bindable;
@@ -48,7 +46,7 @@ public class NavigationTabPane extends TabPane implements Bindable {
     @BXML
     private BoxPane _navigationBoxPane;
     @BXML
-    private BoxPane _editBoxPane;
+    private TablePane _editTablePane;
     @BXML
     private TablePane _searchResultTablePane;
     @BXML
@@ -74,7 +72,7 @@ public class NavigationTabPane extends TabPane implements Bindable {
         _searchTextInput = (TextInput) map.get("searchTextInput");
         _patientDataBoxPane = (BoxPane) map.get("patientDataBoxPane");
         _navigationBoxPane = (BoxPane) map.get("navigationBoxPane");
-        _editBoxPane = (BoxPane) map.get("editBoxPane");
+        _editTablePane = (TablePane) map.get("editTablePane");
         _searchResultTablePane = (TablePane) map.get("searchResultTablePane");
         _searchResultScrollPane = (ScrollPane) map.get("searchResultScrollPane");
         _searchActivityIndicator = (ActivityIndicator) map.get("searchActivityIndicator");
@@ -170,17 +168,19 @@ public class NavigationTabPane extends TabPane implements Bindable {
      * to provide usefull informations for the dietry plan
      */
     public void setDietryPlanMode() {
+        TablePane.Row tro = new TablePane.Row();
         Button b = new PushButton("Neuen Diätplan erstellen");
-        _editBoxPane.add(b);
+        tro.add(b);
+        _editTablePane.getRows().add(tro);
 
         b.getButtonPressListeners().add(new ButtonPressListener() {
 
             public void buttonPressed(Button button) {
 
                 BXMLSerializer bxml = new BXMLSerializer();
-                DateDialog d;
+                ChooseMealDialog d;
                 try {
-                    d = (DateDialog) bxml.readObject(DateDialog.class, "bxml/dateDialog.bxml");
+                    d = (ChooseMealDialog) bxml.readObject(DateDialog.class, "bxml/choose_meal_dialog.bxml");
                     EasyDietWindow window = (EasyDietWindow) GUIComponents.get("easyDietWindow");
                     d.open(window);
                 } catch (IOException ex) {

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<easyDiet:ChooseMealDialog bxml:id="chooseMealDialog" title="Mahlzeit auswählen" modal="true"
+    xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:easyDiet="at.easydiet.teamc.view"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns="org.apache.pivot.wtk"  styles="{backgroundColor:'#EBEDEF'}">
+    <TablePane preferredWidth="550" preferredHeight="400" styles="{verticalSpacing:10, horizontalSpacing:10}">
+        <columns>
+            <TablePane.Column width="1*"/>
+            <TablePane.Column width="20"/>
+            <TablePane.Column width="1*"/>
+        </columns>
+
+        <!-- Meal chooser -->
+        <TablePane.Row height="-1">
+            <ListButton bxml:id="mealChooserListButton"
+                listData="['Frühstück', 'Mittagessen']"
+                xmlns:bxml="http://pivot.apache.org/bxml"
+                xmlns="org.apache.pivot.wtk" selectedIndex="0"/>
+            <TablePane.Filler/>
+            <TablePane.Filler/>
+        </TablePane.Row>
+        <!-- END Meal chooser -->
+
+        <!-- Recipe chooser -->
+        <TablePane.Row height="-1">
+
+            <!-- Recipes -->
+            <Border title="Rezepte" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
+                xmlns:bxml="http://pivot.apache.org/bxml"
+                xmlns="org.apache.pivot.wtk">
+
+            </Border>
+            <!-- END Recipes -->
+
+            <!-- add and remove buttons -->
+            <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}" orientation="vertical">
+                <PushButton bxml:id="addRecipeButton" styles="{toolbar:true}">
+                    <content:ButtonData icon="@navigation.png" />
+                </PushButton>
+                <PushButton bxml:id="removeRecipeButton" styles="{toolbar:true}">
+                    <content:ButtonData icon="@navigation-180.png" />
+                </PushButton>
+            </BoxPane>
+            <!-- END add and remove buttons -->
+
+            <!-- Added Meals -->
+            <Border title="Fertige Mahlzeit" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
+                xmlns:bxml="http://pivot.apache.org/bxml"
+                xmlns="org.apache.pivot.wtk">
+
+            </Border>
+            <!-- END Added Meals -->
+
+        </TablePane.Row>
+        <!-- END Recipe chooser -->
+
+        <!-- Buttons -->
+        <TablePane.Row height="-1">
+            <TablePane.Filler/>
+            <TablePane.Filler/>
+            <BoxPane styles="{horizontalAlignment:'Right'}">
+                <PushButton bxml:id="addAlternativButton" buttonData="Alternative hinzufügen"/>
+                <PushButton bxml:id="finishButton" buttonData="Fertig"/>
+            </BoxPane>
+        </TablePane.Row>
+        <!-- END Buttons -->
+
+    </TablePane>
+</easyDiet:ChooseMealDialog>

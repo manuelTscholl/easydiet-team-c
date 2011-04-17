@@ -18,7 +18,7 @@ import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TablePane;
 
 import at.easydiet.teamc.controller.PatientData;
-import org.apache.pivot.wtk.Bounds;
+import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ScrollPaneListener;
 import org.apache.pivot.wtk.Viewport;
 import org.apache.pivot.wtk.ViewportListener;
@@ -34,6 +34,8 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
     // instance variables
     private Map<String, Object> _namespace;
     private TablePane _mainTable;
+    private TablePane _planTable;
+    private TablePane _parameterTable;
     private ArrayList<DietWeek> _dietWeeks;
 
     {
@@ -63,6 +65,23 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
             }
         });
 
+        // initalize main table
+        initMainTable();
+
+        // listener for scrolling, this listener always displays the parameter area at the top
+        getViewportListeners().add(new ViewportListener() {
+
+            public void scrollTopChanged(Viewport scrollPane, int previousScrollTop) {
+                _parameterTable.getStyles().put("padding", "{top:" + scrollPane.getScrollTop() + "}");
+            }
+
+            public void scrollLeftChanged(Viewport scrollPane, int previousScrollLeft) {
+            }
+
+            public void viewChanged(Viewport scrollPane, Component previousView) {
+            }
+        });
+
         // register component
         GUIComponents.put(getName(), this);
 
@@ -72,6 +91,42 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
             addDay();
         }
         //EXAMPLE END
+    }
+
+    /**
+     * Initialize main table
+     */
+    private void initMainTable() {
+
+        // plan table
+        _planTable = new TablePane();
+        _planTable.getColumns().add(new TablePane.Column());
+        _planTable.getStyles().put("verticalSpacing", "5");
+
+        // parameter table
+        _parameterTable = new TablePane();
+        _parameterTable.getColumns().add(new TablePane.Column());
+        _parameterTable.getStyles().put("verticalSpacing", "5");
+
+        // add both tables
+        TablePane.Row tro = new TablePane.Row();
+        tro.add(_planTable);
+        tro.add(_parameterTable);
+
+        _mainTable.getRows().add(tro);
+        _mainTable.getStyles().put("verticalSpacing", "5");
+
+        addParameterTest();
+    }
+
+    /**
+     * Add parameter test section to plan
+     */
+    private void addParameterTest() {
+        TablePane.Row tro = new TablePane.Row();
+        Label l = new Label("PARAMETER TEST");
+        tro.add(l);
+        _parameterTable.getRows().add(tro);
     }
 
     /**
@@ -88,7 +143,7 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
      * Add a new dietry week
      */
     private void addWeek() {
-        _dietWeeks.add(new DietWeek(_mainTable, _dietWeeks.size() + 1));
+        _dietWeeks.add(new DietWeek(_planTable, _dietWeeks.size() + 1));
     }
 
     /**

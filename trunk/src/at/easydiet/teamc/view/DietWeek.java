@@ -23,19 +23,12 @@ public class DietWeek {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(DietWeek.class);
-    private static boolean sIS_DRAWN;
-    private static TablePane sPLAN_TABLE;
     // instance variables
     private ArrayList<DietDay> _days;
     private TablePane _srcTablePane;
     private Expander _weekExpander;
     private TablePane _weekTable;
     private int _weekNumber;
-
-    static {
-        sIS_DRAWN = false;
-        sPLAN_TABLE = new TablePane();
-    }
 
     /**
      * Constructor
@@ -49,27 +42,10 @@ public class DietWeek {
         drawWeek();
     }
 
-    private void initMainTable() {
-
-        // check if already drawn
-        if (!sIS_DRAWN) {
-            sPLAN_TABLE.getColumns().add(new TablePane.Column());
-            sPLAN_TABLE.getStyles().put("verticalSpacing", "5");
-
-            TablePane.Row planTableRow = new TablePane.Row();
-            planTableRow.add(sPLAN_TABLE);
-            _srcTablePane.getRows().add(planTableRow);
-            _srcTablePane.getStyles().put("verticalSpacing", "5");
-
-            sIS_DRAWN = true;
-        }
-    }
-
     /**
      * Draw this week
      */
     private void drawWeek() {
-        initMainTable();
 
         // Expander
         _weekExpander = new Expander();
@@ -86,7 +62,7 @@ public class DietWeek {
         // add to planTable
         TablePane.Row planTableRow = new TablePane.Row();
         planTableRow.add(_weekExpander);
-        sPLAN_TABLE.getRows().add(planTableRow);
+        _srcTablePane.getRows().add(planTableRow);
 
         initListeners();
     }
@@ -129,7 +105,7 @@ public class DietWeek {
         });
 
         // add listener for resizing
-        sPLAN_TABLE.getComponentListeners().add(new ComponentListenerAdapter() {
+        _srcTablePane.getComponentListeners().add(new ComponentListenerAdapter() {
 
             @Override
             public void sizeChanged(Component component, int previousWidth, int previousHeight) {
