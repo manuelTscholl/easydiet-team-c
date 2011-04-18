@@ -6,13 +6,19 @@
  */
 package at.easydiet.teamc.controller;
 
+import at.easydiet.teamc.model.data.DietParameterTemplateData;
 import at.easydiet.teamc.model.data.PatientData;
 import java.util.Set;
 
+
+import at.easydiet.model.DietParameterTemplate;
+import at.easydiet.teamc.controller.usecase.SearchParameterController;
 import at.easydiet.teamc.controller.usecase.SearchPatientController;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
+import at.easydiet.teamc.model.*;
+
 
 /**
  * Controller for business logic
@@ -27,6 +33,8 @@ public class BusinessLogicDelegationController {
     // instance variables
     private PatientBo _activePatient;
     private SearchPatientController _searchPatientController;
+    private SearchParameterController _searchParameterController;
+    
 
     /** 
      * Initializes a new instance of the {@link BusinessLogicDelegationController} class. 
@@ -34,6 +42,7 @@ public class BusinessLogicDelegationController {
      */
     private BusinessLogicDelegationController() {
         _searchPatientController = SearchPatientController.getInstance();
+        _searchParameterController=SearchParameterController.getInstance();
     }
 
     /**
@@ -96,5 +105,15 @@ public class BusinessLogicDelegationController {
 
     public void addNewPatientSearchHandler(IEventHandler<EventArgs> handler) {
         _searchPatientController.addHandler(handler);
+    }
+    
+    public Set<DietParameterTemplateData> getParameters(){
+    	Set<DietParameterTemplateBo> parameters=_searchParameterController.getParameters();    	
+    	//cast DietParameterTemplateBo's into DietParameterTemplateData
+    	
+    	
+    	
+    	return null;
+    	
     }
 }
