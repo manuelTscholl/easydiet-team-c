@@ -82,7 +82,7 @@ public class SearchPatientController extends Event<EventArgs> {
         String svn = "";
         Date date = null;
 
-        String regexName = "[a-zA-Z]{2,}";
+        String regexName = "[a-zA-Z]{1,}";
         String regexSVN = "[0-9]{0,10}";
         String regexDATE = "[0-9]{1,2}[.][0-9]{1,2}[.][0-9]{1,4}";
 
