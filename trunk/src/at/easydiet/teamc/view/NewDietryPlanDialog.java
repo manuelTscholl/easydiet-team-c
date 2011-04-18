@@ -17,6 +17,7 @@ import org.apache.pivot.wtk.Dialog;
 import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TablePane;
+import org.apache.pivot.wtk.content.ButtonData;
 
 /**
  * Represents the dialog to add a new dietry plan
@@ -52,9 +53,6 @@ public class NewDietryPlanDialog extends Dialog implements Bindable {
         _dateChooserLabel = (Label) namespace.get("dateChooserLabel");
         _parametersChooserLabel = (Label) namespace.get("parametersChooserLabel");
         _setParametersLabel = (Label) namespace.get("setParametersLabel");
-        _dateChooserTablePane.toString();
-        _parameterChooserTablePane.toString();
-        _setParametersTablePane.toString();
 
         // store tablepanes and labels with step index
         _stepsTablePane = new HashMap<Integer, TablePane>();
@@ -65,6 +63,9 @@ public class NewDietryPlanDialog extends Dialog implements Bindable {
         _stepsLabel.put(1, _parametersChooserLabel);
         _stepsTablePane.put(2, _setParametersTablePane);
         _stepsLabel.put(2, _setParametersLabel);
+
+        // disabla back button for first step
+        _backButton.setEnabled(false);
 
         // button listeners
         _forwardButton.getButtonPressListeners().add(new ButtonPressListener() {
@@ -101,14 +102,28 @@ public class NewDietryPlanDialog extends Dialog implements Bindable {
             _stepsLabel.get(lastStep).getStyles().put("color", "#BDBDBD");
         }
 
+        // final step
+        if (_selectedStep == _stepsLabel.size() - 1) {
+            _forwardButton.setButtonData(new ButtonData("Fertigstellen"));
+        } else {
+            _forwardButton.setButtonData(new ButtonData("Weiter"));
+        }
+
+        // fist step -> back not available
+        if (_selectedStep == 0) {
+            _backButton.setEnabled(false);
+        } else {
+            _backButton.setEnabled(true);
+        }
+
         // selected index is too high
-        if (nextStep >= _stepsLabel.size()) {
+        if (nextStep > _stepsLabel.size()) {
             _selectedStep = _stepsLabel.size() - 1;
         }
 
-        // selected index is to low
-        if (nextStep < 0) {
-            _selectedStep = 0;
+        // check if finish button is pressed
+        if(nextStep == _stepsLabel.size()){
+            close();
         }
     }
 }

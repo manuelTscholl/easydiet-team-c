@@ -192,5 +192,28 @@ public class NavigationTabPane extends TabPane implements Bindable {
                 }
             }
         });
+
+        TablePane.Row tro1 = new TablePane.Row();
+        Button b1 = new PushButton("Mahlzeit hinzufügen");
+        tro1.add(b1);
+        _editTablePane.getRows().add(tro1);
+
+        b1.getButtonPressListeners().add(new ButtonPressListener() {
+
+            public void buttonPressed(Button button) {
+
+                BXMLSerializer bxml = new BXMLSerializer();
+                ChooseMealDialog d;
+                try {
+                    d = (ChooseMealDialog) bxml.readObject(DateDialog.class, "bxml/choose_meal_dialog.bxml");
+                    EasyDietWindow window = (EasyDietWindow) GUIComponents.get("easyDietWindow");
+                    d.open(window);
+                } catch (IOException ex) {
+                    LOGGER.error(ex);
+                } catch (SerializationException ex) {
+                    LOGGER.error(ex);
+                }
+            }
+        });
     }
 }
