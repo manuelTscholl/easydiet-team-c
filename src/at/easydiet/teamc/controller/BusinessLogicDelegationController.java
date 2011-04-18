@@ -6,6 +6,7 @@
  */
 package at.easydiet.teamc.controller;
 
+import at.easydiet.teamc.model.data.PatientData;
 import java.util.Set;
 
 import at.easydiet.teamc.controller.usecase.SearchPatientController;

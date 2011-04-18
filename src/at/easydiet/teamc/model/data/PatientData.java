@@ -5,7 +5,7 @@
  * file: PatientData.java
  */
 
-package at.easydiet.teamc.controller;
+package at.easydiet.teamc.model.data;
 
 import java.util.Date;
 

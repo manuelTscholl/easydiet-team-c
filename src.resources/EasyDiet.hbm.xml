@@ -1,426 +1,335 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC
-        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="at.easydiet.model">
-
-	<class name="Gender">
-		<id name="name" column="Name" type="string" />
-	</class>
-
-	<class name="Patient">
-
-		<id name="patientId" column="PatientId" type="long">
-			<generator class="native" />
-		</id>
-
-		<property name="insuranceNumber" column="InsuranceNumber" type="string" unique="true" not-null="true" />
-		<property name="forename" column="Forename" type="string" not-null="true" />
-		<property name="lastname" column="Lastname" type="string" not-null="true" />
-		<property name="title" column="Title" type="string" not-null="true" />
-		<property name="street" column="Street" type="string" not-null="true" />
-		<property name="zip" column="Zip" type="string" not-null="true" />
-		<property name="place" column="Place" type="string" not-null="true" />
-		<!-- ISO 3166 ALPHA-3 -->
-		<property name="country" column="Country" type="string" not-null="true" />
-		<property name="birthday" column="Birthday" type="timestamp" not-null="true" />
-		<property name="job" column="Job" type="string" />
-		<property name="religion" column="Religion" type="string" />
-		<property name="regime" column="Regime" type="string" />
-		<property name="notice" column="Notice" type="clob" />
-
-		<many-to-one class="Gender" name="gender" column="Gender"
-			not-null="true" />
-
-		<set name="illnesses" table="PatientIllnesses">
-			<key column="PatientId" />
-			<element column="Illness" type="string" />
-		</set>
-		
-		<set name="familyanamnesis" lazy="true">
-			<key column="PatientId" not-null="true" />
-			<one-to-many class="FamilyAnamnesis" />
-		</set>
-
-		<set name="patientstate" lazy="true">
-			<key column="PatientId" not-null="true" />
-			<one-to-many class="PatientState" />
-		</set>
-
-		<set name="laborReports" lazy="true">
-			<key column="PatientId" not-null="true" />
-			<one-to-many class="LaborReport" />
-		</set>
-		
-		<set name="treatments" lazy="true">
-			<key column="PatientId" />
-			<one-to-many class="DietTreatment" />
-		</set>
-
-		<set name="disfavors" table="PatientDisfavors" lazy="true">
-			<key column="PatientId" not-null="true" />
-			<many-to-many class="Recipe" column="RecipeId" />
-		</set>
-	</class>
-
-	<class name="FamilyAnamnesis">
-		<id name="familyAnamnesisId" column="FamilyAnamnesisId" type="long">
-			<generator class="native" />
-		</id>
-		<property name="person" column="Person" type="string" not-null="true" />
-		
-		<set name="illnesses" table="FamilyAnamnesisIllnesses">
-			<key column="FamilyAnamnesisId" />
-			<element column="Illness" type="string" />
-		</set>
-	</class>
-
-	<class name="SystemUser">
-		<id name="systemUserId" column="SystemUserId" type="long">
-			<generator class="native" />
-		</id>
-		<property name="username" column="Username" type="string" not-null="true" unique="true" />
-		<property name="password" column="Password" type="string" not-null="true" />
-		<property name="name" column="Name" type="string" not-null="true" />
-		<property name="email" column="Email" type="string" not-null="true" unique="true" />
-		<property name="directDial" column="DirectDial" type="string" />
-		<property name="department" column="Department" type="string" />
-		<property name="job" column="Job" type="string" />
-
-		<!-- No Lazy loading: we often will need the user rights, so it's good we have them always -->
-		<set name="rights" table="SystemUserRight">
-			<key column="SystemUserId" not-null="true" />
-			<many-to-many class="UserRight" column="UserRightId" />
-		</set>
-	</class>
-
-	<class name="UserRight">
-		<id name="name" column="Name" type="string" />
-	</class>
-
-	<class name="ContactJournal">
-		<id name="contactJournalId" column="ContactJournalId" type="long">
-			<generator class="native" />
-		</id>
-		<property name="date" column="Date" type="timestamp" not-null="true" />
-		<property name="description" column="Description" type="clob" />		
-		<many-to-one class="SystemUser" name="createdBy" column="CreatedBy" not-null="true" />
-		<many-to-one class="ContactType" name="contactType" column="ContactType" not-null="true" />
-	</class>
-
-	<class name="ContactType">
-		<id name="name" column="Name" type="string" />
-	</class>
-	
-	<class name="ParameterDefinition">
-		<id name="parameterDefinitionId" column="ParameterDefinitionId"
-			type="long">
-			<generator class="native" />
-		</id>
-		<property name="name" column="Name" type="string" not-null="true" unique="true" />
-		<property name="checkPattern" column="CheckPattern" type="string" />	
-        
-        <!-- No lazy loading, we will need units always -->
-        <set name="units" table="ParameterDefinitionUnits">
-			<key column="ParameterDefinitionId" not-null="true" />
-			<many-to-many class="ParameterDefinitionUnit" column="ParameterDefinitionUnitId" />
-		</set>        
-	</class>
-
-	<class name="ParameterDefinitionDataType">
-		<id name="name" column="Name" type="string" />
-	</class>
-
-    
-    <class name="ParameterDefinitionUnit">
-        <id name="parameterDefinitionUnitId" column="ParameterDefinitionUnitId" type="long">
-			<generator class="native" />
-		</id>
-		<property name="name" column="Name" type="string" unique="true" not-null="true" />
-        <many-to-one name="type" column="Type" class="ParameterDefinitionDataType" not-null="true" />
-	</class>
-
-	<class name="DietTreatment">
-		<id name="dietTreatmentId" column="DietTreatmentId" type="long">
-			<generator class="native" />
-		</id>
-		<property name="start" column="Start" type="timestamp" not-null="true" />
-		<property name="duration" column="Duration" type="int" not-null="true" />
-		<property name="name" column="Name" type="string" not-null="true" />
-		<set name="nutritionProtocols" lazy="true">
-			<key column="DietTreatmentId" not-null="true"/>
-			<one-to-many class="NutritionProtocol" />
-		</set>		
-		<set name="dietPlans" lazy="true">
-			<key column="DietTreatmentId" />
-			<one-to-many class="DietPlan" />
-		</set> 		
-		<set name="dietParameters" table="DietTreatmentDietParameter">
-			<key column="DietTreatmentId" not-null="true" />
-			<many-to-many class="DietParameter" column="DietParameterId"  unique="true" />
-		</set>		
-		<set name="patientStates" table="DietTreatmentPatientState" lazy="true">
-			<key column="DietTreatmentId" not-null="true" />
-			<many-to-many class="PatientState" column="DietParameterId" unique="true" />
-		</set>
-		
-		<set name="systemUsers" lazy="true">
-			<key column="DietTreatmentId" not-null="true" />
-			<one-to-many class="DietTreatmentSystemUser" />
-		</set>
-
-		<set name="contactJournals" lazy="true">
-			<key column="DietTreatmentId" not-null="true" />
-			<one-to-many class="ContactJournal" />
-		</set>
-
-		<many-to-one name="treatmentState" column="TreatmentState" class="TreatmentState" not-null="true"/>
-		
-		<!-- Not needed, Templates are DietTreatments without a patient assigned		
+  <class name="Gender">
+    <id column="Name" name="name" type="string"/>
+  </class>
+  <class name="Patient">
+    <id column="PatientId" name="patientId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="InsuranceNumber" name="insuranceNumber" not-null="true" type="string" unique="true"/>
+    <property column="Forename" name="forename" not-null="true" type="string"/>
+    <property column="Lastname" name="lastname" not-null="true" type="string"/>
+    <property column="Title" name="title" not-null="true" type="string"/>
+    <property column="Street" name="street" not-null="true" type="string"/>
+    <property column="Zip" name="zip" not-null="true" type="string"/>
+    <property column="Place" name="place" not-null="true" type="string"/>
+    <!-- ISO 3166 ALPHA-3 -->
+    <property column="Country" name="country" not-null="true" type="string"/>
+    <property column="Birthday" name="birthday" not-null="true" type="timestamp"/>
+    <property column="Job" name="job" type="string"/>
+    <property column="Religion" name="religion" type="string"/>
+    <property column="Regime" name="regime" type="string"/>
+    <property column="Notice" name="notice" type="clob"/>
+    <many-to-one class="Gender" column="Gender" name="gender" not-null="true"/>
+    <set name="illnesses" table="PatientIllnesses">
+      <key column="PatientId"/>
+      <element column="Illness" type="string"/>
+    </set>
+    <set lazy="true" name="familyanamnesis">
+      <key column="PatientId" not-null="true"/>
+      <one-to-many class="FamilyAnamnesis"/>
+    </set>
+    <set lazy="true" name="patientstate">
+      <key column="PatientId" not-null="true"/>
+      <one-to-many class="PatientState"/>
+    </set>
+    <set lazy="true" name="laborReports">
+      <key column="PatientId" not-null="true"/>
+      <one-to-many class="LaborReport"/>
+    </set>
+    <set lazy="true" name="treatments">
+      <key column="PatientId"/>
+      <one-to-many class="DietTreatment"/>
+    </set>
+    <set lazy="true" name="disfavors" table="PatientDisfavors">
+      <key column="PatientId" not-null="true"/>
+      <many-to-many class="Recipe" column="RecipeId"/>
+    </set>
+  </class>
+  <class name="FamilyAnamnesis">
+    <id column="FamilyAnamnesisId" name="familyAnamnesisId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Person" name="person" not-null="true" type="string"/>
+    <set name="illnesses" table="FamilyAnamnesisIllnesses">
+      <key column="FamilyAnamnesisId"/>
+      <element column="Illness" type="string"/>
+    </set>
+  </class>
+  <class name="SystemUser">
+    <id column="SystemUserId" name="systemUserId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Username" name="username" not-null="true" type="string" unique="true"/>
+    <property column="Password" name="password" not-null="true" type="string"/>
+    <property column="Name" name="name" not-null="true" type="string"/>
+    <property column="Email" name="email" not-null="true" type="string" unique="true"/>
+    <property column="DirectDial" name="directDial" type="string"/>
+    <property column="Department" name="department" type="string"/>
+    <property column="Job" name="job" type="string"/>
+    <!-- No Lazy loading: we often will need the user rights, so it's good we have them always -->
+    <set name="rights" table="SystemUserRight">
+      <key column="SystemUserId" not-null="true"/>
+      <many-to-many class="UserRight" column="UserRightId"/>
+    </set>
+  </class>
+  <class name="UserRight">
+    <id column="Name" name="name" type="string"/>
+  </class>
+  <class name="ContactJournal">
+    <id column="ContactJournalId" name="contactJournalId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Date" name="date" not-null="true" type="timestamp"/>
+    <property column="Description" name="description" type="clob"/>
+    <many-to-one class="SystemUser" column="CreatedBy" name="createdBy" not-null="true"/>
+    <many-to-one class="ContactType" column="ContactType" name="contactType" not-null="true"/>
+  </class>
+  <class name="ContactType">
+    <id column="Name" name="name" type="string"/>
+  </class>
+  <class name="ParameterDefinition">
+    <id column="ParameterDefinitionId" name="parameterDefinitionId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Name" name="name" not-null="true" type="string" unique="true"/>
+    <property column="CheckPattern" name="checkPattern" type="string"/>
+    <!-- No lazy loading, we will need units always -->
+    <set name="units" table="ParameterDefinitionUnits">
+      <key column="ParameterDefinitionId" not-null="true"/>
+      <many-to-many class="ParameterDefinitionUnit" column="ParameterDefinitionUnitId"/>
+    </set>
+  </class>
+  <class name="ParameterDefinitionDataType">
+    <id column="Name" name="name" type="string"/>
+  </class>
+  <class name="ParameterDefinitionUnit">
+    <id column="ParameterDefinitionUnitId" name="parameterDefinitionUnitId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Name" name="name" not-null="true" type="string" unique="true"/>
+    <many-to-one class="ParameterDefinitionDataType" column="Type" name="type" not-null="true"/>
+  </class>
+  <class name="DietTreatment">
+    <id column="DietTreatmentId" name="dietTreatmentId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Start" name="start" not-null="true" type="timestamp"/>
+    <property column="Duration" name="duration" not-null="true" type="int"/>
+    <property column="Name" name="name" not-null="true" type="string"/>
+    <set lazy="true" name="nutritionProtocols">
+      <key column="DietTreatmentId" not-null="true"/>
+      <one-to-many class="NutritionProtocol"/>
+    </set>
+    <set lazy="true" name="dietPlans">
+      <key column="DietTreatmentId"/>
+      <one-to-many class="DietPlan"/>
+    </set>
+    <set name="dietParameters" table="DietTreatmentDietParameter">
+      <key column="DietTreatmentId" not-null="true"/>
+      <many-to-many class="DietParameter" column="DietParameterId" unique="true"/>
+    </set>
+    <set lazy="true" name="patientStates" table="DietTreatmentPatientState">
+      <key column="DietTreatmentId" not-null="true"/>
+      <many-to-many class="PatientState" column="DietParameterId" unique="true"/>
+    </set>
+    <set lazy="true" name="systemUsers">
+      <key column="DietTreatmentId" not-null="true"/>
+      <one-to-many class="DietTreatmentSystemUser"/>
+    </set>
+    <set lazy="true" name="contactJournals">
+      <key column="DietTreatmentId" not-null="true"/>
+      <one-to-many class="ContactJournal"/>
+    </set>
+    <many-to-one class="TreatmentState" column="TreatmentState" name="treatmentState" not-null="true"/>
+    <!-- Not needed, Templates are DietTreatments without a patient assigned		
 		<joined-subclass name="DietTreatmentTemplate">
 			<key column="DietTreatmentId" />
 		</joined-subclass>-->
-		
-	</class>
-
-	<class name="DietTreatmentSystemUser">
-		<id name="dietTreatmentSystemUserId" column="DietTreatmentSystemUserId" type="int">
-			<generator class="native" />
-		</id>
-		<many-to-one name="systemUser" class="SystemUser" column="SystemUserId" not-null="true" />
-		<many-to-one name="function" class="SystemUserFunction" column="Function" not-null="true" />
-	</class>
-
-	<class name="SystemUserFunction">
-		<id name="name" column="Name" type="string" />
-	</class>
-
-	<class name="TreatmentState">
-		<id name="name" column="Name" type="string" />
-	</class>
-
-	<class name="DietPlan">
-		<id name="dietPlanId" column="DietPlanId" type="long">
-			<generator class="native" />
-		</id>
-		<property name="name" column="Name" type="string" not-null="true" />
-		<property name="createdOn" column="CreatedOn" type="timestamp" not-null="true" />
-
-		<many-to-one class="PlanType" name="planType" column="PlanType" not-null="true" />
-
-		<set name="dietParameters" table="DietPlanDietParameter">
-			<key column="DietPlanId" not-null="true" />
-			<many-to-many class="DietParameter" column="DietParameterId" unique="true" />
-		</set>	
-
-		<many-to-one class="SystemUser" name="creator" column="Creator" not-null="true" />	
-
-		<set name="timeSpans" lazy="true">
-			<key column="DietPlanId" not-null="true" />
-			<one-to-many class="TimeSpan" />
-		</set>		
-		
-		<joined-subclass name="NutritionProtocol">
-			<key column="DietPlanId" />
-			
-			<property name="date" column="Date" type="timestamp" not-null="true" />
-			<property name="contact" column="Contact" type="string" />
-			<property name="notice" column="Notice" type="clob" />	
-		</joined-subclass>
-		
-	</class>
-
-	<class name="PlanType">
-		<id name="name" column="Name" type="string" />
-	</class>
-
-	<class name="TimeSpan">
-		<id name="timeSpanId" column="TimeSpanId" type="long">
-			<generator class="native" />
-		</id>
-		<property name="start" column="Start" type="timestamp" not-null="true" />
-		<property name="duration" column="Duration" type="int" not-null="true" />
-
-		<set name="dietParameters" table="TimeSpanDietParameter">
-			<key column="TimeSpanId" not-null="true" />
-			<many-to-many class="DietParameter" column="DietParameterId" unique="true" />
-		</set>
-
-		<set name="meals">
-			<key column="TimeSpanId" not-null="true" />
-			<one-to-many class="Meal" />
-		</set>
-		
-	</class>
-
-	<class name="Meal">
-		<id name="mealId" column="MealId" type="long">
-			<generator class="native" />
-		</id>
-		<property name="code" column="Code" type="string" not-null="true" />
-		<property name="name" column="Name" type="string" not-null="true" />
-
-		<set name="dietParameters" table="MealDietParameter">
-			<key column="MealId" not-null="true" />
-			<many-to-many class="DietParameter" column="DietParameterId" unique="true" />
-		</set>
-
-		<set name="mealLines">
-			<key column="MealId" not-null="true" />
-			<one-to-many class="MealLine" />
-		</set>
-	</class>
-
-	<class name="MealLine">
-		<id name="mealLineId" column="MealLineId" type="long">
-			<generator class="native" />
-		</id>
-		<property name="quantity" column="Quantity" type="float" not-null="true" />
-		<property name="info" column="Info" type="clob" />
-
-		<set name="mealLines">
-			<key column="ParentMealLineId" not-null="true" />
-			<one-to-many class="MealLine" />
-		</set>
-
-		<many-to-one class="Recipe" name="recipe" not-null="true" />
-	</class>
-
-	<class name="Recipe">
-		<id name="recipeId" column="RecipeId" type="long">
-			<generator class="native" />
-		</id>
-		<property name="name" column="Name" type="string" />
-		<property name="blsCode" column="BlsCode" type="string" />
-		<property name="difficulty" column="Difficulty" type="int" not-null="true" />
-		<property name="description" column="Description" type="clob" />
-		<property name="benefits" column="Benefits" type="clob" />
-		<property name="cookInstructions" column="CookInstructions" type="clob" />
-		
-		<!-- Used for NutrimentParameter calculations -->
-		<property name="amount" column="Amount" type="float" />
-		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" />
-
-		<set name="ingredients">
-			<key column="RecipeId" not-null="true" />
-			<one-to-many class="RecipeIngredient" />
-		</set>
-
-		<set name="nutrimentParameters">
-			<key column="RecipeId" not-null="true" />
-			<one-to-many class="NutrimentParameter" />
-		</set>
-	</class>
-	
-	<class name="RecipeIngredient">
-		<id name="recipeIngredientId" column="RecipeIngredientId" type="long">
-			<generator class="native" />
-		</id>
-		
-		<!-- Used for NutrimentParameter assignemnts -->
-		<property name="amount" column="Amount" type="float" />
-		
-		<many-to-one name="ingredient" column="IngredientId" class="Recipe" />
-		
-	</class>
-
-	<class name="NutrimentParameter">
-		<id name="nutrimentParameterId" column="NutrimentParameterId" type="long">
-			<generator class="native" />
-		</id>
-		<property name="value" column="Value" type="string" not-null="true" />
-
-		<many-to-one name="parameterDefinition" column="ParameterDefinitionId" class="ParameterDefinition" not-null="true"/>
-		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" not-null="true"/>
-	</class>
-
-	<class name="PatientStateType">
-		<id name="name" column="Name" type="string" />
-	</class>
-
-	<class name="PatientState">
-
-		<id name="patientStateId" column="PatientStateId" type="long">
-			<generator class="native" />
-		</id>
-
-		<property name="date" column="Date" type="timestamp" not-null="true" />
-		<property name="anamnesis" column="Anamnesis" type="clob" />
-		<property name="weight" column="Weight" type="integer" />
-		<property name="weightPercentile" column="WeightPercentile"
-			type="float" />
-		<property name="height" column="Height" type="integer" />
-		<property name="heightPercentile" column="HeightPercentile"
-			type="float" />
-		<property name="compliance" column="Compliance" type="int" />
-		<property name="motivation" column="Motivation" type="int" />
-		
-		<many-to-one class="PatientStateType" name="type" column="Type" not-null="true" />
-
-		<many-to-one class="SystemUser" name="creator" column="SystemUserId" not-null="true" />
-
-		<set name="laborReports" table="PatientStateLaborReports" lazy="true">
-			<key column="PatientStateId" not-null="true" />
-			<many-to-many class="LaborReport" column="LaborReportId" /> 
-		</set>
-		
-	</class>
-
-	<class name="LaborReport">
-		<id name="laborReportId" column="LaborReportId" type="long">
-			<generator class="native" />
-		</id>
-
-		<property name="date" column="Date" type="timestamp" not-null="true" />
-		<property name="notice" column="Notice" type="clob" />
-
-		<many-to-one class="SystemUser" name="creator" column="Creator" not-null="true" />
-
-		<set name="dietParameters" table="LaborReportDietParameter" lazy="true">
-			<key column="LaborReportId" not-null="true" />
-			<many-to-many class="DietParameter" column="DietParameterId" unique="true" />
-		</set>
-		
-	</class>
-
-	<class name="DietParameterTemplate">
-		<id name="dietParameterTemplateId" column="DietParameterTemplateId"
-			type="long">
-			<generator class="native" />
-		</id>
-
-		<many-to-one class="CheckOperator" name="checkOperator" column="CheckOperator" not-null="true" />
-		<property name="duration" column="Duration" type="int" />
-		<property name="value" column="Value" type="string" />
-
-		<many-to-one class="DietParameterType" name="dietParameterType" column="DietParameterType" not-null="true" />
-		<many-to-one class="ParameterDefinition" name="parameterDefinition" column="ParameterDefinitionId" not-null="true" />
-
-		<joined-subclass name="DietParameter">
-			<key column="DietParameterTemplateId" not-null="true" />
-			<property name="start" column="Start" type="timestamp" />
-		</joined-subclass>
-	</class>
-
-	<class name="CheckOperator">
-        <id name="name" column="Name" type="string" />
-	</class>
-
-	<class name="DietParameterSet">
-		<id name="dietParameterSetId" column="DietParameterSetId" type="long">
-			<generator class="native" />
-		</id>
-
-		<property name="name" column="Name" type="string" not-null="true" />
-
-		<set name="dietParameterTemplates" lazy="true">
-			<key column="DietParameterSetId" not-null="true" />
-			<one-to-many class="DietParameterTemplate" />
-		</set>
-	</class>
-
-	<class name="DietParameterType">
-		<id name="name" column="Name" type="string" />
-	</class>
+  </class>
+  <class name="DietTreatmentSystemUser">
+    <id column="DietTreatmentSystemUserId" name="dietTreatmentSystemUserId" type="int">
+      <generator class="native"/>
+    </id>
+    <many-to-one class="SystemUser" column="SystemUserId" name="systemUser" not-null="true"/>
+    <many-to-one class="SystemUserFunction" column="Function" name="function" not-null="true"/>
+  </class>
+  <class name="SystemUserFunction">
+    <id column="Name" name="name" type="string"/>
+  </class>
+  <class name="TreatmentState">
+    <id column="Name" name="name" type="string"/>
+  </class>
+  <class name="DietPlan">
+    <id column="DietPlanId" name="dietPlanId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Name" name="name" not-null="true" type="string"/>
+    <property column="CreatedOn" name="createdOn" not-null="true" type="timestamp"/>
+    <many-to-one class="PlanType" column="PlanType" name="planType" not-null="true"/>
+    <set name="dietParameters" table="DietPlanDietParameter">
+      <key column="DietPlanId" not-null="true"/>
+      <many-to-many class="DietParameter" column="DietParameterId" unique="true"/>
+    </set>
+    <many-to-one class="SystemUser" column="Creator" name="creator" not-null="true"/>
+    <set lazy="true" name="timeSpans">
+      <key column="DietPlanId" not-null="true"/>
+      <one-to-many class="TimeSpan"/>
+    </set>
+    <joined-subclass name="NutritionProtocol">
+      <key column="DietPlanId"/>
+      <property column="Date" name="date" not-null="true" type="timestamp"/>
+      <property column="Contact" name="contact" type="string"/>
+      <property column="Notice" name="notice" type="clob"/>
+    </joined-subclass>
+  </class>
+  <class name="PlanType">
+    <id column="Name" name="name" type="string"/>
+  </class>
+  <class name="TimeSpan">
+    <id column="TimeSpanId" name="timeSpanId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Start" name="start" not-null="true" type="timestamp"/>
+    <property column="Duration" name="duration" not-null="true" type="int"/>
+    <set name="dietParameters" table="TimeSpanDietParameter">
+      <key column="TimeSpanId" not-null="true"/>
+      <many-to-many class="DietParameter" column="DietParameterId" unique="true"/>
+    </set>
+    <set name="meals">
+      <key column="TimeSpanId" not-null="true"/>
+      <one-to-many class="Meal"/>
+    </set>
+  </class>
+  <class name="Meal">
+    <id column="MealId" name="mealId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Code" name="code" not-null="true" type="string"/>
+    <property column="Name" name="name" not-null="true" type="string"/>
+    <set name="dietParameters" table="MealDietParameter">
+      <key column="MealId" not-null="true"/>
+      <many-to-many class="DietParameter" column="DietParameterId" unique="true"/>
+    </set>
+    <set name="mealLines">
+      <key column="MealId" not-null="true"/>
+      <one-to-many class="MealLine"/>
+    </set>
+  </class>
+  <class name="MealLine">
+    <id column="MealLineId" name="mealLineId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Quantity" name="quantity" not-null="true" type="float"/>
+    <property column="Info" name="info" type="clob"/>
+    <set name="mealLines">
+      <key column="ParentMealLineId" not-null="true"/>
+      <one-to-many class="MealLine"/>
+    </set>
+    <many-to-one class="Recipe" name="recipe" not-null="true"/>
+  </class>
+  <class name="Recipe">
+    <id column="RecipeId" name="recipeId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Name" name="name" type="string"/>
+    <property column="BlsCode" name="blsCode" type="string"/>
+    <property column="Difficulty" name="difficulty" not-null="true" type="int"/>
+    <property column="Description" name="description" type="clob"/>
+    <property column="Benefits" name="benefits" type="clob"/>
+    <property column="CookInstructions" name="cookInstructions" type="clob"/>
+    <!-- Used for NutrimentParameter calculations -->
+    <property column="Amount" name="amount" type="float"/>
+    <many-to-one class="ParameterDefinitionUnit" column="ParameterDefinitionUnitId" name="unit"/>
+    <set name="ingredients">
+      <key column="RecipeId" not-null="true"/>
+      <one-to-many class="RecipeIngredient"/>
+    </set>
+    <set name="nutrimentParameters">
+      <key column="RecipeId" not-null="true"/>
+      <one-to-many class="NutrimentParameter"/>
+    </set>
+  </class>
+  <class name="RecipeIngredient">
+    <id column="RecipeIngredientId" name="recipeIngredientId" type="long">
+      <generator class="native"/>
+    </id>
+    <!-- Used for NutrimentParameter assignemnts -->
+    <property column="Amount" name="amount" type="float"/>
+    <many-to-one class="Recipe" column="IngredientId" name="ingredient"/>
+  </class>
+  <class name="NutrimentParameter">
+    <id column="NutrimentParameterId" name="nutrimentParameterId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Value" name="value" not-null="true" type="string"/>
+    <many-to-one class="ParameterDefinition" column="ParameterDefinitionId" name="parameterDefinition" not-null="true"/>
+    <many-to-one class="ParameterDefinitionUnit" column="ParameterDefinitionUnitId" name="unit" not-null="true"/>
+  </class>
+  <class name="PatientStateType">
+    <id column="Name" name="name" type="string"/>
+  </class>
+  <class name="PatientState">
+    <id column="PatientStateId" name="patientStateId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Date" name="date" not-null="true" type="timestamp"/>
+    <property column="Anamnesis" name="anamnesis" type="clob"/>
+    <property column="Weight" name="weight" type="integer"/>
+    <property column="WeightPercentile" name="weightPercentile" type="float"/>
+    <property column="Height" name="height" type="integer"/>
+    <property column="HeightPercentile" name="heightPercentile" type="float"/>
+    <property column="Compliance" name="compliance" type="int"/>
+    <property column="Motivation" name="motivation" type="int"/>
+    <many-to-one class="PatientStateType" column="Type" name="type" not-null="true"/>
+    <many-to-one class="SystemUser" column="SystemUserId" name="creator" not-null="true"/>
+    <set lazy="true" name="laborReports" table="PatientStateLaborReports">
+      <key column="PatientStateId" not-null="true"/>
+      <many-to-many class="LaborReport" column="LaborReportId"/>
+    </set>
+  </class>
+  <class name="LaborReport">
+    <id column="LaborReportId" name="laborReportId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Date" name="date" not-null="true" type="timestamp"/>
+    <property column="Notice" name="notice" type="clob"/>
+    <many-to-one class="SystemUser" column="Creator" name="creator" not-null="true"/>
+    <set lazy="true" name="dietParameters" table="LaborReportDietParameter">
+      <key column="LaborReportId" not-null="true"/>
+      <many-to-many class="DietParameter" column="DietParameterId" unique="true"/>
+    </set>
+  </class>
+  <class name="DietParameterTemplate">
+    <id column="DietParameterTemplateId" name="dietParameterTemplateId" type="long">
+      <generator class="native"/>
+    </id>
+    <many-to-one class="CheckOperator" column="CheckOperator" name="checkOperator" not-null="true"/>
+    <property column="Duration" name="duration" type="int"/>
+    <property column="Value" name="value" type="string"/>
+    <many-to-one class="DietParameterType" column="DietParameterType" name="dietParameterType" not-null="true"/>
+    <many-to-one class="ParameterDefinition" column="ParameterDefinitionId" name="parameterDefinition" not-null="true"/>
+    <joined-subclass name="DietParameter">
+      <key column="DietParameterTemplateId" not-null="true"/>
+      <property column="Start" name="start" type="timestamp"/>
+    </joined-subclass>
+  </class>
+  <class name="CheckOperator">
+    <id column="Name" name="name" type="string"/>
+  </class>
+  <class name="DietParameterSet">
+    <id column="DietParameterSetId" name="dietParameterSetId" type="long">
+      <generator class="native"/>
+    </id>
+    <property column="Name" name="name" not-null="true" type="string"/>
+    <set lazy="true" name="dietParameterTemplates">
+      <key column="DietParameterSetId" not-null="true"/>
+      <one-to-many class="DietParameterTemplate"/>
+    </set>
+  </class>
+  <class name="DietParameterType">
+    <id column="Name" name="name" type="string"/>
+  </class>
 </hibernate-mapping>

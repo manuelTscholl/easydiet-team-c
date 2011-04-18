@@ -6,7 +6,7 @@
  */
 package at.easydiet.teamc.view;
 
-import at.easydiet.teamc.controller.PatientData;
+import at.easydiet.teamc.model.data.PatientData;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;

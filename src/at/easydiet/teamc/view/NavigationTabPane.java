@@ -24,7 +24,7 @@ import org.apache.pivot.wtk.TabPane;
 import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.TextInput;
 
-import at.easydiet.teamc.controller.PatientData;
+import at.easydiet.teamc.model.data.PatientData;
 import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
