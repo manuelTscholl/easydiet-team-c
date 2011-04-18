@@ -1,3 +1,9 @@
+/**
+ * This File is part of Easy Diet
+ * created on: 12.04.2011
+ * created by: Friedrich Bösch
+ * file: SearchParameterController.java
+ */
 package at.easydiet.teamc.controller.usecase;
 
 import java.util.Set;
