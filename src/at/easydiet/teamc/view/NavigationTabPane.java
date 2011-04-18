@@ -180,9 +180,9 @@ public class NavigationTabPane extends TabPane implements Bindable {
             public void buttonPressed(Button button) {
 
                 BXMLSerializer bxml = new BXMLSerializer();
-                ChooseMealDialog d;
+                NewDietryPlanDialog d;
                 try {
-                    d = (ChooseMealDialog) bxml.readObject(DateDialog.class, "bxml/choose_meal_dialog.bxml");
+                    d = (NewDietryPlanDialog) bxml.readObject(DateDialog.class, "bxml/new_dietry_plan_dialog.bxml");
                     EasyDietWindow window = (EasyDietWindow) GUIComponents.get("easyDietWindow");
                     d.open(window);
                 } catch (IOException ex) {
