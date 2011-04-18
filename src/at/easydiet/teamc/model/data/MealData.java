@@ -10,5 +10,5 @@ package at.easydiet.teamc.model.data;
 public interface MealData {
 
     String getMealName();
-    String getMealValue();
+    String getMealCode();
 }
