@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<easyDiet:NewDietryPlanDialog bxml:id="dialog" title="Neuen Diätplan erstellen" modal="true"
+    xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:content="org.apache.pivot.wtk.content"
+    xmlns:easyDiet="at.easydiet.teamc.view"
+    xmlns="org.apache.pivot.wtk">
+
+    <!-- Main Table -->
+    <TablePane  preferredWidth="650" preferredHeight="450" styles="{verticalSpacing:20,
+    showHorizontalGridLines:true}">
+
+        <columns>
+            <TablePane.Column width="650"/>
+        </columns>
+
+        <!-- Shows where you are at the moment -->
+        <TablePane.Row height="-1">
+            <BoxPane>
+                <Label text="Zeitspanne auswählen" bxml:id="dateChooserLabel"/>
+                <Label text=" - "/>
+                <Label text="Parameter auswählen" bxml:id="parametersChooserLabel" styles="{color:'#BDBDBD'}"/>
+                <Label text=" - "/>
+                <Label text="Parameter setzen" bxml:id="setParametersLabel" styles="{color:'#BDBDBD'}"/>
+            </BoxPane>
+        </TablePane.Row>
+        <!-- END Shows where you are at the moment -->
+
+        <!-- Dialog entity -->
+        <TablePane.Row height="370">
+            <BoxPane>
+
+            <!-- Table for date chooser -->
+                <TablePane visible="true" bxml:id="dateChooserTablePane"
+                    styles="{padding:'{top:10}', verticalSpacing:'10'}">
+                    <columns>
+                        <TablePane.Column width="80"/>
+                        <TablePane.Column width="1*"/>
+                    </columns>
+
+                    <TablePane.Row height="-1">
+                        <Label text="Startdatum"/>
+                        <CalendarButton xmlns:bxml="http://pivot.apache.org/bxml"
+                         xmlns="org.apache.pivot.wtk"/>
+                    </TablePane.Row>
+
+                    <TablePane.Row height="-1">
+                        <Label text="Enddatum"/>
+                        <CalendarButton xmlns:bxml="http://pivot.apache.org/bxml"
+                         xmlns="org.apache.pivot.wtk"/>
+                    </TablePane.Row>
+                </TablePane>
+            <!-- END Table for date chooser -->
+
+            <!-- Table for choosing parameters -->
+                <TablePane visible="false" bxml:id="parameterChooserTablePane">
+                    <columns>
+                        <TablePane.Column width="1*"/>
+                        <TablePane.Column width="20"/>
+                        <TablePane.Column width="1*"/>
+                    </columns>
+
+                    <TablePane.Row height="50">
+
+                        <!-- Parameters -->
+                        <Border title="Parameter" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
+                            xmlns:bxml="http://pivot.apache.org/bxml"
+                            xmlns="org.apache.pivot.wtk">
+
+                        </Border>
+                         <!-- END Parameters -->
+
+                        <!-- add and remove buttons -->
+                        <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}" orientation="vertical">
+                            <PushButton bxml:id="addParameterButton" styles="{toolbar:true}">
+                                <content:ButtonData icon="@navigation.png" />
+                            </PushButton>
+                            <PushButton bxml:id="removeParameterButton" styles="{toolbar:true}">
+                                <content:ButtonData icon="@navigation-180.png" />
+                            </PushButton>
+                        </BoxPane>
+                        <!-- END add and remove buttons -->
+
+                        <!-- Added Parameters -->
+                        <Border title="Hinzugefügte Parameter" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
+                            xmlns:bxml="http://pivot.apache.org/bxml"
+                            xmlns="org.apache.pivot.wtk">
+
+                        </Border>
+                        <!-- END Added Parameters -->
+
+                    </TablePane.Row>
+                </TablePane>
+            <!-- END Table for choosing parameters -->
+
+            <!-- Table for setting parameter values -->
+                <TablePane visible="false" bxml:id="setParametersTablePane">
+                    <columns>
+                        <TablePane.Column width="80"/>
+                        <TablePane.Column width="1*"/>
+                    </columns>
+
+                    <TablePane.Row height="50">
+                        <Label text="Parameter setter"/>
+                        <Label text="Parameter setter"/>
+                    </TablePane.Row>
+                </TablePane>
+            <!-- END Table Table for setting parameter values -->
+
+            </BoxPane>
+        </TablePane.Row>
+        <!-- Dialog entity -->  
+
+    <!-- Navigation button -->
+        <TablePane.Row height="-1">
+            <BoxPane styles="{horizontalAlignment:'right'}">
+                <PushButton buttonData="Abbrechen" bxml:id="cancelButton"
+                    ButtonPressListener.buttonPressed="dialog.close()"/>
+                <PushButton buttonData="Zurück" bxml:id="backButton"/>
+                <PushButton buttonData="Weiter" bxml:id="forwardButton"/>
+            </BoxPane>
+        </TablePane.Row>
+    <!-- END Navigation button -->
+
+    </TablePane>
+    <!-- END Main Table -->
+</easyDiet:NewDietryPlanDialog>
