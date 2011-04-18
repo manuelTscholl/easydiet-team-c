@@ -15,6 +15,7 @@ import java.util.Set;
 import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.PatientDAO;
 import at.easydiet.model.Patient;
+import at.easydiet.teamc.model.DietParameterTemplateBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.PatientBo;
 
@@ -73,4 +74,9 @@ public class DatabaseController {
         
         return _databaseController;
     }
+
+	public Set<DietParameterTemplateBo> getParameters() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
