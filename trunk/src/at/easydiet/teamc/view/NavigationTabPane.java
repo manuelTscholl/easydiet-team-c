@@ -168,6 +168,8 @@ public class NavigationTabPane extends TabPane implements Bindable {
      * to provide usefull informations for the dietry plan
      */
     public void setDietryPlanMode() {
+
+        //TODO example popup
         TablePane.Row tro = new TablePane.Row();
         Button b = new PushButton("Neuen Diätplan erstellen");
         tro.add(b);
