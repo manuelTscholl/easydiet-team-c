@@ -13,7 +13,7 @@ import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.ScrollPane;
 
-import at.easydiet.teamc.controller.PatientData;
+import at.easydiet.teamc.model.data.PatientData;
 
 
 

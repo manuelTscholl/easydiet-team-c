@@ -13,7 +13,7 @@ import at.easydiet.model.LaborReport;
 import at.easydiet.model.Patient;
 import at.easydiet.model.PatientState;
 import at.easydiet.model.Recipe;
-import at.easydiet.teamc.controller.PatientData;
+import at.easydiet.teamc.model.data.PatientData;
 
 
 

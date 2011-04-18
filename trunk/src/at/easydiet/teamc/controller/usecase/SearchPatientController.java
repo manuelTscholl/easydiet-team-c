@@ -14,7 +14,7 @@ import java.util.Set;
 
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
-import at.easydiet.teamc.controller.PatientData;
+import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.util.Event;
 import at.easydiet.teamc.util.EventArgs;

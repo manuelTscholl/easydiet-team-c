@@ -5,7 +5,7 @@
  * DietryPlanData.java
  */
 
-package at.easydiet.teamc.controller;
+package at.easydiet.teamc.model.data;
 
 
 public interface DietryPlanData {

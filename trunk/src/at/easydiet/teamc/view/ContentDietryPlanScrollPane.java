@@ -6,7 +6,7 @@
  */
 package at.easydiet.teamc.view;
 
-import at.easydiet.teamc.controller.DietryPlanData;
+import at.easydiet.teamc.model.data.DietryPlanData;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TablePane;
 
-import at.easydiet.teamc.controller.PatientData;
+import at.easydiet.teamc.model.data.PatientData;
 import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ScrollPaneListener;
 import org.apache.pivot.wtk.Viewport;

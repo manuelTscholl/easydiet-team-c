@@ -6,6 +6,7 @@
  */
 package at.easydiet.teamc.controller;
 
+import at.easydiet.teamc.model.data.PatientData;
 import java.util.Set;
 
 import org.apache.pivot.collections.Map;

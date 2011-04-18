@@ -6,7 +6,7 @@
  */
 package at.easydiet.teamc.view;
 
-import at.easydiet.teamc.controller.PatientData;
+import at.easydiet.teamc.model.data.PatientData;
 import java.net.URL;
 import java.util.ArrayList;
 
