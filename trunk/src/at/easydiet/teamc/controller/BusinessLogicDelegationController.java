@@ -8,6 +8,8 @@ package at.easydiet.teamc.controller;
 
 import at.easydiet.teamc.model.data.DietParameterTemplateData;
 import at.easydiet.teamc.model.data.PatientData;
+
+import java.util.HashSet;
 import java.util.Set;
 
 import at.easydiet.model.DietParameterTemplate;
@@ -128,6 +130,36 @@ public class BusinessLogicDelegationController
     {
         _searchPatientController.addHandler(handler);
     }
+<<<<<<< .mine
+    
+    public Set<DietParameterTemplateData> getParameters(){
+    	  	
+    	/*Set<PatientData> patientDatas = new HashSet<PatientData>();
+        Set<PatientBo> patients = _dbController.getPatients(name1, name2, svn, date);
+
+        // check if database set is not empty
+        if (patients != null) {
+
+            // convert business patient data to gui patient data
+            for (PatientBo pbo : patients) {
+                patientDatas.add(pbo);
+            }
+        }*/
+    	
+    	Set<DietParameterTemplateData> parameterData=new HashSet<DietParameterTemplateData>();    	
+    	Set<DietParameterTemplateBo> parameters=_searchParameterController.getParameters();  
+    	
+    	if(parameters!=null){
+    		//convert business dietparameter to dietparameterdata
+    		for(DietParameterTemplateBo dbo:parameters){
+    			parameterData.add(dbo);
+    		}
+    	}
+    	    	
+    	
+    	return null;
+    	
+=======
 
     public Set<DietParameterTemplateData> getParameters()
     {
@@ -137,5 +169,6 @@ public class BusinessLogicDelegationController
 
         return null;
 
+>>>>>>> .r217
     }
 }
