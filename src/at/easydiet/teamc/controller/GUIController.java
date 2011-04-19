@@ -68,19 +68,13 @@ public class GUIController implements PatientListener {
                 // check if activity indicator is already active
                 if (!_navTab.getActivityIndicator().isActive()) {
                     _navTab.getActivityIndicator().setActive(true);
-                }
-                
-                
+                }                
         
                 // asyncron search that the gui is not blocked while searching in database
-                final String searchText = ((TextInput) component).getText();
-                Thread waitForData = new Thread(new Runnable()                
-                {                    
-                    @Override
-                    public void run()
-                    {_businessLogicDelegationController.searchPatient(searchText);}
-                });                
-                waitForData.start();
+                String searchText = ((TextInput) component).getText();
+
+                _businessLogicDelegationController.searchPatient(searchText);
+
 
                 // check if text field is empty, if empty stop activity indicator
                 if (_navTab.getSearchTextInput().getText().equals("")) {

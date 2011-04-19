@@ -59,7 +59,7 @@ public class PatientDAO extends GenericHibernateDAO<Patient, Long>
         .excludeZeroes()
         .ignoreCase()
         .enableLike(MatchMode.ANYWHERE)
-        ;
+        ;        
         
         Patient tempPLastnameFirst = new Patient();
         tempPLastnameFirst.setBirthday(birthday);
