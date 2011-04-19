@@ -12,14 +12,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.sun.xml.internal.bind.v2.TODO;
+
 import at.easydiet.dao.DAOFactory;
+import at.easydiet.dao.MealDAO;
 import at.easydiet.dao.PatientDAO;
+import at.easydiet.dao.RecipeDAO;
+import at.easydiet.model.Meal;
 import at.easydiet.model.Patient;
 import at.easydiet.teamc.model.DietParameterTemplateBo;
+import at.easydiet.teamc.model.MealBo;
 import at.easydiet.teamc.model.PatientBo;
-import at.easydiet.teamc.model.PatientBo;
-
-
+import at.easydiet.teamc.model.RecipeBo;
+import at.easydiet.teamc.model.data.MealData;
 
 /** 
  * Will get all data from database via the different class dow's
@@ -79,4 +84,37 @@ public class DatabaseController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	 * Looks in database for all saved meals, uses the MealDao for loading
+	 * @return a Set of meals loaded from database via hibernate
+	 */
+    public Set<MealBo> getAllMeals()
+    {
+        MealDAO mealDao = new MealDAO();
+        
+        Set<MealBo> mealBo = new HashSet<MealBo>();
+        
+        List<Meal> mealList = mealDao.findAll();
+        if(mealList!=null)
+        for (Meal meal : mealList)
+        {
+            mealBo.add(new MealBo(meal));
+        }
+        
+        return mealBo;
+    }
+    
+    /**
+     * Looks in database for all recipe categories bls looks like (B00000)
+     * @return a list of categories
+     */
+    public Set<RecipeBo> getRecipeMainCategories()
+    {
+        //TODO not implemented :-)
+        RecipeDAO recipeDao = new RecipeDAO();
+        recipeDao.getRecipeMainCategories();
+        return null;
+    }
+    
 }
