@@ -5,50 +5,54 @@
 
 package at.easydiet.teamc.controller.usecase;
 
+import at.easydiet.teamc.controller.BusinessLogicDelegationController;
+import at.easydiet.teamc.controller.DatabaseController;
 import at.easydiet.teamc.model.data.DietParameterTemplateData;
 import at.easydiet.teamc.model.data.DietryPlanData;
-import at.easydiet.teamc.model.data.MealData;
-import at.easydiet.teamc.model.data.RecipeData;
+import at.easydiet.teamc.util.Event;
+import at.easydiet.teamc.util.EventArgs;
 import java.util.Date;
 import java.util.Set;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
- * @author Stephan
+ * @author Stephan Svoboda
  */
-public class DietryPlanController {
+public class DietryPlanController extends Event<EventArgs>{
 
-    private DietryPlanController() {
+    // class variables
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BusinessLogicDelegationController.class);
+    private static volatile DietryPlanController _dietryPlanController = null;
+    // instance variables
+    private DatabaseController _dbController;
+
+    private DietryPlanController(Object sender){
+        super(sender);
+        _dbController=DatabaseController.getInstance();
     }
 
+
+    /**
+     * Singelton
+     * @return Will return the existing Instance or if no exists a new Instance of {@link SearchPatientController}
+     */
     public static DietryPlanController getInstance() {
-        return DietryPlanControllerHolder.INSTANCE;
-    }
+        if (_dietryPlanController == null) {
+            _dietryPlanController = new DietryPlanController(null);
+        }
+        return _dietryPlanController;
 
-    private static class DietryPlanControllerHolder {
-        private static final DietryPlanController INSTANCE = new DietryPlanController();
     }
 
     public DietryPlanData newDietryPlan(Date startdate, Date enddate, Set<DietParameterTemplateData> dptd){
-        //TODO Implement the whole method
-        throw new NotImplementedException();
+        DietryPlanData temp=new DietryPlanData() {
+
+            public int getDuration() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        };
+        return temp;
+
     }
 
-    public Set<MealData> GetAllMeals (){
-        //TODO Implement the whole method
-        throw new NotImplementedException();
-    }
-
-    public void AddMeal(Set<Set<RecipeData>> selected, int day, MealData md ){
-        //TODO Implement the whole method
-        throw new NotImplementedException();
-    }
-
-    public Set<RecipeData> GetRecipeMainCategories (){
-        //TODO Implement the whole method
-        throw new NotImplementedException();
-    }
-
-
- }
+}
