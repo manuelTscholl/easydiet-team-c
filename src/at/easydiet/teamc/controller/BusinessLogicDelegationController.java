@@ -13,12 +13,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import at.easydiet.model.DietParameterTemplate;
+import at.easydiet.teamc.controller.usecase.DietryPlanController;
 import at.easydiet.teamc.controller.usecase.SearchParameterController;
 import at.easydiet.teamc.controller.usecase.SearchPatientController;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
 import at.easydiet.teamc.model.*;
+import at.easydiet.teamc.model.data.MealData;
 
 /**
  * Controller for business logic
@@ -38,6 +40,7 @@ public class BusinessLogicDelegationController
     private SearchParameterController                         _searchParameterController;
     private Thread                                            _patientSearchThread;
 
+    private DietryPlanController _dietryPlanController;
     /**
      * Initializes a new instance of the
      * {@link BusinessLogicDelegationController} class.
@@ -158,5 +161,13 @@ public class BusinessLogicDelegationController
     	    	
     	
     	return null;
+    }
+
+     public Set<MealData> getAllMeals() {
+
+        Set<MealBo> mealBo = new HashSet<MealBo>();
+        _dietryPlanController.getAllMeals();
+
+        return null;
     }
 }
