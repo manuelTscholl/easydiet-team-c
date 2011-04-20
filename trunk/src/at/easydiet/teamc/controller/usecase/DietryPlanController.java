@@ -9,6 +9,7 @@ import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
 import at.easydiet.teamc.model.data.DietParameterTemplateData;
 import at.easydiet.teamc.model.data.DietryPlanData;
+import at.easydiet.teamc.model.data.MealData;
 import at.easydiet.teamc.util.Event;
 import at.easydiet.teamc.util.EventArgs;
 import java.util.Date;
@@ -53,6 +54,12 @@ public class DietryPlanController extends Event<EventArgs>{
         };
         return temp;
 
+    }
+
+
+    public Set<MealData> getAllMeals() {
+
+        return null;
     }
 
 }
