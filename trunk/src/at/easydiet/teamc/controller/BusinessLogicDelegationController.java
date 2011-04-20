@@ -92,8 +92,8 @@ public class BusinessLogicDelegationController
             //starting the search loop if not already started
             if (_patientSearchThread == null)
             {
-                _patientSearchThread.setName("PatientSearchThread");
                 _patientSearchThread = new Thread(_searchPatientController);
+                _patientSearchThread.setName("PatientSearchThread");
                 _patientSearchThread.start();
             }
             
@@ -130,7 +130,7 @@ public class BusinessLogicDelegationController
     {
         _searchPatientController.addHandler(handler);
     }
-<<<<<<< .mine
+
     
     public Set<DietParameterTemplateData> getParameters(){
     	  	
@@ -151,24 +151,12 @@ public class BusinessLogicDelegationController
     	
     	if(parameters!=null){
     		//convert business dietparameter to dietparameterdata
-    		for(DietParameterTemplateBo dbo:parameters){
-    			parameterData.add(dbo);
-    		}
+//    		for(DietParameterTemplateBo dbo:parameters){
+//    			parameterData.add(dbo);
+//    		}
     	}
     	    	
     	
     	return null;
-    	
-=======
-
-    public Set<DietParameterTemplateData> getParameters()
-    {
-        Set<DietParameterTemplateBo> parameters = _searchParameterController
-                .getParameters();
-        // cast DietParameterTemplateBo's into DietParameterTemplateData
-
-        return null;
-
->>>>>>> .r217
     }
 }
