@@ -18,8 +18,10 @@ import at.easydiet.dao.PatientDAO;
 import at.easydiet.dao.RecipeDAO;
 import at.easydiet.model.Meal;
 import at.easydiet.model.Patient;
+import at.easydiet.teamc.dao.MealCodeDao;
 import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.MealBo;
+import at.easydiet.teamc.model.MealCodeBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.RecipeBo;
 
@@ -82,23 +84,16 @@ public class DatabaseController {
 	}
 	
 	/**
-	 * Looks in database for all saved meals, uses the MealDao for loading
+	 * Looks in database for all saved mealCodes, uses the MealDao for loading
 	 * @return a Set of meals loaded from database via hibernate
 	 */
-    public Set<MealBo> getAllMeals()
+    public List<MealCodeBo> getAllMealCodes()
     {
-        MealDAO mealDao = new MealDAO();
+        MealCodeDao mealCodeDao = new MealCodeDao();
         
-        Set<MealBo> mealBo = new HashSet<MealBo>();
+        List<MealCodeBo> mealCodes = mealCodeDao.findAll();
         
-        List<Meal> mealList = mealDao.findAll();
-        if(mealList!=null)
-        for (Meal meal : mealList)
-        {
-            mealBo.add(new MealBo(meal));
-        }
-        
-        return mealBo;
+        return mealCodes;
     }
     
     /**
@@ -109,8 +104,7 @@ public class DatabaseController {
     {
         //TODO not implemented :-)
         RecipeDAO recipeDao = new RecipeDAO();
-        recipeDao.getRecipeMainCategories();
-        return null;
+        return recipeDao.getRecipeMainCategories();
     }
     
 }
