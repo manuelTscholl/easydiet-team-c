@@ -8,10 +8,8 @@ package at.easydiet.teamc.controller.usecase;
 
 import java.util.Set;
 
-import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
 import at.easydiet.teamc.model.DietParameterBo;
-import at.easydiet.teamc.model.DietParameterTemplateBo;
 import at.easydiet.teamc.model.data.PatientData;
 
 public class SearchParameterController {

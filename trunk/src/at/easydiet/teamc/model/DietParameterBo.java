@@ -3,7 +3,6 @@ package at.easydiet.teamc.model;
 
 
 import java.util.Date;
-import java.util.Set;
 
 import at.easydiet.model.DietParameter;
 import at.easydiet.teamc.model.data.DietParameterData;

@@ -15,15 +15,14 @@ import java.util.Stack;
 
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
-import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.PatientBo;
+import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.util.Event;
 import at.easydiet.teamc.util.EventArgs;
 
 /**
- * Controller for use case: search patient.
- * Implements the Runnable interface and must be started as Thread,
- * because it will start a searching loop.
+ * Controller for use case: search patient. Implements the Runnable interface
+ * and must be started as Thread, because it will start a searching loop.
  * 
  * @author Michael
  */
@@ -38,7 +37,7 @@ public class SearchPatientController extends Event<EventArgs> implements
     private DatabaseController                      _dbController;
     private Set<PatientData>                        _lastSearchResult;
     private Stack<String>                           _searchPatient;
-    private boolean                                 _running;
+    private boolean                                 _running = false;
     private final int                               _sleepBetweenEachSearchLoop = 500;
 
     /**
@@ -116,10 +115,12 @@ public class SearchPatientController extends Event<EventArgs> implements
         _searchPatient.add(search);
 
     }
-    
+
     /**
      * searches patients in database
-     * @param search the search string the patients must match
+     * 
+     * @param search
+     *            the search string the patients must match
      */
     public void getPatients(String search)
     {
@@ -127,12 +128,13 @@ public class SearchPatientController extends Event<EventArgs> implements
         addNewPatientSearchString(search);
         getPatientsAsync();
         setRunning(false);
-        
+
     }
 
     /**
-     * Gets the last added search string which was added with the method and searches for this patient
-     * This method will start a 
+     * Gets the last added search string which was added with the method and
+     * searches for this patient This method will start a
+     * 
      * @see SearchPatientController#addNewPatientSearchString(String)
      * 
      * @param search
@@ -238,7 +240,7 @@ public class SearchPatientController extends Event<EventArgs> implements
             {
                 LOGGER.debug(e);
             }
-            
+
             LOGGER.info("Searching Complete next loop will start");
 
         }
@@ -246,9 +248,8 @@ public class SearchPatientController extends Event<EventArgs> implements
     }
 
     /**
-     * @see java.lang.Runnable#run()
-     * Starts the asyncron searching of Patients with a defined brake
-     * Sets the running flag true
+     * @see java.lang.Runnable#run() Starts the asyncron searching of Patients
+     *      with a defined brake Sets the running flag true
      */
     @Override
     public void run()
@@ -263,5 +264,17 @@ public class SearchPatientController extends Event<EventArgs> implements
     public void stop()
     {
         setRunning(false);
+    }
+
+    /**
+     * Starts the searching loop by setting the running flag to start
+     */
+    public void start()
+    {
+        if (!isRunning())
+        {
+            setRunning(true);
+            getPatientsAsync();
+        }
     }
 }

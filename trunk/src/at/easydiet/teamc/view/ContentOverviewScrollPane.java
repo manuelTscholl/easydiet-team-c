@@ -11,10 +11,10 @@ import java.net.URL;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ScrollPane;
 
 import at.easydiet.teamc.model.data.PatientData;
-import org.apache.pivot.wtk.Label;
 
 
 

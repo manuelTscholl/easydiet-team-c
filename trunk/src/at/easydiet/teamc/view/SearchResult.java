@@ -6,17 +6,19 @@
  */
 package at.easydiet.teamc.view;
 
-import at.easydiet.teamc.model.data.PatientData;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Set;
+
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.LinkButton;
 import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.content.ButtonData;
+
+import at.easydiet.teamc.model.data.PatientData;
 
 /**
  * Draws search results with caching

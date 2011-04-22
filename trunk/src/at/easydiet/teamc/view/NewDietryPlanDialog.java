@@ -8,6 +8,7 @@ package at.easydiet.teamc.view;
 
 import java.net.URL;
 import java.util.HashMap;
+
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;

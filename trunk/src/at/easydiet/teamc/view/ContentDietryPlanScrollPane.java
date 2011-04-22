@@ -6,7 +6,6 @@
  */
 package at.easydiet.teamc.view;
 
-import at.easydiet.teamc.model.data.DietryPlanData;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -14,14 +13,14 @@ import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TablePane;
-
-import at.easydiet.teamc.model.data.PatientData;
-import org.apache.pivot.wtk.Label;
-import org.apache.pivot.wtk.ScrollPaneListener;
 import org.apache.pivot.wtk.Viewport;
 import org.apache.pivot.wtk.ViewportListener;
+
+import at.easydiet.teamc.model.data.DietryPlanData;
+import at.easydiet.teamc.model.data.PatientData;
 
 /**
  * Represents the application's content dietry plan tab (content_dietryPlan.bxml)
