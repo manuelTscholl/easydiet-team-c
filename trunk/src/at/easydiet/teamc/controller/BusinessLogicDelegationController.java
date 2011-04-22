@@ -12,9 +12,11 @@ import java.util.Set;
 import at.easydiet.teamc.controller.usecase.DietryPlanController;
 import at.easydiet.teamc.controller.usecase.SearchParameterController;
 import at.easydiet.teamc.controller.usecase.SearchPatientController;
+import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.DietParameterTemplateBo;
 import at.easydiet.teamc.model.MealBo;
 import at.easydiet.teamc.model.PatientBo;
+import at.easydiet.teamc.model.data.DietParameterData;
 import at.easydiet.teamc.model.data.DietParameterTemplateData;
 import at.easydiet.teamc.model.data.MealData;
 import at.easydiet.teamc.model.data.PatientData;
@@ -139,34 +141,23 @@ public class BusinessLogicDelegationController
     }
 
     
-    public Set<DietParameterTemplateData> getParameters(){
-    	  	
-    	/*Set<PatientData> patientDatas = new HashSet<PatientData>();
-        Set<PatientBo> patients = _dbController.getPatients(name1, name2, svn, date);
+    /**
+	 * Return a set of DietParameterData to supply the GUI Controller with data
+	 * @return
+	 */
+	public Set<DietParameterData> getParameters() {
 
-        // check if database set is not empty
-        if (patients != null) {
+		Set<DietParameterBo> parameterBo = _searchParameterController
+				.getParameters();
+		// change DietParameterBo's in paramterBo to DietParameterData
 
-            // convert business patient data to gui patient data
-            for (PatientBo pbo : patients) {
-                patientDatas.add(pbo);
-            }
-        }*/
-    	
-        //TODO empty
-//    	Set<DietParameterTemplateData> parameterData=new HashSet<DietParameterTemplateData>();    	
-//    	Set<DietParameterTemplateBo> parameters=_searchParameterController.getParameters();  
-    	
-//    	if(parameters!=null){
-    		//convert business dietparameter to dietparameterdata
-//    		for(DietParameterTemplateBo dbo:parameters){
-//    			parameterData.add(dbo);
-//    		}
-//    	}
-//    	    	
-//    	
-    	return null;
-    }
+		Set<DietParameterData> parameterData = new HashSet<DietParameterData>();
+
+		for (DietParameterBo dpBo : parameterBo) {
+			parameterData.add(dpBo);
+		}
+		return parameterData;
+	}
 
      public Set<MealData> getAllMeals() {
 

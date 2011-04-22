@@ -61,9 +61,10 @@ public class DietParameterBo extends DietParameterTemplateBo implements java.io.
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-	@Override
+    @Override
 	public String getParameterName() {
-		return null;
+		return _dietParameter.getParameterDefinition().getName();
+		
 	}
 
 	@Override
