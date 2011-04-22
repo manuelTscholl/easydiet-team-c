@@ -12,8 +12,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.MealDAO;
 import at.easydiet.dao.PatientDAO;
@@ -21,11 +19,9 @@ import at.easydiet.dao.RecipeDAO;
 import at.easydiet.model.Meal;
 import at.easydiet.model.Patient;
 import at.easydiet.teamc.model.DietParameterBo;
-import at.easydiet.teamc.model.DietParameterTemplateBo;
 import at.easydiet.teamc.model.MealBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.RecipeBo;
-import at.easydiet.teamc.model.data.MealData;
 
 /** 
  * Will get all data from database via the different class dow's
@@ -56,9 +52,8 @@ public class DatabaseController {
         PatientDAO patientDao = DAOFactory.getInstance().getPatientDAO();
         List<Patient> patients = new ArrayList<Patient>();
         Set<PatientBo> patientsBo = new HashSet<PatientBo>();
-        
-        patients = patientDao.findBySpecialProperties(name1, name2, svn, birthday);
 
+        patients = patientDao.findBySpecialProperties(name1, name2, svn, birthday);
 
         // create Bo list
         for(Patient p:patients){

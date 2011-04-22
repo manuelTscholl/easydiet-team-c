@@ -6,7 +6,6 @@
  */
 package at.easydiet.teamc.view;
 
-import at.easydiet.teamc.model.data.PatientData;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -15,6 +14,8 @@ import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.TabPane;
+
+import at.easydiet.teamc.model.data.PatientData;
 
 
 

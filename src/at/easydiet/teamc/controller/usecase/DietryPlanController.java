@@ -5,6 +5,9 @@
 
 package at.easydiet.teamc.controller.usecase;
 
+import java.util.Date;
+import java.util.Set;
+
 import at.easydiet.model.DietPlan;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
@@ -18,8 +21,6 @@ import at.easydiet.teamc.model.data.MealData;
 import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.util.Event;
 import at.easydiet.teamc.util.EventArgs;
-import java.util.Date;
-import java.util.Set;
 
 /**
  *

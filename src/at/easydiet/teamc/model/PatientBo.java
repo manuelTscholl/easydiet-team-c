@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import at.easydiet.dao.DAOFactory;
 import at.easydiet.model.DietTreatment;
 import at.easydiet.model.FamilyAnamnesis;
 import at.easydiet.model.LaborReport;
@@ -307,7 +308,10 @@ public class PatientBo implements java.io.Serializable, Saveable, PatientData {
 
 	@Override
 	public boolean save() {
-		throw new UnsupportedOperationException("Not supported yet.");
+	    
+	    if(DAOFactory.getInstance().getPatientDAO().makePersistent(this._Patient)!=null)
+	        return true;
+	    return false;
 	}
 
 }

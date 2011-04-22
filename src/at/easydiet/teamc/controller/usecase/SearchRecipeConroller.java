@@ -6,12 +6,11 @@
  */
 package at.easydiet.teamc.controller.usecase;
 
+import java.util.Set;
+
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
 import at.easydiet.teamc.model.data.PatientData;
-import at.easydiet.teamc.util.Event;
-import at.easydiet.teamc.util.EventArgs;
-import java.util.Set;
 
 /**
  *

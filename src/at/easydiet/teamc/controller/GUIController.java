@@ -6,13 +6,13 @@
  */
 package at.easydiet.teamc.controller;
 
-import at.easydiet.teamc.model.data.PatientData;
 import java.util.Set;
 
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.TextInput;
 
+import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
 import at.easydiet.teamc.view.ContentTabPane;
