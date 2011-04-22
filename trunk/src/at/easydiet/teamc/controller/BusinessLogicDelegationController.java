@@ -1,7 +1,7 @@
 /**
  * This File is part of Easy Diet
  * created on: 05.04.2011
- * created by: Friedrich Bösch
+ * created by: Friedrich Bï¿½sch
  * file: BusinesLogicController.java
  */
 package at.easydiet.teamc.controller;
@@ -154,7 +154,8 @@ public class BusinessLogicDelegationController {
 		}
 		return parameterData;
 	}
-	
+
+
 	public DietryPlanData newDietryPlan(Date startDate,Date endDate,Set<DietParameterData> params){
 		_dietryPlanController=DietryPlanController.getInstance();
 		_dietryPlanController.newDietryPlan(this._activePatient, startDate, endDate, params);
