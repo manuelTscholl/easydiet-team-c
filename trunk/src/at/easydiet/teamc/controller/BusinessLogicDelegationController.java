@@ -43,7 +43,6 @@ public class BusinessLogicDelegationController {
 	private SearchPatientController _searchPatientController;
 	private SearchParameterController _searchParameterController;
 	private Thread _patientSearchThread;
-
 	private DietryPlanController _dietryPlanController;
 
 	/**
@@ -99,9 +98,6 @@ public class BusinessLogicDelegationController {
 				_patientSearchThread.setName("PatientSearchThread");
 				_patientSearchThread.start();
 			}
-
-			// if the thread is waiting he will restart working
-
 			// _searchParameterController.notify();
 			LOGGER.info("notified _searchPatientController");
 			// let the gui layer know that something updated
@@ -158,11 +154,10 @@ public class BusinessLogicDelegationController {
 
 	public DietryPlanData newDietryPlan(Date startDate,Date endDate,Set<DietParameterData> params){
 		_dietryPlanController=DietryPlanController.getInstance();
-		_dietryPlanController.newDietryPlan(this._activePatient, startDate, endDate, params);
+		_dietryPlanController.newDietryPlan(startDate, endDate, params,this._activePatient);
 		
 		//return the DietryPlanData
-		return _dietryPlanController.getDietryPlan();
-		
+		return _dietryPlanController.getDietryPlan();		
 	}
 	
 	/**
