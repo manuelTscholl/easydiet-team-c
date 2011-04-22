@@ -2,6 +2,7 @@ package at.easydiet.teamc.model;
 // Generated 02.04.2011 00:41:04 by Hibernate Tools 3.4.0.CR1
 
 
+import at.easydiet.dao.DAOFactory;
 import at.easydiet.teamc.model.data.DietParameterData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.MealLineData;
@@ -109,11 +110,10 @@ public class MealBo  implements java.io.Serializable, Saveable, MealData {
 
     @Override
     public boolean save() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public long getMealID() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(DAOFactory.getInstance().getMealDAO().makePersistent(this._Meal)!=null){
+	        return true;
+        }
+	    return false;
     }
 
     public MealCodeData getMealCodeData() {
@@ -121,11 +121,21 @@ public class MealBo  implements java.io.Serializable, Saveable, MealData {
     }
 
     public Set<DietParameterData> getDietParameterData() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Set<DietParameterData> dpd = new HashSet<DietParameterData>();
+        Set<DietParameterBo> dpb = this.getDietParameters();
+        for (DietParameterBo dietParameterBo : dpb) {
+            dpd.add((DietParameterData) dietParameterBo);
+        }
+        return dpd;
     }
 
     public Set<MealLineData> getMealLineData() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Set<MealLineData> mld = new HashSet<MealLineData>();
+        Set<MealLineBo> mlb = this.getMealLines();
+        for(MealLineBo mealline: mlb){
+            mld.add((MealLineData) mealline);
+        }
+        return mld;
     }
 
 

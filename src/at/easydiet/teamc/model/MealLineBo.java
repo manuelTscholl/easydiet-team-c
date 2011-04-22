@@ -106,11 +106,16 @@ public class MealLineBo  implements java.io.Serializable, Saveable, MealLineData
     }
 
     public Set<MealLineData> getMealLineData() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Set<MealLineData> mld= new HashSet<MealLineData>();
+        Set<MealLineBo> mlb=this.getMealLines();
+        for(MealLineBo mealline: mlb){
+            mld.add((MealLineData) mealline);
+        }
+        return mld;
     }
 
     public RecipeData getRecipeData() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return (RecipeData) this.getRecipe();
     }
 
 
