@@ -1,7 +1,7 @@
 /**
  * This File is part of Easy Diet
- * created on: 12.04.2011
- * created by: Friedrich B�sch
+ * created on: 22.04.2011
+ * created by: Ali Gümüs
  * file: SearchParameterController.java
  */
 package at.easydiet.teamc.controller.usecase;
@@ -20,19 +20,11 @@ public class SearchParameterController {
     //instance variables
     private DatabaseController _dbController;
     private Set<PatientData> _lastSearchResult;
+    private boolean _running = false;
+    private final int _sleepBetweenEachSearchLoop = 500;
 
-    /**
-     * Singelton
-     * @return Will return the existing Instance or if no exists a new Instance of {@link SearchParameterController}
-     */
-	public static SearchParameterController getInstance() {
-		if(_searchParameterController==null){
-			_searchParameterController=new SearchParameterController();
-		}
-		return _searchParameterController;
-	}
 
-	/**
+        /**
 	 * Returns a set of all DietParameterTemplateBo's
 	 * @return
 	 */
@@ -40,6 +32,16 @@ public class SearchParameterController {
 		Set<DietParameterBo> parameters=_dbController.getParameters();
 		return parameters;
 	}
-	
-	
+
+        /**
+         * Singelton
+         * @return Will return the existing Instance or if no exists a new Instance of {@link SearchParameterController}
+         */
+	public static SearchParameterController getInstance() {
+		if(_searchParameterController==null){
+			_searchParameterController=new SearchParameterController();
+		}
+		return _searchParameterController;
+	}
+
 }
