@@ -6,8 +6,10 @@
  */
 package at.easydiet.teamc.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import at.easydiet.teamc.controller.usecase.DietryPlanController;
@@ -137,13 +139,13 @@ public class BusinessLogicDelegationController {
 	 * 
 	 * @return
 	 */
-	public Set<DietParameterData> getAllParameters() {
+	public List<DietParameterData> getAllParameters() {
 
-		Set<DietParameterBo> parameterBo = _searchParameterController
+		List<DietParameterBo> parameterBo = _searchParameterController
 				.getAllParameters();
 
 		// change DietParameterBo's in paramterBo to DietParameterData
-		Set<DietParameterData> parameterData = new HashSet<DietParameterData>();
+		List<DietParameterData> parameterData = new ArrayList<DietParameterData>();
 
 		for (DietParameterBo dpBo : parameterBo) {
 			parameterData.add(dpBo);

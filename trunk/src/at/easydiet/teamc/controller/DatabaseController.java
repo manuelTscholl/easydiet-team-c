@@ -13,9 +13,11 @@ import java.util.List;
 import java.util.Set;
 
 import at.easydiet.dao.DAOFactory;
+import at.easydiet.dao.DietParameterDAO;
 import at.easydiet.dao.MealDAO;
 import at.easydiet.dao.PatientDAO;
 import at.easydiet.dao.RecipeDAO;
+import at.easydiet.model.DietParameter;
 import at.easydiet.model.Meal;
 import at.easydiet.model.Patient;
 import at.easydiet.model.Recipe;
@@ -79,9 +81,25 @@ public class DatabaseController {
         return _databaseController;
     }
 
-	public Set<DietParameterBo> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
+    /**
+     * Finds all parameters in the database
+     * @return
+     */
+	public List<DietParameterBo> getAllParameters() {
+		
+	    DietParameterDAO dietParameterDao = DAOFactory.getInstance().getDietParameterDAO();
+	    List<DietParameterBo> parametersBo = new ArrayList<DietParameterBo>();
+	    List<DietParameter> parameters = dietParameterDao.findAll();
+	    
+	    
+	    //creating Bos
+	    if(parameters!=null)
+	    for (DietParameter item : parameters)
+        {
+            parametersBo.add(new DietParameterBo(item));
+        }
+
+		return parametersBo;
 	}
 	
 	/**
@@ -115,6 +133,7 @@ public class DatabaseController {
         List<RecipeBo> recipesBo = new ArrayList<RecipeBo>();
         List<Recipe> recipes = recipeDao.searchRecipe(categorie, name);
         
+        //creating Bos
         if(recipes!=null)
         for (Recipe recipe : recipes)
         {
