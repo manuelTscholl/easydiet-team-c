@@ -1,10 +1,19 @@
 package at.easydiet.dao;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.NotSupportedException;
 
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
+
+import at.easydiet.model.Patient;
 import at.easydiet.model.Recipe;
+import at.easydiet.teamc.controller.DatabaseController;
 import at.easydiet.teamc.model.RecipeBo;
 
 /**
@@ -13,29 +22,56 @@ import at.easydiet.teamc.model.RecipeBo;
 public class RecipeDAO 
         extends GenericHibernateDAO<Recipe, Long>
 {
-	// implementation in parent class
-    
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(RecipeDAO.class);
+
     /**
-     * Looks in database for all recipe categories bls looks like (B00000)
+     * Looks in database for all recipe categories bls looks like (B000000) 6 x 0
      * @return a list of categories
      */
-    public Set<RecipeBo> getRecipeMainCategories()
+    public List<Recipe> getRecipeMainCategories()
     {
-        
-      //TODO should call getRecipeByBlsPatter with the correct regex Pattern
-        return null;
+       return searchRecipe("000000",null);
     }
     
     /**
-     * This Method is not supported, Hibernate does not support patterns.
-     * Looks in database for all recipes which match to the special pattern
-     * @param pattern a regex pattern how this should look like
-     * @return a list of categories
-     * @throws NotSupportedException 
+     * Searches recipes by their names or categories
+     * the hibernate match method is anywhere
+     * @param categorie which the recipes must match
+     * @param name the recipes should have
+     * @return a list of the matching recipes
      */
-    public Set<RecipeBo> getRecipeByBlsPattern(String pattern) throws NotSupportedException
+    public List<Recipe> searchRecipe(String categorie, String name)
     {
+        if(categorie==null||categorie.equals(""))
+        {
+            categorie=null;
+        }
+        if(name==null||name.equals(""))
+        {
+            name=null;            
+        }
         
-        throw new NotSupportedException();
+        Recipe receipt = new Recipe();
+        receipt.setBlsCode(categorie);//all main categories will be found
+        receipt.setName(name);
+        
+        //The example which hibernate needs to search
+        Example receiptExample = Example.create(receipt)
+        .excludeZeroes()
+        .ignoreCase()
+        .enableLike(MatchMode.ANYWHERE)
+        ;
+        
+                
+        //the searchresult of hibernate as a List
+        List<Recipe> results = getSession().createCriteria(Recipe.class)
+        .add(receiptExample)
+        .list();
+        
+        
+        return results;
+ 
+        
     }
+    
 }
