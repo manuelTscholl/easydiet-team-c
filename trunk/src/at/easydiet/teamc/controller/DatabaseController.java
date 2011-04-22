@@ -98,22 +98,12 @@ public class DatabaseController {
     }
     
     /**
-     * Looks in database for all recipe categories bls looks like (B00000)
+     * Looks in database for all recipe categories bls looks like (B000000)6x0
      * @return a list of categories
      */
     public List<RecipeBo> getRecipeMainCategories()
-    {
-        RecipeDAO recipeDao = new RecipeDAO();
-        List<RecipeBo> recipesBo = new ArrayList<RecipeBo>();
-        List<Recipe> recipes = recipeDao.getRecipeMainCategories();
-        
-        if(recipes!=null)
-        for (Recipe item : recipes)
-        {
-            recipesBo.add(new RecipeBo(item));
-        }
-        
-        return recipesBo;
+    {        
+        return searchRecipe("000000",null);
     }
    
     /**
