@@ -8,7 +8,6 @@ package at.easydiet.teamc.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,12 +15,9 @@ import at.easydiet.teamc.controller.usecase.DietryPlanController;
 import at.easydiet.teamc.controller.usecase.SearchParameterController;
 import at.easydiet.teamc.controller.usecase.SearchPatientController;
 import at.easydiet.teamc.model.DietParameterBo;
-import at.easydiet.teamc.model.DietParameterTemplateBo;
-import at.easydiet.teamc.model.MealBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.DietParameterData;
-import at.easydiet.teamc.model.data.DietParameterTemplateData;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.MealData;
@@ -173,31 +169,59 @@ public class BusinessLogicDelegationController {
 		return _dietryPlanController.getAllMealCodes();
 	}
 
+        /**
+	 *
+	 * @return
+	 */
 	public void addMealCode(MealCodeData mcd) {
 		_dietryPlanController.addMealCode(mcd);
 	}
 
+        /**
+	 *
+	 * @return
+	 */
 	public int addMealLine() {
 		return _dietryPlanController.addMealLine();
 	}
 
+        /**
+	 * Return a list of Recipe-Categories
+	 * @return
+	 */
 	public Set<RecipeData> getRecipeMainCategories() {	
 		return _dietryPlanController.getRecipeMainCategories();
 	}
 
+        /**
+	 *
+	 * @return
+	 */
 	public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
 		return _dietryPlanController.searchRecipe(mainCategory, search);
 	}
 
+        /**
+	 *
+	 * @return
+	 */
 	public MealData addRecipetoMeal(RecipeData rd, double quantity,
 			int mealLineID) {
 		return _dietryPlanController.addRecipeToMeal(rd, quantity, mealLineID);
 	}
 
+        /**
+	 *
+	 * @return
+	 */
 	public void saveDietryPlan() {
 		_dietryPlanController.saveDietryPlan();
 	}
 
+        /**
+	 *
+	 * @return
+	 */
 	public DietryPlanData getDietryPlan() {
 		return _dietryPlanController.getDietryPlan();
 	}
