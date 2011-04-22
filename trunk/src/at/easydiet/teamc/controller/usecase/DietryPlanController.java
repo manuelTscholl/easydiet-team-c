@@ -168,7 +168,7 @@ public class DietryPlanController extends Event<EventArgs> {
         return temp;
     }
 
-    public void addMealCodeData(MealCodeData mcd) {
+    public void addMealCode(MealCodeData mcd) {
     }
 
     public int addMealLine() {
