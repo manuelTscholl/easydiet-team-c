@@ -20,7 +20,7 @@ import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
 import at.easydiet.teamc.model.*;
-import at.easydiet.teamc.model.data.MealData;
+import at.easydiet.teamc.model.data.MealCodeData;
 
 /**
  * Controller for business logic
@@ -163,10 +163,23 @@ public class BusinessLogicDelegationController
     	return null;
     }
 
-     public Set<MealData> getAllMeals() {
+    /*
+     * 
+     */
+     public Set<MealCodeData> getAllMeals() {
 
-        Set<MealBo> mealBo = new HashSet<MealBo>();
-        _dietryPlanController.getAllMeals();
+         _dietryPlanController.getAllMeals();
+         Set<MealBo> mealBo = new HashSet<MealBo>();
+         MealCodeData mealData = new MealCodeData() {
+
+            public String getMealName() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            public String getMealCode() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        };
 
         return null;
     }
