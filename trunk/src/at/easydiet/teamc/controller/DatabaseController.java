@@ -18,6 +18,7 @@ import at.easydiet.dao.PatientDAO;
 import at.easydiet.dao.RecipeDAO;
 import at.easydiet.model.Meal;
 import at.easydiet.model.Patient;
+import at.easydiet.model.Recipe;
 import at.easydiet.teamc.dao.MealCodeDao;
 import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.MealBo;
@@ -100,11 +101,37 @@ public class DatabaseController {
      * Looks in database for all recipe categories bls looks like (B00000)
      * @return a list of categories
      */
-    public Set<RecipeBo> getRecipeMainCategories()
+    public List<RecipeBo> getRecipeMainCategories()
     {
-        //TODO not implemented :-)
         RecipeDAO recipeDao = new RecipeDAO();
-        return recipeDao.getRecipeMainCategories();
+        List<RecipeBo> recipesBo = new ArrayList<RecipeBo>();
+        List<Recipe> recipes = recipeDao.getRecipeMainCategories();
+        
+        if(recipes!=null)
+        for (Recipe item : recipes)
+        {
+            recipesBo.add(new RecipeBo(item));
+        }
+        
+        return recipesBo;
     }
+   
+    /**
+     * {@link RecipeDAO#searchRecipe(String categorie,String name)}
+     */
+    public List<RecipeBo> searchRecipe(String categorie, String name)
+    {
+        RecipeDAO recipeDao = DAOFactory.getInstance().getRecipeDAO();
+        List<RecipeBo> recipesBo = new ArrayList<RecipeBo>();
+        List<Recipe> recipes = recipeDao.searchRecipe(categorie, name);
+        
+        if(recipes!=null)
+        for (Recipe recipe : recipes)
+        {
+            recipesBo.add(new RecipeBo(recipe));
+        }
+        return recipesBo;
+    }
+    
     
 }
