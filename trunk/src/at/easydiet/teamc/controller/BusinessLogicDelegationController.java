@@ -147,9 +147,9 @@ public class BusinessLogicDelegationController {
 	/*
      * 
      */
-	public Set<MealCodeData> getAllMeals() {
+	public Set<MealCodeData> getAllMealCodes() {
 
-		_dietryPlanController.getAllMeals();
+		_dietryPlanController.getAllMealCodes();
 		Set<MealBo> mealBo = new HashSet<MealBo>();
 		MealCodeData mealData = new MealCodeData() {
 
