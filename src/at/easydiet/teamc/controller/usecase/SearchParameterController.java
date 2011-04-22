@@ -37,7 +37,7 @@ public class SearchParameterController {
 	 * Returns a set of all DietParameterTemplateBo's
 	 * @return
 	 */
-	public Set<DietParameterBo> getParameters() {
+	public Set<DietParameterBo> getAllParameters() {
 		Set<DietParameterBo> parameters=_dbController.getParameters();
 		return parameters;
 	}
