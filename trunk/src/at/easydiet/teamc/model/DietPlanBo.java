@@ -130,12 +130,10 @@ public class DietPlanBo implements java.io.Serializable, Saveable {
 
     @Override
     public boolean save() {
-        try {
-            DAOFactory.getInstance().getDietPlanDAO().makePersistent(_DietPlan);
-            return true;
-        } catch (Exception e) {
-            return false;
+       if(DAOFactory.getInstance().getDietPlanDAO().makePersistent(this._DietPlan)!=null){
+	        return true;
         }
+	    return false;
 
     }
 }
