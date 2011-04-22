@@ -112,9 +112,7 @@ public class BusinessLogicDelegationController {
 
 	/**
 	 * Sets the active Patient
-	 * 
-	 * @param p
-	 *            the patient which should be set to active
+	 * @param p the patient which should be set to active
 	 */
 	public void setActivePatient(PatientData p) {
 		_activePatient = (PatientBo) p;
@@ -137,7 +135,7 @@ public class BusinessLogicDelegationController {
 	/**
 	 * Return a set of DietParameterData to supply the GUI Controller with data
 	 * 
-	 * @return
+	 * @return All available parameters
 	 */
 	public List<DietParameterData> getAllParameters() {
 
@@ -153,7 +151,12 @@ public class BusinessLogicDelegationController {
 		return parameterData;
 	}
 
-
+        /**
+         * Create a new dietry plan
+         * @param startDate Plan start date
+         * @param endDate Plan end date
+         * @param params List of parameters for this plan
+         */
 	public DietryPlanData newDietryPlan(Date startDate,Date endDate,List<DietParameterData> params){
 		_dietryPlanController=DietryPlanController.getInstance();
 		_dietryPlanController.newDietryPlan(startDate, endDate, params,this._activePatient);
