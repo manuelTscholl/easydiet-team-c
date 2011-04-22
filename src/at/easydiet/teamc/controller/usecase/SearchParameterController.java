@@ -1,7 +1,7 @@
 /**
  * This File is part of Easy Diet
  * created on: 12.04.2011
- * created by: Friedrich Bösch
+ * created by: Friedrich Bï¿½sch
  * file: SearchParameterController.java
  */
 package at.easydiet.teamc.controller.usecase;
@@ -21,8 +21,7 @@ public class SearchParameterController {
     private DatabaseController _dbController;
     private Set<PatientData> _lastSearchResult;
 
-    
-	/**
+    /**
      * Singelton
      * @return Will return the existing Instance or if no exists a new Instance of {@link SearchParameterController}
      */
