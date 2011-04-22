@@ -24,14 +24,6 @@ public class RecipeDAO
 {
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(RecipeDAO.class);
 
-    /**
-     * Looks in database for all recipe categories bls looks like (B000000) 6 x 0
-     * @return a list of categories
-     */
-    public List<Recipe> getRecipeMainCategories()
-    {
-       return searchRecipe("000000",null);
-    }
     
     /**
      * Searches recipes by their names or categories
