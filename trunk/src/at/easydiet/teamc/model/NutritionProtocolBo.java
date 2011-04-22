@@ -34,7 +34,7 @@ public class NutritionProtocolBo extends DietPlanBo implements java.io.Serializa
        this(dietPlan, name, createdOn, planType, creatorBo, date);
 
        for (DietParameterBo dietParameterBo : dietParametersBo) {
-            this._NutritionProtocol.getDietParameters().add(dietParameterBo.getDieDietParameter());
+            this._NutritionProtocol.getDietParameters().add(dietParameterBo.getDietParameter());
         }
 
        for (TimeSpanBo timeSpanBo : timeSpansBo) {

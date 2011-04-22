@@ -39,7 +39,7 @@ public class LaborReportBo  implements java.io.Serializable, Saveable {
        this._LaborReport.setNotice(notice);
 
         for (DietParameterBo dietParameterBo : dietParametersBo) {
-            this._LaborReport.getDietParameters().add(dietParameterBo.getDieDietParameter());
+            this._LaborReport.getDietParameters().add(dietParameterBo.getDietParameter());
         }
        
     }
@@ -83,7 +83,7 @@ public class LaborReportBo  implements java.io.Serializable, Saveable {
     
     public void setDietParameters(Set<DietParameterBo> dietParametersBo) {
          for (DietParameterBo dietParameterBo : dietParametersBo) {
-            this._LaborReport.getDietParameters().add(dietParameterBo.getDieDietParameter());
+            this._LaborReport.getDietParameters().add(dietParameterBo.getDietParameter());
         }
     }
 

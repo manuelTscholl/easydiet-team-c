@@ -32,7 +32,7 @@ public class MealBo  implements java.io.Serializable, Saveable {
        this(code, name);
 
         for (DietParameterBo dietParameterBo : dietParameters) {
-            this._Meal.getDietParameters().add(dietParameterBo.getDieDietParameter());
+            this._Meal.getDietParameters().add(dietParameterBo.getDietParameter());
         }
 
         for (MealLineBo mealLineBo : mealLines) {
@@ -72,7 +72,7 @@ public class MealBo  implements java.io.Serializable, Saveable {
     
     public void setDietParameters(Set<DietParameterBo> dietParametersBo) {
         for (DietParameterBo dietParameterBo : dietParametersBo) {
-            this._Meal.getDietParameters().add(dietParameterBo.getDieDietParameter());
+            this._Meal.getDietParameters().add(dietParameterBo.getDietParameter());
         }
     }
     public Set<MealLineBo> getMealLines() {

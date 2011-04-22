@@ -8,7 +8,7 @@ package at.easydiet.teamc.model.data;
 
 public interface DietParameterTemplateData {
 	
-	//parameter name,wert und comparerer
+
 	
 	String getParameterName();
 	String getParameterValue();

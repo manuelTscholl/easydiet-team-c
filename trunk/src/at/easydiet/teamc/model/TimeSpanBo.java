@@ -36,7 +36,7 @@ public class TimeSpanBo  implements java.io.Serializable, Saveable {
         }
        
         for (DietParameterBo dietParameterBo : dietParametersBo) {
-            this._TimeSpan.getDietParameters().add(dietParameterBo.getDieDietParameter());
+            this._TimeSpan.getDietParameters().add(dietParameterBo.getDietParameter());
         }
     }
    
@@ -71,7 +71,7 @@ public class TimeSpanBo  implements java.io.Serializable, Saveable {
     
     public void setDietParameters(Set<DietParameterBo> dietParametersBo) {
         for (DietParameterBo dietParameterBo : dietParametersBo) {
-            this._TimeSpan.getDietParameters().add(dietParameterBo.getDieDietParameter());
+            this._TimeSpan.getDietParameters().add(dietParameterBo.getDietParameter());
         }
     }
 
