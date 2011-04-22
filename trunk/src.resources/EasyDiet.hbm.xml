@@ -225,7 +225,7 @@
     <property column="Quantity" name="quantity" not-null="true" type="float"/>
     <property column="Info" name="info" type="clob"/>
     <set name="mealLines">
-      <key column="ParentMealLineId" not-null="true"/>
+      <key column="ParentMealLineId" not-null="false"/>
       <one-to-many class="MealLine"/>
     </set>
     <many-to-one class="Recipe" name="recipe" not-null="true"/>
