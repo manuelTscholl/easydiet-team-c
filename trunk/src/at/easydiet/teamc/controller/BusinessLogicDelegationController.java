@@ -1,7 +1,7 @@
 /**
  * This File is part of Easy Diet
  * created on: 05.04.2011
- * created by: Friedrich Bösch
+ * created by: Friedrich Bï¿½sch
  * file: BusinesLogicController.java
  */
 package at.easydiet.teamc.controller;
@@ -54,7 +54,6 @@ public class BusinessLogicDelegationController {
 	private BusinessLogicDelegationController() {
 		_searchPatientController = SearchPatientController.getInstance();
 		_searchParameterController = SearchParameterController.getInstance();
-		_searchPatientController = SearchPatientController.getInstance();
 	}
 
 	/**
