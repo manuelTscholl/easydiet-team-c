@@ -6,6 +6,7 @@
  */
 package at.easydiet.teamc.controller.usecase;
 
+import java.util.List;
 import java.util.Set;
 
 import at.easydiet.teamc.controller.DatabaseController;
@@ -28,8 +29,8 @@ public class SearchParameterController {
 	 * Returns a set of all DietParameterTemplateBo's
 	 * @return
 	 */
-	public Set<DietParameterBo> getAllParameters() {
-		Set<DietParameterBo> parameters=_dbController.getParameters();
+	public List<DietParameterBo> getAllParameters() {
+		List<DietParameterBo> parameters=_dbController.getInstance().getAllParameters();
 		return parameters;
 	}
 
