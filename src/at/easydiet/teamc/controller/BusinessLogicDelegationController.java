@@ -20,7 +20,11 @@ import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
 import at.easydiet.teamc.model.*;
+import at.easydiet.teamc.model.data.CheckedRecipeVo;
+import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
+import at.easydiet.teamc.model.data.MealData;
+import at.easydiet.teamc.model.data.RecipeData;
 
 /**
  * Controller for business logic
@@ -182,5 +186,39 @@ public class BusinessLogicDelegationController
         };
 
         return null;
+    }
+
+    public void addMealCodeData(MealCodeData mcd) {
+
+    }
+
+    public int addMealLine() {
+
+        throw new UnsupportedOperationException("Not supported yet!");
+    }
+
+    public Set<RecipeData> getRecipeMainCategories() {
+
+        throw new UnsupportedOperationException("Not supported yet!");
+    }
+
+    public Set<CheckedRecipeVo> searchRecipe(String mainCategorie, String search) {
+
+        throw new UnsupportedOperationException("Not supported yet!");
+    }
+    
+    public MealData addMealtoRecipe(RecipeData rd, double quantity, int mealLineTD) {
+
+        throw new UnsupportedOperationException("Not supported yet!");
+    }
+
+    public void saveDietry() {
+
+        throw new UnsupportedOperationException("Not supported yet!");
+    }
+
+    public DietryPlanData getDietryPlan() {
+
+        throw new UnsupportedOperationException("Not supported yet!");
     }
 }
