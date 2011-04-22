@@ -46,7 +46,7 @@ public class DietTreatmentBo  implements java.io.Serializable, Saveable {
         }
 
         for (DietParameterBo dietParameterBo : dietParametersBo) {
-            this._DietTreatment.getDietParameters().add(dietParameterBo.getDieDietParameter());
+            this._DietTreatment.getDietParameters().add(dietParameterBo.getDietParameter());
         }
 
         for(PatientStateBo patientStateBo: patientStatesBo){
@@ -127,7 +127,7 @@ public class DietTreatmentBo  implements java.io.Serializable, Saveable {
     
     public void setDietParameters(Set<DietParameterBo> dietParametersBo) {
         for (DietParameterBo dietParameterBo : dietParametersBo) {
-            this._DietTreatment.getDietParameters().add(dietParameterBo.getDieDietParameter());
+            this._DietTreatment.getDietParameters().add(dietParameterBo.getDietParameter());
         }
     }
     public Set<PatientStateBo> getPatientStates() {

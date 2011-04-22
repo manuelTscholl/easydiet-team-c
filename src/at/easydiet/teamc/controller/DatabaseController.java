@@ -20,6 +20,7 @@ import at.easydiet.dao.PatientDAO;
 import at.easydiet.dao.RecipeDAO;
 import at.easydiet.model.Meal;
 import at.easydiet.model.Patient;
+import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.DietParameterTemplateBo;
 import at.easydiet.teamc.model.MealBo;
 import at.easydiet.teamc.model.PatientBo;
@@ -80,7 +81,7 @@ public class DatabaseController {
         return _databaseController;
     }
 
-	public Set<DietParameterTemplateBo> getParameters() {
+	public Set<DietParameterBo> getParameters() {
 		// TODO Auto-generated method stub
 		return null;
 	}

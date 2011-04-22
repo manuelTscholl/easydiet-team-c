@@ -41,7 +41,7 @@ public class DietPlanBo  implements java.io.Serializable, Saveable {
        this(name, createdOn, planType, creator);
 
         for (DietParameterBo dietParameterBo : dietParameters) {
-            this._DietPlan.getDietParameters().add(dietParameterBo.getDieDietParameter());
+            this._DietPlan.getDietParameters().add(dietParameterBo.getDietParameter());
         }
 
         for (TimeSpanBo timeSpanBo : timeSpans) {
@@ -88,7 +88,7 @@ public class DietPlanBo  implements java.io.Serializable, Saveable {
     
     public void setDietParameters(Set<DietParameterBo> dietParametersBo) {
         for (DietParameterBo dietParameterBo : dietParametersBo) {
-            this._DietPlan.getDietParameters().add(dietParameterBo.getDieDietParameter());
+            this._DietPlan.getDietParameters().add(dietParameterBo.getDietParameter());
         }
     }
     public SystemUserBo getCreator() {
