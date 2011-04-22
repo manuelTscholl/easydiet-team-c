@@ -2,20 +2,24 @@
  * This File is part of Easy Diet
  * created on: 31.03.2011
  * created by: Michael
- * file: NewDietryPlanDialog.java
+ * file: DietPlanDialog.java
  */
 package at.easydiet.teamc.view;
 
+import at.easydiet.teamc.controller.GUIController;
+import at.easydiet.teamc.model.data.DietParameterData;
 import java.net.URL;
 import java.util.HashMap;
 
 import org.apache.pivot.beans.Bindable;
+import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Dialog;
 import org.apache.pivot.wtk.Label;
+import org.apache.pivot.wtk.ListView;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.content.ButtonData;
@@ -25,11 +29,12 @@ import org.apache.pivot.wtk.content.ButtonData;
  * Timespan -> Choose Parameters -> Add Parameter values
  * @author Michael
  */
-public class NewDietryPlanDialog extends Dialog implements Bindable {
+public class DietPlanDialog extends Dialog implements Bindable {
 
     // instance variables
     private TablePane _dateChooserTablePane;
     private TablePane _parameterChooserTablePane;
+    private ListView _parameterListView;
     private TablePane _setParametersTablePane;
     private PushButton _cancelButton;
     private PushButton _backButton;
@@ -48,6 +53,7 @@ public class NewDietryPlanDialog extends Dialog implements Bindable {
         _dateChooserTablePane = (TablePane) namespace.get("dateChooserTablePane");
         _parameterChooserTablePane = (TablePane) namespace.get("parameterChooserTablePane");
         _setParametersTablePane = (TablePane) namespace.get("setParametersTablePane");
+        _parameterListView = (ListView) namespace.get("parameterListView");
         _cancelButton = (PushButton) namespace.get("cancelButton");
         _backButton = (PushButton) namespace.get("backButton");
         _forwardButton = (PushButton) namespace.get("forwardButton");
@@ -65,7 +71,7 @@ public class NewDietryPlanDialog extends Dialog implements Bindable {
         _stepsTablePane.put(2, _setParametersTablePane);
         _stepsLabel.put(2, _setParametersLabel);
 
-        // disabla back button for first step
+        // disable back button for first step
         _backButton.setEnabled(false);
 
         // button listeners
@@ -82,6 +88,10 @@ public class NewDietryPlanDialog extends Dialog implements Bindable {
                 setStep(_selectedStep, --_selectedStep);
             }
         });
+        
+        // get all parameters
+        List<DietParameterData> parameters = GUIController.getInstance().getAllParameters();
+        _parameterListView.setListData(parameters);
     }
 
     /**

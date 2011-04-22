@@ -70,7 +70,7 @@ public class DatabaseController {
 
 
     /**
-     * Singelton crates a new instance of this class or returns the existing
+     * Singelton creates a new instance of this class or returns the existing
      * @return
      */
     public static DatabaseController getInstance()

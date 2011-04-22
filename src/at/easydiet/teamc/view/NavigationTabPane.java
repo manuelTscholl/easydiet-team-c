@@ -6,6 +6,8 @@
  */
 package at.easydiet.teamc.view;
 
+import at.easydiet.teamc.controller.GUIController;
+import at.easydiet.teamc.model.data.DietryPlanData;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -168,52 +170,39 @@ public class NavigationTabPane extends TabPane implements Bindable {
      * to provide usefull informations for the dietry plan
      */
     public void setDietryPlanMode() {
+        
+        // clean edit table pane before entering
+        clean();
 
-        //TODO example popup
-        TablePane.Row tro = new TablePane.Row();
-        Button b = new PushButton("Neuen Diätplan erstellen");
-        tro.add(b);
-        _editTablePane.getRows().add(tro);
+        // add button for creating a new dietry plan dialog
+        TablePane.Row addDietPlanRow = new TablePane.Row();
+        Button openNewDietPlanDialogButton = new PushButton("Neuen Diätplan erstellen");
+        addDietPlanRow.add(openNewDietPlanDialogButton);
+        _editTablePane.getRows().add(addDietPlanRow);
 
-        b.getButtonPressListeners().add(new ButtonPressListener() {
+        openNewDietPlanDialogButton.getButtonPressListeners().add(new ButtonPressListener() {
 
-            public void buttonPressed(Button button) {
-
-                BXMLSerializer bxml = new BXMLSerializer();
-                NewDietryPlanDialog d;
-                try {
-                    d = (NewDietryPlanDialog) bxml.readObject(DateDialog.class, "bxml/new_dietry_plan_dialog.bxml");
-                    EasyDietWindow window = (EasyDietWindow) GUIComponents.get("easyDietWindow");
-                    d.open(window);
-                } catch (IOException ex) {
-                    LOGGER.error(ex);
-                } catch (SerializationException ex) {
-                    LOGGER.error(ex);
-                }
+            public void buttonPressed(Button button) {               
+                GUIController.getInstance().createDietryPlan();
             }
         });
-
-        TablePane.Row tro1 = new TablePane.Row();
-        Button b1 = new PushButton("Mahlzeit hinzufügen");
-        tro1.add(b1);
-        _editTablePane.getRows().add(tro1);
-
-        b1.getButtonPressListeners().add(new ButtonPressListener() {
-
-            public void buttonPressed(Button button) {
-
-                BXMLSerializer bxml = new BXMLSerializer();
-                ChooseMealDialog d;
-                try {
-                    d = (ChooseMealDialog) bxml.readObject(DateDialog.class, "bxml/choose_meal_dialog.bxml");
-                    EasyDietWindow window = (EasyDietWindow) GUIComponents.get("easyDietWindow");
-                    d.open(window);
-                } catch (IOException ex) {
-                    LOGGER.error(ex);
-                } catch (SerializationException ex) {
-                    LOGGER.error(ex);
-                }
-            }
-        });
+    }
+    
+    /**
+     * Cleans all tabs because mode is switched
+     */
+    private void clean(){
+        
+        // clean edit tab
+        int count = _editTablePane.getRows().getLength() - 1;
+        _editTablePane.getRows().remove(1, count);
+    }
+    
+    /**
+     * Draw a menu for dietry plan
+     * @param plan to draw a menu for
+     */
+    public void drawDietryPlanMenu(DietryPlanData plan){
+        //TODO implement
     }
 }

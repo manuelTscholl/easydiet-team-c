@@ -154,7 +154,7 @@ public class BusinessLogicDelegationController {
 	}
 
 
-	public DietryPlanData newDietryPlan(Date startDate,Date endDate,Set<DietParameterData> params){
+	public DietryPlanData newDietryPlan(Date startDate,Date endDate,List<DietParameterData> params){
 		_dietryPlanController=DietryPlanController.getInstance();
 		_dietryPlanController.newDietryPlan(startDate, endDate, params,this._activePatient);
 		

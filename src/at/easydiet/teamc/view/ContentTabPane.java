@@ -6,6 +6,7 @@
  */
 package at.easydiet.teamc.view;
 
+import at.easydiet.teamc.model.data.DietryPlanData;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -102,5 +103,13 @@ public class ContentTabPane extends TabPane implements Bindable {
                 return;
             }
         }
+    }
+    
+    /**
+     * Draw a dietry plan
+     * @param plan 
+     */
+    public void drawDietryPlan(DietryPlanData plan){
+        _dietryPlanScrollPane.drawDietryPlan(plan);
     }
 }
