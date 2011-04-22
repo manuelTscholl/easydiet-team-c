@@ -62,7 +62,7 @@ public class EasyDiet implements Application {
         window.open(display);
 
         // load gui controller
-        _guiController = new GUIController(window);
+        _guiController = GUIController.getInstance();
 
         // set title and icon
         window.setTitle(sTITLE);

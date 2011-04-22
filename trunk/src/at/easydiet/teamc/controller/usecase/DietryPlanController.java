@@ -17,7 +17,6 @@ import at.easydiet.teamc.model.MealCodeBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.PlanTypeBo;
 import at.easydiet.teamc.model.TimeSpanBo;
-import at.easydiet.teamc.model.TreatmentStateBo;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.DietParameterData;
 import at.easydiet.teamc.model.data.DietryPlanData;
@@ -27,6 +26,7 @@ import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.util.Event;
 import at.easydiet.teamc.util.EventArgs;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  *
@@ -73,7 +73,7 @@ public class DietryPlanController extends Event<EventArgs> {
 
     }
 
-    public DietryPlanData newDietryPlan(Date startdate, Date enddate, Set<DietParameterData> dptd, PatientBo activePatient) {
+    public DietryPlanData newDietryPlan(Date startdate, Date enddate, List<DietParameterData> dptd, PatientBo activePatient) {
 
         Set<DietParameterBo> dpb = new HashSet<DietParameterBo>();
         long duration;
