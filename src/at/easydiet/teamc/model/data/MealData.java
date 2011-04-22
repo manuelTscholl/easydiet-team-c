@@ -6,11 +6,16 @@
  */
 package at.easydiet.teamc.model.data;
 
+import java.util.Set;
+
 /**
  *
  * @author Ali Gümüs
  */
 public interface MealData {
 
-    
+    long getMealID();
+    MealCodeData getMealCodeData();
+    Set<DietParameterData> getDietParameterData();
+    Set<MealLineData> getMealLineData();
 }
