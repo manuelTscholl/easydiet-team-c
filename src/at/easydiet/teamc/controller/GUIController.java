@@ -269,7 +269,7 @@ public class GUIController implements PatientListener {
      */
     public org.apache.pivot.collections.Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
         return (org.apache.pivot.collections.Set<CheckedRecipeVo>)CollectionConverter
-                .convertToPivotList(_businessLogicDelegationController.searchRecipe(mainCategory, search));
+                .convertToPivotSet(_businessLogicDelegationController.searchRecipe(mainCategory, search));
     }
 
     /**

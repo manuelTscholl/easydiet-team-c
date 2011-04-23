@@ -31,9 +31,35 @@
             <Border title="Rezepte" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
                 xmlns:bxml="http://pivot.apache.org/bxml"
                 xmlns="org.apache.pivot.wtk">
-                <TreeView selectMode="multi" bxml:id="recipeTreeView" visible="false"
+                <ScrollPane xmlns:bxml="http://pivot.apache.org/bxml"
+                            xmlns:explorer="org.apache.pivot.tutorials.explorer"
+                            xmlns="org.apache.pivot.wtk" horizontalScrollBarPolicy="auto"
+                             verticalScrollBarPolicy="auto" styles="{backgroundColor:'#EBEDEF'}">
+                    <TablePane styles="{verticalSpacing:10, showHorizontalGridLines:false,
+                        horizontalSpacing:1, showVerticalGridLines:false}"
+                        bxml:id="recipeTablePane"
+                        xmlns:bxml="http://pivot.apache.org/bxml"
+                        xmlns="org.apache.pivot.wtk" visible="false">
+                        <columns>
+                            <TablePane.Column width="-1"/>
+                        </columns>
+                        <TablePane.Row height="-1">
+                            <BoxPane>
+                                <TextInput textSize="16" bxml:id="recipeSearchTextInput"
+                            xmlns:bxml="http://pivot.apache.org/bxml"
+                            xmlns="org.apache.pivot.wtk"/>
+                                <PushButton bxml:id="searchButton">
+                                    <content:ButtonData text="Suche"/>
+                                </PushButton>
+                            </BoxPane>
+                        </TablePane.Row>
+                        <TablePane.Row height="-1">
+                            <TreeView selectMode="multi" bxml:id="recipeTreeView"
                                 xmlns:bxml="http://pivot.apache.org/bxml"
                                 xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}"/>
+                        </TablePane.Row>
+                    </TablePane>
+                </ScrollPane>
             </Border>
             <!-- END Recipes -->
 
