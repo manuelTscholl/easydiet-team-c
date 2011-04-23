@@ -70,7 +70,7 @@ public class DietryPlanController extends Event<EventArgs> {
 
     /**
      * Singelton
-     * @return Will return the existing Instance or if no exists a new Instance of {@link SearchPatientController}
+     * @return Will return the existing Instance or if no exists a new Instance of {@link DietryPlanController}
      */
     public static DietryPlanController getInstance() {
         if (_dietryPlanController == null) {
