@@ -11,4 +11,10 @@ package at.easydiet.teamc.model.data;
  */
 public class CheckedRecipeVo {
 
+    //TODO whole implementation of this class,
+
+    public CheckedRecipeVo(RecipeData recipeData, ParameterCheckResult checkRecipeWithParameters) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
 }

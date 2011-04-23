@@ -16,6 +16,7 @@ import at.easydiet.teamc.model.MealBo;
 import at.easydiet.teamc.model.MealCodeBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.PlanTypeBo;
+import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.TimeSpanBo;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.DietParameterData;
@@ -39,6 +40,7 @@ public class DietryPlanController extends Event<EventArgs> {
     private static volatile DietryPlanController _dietryPlanController = null;
     // instance variables
     private DatabaseController _dbController;
+    private SearchRecipeController _searchRecipeController;
     /**
      * Patient which was predefined as patient to use.
      */
@@ -55,6 +57,11 @@ public class DietryPlanController extends Event<EventArgs> {
      * Timespan which is generated at the moment but not submitted to a dietplan.
      */
     private TimeSpanBo _tempTimeSpanBo;
+
+    /**
+     * Constant facotr for millisecond/day converting
+     */
+    private final int MILLISECONDS_TO_DAY_FACTOR=86400000;
 
     private DietryPlanController(Object sender) {
         super(sender);
@@ -85,7 +92,7 @@ public class DietryPlanController extends Event<EventArgs> {
      */
     public DietryPlanData newDietryPlan(Date startdate, Date enddate, List<DietParameterData> dptd,
             List<Double> parameterMaxValues, List<Double> parameterMinValues, PatientBo activePatient) {
-        
+
         //TODO combine max and min parameters with values!
         //TODO NULL check!!
 
@@ -100,7 +107,7 @@ public class DietryPlanController extends Event<EventArgs> {
         if (checkForTimeIntersections(startdate, enddate)) {
 
             //initiates Diatplan with needed values
-            _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo(""), null);
+            _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo("Testplan"), null);
 
             //cast DietParameterData to DietParameterBo
             for (DietParameterData dpd : dptd) {
@@ -110,7 +117,7 @@ public class DietryPlanController extends Event<EventArgs> {
             //Setting the Parameters for Diatplan
             _dietPlanBo.setDietParameters(dpb);
 
-            duration = (enddate.getTime() - startdate.getTime()) / 1000 / 60 / 60 / 24;
+            duration = (enddate.getTime() - startdate.getTime()) / MILLISECONDS_TO_DAY_FACTOR;
             timespanbo = new TimeSpanBo(startdate, (int) duration);
 
 
@@ -135,6 +142,13 @@ public class DietryPlanController extends Event<EventArgs> {
         return temp;
     }
 
+    /**
+     * Checks a given timespan for intersections with existing timespans on dietplan level
+     *
+     * @param startdate
+     * @param enddate
+     * @return
+     */
     private boolean checkForTimeIntersections(Date startdate, Date enddate) {
 
 
@@ -147,7 +161,7 @@ public class DietryPlanController extends Event<EventArgs> {
                 if (tsb.getStart().equals(startdate) || tsb.getStart().before(startdate)) {
                     for (DietPlanBo dpb : tsb.getDietPlans()) {
                         for (TimeSpanBo timesb : dpb.getTimeSpans()) {
-                            tempenddate = new Date(timesb.getStart().getTime() + (timesb.getDuration() * 1000 * 60 * 60 * 24));
+                            tempenddate = new Date(timesb.getStart().getTime() + (timesb.getDuration() * MILLISECONDS_TO_DAY_FACTOR));
                             //check wether intersection not possible because of logically not overlapping startdate and enddate
                             if (enddate.before(timesb.getStart()) || startdate.after(tempenddate)) {
                                 continue;
@@ -170,6 +184,12 @@ public class DietryPlanController extends Event<EventArgs> {
         return true;
     }
 
+    /**
+     * Searches the right treatment for a given timespan of a DietTreatment.
+     *
+     * @param tsb
+     * @return
+     */
     private DietTreatmentBo searchTreatmentForDietplan(TimeSpanBo tsb) {
         Date tempenddate;
         DietTreatmentBo temp = null;
@@ -182,30 +202,79 @@ public class DietryPlanController extends Event<EventArgs> {
         return temp;
     }
 
+    /**
+     * Adds MealBo to the diatplan in progress represtented by _dietplanBo.
+     *
+     * @param mcd MealCode to add
+     * @param day Defines exact day in Timespan
+     */
     public void addMealCode(MealCodeData mcd, int day) {
+        _tempMeal = _dietPlanBo.addMealCode(mcd, day);
     }
 
+    /**
+     * Adds MealLineBo to the Meal in progress.
+     *
+     * @return Index of the new MealLine
+     */
     public int addMealLine() {
-        throw (new UnsupportedOperationException("Not supported yet!"));
+        return _dietPlanBo.addMealLine();
     }
 
+    /**
+     *
+     * @return Main Categories of Recipes from BLS
+     */
     public Set<RecipeData> getRecipeMainCategories() {
-        throw (new UnsupportedOperationException("Not supported yet!"));
+        _searchRecipeController = SearchRecipeController.getInstance();
+        Set<RecipeData> temp = new HashSet<RecipeData>();
+        for (RecipeBo rb : _searchRecipeController.getRecipeMainCategories()) {
+            temp.add((RecipeData) rb);
+        }
+        return temp;
     }
 
+    /**
+     *
+     * @param mainCategory Category in which search string is searched for
+     * @param search Search string
+     * @return Set of Recipes which are checked corresponding to the active parameters
+     */
     public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
-        throw (new UnsupportedOperationException("Not supported yet!"));
+
+        Set<CheckedRecipeVo> temp = new HashSet<CheckedRecipeVo>();
+        for (RecipeBo rb : _searchRecipeController.searchRecipe(mainCategory, search)) {
+            temp.add(new CheckedRecipeVo((RecipeData) rb, _dietPlanBo.checkRecipeWithParameters(rb)));
+        }
+        return temp;
     }
 
+    /**
+     * Adds a Recipe to the Meal in progress.
+     *
+     * @param rd Recipe which will be added.
+     * @param quantity amount of Recipe in gramm.
+     * @param mealLineID MealLine to which the Recipe belongs.
+     * @return
+     */
     public MealData addRecipeToMeal(RecipeData rd, double quantity, int mealLineID) {
-        throw (new UnsupportedOperationException("Not supported yet!"));
+        _dietPlanBo.addRecipe((RecipeBo) rd, quantity, mealLineID);
+        return (MealData) _tempMeal;
     }
 
+    /**
+     * Saves DiatPlan in progress in Database.
+     */
     public void saveDietryPlan() {
-        throw (new UnsupportedOperationException("Not supported yet!"));
+        _dietPlanBo.save();
     }
 
+    /**
+     * Returns dietplan in progress.
+     *
+     * @return
+     */
     public DietryPlanData getDietryPlan() {
-        throw (new UnsupportedOperationException("Not supported yet!"));
+        return (DietryPlanData) _dietPlanBo;
     }
 }
