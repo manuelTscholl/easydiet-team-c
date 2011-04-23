@@ -18,6 +18,7 @@ import org.apache.pivot.collections.Map;
 import org.apache.pivot.collections.Sequence.Tree.Path;
 import org.apache.pivot.collections.Set;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Dialog;
@@ -27,6 +28,7 @@ import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.TreeView;
 import org.apache.pivot.wtk.TreeViewBranchListener;
+import org.apache.pivot.wtk.Window;
 import org.apache.pivot.wtk.content.TreeBranch;
 
 /**
@@ -54,9 +56,9 @@ public class ChooseMealDialog extends Dialog implements Bindable {
 
         // get GUI components
         _chooseMealButton = (PushButton) namespace.get("chooseMealButton");
-        _recipeTablePane = (TablePane)namespace.get("recipeTablePane");
-        _searchTextInput = (TextInput)namespace.get("searchtTextInput");
-        _searchButton = (PushButton)namespace.get("searchButton");
+        _recipeTablePane = (TablePane) namespace.get("recipeTablePane");
+        _searchTextInput = (TextInput) namespace.get("searchtTextInput");
+        _searchButton = (PushButton) namespace.get("searchButton");
         _mealChooserListButton = (ListButton) namespace.get("mealChooserListButton");
         _addRecipeButton = (PushButton) namespace.get("addRecipeButton");
         _removeRecipeButton = (PushButton) namespace.get("removeRecipeButton");
@@ -66,8 +68,10 @@ public class ChooseMealDialog extends Dialog implements Bindable {
         _chosenRecipeTreeView = (TreeView) namespace.get("chosenRecipeTreeView");
 
         // get meal codes
-        _mealCodes = GUIController.getInstance().getAllMealCodes(); 
+        _mealCodes = GUIController.getInstance().getAllMealCodes();
         _mealChooserListButton.setListData(_mealCodes);
+        _mealChooserListButton.setSelectedIndex(0);
+
 
         initRecipeMainCategories();
 
@@ -76,8 +80,9 @@ public class ChooseMealDialog extends Dialog implements Bindable {
 
             public void buttonPressed(Button button) {
 
-                //TODO activate and add mealCode Object
-                //GUIController.getInstance().addMealCode(null, _day);
+                // get and add mealCode Object
+                MealCodeData m = (MealCodeData)_mealChooserListButton.getSelectedItem();
+                GUIController.getInstance().addMealCode(m, _day);
 
                 // activate context
                 _recipeTablePane.setVisible(true);
@@ -125,11 +130,11 @@ public class ChooseMealDialog extends Dialog implements Bindable {
 
                 // get selected branch
                 RecipeTreeBranch branch = ((RecipeTreeBranch) treeView.getTreeData().get(path.toArray()[0]));
-                Set<CheckedRecipeVo> checkedRecipes = 
+                Set<CheckedRecipeVo> checkedRecipes =
                         GUIController.getInstance().searchRecipe(branch.getRecipeData().getName(), null);
-                
+
                 // add recipes
-                for(CheckedRecipeVo checked:checkedRecipes){
+                for (CheckedRecipeVo checked : checkedRecipes) {
                     RecipeTreeNode r = new RecipeTreeNode(checked);
                 }
             }
