@@ -28,10 +28,11 @@ import org.apache.pivot.wtk.TreeView;
 public class ChooseMealDialog extends Dialog implements Bindable {
 
     // instance variables
+    private PushButton _chooseMealButton;
     private ListButton _mealChooserListButton;
     private PushButton _addRecipeButton;
     private PushButton _removeRecipeButton;
-    private PushButton _addAlternativButton;
+    private PushButton _addAlternativeButton;
     private PushButton _finishButton;
     private TreeView _recipeTreeView;
     private TreeView _chosenRecipeTreeView;
@@ -42,22 +43,37 @@ public class ChooseMealDialog extends Dialog implements Bindable {
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
 
         // get GUI components
+        _chooseMealButton = (PushButton) namespace.get("chooseMealButton");
         _mealChooserListButton = (ListButton) namespace.get("mealChooserListButton");
         _addRecipeButton = (PushButton) namespace.get("addRecipeButton");
         _removeRecipeButton = (PushButton) namespace.get("removeRecipeButton");
-        _addAlternativButton = (PushButton) namespace.get("addAlternativeButton");
+        _addAlternativeButton = (PushButton) namespace.get("addAlternativeButton");
         _finishButton = (PushButton) namespace.get("finishButton");
         _recipeTreeView = (TreeView) namespace.get("recipeTreeView");
         _chosenRecipeTreeView = (TreeView) namespace.get("chosenRecipeTreeView");
 
         // get meal codes
-        _mealCodes = GUIController.getInstance().getAllMealCodes(); 
-        _mealChooserListButton.setListData(_mealCodes);
+        //_mealCodes = GUIController.getInstance().getAllMealCodes(); 
+        //_mealChooserListButton.setListData(_mealCodes);
         
         // get recipe main categories
         GUIController.getInstance().getRecipeMainCategories();
         
         // add button listeners
+        _chooseMealButton.getButtonPressListeners().add(new ButtonPressListener() {
+
+            public void buttonPressed(Button button) {
+                GUIController.getInstance().addMealCode(null, _day);
+                
+                // activate context
+                _recipeTreeView.setVisible(true);
+                _chosenRecipeTreeView.setVisible(true);
+                _addAlternativeButton.setEnabled(true);
+                _finishButton.setEnabled(true);
+                _addRecipeButton.setEnabled(true);
+                _removeRecipeButton.setEnabled(true);              
+            }
+        });
         _finishButton.getButtonPressListeners().add(new ButtonPressListener() {
 
             public void buttonPressed(Button button) {
