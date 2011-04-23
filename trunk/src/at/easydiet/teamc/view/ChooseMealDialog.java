@@ -14,6 +14,8 @@ import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.Button;
+import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Dialog;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
@@ -54,6 +56,16 @@ public class ChooseMealDialog extends Dialog implements Bindable {
         
         // get recipe main categories
         GUIController.getInstance().getRecipeMainCategories();
+        
+        // add button listeners
+        _finishButton.getButtonPressListeners().add(new ButtonPressListener() {
+
+            public void buttonPressed(Button button) {
+                GUIController.getInstance().saveDietryPlan();
+                ((ContentDietryPlanScrollPane)GUIComponents.get("contentDietryPlanScrollPane")).updateDietryPlan();
+                close();
+            }
+        });
     }
 
     /**
