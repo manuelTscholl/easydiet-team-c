@@ -1,7 +1,7 @@
 /**
  * This File is part of Easy Diet
  * created on: 12.04.2011
- * created by: Michael
+ * created by: Ali Gümüs
  * file: SearchPatientController.java
  */
 package at.easydiet.teamc.controller.usecase;
