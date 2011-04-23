@@ -18,7 +18,9 @@
                 xmlns:bxml="http://pivot.apache.org/bxml"
                 xmlns="org.apache.pivot.wtk"/>
             <TablePane.Filler/>
-            <TablePane.Filler/>
+            <PushButton bxml:id="chooseMealButton">
+                <content:ButtonData text="Auswählen" />
+            </PushButton>
         </TablePane.Row>
         <!-- END Meal chooser -->
 
@@ -29,7 +31,7 @@
             <Border title="Rezepte" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
                 xmlns:bxml="http://pivot.apache.org/bxml"
                 xmlns="org.apache.pivot.wtk">
-                <TreeView selectMode="multi" bxml:id="recipeTreeView"
+                <TreeView selectMode="multi" bxml:id="recipeTreeView" visible="false"
                                 xmlns:bxml="http://pivot.apache.org/bxml"
                                 xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}"/>
             </Border>
@@ -37,10 +39,10 @@
 
             <!-- add and remove buttons -->
             <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}" orientation="vertical">
-                <PushButton bxml:id="addRecipeButton" styles="{toolbar:true}">
+                <PushButton bxml:id="addRecipeButton" styles="{toolbar:true}" enabled="false">
                     <content:ButtonData icon="@navigation.png" />
                 </PushButton>
-                <PushButton bxml:id="removeRecipeButton" styles="{toolbar:true}">
+                <PushButton bxml:id="removeRecipeButton" styles="{toolbar:true}" enabled="false">
                     <content:ButtonData icon="@navigation-180.png" />
                 </PushButton>
             </BoxPane>
@@ -50,7 +52,7 @@
             <Border title="Fertige Mahlzeit" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
                 xmlns:bxml="http://pivot.apache.org/bxml"
                 xmlns="org.apache.pivot.wtk">
-                <TreeView selectMode="multi" bxml:id="chosenRecipeTreeView"
+                <TreeView selectMode="multi" bxml:id="chosenRecipeTreeView" visible="false"
                                 xmlns:bxml="http://pivot.apache.org/bxml"
                                 xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}"/>
             </Border>
@@ -64,8 +66,8 @@
             <TablePane.Filler/>
             <TablePane.Filler/>
             <BoxPane styles="{horizontalAlignment:'Right'}">
-                <PushButton bxml:id="addAlternativButton" buttonData="Alternative hinzufügen"/>
-                <PushButton bxml:id="finishButton" buttonData="Speichern"/>
+                <PushButton bxml:id="addAlternativeButton" buttonData="Alternative hinzufügen" enabled="false"/>
+                <PushButton bxml:id="finishButton" buttonData="Speichern" enabled="false"/>
             </BoxPane>
         </TablePane.Row>
         <!-- END Buttons -->
