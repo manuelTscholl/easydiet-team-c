@@ -6,8 +6,11 @@
  */
 package at.easydiet.teamc.controller;
 
+import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.DietParameterData;
 import at.easydiet.teamc.model.data.DietryPlanData;
+import at.easydiet.teamc.model.data.MealCodeData;
+import at.easydiet.teamc.model.data.MealData;
 import java.util.Set;
 
 import org.apache.pivot.collections.Map;
@@ -15,6 +18,7 @@ import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.TextInput;
 
 import at.easydiet.teamc.model.data.PatientData;
+import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
 import at.easydiet.teamc.util.ListConverter;
@@ -31,7 +35,6 @@ import at.easydiet.teamc.view.PatientListener;
 import java.io.IOException;
 import java.util.Date;
 import org.apache.pivot.beans.BXMLSerializer;
-import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.serialization.SerializationException;
 
@@ -225,5 +228,71 @@ public class GUIController implements PatientListener {
         } catch (SerializationException ex) {
             LOGGER.error(ex);
         }
+    }
+    
+    /**
+     * Returns all meals with the given codes
+     * @return 
+     */
+    public Set<MealCodeData> getAllMealCodes(){
+        return _businessLogicDelegationController.getAllMealCodes();
+    }
+    
+    /**
+     * Add a new meal code
+     * @param md Meal code to add
+     * @param day Day for this meal
+     */
+    public void addMealCode(MealCodeData md, int day){
+        _businessLogicDelegationController.addMealCode(md, day);
+    }
+    
+    /**
+     * Add a new MealLine
+     * @return Index of this meal line
+     */
+    public int addMealLine(){
+        return _businessLogicDelegationController.addMealLine();
+    }
+    
+    /**
+     * Get all recipe main categories
+     */
+    public Set<RecipeData> getRecipeMainCategories(){
+        return _businessLogicDelegationController.getRecipeMainCategories();
+    }
+    
+    /**
+     * Search a recipe
+     * @return All matched recipe with parameter check
+     */
+    public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search){
+        return _businessLogicDelegationController.searchRecipe(mainCategory, search);
+    }
+    
+    /**
+     * Add a recipe to a meal
+     * @param rd Recipe to add
+     * @param quantity Quantity of the recipe
+     * @param mealLineId MealLine to add this recipe
+     * @return 
+     */
+    public MealData addRecipeToMeal(RecipeData rd, double quantity, int mealLineId){
+        return _businessLogicDelegationController.addRecipetoMeal(rd, quantity, mealLineId);
+    }
+    
+    /**
+     * Save the actual dietry plan
+     */
+    public void saveDietryPlan(){
+        _businessLogicDelegationController.saveDietryPlan();
+    }
+    
+    /**
+     * Get the actual dietry plan
+     * @return actual dietry plan
+     */
+    public DietryPlanData getDietryPlan(){
+        return _businessLogicDelegationController.getDietryPlan();
     }
 }
