@@ -138,12 +138,14 @@ public class BusinessLogicDelegationController {
 	 */
 	public List<DietParameterData> getAllParameters() {
 
+		//get all Business Objects of DietParameters
 		List<DietParameterBo> parameterBo = _searchParameterController
 				.getAllParameters();
 
-		// change DietParameterBo's in paramterBo to DietParameterData
+	
 		List<DietParameterData> parameterData = new ArrayList<DietParameterData>();
 
+		//encapsulate the bo's with putting the interface objects around
 		for (DietParameterBo dpBo : parameterBo) {
 			parameterData.add(dpBo);
 		}
