@@ -9,6 +9,7 @@ package at.easydiet.teamc.view;
 import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.DietParameterData;
 import java.net.URL;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.apache.pivot.beans.Bindable;
@@ -35,6 +36,9 @@ public class DietPlanDialog extends Dialog implements Bindable {
     private TablePane _dateChooserTablePane;
     private TablePane _parameterChooserTablePane;
     private ListView _parameterListView;
+    private ListView _chosenParameterListView;
+    private PushButton _addParameterButton;
+    private PushButton _removeParameterButton;
     private TablePane _setParametersTablePane;
     private PushButton _cancelButton;
     private PushButton _backButton;
@@ -45,6 +49,10 @@ public class DietPlanDialog extends Dialog implements Bindable {
     private HashMap<Integer, TablePane> _stepsTablePane;
     private HashMap<Integer, Label> _stepsLabel;
     private int _selectedStep;
+    private Date _startDate;
+    private Date _endDate;
+    private List<DietParameterData> _chosenParameters;
+    private List<Double> _parameterValues;
 
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
         _selectedStep = 0;
@@ -54,6 +62,9 @@ public class DietPlanDialog extends Dialog implements Bindable {
         _parameterChooserTablePane = (TablePane) namespace.get("parameterChooserTablePane");
         _setParametersTablePane = (TablePane) namespace.get("setParametersTablePane");
         _parameterListView = (ListView) namespace.get("parameterListView");
+        _chosenParameterListView = (ListView) namespace.get("chosenParameterListView");
+        _addParameterButton = (PushButton) namespace.get("addParameterButton");
+        _removeParameterButton = (PushButton) namespace.get("removeParameterButton");
         _cancelButton = (PushButton) namespace.get("cancelButton");
         _backButton = (PushButton) namespace.get("backButton");
         _forwardButton = (PushButton) namespace.get("forwardButton");
@@ -86,6 +97,21 @@ public class DietPlanDialog extends Dialog implements Bindable {
 
             public void buttonPressed(Button button) {
                 setStep(_selectedStep, --_selectedStep);
+            }
+        });
+        
+        // button listeners for adding and removing parameters
+        _addParameterButton.getButtonPressListeners().add(new ButtonPressListener() {
+
+            public void buttonPressed(Button button) {
+                //TODO implement
+            }
+        });
+        
+        _removeParameterButton.getButtonPressListeners().add(new ButtonPressListener() {
+
+            public void buttonPressed(Button button) {
+                //TODO implement
             }
         });
         
@@ -134,6 +160,7 @@ public class DietPlanDialog extends Dialog implements Bindable {
 
         // check if finish button is pressed
         if(nextStep == _stepsLabel.size()){
+            GUIController.getInstance().newDietryPlan(_startDate, _endDate, _chosenParameters, _parameterValues);
             close();
         }
     }

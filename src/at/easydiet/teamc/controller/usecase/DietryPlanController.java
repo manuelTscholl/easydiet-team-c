@@ -73,7 +73,19 @@ public class DietryPlanController extends Event<EventArgs> {
 
     }
 
-    public DietryPlanData newDietryPlan(Date startdate, Date enddate, List<DietParameterData> dptd, PatientBo activePatient) {
+    /**
+     * Create a new dietry plan
+     * @param startDate Plan start date
+     * @param endDate Plan end date
+     * @param params List of parameters for this plan
+     * @param parameterValues Values for the chosen parameters
+     * @param activePatient Current active patient
+     * @return 
+     */
+    public DietryPlanData newDietryPlan(Date startdate, Date enddate, List<DietParameterData> dptd,
+            List<Double> parameterValues, PatientBo activePatient) {
+        
+        //TODO combine parameters with values!
 
         Set<DietParameterBo> dpb = new HashSet<DietParameterBo>();
         long duration;
@@ -97,7 +109,7 @@ public class DietryPlanController extends Event<EventArgs> {
             _dietPlanBo.setDietParameters(dpb);
 
             duration = (enddate.getTime() - startdate.getTime()) / 1000 / 60 / 60 / 24;
-            timespanbo=new TimeSpanBo(startdate, (int) duration);
+            timespanbo = new TimeSpanBo(startdate, (int) duration);
 
 
             //Save diatplanobject in database
@@ -114,8 +126,8 @@ public class DietryPlanController extends Event<EventArgs> {
 
     public Set<MealCodeData> getAllMealCodes() {
         Set<MealCodeData> temp = new HashSet<MealCodeData>();
-        for(MealCodeBo mcb: _dbController.getAllMealCodes()){
-            temp.add((MealCodeData)mcb);
+        for (MealCodeBo mcb : _dbController.getAllMealCodes()) {
+            temp.add((MealCodeData) mcb);
         }
 
         return temp;
@@ -123,7 +135,7 @@ public class DietryPlanController extends Event<EventArgs> {
 
     private boolean checkForTimeIntersections(Date startdate, Date enddate) {
 
-        
+
         Date tempenddate;
 
         if (startdate.before(enddate)) {
@@ -133,19 +145,19 @@ public class DietryPlanController extends Event<EventArgs> {
                 if (tsb.getStart().equals(startdate) || tsb.getStart().before(startdate)) {
                     for (DietPlanBo dpb : tsb.getDietPlans()) {
                         for (TimeSpanBo timesb : dpb.getTimeSpans()) {
-                            tempenddate = new Date (timesb.getStart().getTime()+(timesb.getDuration()*1000*60*60*24));
+                            tempenddate = new Date(timesb.getStart().getTime() + (timesb.getDuration() * 1000 * 60 * 60 * 24));
                             //check wether intersection not possible because of logically not overlapping startdate and enddate
-                            if(enddate.before(timesb.getStart())|| startdate.after(tempenddate)){
+                            if (enddate.before(timesb.getStart()) || startdate.after(tempenddate)) {
                                 continue;
                             }
 
                             //check wether intersection because of at least one datepoint possible
-                            if((startdate.before(tempenddate)||startdate.equals(tempenddate))&&
-                                    (enddate.equals(timesb.getStart())|| enddate.after(timesb.getStart()))){
+                            if ((startdate.before(tempenddate) || startdate.equals(tempenddate))
+                                    && (enddate.equals(timesb.getStart()) || enddate.after(timesb.getStart()))) {
                                 return false;
                             }
-                            if((enddate.after(timesb.getStart())||enddate.equals(timesb.getStart()))&&
-                                    (startdate.equals(timesb.getStart())||startdate.before(timesb.getStart()))){
+                            if ((enddate.after(timesb.getStart()) || enddate.equals(timesb.getStart()))
+                                    && (startdate.equals(timesb.getStart()) || startdate.before(timesb.getStart()))) {
                                 return false;
                             }
                         }
@@ -156,19 +168,19 @@ public class DietryPlanController extends Event<EventArgs> {
         return true;
     }
 
-    private DietTreatmentBo searchTreatmentForDietplan(TimeSpanBo tsb){
+    private DietTreatmentBo searchTreatmentForDietplan(TimeSpanBo tsb) {
         Date tempenddate;
-        DietTreatmentBo temp=null;
-        for(DietTreatmentBo dietTreatmentBo: _activePatient.getTreatments()){
-            tempenddate = new Date (dietTreatmentBo.getStart().getTime()+( dietTreatmentBo.getDuration()*1000*60*60*24));
-            if(dietTreatmentBo.getStart().getTime()<=tsb.getStart().getTime()&&tempenddate.getTime()>=tsb.getDuration()*1000*60*60*24){
+        DietTreatmentBo temp = null;
+        for (DietTreatmentBo dietTreatmentBo : _activePatient.getTreatments()) {
+            tempenddate = new Date(dietTreatmentBo.getStart().getTime() + (dietTreatmentBo.getDuration() * 1000 * 60 * 60 * 24));
+            if (dietTreatmentBo.getStart().getTime() <= tsb.getStart().getTime() && tempenddate.getTime() >= tsb.getDuration() * 1000 * 60 * 60 * 24) {
                 return dietTreatmentBo;
             }
         }
         return temp;
     }
 
-    public void addMealCode(MealCodeData mcd) {
+    public void addMealCode(MealCodeData mcd, int day) {
     }
 
     public int addMealLine() {

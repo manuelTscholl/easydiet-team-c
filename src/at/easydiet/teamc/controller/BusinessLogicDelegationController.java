@@ -152,10 +152,12 @@ public class BusinessLogicDelegationController {
          * @param startDate Plan start date
          * @param endDate Plan end date
          * @param params List of parameters for this plan
+         * @param parameterValues Values for the chosen parameters
          */
-	public DietryPlanData newDietryPlan(Date startDate,Date endDate,List<DietParameterData> params){
+	public DietryPlanData newDietryPlan(Date startDate,Date endDate,List<DietParameterData> params,
+                List<Double> parameterValues){
 		_dietryPlanController=DietryPlanController.getInstance();
-		_dietryPlanController.newDietryPlan(startDate, endDate, params,this._activePatient);
+		_dietryPlanController.newDietryPlan(startDate, endDate, params, parameterValues, this._activePatient);
 		
 		//return the DietryPlanData
 		return _dietryPlanController.getDietryPlan();		
@@ -173,8 +175,8 @@ public class BusinessLogicDelegationController {
 	 *
 	 * @return
 	 */
-	public void addMealCode(MealCodeData mcd) {
-		_dietryPlanController.addMealCode(mcd);
+	public void addMealCode(MealCodeData mcd, int day) {
+		_dietryPlanController.addMealCode(mcd, day);
 	}
 
         /**
