@@ -189,16 +189,19 @@ public class GUIController implements PatientListener {
      * @param start Plan start date
      * @param end Plan end date
      * @param dpList List of parameters for this plan
-     * @param parameterValues Values for the chosen parameters
+     * @param parameterMaxValues Max Values for the chosen parameters
+     * @param parameterMinValues Min Values for the chosen parameters
      */
     public void newDietryPlan(Date start, Date end, List<DietParameterData> dpList,
-            List<Double> parameterValues) {
+            List<Double> parameterMaxValues, List<Double> parameterMinValues) {
 
         // convert pivot list to java list
         java.util.List<DietParameterData> list = ListConverter.convertToJavaList(dpList);
-        java.util.List<Double> valueList = ListConverter.convertToJavaList(parameterValues);
+        java.util.List<Double> maxValueList = ListConverter.convertToJavaList(parameterMaxValues);
+        java.util.List<Double> minValueList = ListConverter.convertToJavaList(parameterMinValues);
 
-        DietryPlanData plan = _businessLogicDelegationController.newDietryPlan(start, end, list, valueList);
+        DietryPlanData plan = _businessLogicDelegationController.newDietryPlan(start, end, list, 
+                maxValueList, minValueList);
         _navTab.drawDietryPlanMenu(plan);
         _contentTab.drawDietryPlan(plan);
     }

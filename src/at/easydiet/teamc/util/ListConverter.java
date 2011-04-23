@@ -6,7 +6,6 @@
  */
 package at.easydiet.teamc.util;
 
-
 /**
  * Convert a java.util.List to a org.apache.pivot.collections.List
  * and vice versa
@@ -21,14 +20,17 @@ public class ListConverter<T> {
      * @return java list
      */
     public static <T> java.util.List<T> convertToJavaList(org.apache.pivot.collections.List<T> pivotList) {
+        if (pivotList != null) {
 
-        // convert
-        java.util.List<T> javaList = new java.util.ArrayList<T>();
-        for (T value : pivotList) {
-            javaList.add(value);
+            // convert
+            java.util.List<T> javaList = new java.util.ArrayList<T>();
+            for (T value : pivotList) {
+                javaList.add(value);
+            }
+            return javaList;
+        } else {
+            return null;
         }
-
-        return javaList;
     }
 
     /**
@@ -38,13 +40,17 @@ public class ListConverter<T> {
      * @return java list
      */
     public static <T> org.apache.pivot.collections.List<T> convertToPivotList(java.util.List<T> javaList) {
+        if (javaList != null) {
 
-        // convert
-        org.apache.pivot.collections.List<T> pivotList = new org.apache.pivot.collections.ArrayList<T>();
-        for (T value : javaList) {
-            pivotList.add(value);
+            // convert
+            org.apache.pivot.collections.List<T> pivotList = new org.apache.pivot.collections.ArrayList<T>();
+            for (T value : javaList) {
+                pivotList.add(value);
+            }
+
+            return pivotList;
+        } else {
+            return null;
         }
-
-        return pivotList;
     }
 }
