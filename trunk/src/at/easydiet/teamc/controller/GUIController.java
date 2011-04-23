@@ -21,10 +21,9 @@ import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
-import at.easydiet.teamc.util.ListConverter;
+import at.easydiet.teamc.util.CollectionConverter;
 import at.easydiet.teamc.view.ChooseMealDialog;
 import at.easydiet.teamc.view.ContentTabPane;
-import at.easydiet.teamc.view.DateDialog;
 import at.easydiet.teamc.view.DietPlanDialog;
 import at.easydiet.teamc.view.EasyDietMenuBar;
 import at.easydiet.teamc.view.EasyDietWindow;
@@ -132,7 +131,8 @@ public class GUIController implements PatientListener {
      * @param patients
      */
     public void updateSearchResult(Set<PatientData> patients) {
-        _navTab.updateSearchResult(patients);
+        _navTab.updateSearchResult((org.apache.pivot.collections.Set<PatientData>)CollectionConverter
+                .convertToPivotSet(patients));
     }
 
     /**
@@ -166,7 +166,7 @@ public class GUIController implements PatientListener {
         BXMLSerializer bxml = new BXMLSerializer();
         DietPlanDialog dietryPlanDialog;
         try {
-            dietryPlanDialog = (DietPlanDialog) bxml.readObject(DateDialog.class,
+            dietryPlanDialog = (DietPlanDialog) bxml.readObject(DietPlanDialog.class,
                     "bxml/diet_plan_dialog.bxml");
             dietryPlanDialog.open(_easyDietWindow);
         } catch (IOException ex) {
@@ -181,8 +181,8 @@ public class GUIController implements PatientListener {
      * @return All available parameters
      */
     public List<DietParameterData> getAllParameters() {
-        java.util.List parameters = _businessLogicDelegationController.getAllParameters();
-        List<DietParameterData> pivotList = ListConverter.convertToPivotList(parameters);
+        java.util.List<DietParameterData> parameters = _businessLogicDelegationController.getAllParameters();
+        List<DietParameterData> pivotList = (List<DietParameterData>) CollectionConverter.convertToPivotList(parameters);
 
         return pivotList;
     }
@@ -199,11 +199,11 @@ public class GUIController implements PatientListener {
             List<Double> parameterMaxValues, List<Double> parameterMinValues) {
 
         // convert pivot list to java list
-        java.util.List<DietParameterData> list = ListConverter.convertToJavaList(dpList);
-        java.util.List<Double> maxValueList = ListConverter.convertToJavaList(parameterMaxValues);
-        java.util.List<Double> minValueList = ListConverter.convertToJavaList(parameterMinValues);
+        java.util.List<DietParameterData> list = (java.util.List<DietParameterData>) CollectionConverter.convertToJavaList(dpList);
+        java.util.List<Double> maxValueList = (java.util.List<Double>) CollectionConverter.convertToJavaList(parameterMaxValues);
+        java.util.List<Double> minValueList = (java.util.List<Double>) CollectionConverter.convertToJavaList(parameterMinValues);
 
-        DietryPlanData plan = _businessLogicDelegationController.newDietryPlan(start, end, list, 
+        DietryPlanData plan = _businessLogicDelegationController.newDietryPlan(start, end, list,
                 maxValueList, minValueList);
         _navTab.drawDietryPlanMenu(plan);
         _contentTab.drawDietryPlan(plan);
@@ -229,47 +229,49 @@ public class GUIController implements PatientListener {
             LOGGER.error(ex);
         }
     }
-    
+
     /**
      * Returns all meals with the given codes
      * @return 
      */
-    public Set<MealCodeData> getAllMealCodes(){
-        return _businessLogicDelegationController.getAllMealCodes();
+    public List<MealCodeData> getAllMealCodes() {
+        return (List<MealCodeData>)CollectionConverter.convertToPivotList(_businessLogicDelegationController.getAllMealCodes());
     }
-    
+
     /**
      * Add a new meal code
      * @param md Meal code to add
      * @param day Day for this meal
      */
-    public void addMealCode(MealCodeData md, int day){
+    public void addMealCode(MealCodeData md, int day) {
         _businessLogicDelegationController.addMealCode(md, day);
     }
-    
+
     /**
      * Add a new MealLine
      * @return Index of this meal line
      */
-    public int addMealLine(){
+    public int addMealLine() {
         return _businessLogicDelegationController.addMealLine();
     }
-    
+
     /**
      * Get all recipe main categories
      */
-    public Set<RecipeData> getRecipeMainCategories(){
-        return _businessLogicDelegationController.getRecipeMainCategories();
+    public org.apache.pivot.collections.Set<RecipeData> getRecipeMainCategories() {
+        return (org.apache.pivot.collections.Set<RecipeData>)CollectionConverter
+                .convertToPivotSet(_businessLogicDelegationController.getRecipeMainCategories());
     }
-    
+
     /**
      * Search a recipe
      * @return All matched recipe with parameter check
      */
-    public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search){
-        return _businessLogicDelegationController.searchRecipe(mainCategory, search);
+    public org.apache.pivot.collections.Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
+        return (org.apache.pivot.collections.Set<CheckedRecipeVo>)CollectionConverter
+                .convertToPivotList(_businessLogicDelegationController.searchRecipe(mainCategory, search));
     }
-    
+
     /**
      * Add a recipe to a meal
      * @param rd Recipe to add
@@ -277,22 +279,22 @@ public class GUIController implements PatientListener {
      * @param mealLineId MealLine to add this recipe
      * @return 
      */
-    public MealData addRecipeToMeal(RecipeData rd, double quantity, int mealLineId){
+    public MealData addRecipeToMeal(RecipeData rd, double quantity, int mealLineId) {
         return _businessLogicDelegationController.addRecipetoMeal(rd, quantity, mealLineId);
     }
-    
+
     /**
      * Save the actual dietry plan
      */
-    public void saveDietryPlan(){
+    public void saveDietryPlan() {
         _businessLogicDelegationController.saveDietryPlan();
     }
-    
+
     /**
      * Get the actual dietry plan
      * @return actual dietry plan
      */
-    public DietryPlanData getDietryPlan(){
+    public DietryPlanData getDietryPlan() {
         return _businessLogicDelegationController.getDietryPlan();
     }
 }

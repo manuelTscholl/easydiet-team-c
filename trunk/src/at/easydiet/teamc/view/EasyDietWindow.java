@@ -74,7 +74,6 @@ public class EasyDietWindow extends Window implements Bindable {
                 } else if (tp.getSelectedTab().getName().equals("anamnesisTab")) { // anamnesis Tab clicked
                     //TODO placeholder implement if necessary
                 } else if (tp.getSelectedTab().getName().equals("dietryPlanTab")) { // dietryPlan Tab clicked
-                    _navTab.setSelectedTabByName("editTab");
                     _navTab.setDietryPlanMode();
                 }
             }

@@ -8,8 +8,6 @@ package at.easydiet.teamc.view;
 
 import java.awt.Font;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Set;
 
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
@@ -19,6 +17,7 @@ import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.content.ButtonData;
 
 import at.easydiet.teamc.model.data.PatientData;
+import org.apache.pivot.collections.Set;
 
 /**
  * Draws search results with caching
@@ -32,7 +31,7 @@ public class SearchResult {
     // instance variables
     private NavigationTabPane _navTab;
     private TablePane _searchResultTablePane;
-    private HashMap<Long, PatientData> _result;
+    private Set<PatientData> _result;
 
     /**
      * Initialize searchresults
@@ -77,11 +76,7 @@ public class SearchResult {
      * @param results
      */
     private void setResult(Set<PatientData> results) {
-        _result = new HashMap<Long, PatientData>();
-        
-        for (PatientData p : results) {
-            _result.put(p.getPatientId(), p);
-        }
+        _result = results;
     }
 
     /**
@@ -99,7 +94,8 @@ public class SearchResult {
         // check if results are available to draw
         if (_result != null && !_result.isEmpty()) {
 
-            for (PatientData p : _result.values()) {
+            for (PatientData p : _result) {
+
                 TablePane.Row tro = new TablePane.Row();
 
                 // create new inner table
@@ -170,13 +166,15 @@ public class SearchResult {
         for (PatientData pd : newResults) {
 
             // check if data already drawn
-            if (_result.get(pd.getPatientId()) != null) {
-                matchingResults++;
+            for (PatientData p : _result) {
+                if (pd.getPatientId() == p.getPatientId()) {
+                    matchingResults++;
+                }
             }
         }
 
         // check if both results are the same
-        if (matchingResults == _result.size() && matchingResults == newResults.size()) {
+        if (matchingResults == _result.getCount() && matchingResults == newResults.getCount()) {
             return true;
         }
 

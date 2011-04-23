@@ -30,7 +30,9 @@
             <Border title="Rezepte" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
                 xmlns:bxml="http://pivot.apache.org/bxml"
                 xmlns="org.apache.pivot.wtk">
-
+                <TreeView selectMode="multi" bxml:id="recipeTreeView"
+                                xmlns:bxml="http://pivot.apache.org/bxml"
+                                xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}"/>
             </Border>
             <!-- END Recipes -->
 
@@ -49,7 +51,9 @@
             <Border title="Fertige Mahlzeit" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
                 xmlns:bxml="http://pivot.apache.org/bxml"
                 xmlns="org.apache.pivot.wtk">
-
+                <TreeView selectMode="multi" bxml:id="chosenRecipeTreeView"
+                                xmlns:bxml="http://pivot.apache.org/bxml"
+                                xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}"/>
             </Border>
             <!-- END Added Meals -->
 

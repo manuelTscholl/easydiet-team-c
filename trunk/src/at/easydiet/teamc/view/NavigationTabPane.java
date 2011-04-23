@@ -6,31 +6,27 @@
  */
 package at.easydiet.teamc.view;
 
-import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.DietryPlanData;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Set;
 
 import org.apache.pivot.beans.BXML;
-import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
-import org.apache.pivot.serialization.SerializationException;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.ActivityIndicator;
 import org.apache.pivot.wtk.BoxPane;
-import org.apache.pivot.wtk.Button;
-import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
-import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TabPane;
 import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.TextInput;
 
 import at.easydiet.teamc.model.data.PatientData;
+import at.easydiet.teamc.view.util.DefaultNavigationMode;
+import at.easydiet.teamc.view.util.DietryPlanNavigationMode;
+import at.easydiet.teamc.view.util.NavigationMode;
+import org.apache.pivot.collections.Set;
 
 /**
  * Represents the application's navigation tabpane (navigation.bxml)
@@ -56,6 +52,7 @@ public class NavigationTabPane extends TabPane implements Bindable {
     @BXML
     private ActivityIndicator _searchActivityIndicator;
     private ArrayList<PatientListener> _patientListeners;
+    private NavigationMode _navigationMode;
 
     {
         _patientListeners = new ArrayList<PatientListener>();
@@ -78,6 +75,9 @@ public class NavigationTabPane extends TabPane implements Bindable {
         _searchResultTablePane = (TablePane) map.get("searchResultTablePane");
         _searchResultScrollPane = (ScrollPane) map.get("searchResultScrollPane");
         _searchActivityIndicator = (ActivityIndicator) map.get("searchActivityIndicator");
+        
+        // init navigation mode
+        _navigationMode = new DefaultNavigationMode(this);
 
         // register component
         GUIComponents.put(getName(), this);
@@ -91,6 +91,19 @@ public class NavigationTabPane extends TabPane implements Bindable {
             }
         });
     }
+
+    public TablePane getEditTablePane() {
+        return _editTablePane;
+    }
+
+    public BoxPane getNavigationBoxPane() {
+        return _navigationBoxPane;
+    }
+
+    public BoxPane getPatientDataBoxPane() {
+        return _patientDataBoxPane;
+    }
+    
 
     /**
      * Getter for the search textinput field
@@ -170,32 +183,8 @@ public class NavigationTabPane extends TabPane implements Bindable {
      * to provide usefull informations for the dietry plan
      */
     public void setDietryPlanMode() {
-        
-        // clean edit table pane before entering
-        clean();
-
-        // add button for creating a new dietry plan dialog
-        TablePane.Row addDietPlanRow = new TablePane.Row();
-        Button openNewDietPlanDialogButton = new PushButton("Neuen Diätplan erstellen");
-        addDietPlanRow.add(openNewDietPlanDialogButton);
-        _editTablePane.getRows().add(addDietPlanRow);
-
-        openNewDietPlanDialogButton.getButtonPressListeners().add(new ButtonPressListener() {
-
-            public void buttonPressed(Button button) {               
-                GUIController.getInstance().createDietryPlan();
-            }
-        });
-    }
-    
-    /**
-     * Cleans all tabs because mode is switched
-     */
-    private void clean(){
-        
-        // clean edit tab
-        int count = _editTablePane.getRows().getLength() - 1;
-        _editTablePane.getRows().remove(1, count);
+        _navigationMode = new DietryPlanNavigationMode(this);
+        _navigationMode.draw();
     }
     
     /**

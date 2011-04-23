@@ -4,16 +4,27 @@
  * created by: Michael
  * file: DietWeek.java
  */
-package at.easydiet.teamc.view;
+package at.easydiet.teamc.view.util;
 
+import at.easydiet.teamc.controller.GUIController;
+import at.easydiet.teamc.view.ComponentListenerAdapter;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import javax.swing.Icon;
 
 import org.apache.pivot.wtk.Border;
+import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ComponentMouseButtonListener;
 import org.apache.pivot.wtk.Expander;
 import org.apache.pivot.wtk.Mouse.Button;
+import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TablePane;
+import org.apache.pivot.wtk.content.ButtonData;
+import org.apache.pivot.wtk.media.Drawing;
+import org.apache.pivot.wtk.media.Image;
+import org.apache.pivot.wtk.media.Picture;
 
 /**
  * Represents a single week
@@ -149,6 +160,7 @@ public class DietWeek {
         // instance variables
         private Border _dayBorder;
         private int _actualDay;
+        private TablePane _mealTable;
 
         /**
          * Constructor
@@ -156,6 +168,7 @@ public class DietWeek {
          */
         public DietDay(int actualDay) {
             _actualDay = actualDay;
+            _mealTable = new TablePane();
             drawDay();
         }
 
@@ -169,6 +182,36 @@ public class DietWeek {
             _dayBorder = new Border();
             _dayBorder.setTitle("Tag: " + _actualDay);
             _dayBorder.getStyles().put("backgroundColor", "#EBEDEF");
+            
+            // add day content
+            _mealTable.getColumns().add(new TablePane.Column()); // new meal button
+            _mealTable.getColumns().add(new TablePane.Column()); // meal code
+            _mealTable.getColumns().add(new TablePane.Column()); // meal recipes
+            
+            // first row for add button
+            TablePane.Row buttonRow = new TablePane.Row();
+            ButtonData buttonData = new ButtonData();
+            buttonData.setIcon(getClass().getResource("../bxml/plus-circle.png"));
+            PushButton newMealButton = new PushButton(buttonData);
+            newMealButton.setPreferredSize(22, 20);
+            newMealButton.getStyles().put("toolbar", "true");
+            newMealButton.setTooltipDelay(100);
+            newMealButton.setTooltipText("Neue Mahlzeit hinzufügen");
+            buttonRow.add(newMealButton);
+            _mealTable.getRows().add(buttonRow);
+            
+            // add button listener
+            newMealButton.getButtonPressListeners().add(new ButtonPressListener() {
+
+                public void buttonPressed(org.apache.pivot.wtk.Button button) {
+                    GUIController.getInstance().addMeal(_actualDay);
+                }
+            });
+            
+            // add meal table
+            _dayBorder.setContent(_mealTable);
+            
+            // add row
             dayRow.add(_dayBorder);
             _weekTable.getRows().add(dayRow);
         }

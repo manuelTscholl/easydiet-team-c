@@ -52,6 +52,9 @@ public class BusinessLogicDelegationController {
 	private BusinessLogicDelegationController() {
 		_searchPatientController = SearchPatientController.getInstance();
 		_searchParameterController = SearchParameterController.getInstance();
+                
+                //TODO ONLY FOR TESTING!!!!
+                _dietryPlanController = DietryPlanController.getInstance();
 	}
 
 	/**
