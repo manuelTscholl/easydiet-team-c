@@ -18,6 +18,7 @@ import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
+import org.apache.pivot.wtk.CalendarButton;
 import org.apache.pivot.wtk.Dialog;
 import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ListView;
@@ -49,16 +50,19 @@ public class DietPlanDialog extends Dialog implements Bindable {
     private HashMap<Integer, TablePane> _stepsTablePane;
     private HashMap<Integer, Label> _stepsLabel;
     private int _selectedStep;
-    private Date _startDate;
-    private Date _endDate;
+    private CalendarButton _startDate;
+    private CalendarButton _endDate;
     private List<DietParameterData> _chosenParameters;
-    private List<Double> _parameterValues;
+    private List<Double> _parameterMinValues;
+    private List<Double> _parameterMaxValues;
 
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
         _selectedStep = 0;
 
         // get GUI components
         _dateChooserTablePane = (TablePane) namespace.get("dateChooserTablePane");
+        _startDate = (CalendarButton) namespace.get("startDate");
+        _endDate = (CalendarButton) namespace.get("endDate");
         _parameterChooserTablePane = (TablePane) namespace.get("parameterChooserTablePane");
         _setParametersTablePane = (TablePane) namespace.get("setParametersTablePane");
         _parameterListView = (ListView) namespace.get("parameterListView");
@@ -160,7 +164,14 @@ public class DietPlanDialog extends Dialog implements Bindable {
 
         // check if finish button is pressed
         if(nextStep == _stepsLabel.size()){
-            GUIController.getInstance().newDietryPlan(_startDate, _endDate, _chosenParameters, _parameterValues);
+            
+            // get date
+            Date start = _startDate.getSelectedDate().toCalendar().getTime();
+            Date end = _endDate.getSelectedDate().toCalendar().getTime();
+            
+            // process
+            GUIController.getInstance().newDietryPlan(start, end, _chosenParameters, _parameterMaxValues,
+                    _parameterMinValues);
             close();
         }
     }

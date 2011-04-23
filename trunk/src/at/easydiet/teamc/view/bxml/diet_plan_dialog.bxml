@@ -40,13 +40,13 @@
 
                     <TablePane.Row height="-1">
                         <Label text="Startdatum"/>
-                        <CalendarButton xmlns:bxml="http://pivot.apache.org/bxml"
+                        <CalendarButton bxml:id="startDate" xmlns:bxml="http://pivot.apache.org/bxml"
                          xmlns="org.apache.pivot.wtk"/>
                     </TablePane.Row>
 
                     <TablePane.Row height="-1">
                         <Label text="Enddatum"/>
-                        <CalendarButton xmlns:bxml="http://pivot.apache.org/bxml"
+                        <CalendarButton bxml:id="endDate" xmlns:bxml="http://pivot.apache.org/bxml"
                          xmlns="org.apache.pivot.wtk"/>
                     </TablePane.Row>
                 </TablePane>

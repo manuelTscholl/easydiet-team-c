@@ -203,6 +203,6 @@ public class NavigationTabPane extends TabPane implements Bindable {
      * @param plan to draw a menu for
      */
     public void drawDietryPlanMenu(DietryPlanData plan){
-        //TODO implement
+        //TODO implement navigation for dietry plan
     }
 }

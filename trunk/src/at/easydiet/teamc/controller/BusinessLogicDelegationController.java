@@ -152,12 +152,14 @@ public class BusinessLogicDelegationController {
          * @param startDate Plan start date
          * @param endDate Plan end date
          * @param params List of parameters for this plan
-         * @param parameterValues Values for the chosen parameters
+         * @param parameterMaxValues Max Values for the chosen parameters
+         * @param parameterMinValues Min Values for the chosen parameters
          */
 	public DietryPlanData newDietryPlan(Date startDate,Date endDate,List<DietParameterData> params,
-                List<Double> parameterValues){
+                List<Double> parameterMaxValues, List<Double> parameterMinValues){
 		_dietryPlanController=DietryPlanController.getInstance();
-		_dietryPlanController.newDietryPlan(startDate, endDate, params, parameterValues, this._activePatient);
+		_dietryPlanController.newDietryPlan(startDate, endDate, params, 
+                        parameterMaxValues, parameterMinValues, this._activePatient);
 		
 		//return the DietryPlanData
 		return _dietryPlanController.getDietryPlan();		

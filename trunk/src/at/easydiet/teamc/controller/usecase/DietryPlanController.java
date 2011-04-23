@@ -78,14 +78,16 @@ public class DietryPlanController extends Event<EventArgs> {
      * @param startDate Plan start date
      * @param endDate Plan end date
      * @param params List of parameters for this plan
-     * @param parameterValues Values for the chosen parameters
+     * @param parameterMaxValues Max Values for the chosen parameters
+     * @param parameterMinValues Min Values for the chosen parameters
      * @param activePatient Current active patient
      * @return 
      */
     public DietryPlanData newDietryPlan(Date startdate, Date enddate, List<DietParameterData> dptd,
-            List<Double> parameterValues, PatientBo activePatient) {
+            List<Double> parameterMaxValues, List<Double> parameterMinValues, PatientBo activePatient) {
         
-        //TODO combine parameters with values!
+        //TODO combine max and min parameters with values!
+        //TODO NULL check!!
 
         Set<DietParameterBo> dpb = new HashSet<DietParameterBo>();
         long duration;
