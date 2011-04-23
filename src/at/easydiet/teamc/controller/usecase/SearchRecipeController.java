@@ -20,9 +20,7 @@ public class SearchRecipeController {
 
     //class Variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BusinessLogicDelegationController.class);
-    private static volatile  SearchRecipeController _searchRecipeController = null;
-    //instance variables
-    private Set<PatientData> _lastSearchResult;
+    private static volatile  SearchRecipeController _searchRecipeController = null;  
 
 
     /**
@@ -38,7 +36,7 @@ public class SearchRecipeController {
         }
 
         /**
-	 * Returns al list of Recipe-Categoreis
+	 * Returns a list of Recipe-Categoreis
 	 * @return
 	 */
 	public Set<RecipeBo> getRecipeMainCategories() {
