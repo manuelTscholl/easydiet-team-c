@@ -22,7 +22,6 @@ public class SearchRecipeController {
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BusinessLogicDelegationController.class);
     private static volatile  SearchRecipeController _searchRecipeController = null;
     //instance variables
-    private DatabaseController _dbController;
     private Set<PatientData> _lastSearchResult;
 
 
@@ -43,7 +42,7 @@ public class SearchRecipeController {
 	 * @return
 	 */
 	public Set<RecipeBo> getRecipeMainCategories() {
-		List<RecipeBo> mainCategories =_dbController.getRecipeMainCategories();
+		List<RecipeBo> mainCategories =DatabaseController.getInstance().getRecipeMainCategories();
 		Set<RecipeBo> setOfMainCategories=new HashSet<RecipeBo>(mainCategories);
 		return setOfMainCategories;
 	}
@@ -53,7 +52,7 @@ public class SearchRecipeController {
 	 * @return
 	 */
 	public Set<RecipeBo> searchRecipe(String mainCategory,String search){
-		List<RecipeBo> recipes =_dbController.searchRecipe(mainCategory,search);
+		List<RecipeBo> recipes =DatabaseController.getInstance().searchRecipe(mainCategory,search);
 		Set<RecipeBo> setOfSearchRecipe=new HashSet<RecipeBo>(recipes);
 		return setOfSearchRecipe;
 	}

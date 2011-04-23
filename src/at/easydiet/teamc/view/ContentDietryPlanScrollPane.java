@@ -6,6 +6,7 @@
  */
 package at.easydiet.teamc.view;
 
+import at.easydiet.teamc.view.util.DietWeek;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -83,6 +84,11 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
 
         // register component
         GUIComponents.put(getName(), this);
+
+        //TODO FOR TESTING ONLY
+        for (int i = 0; i < 20; i++) {
+            addDay();
+        }
     }
 
     /**
