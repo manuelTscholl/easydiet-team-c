@@ -6,6 +6,7 @@
  */
 package at.easydiet.teamc.view;
 
+import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.view.util.DietWeek;
 import java.net.URL;
 import java.util.ArrayList;
@@ -178,5 +179,13 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
     @Override
     public void updatePatientData(PatientData p) {
         LOGGER.trace("NOT IMPLEMENTED");
+    }
+
+    /**
+     * Update the dietry plan
+     */
+    public void updateDietryPlan() {
+        DietryPlanData dpd = GUIController.getInstance().getDietryPlan();
+        drawDietryPlan(dpd);
     }
 }

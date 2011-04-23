@@ -15,9 +15,8 @@
         <!-- Meal chooser -->
         <TablePane.Row height="-1">
             <ListButton bxml:id="mealChooserListButton"
-                listData="['Frühstück', 'Mittagessen']"
                 xmlns:bxml="http://pivot.apache.org/bxml"
-                xmlns="org.apache.pivot.wtk" selectedIndex="0"/>
+                xmlns="org.apache.pivot.wtk"/>
             <TablePane.Filler/>
             <TablePane.Filler/>
         </TablePane.Row>
@@ -66,7 +65,7 @@
             <TablePane.Filler/>
             <BoxPane styles="{horizontalAlignment:'Right'}">
                 <PushButton bxml:id="addAlternativButton" buttonData="Alternative hinzufügen"/>
-                <PushButton bxml:id="finishButton" buttonData="Fertig"/>
+                <PushButton bxml:id="finishButton" buttonData="Speichern"/>
             </BoxPane>
         </TablePane.Row>
         <!-- END Buttons -->

@@ -43,7 +43,7 @@ public class MealCodeDao
         List<MealCodeBo> codes = new ArrayList<MealCodeBo>();
         List<Meal> meals = HibernateUtil.currentSession().createCriteria(Meal.class)
         .setProjection(Projections.groupProperty("code")).list();
-        
+
         for (Meal item : meals)
         {
             codes.add(new MealCodeBo(item));
