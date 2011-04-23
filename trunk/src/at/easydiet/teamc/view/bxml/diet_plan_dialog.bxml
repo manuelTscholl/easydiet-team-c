@@ -66,7 +66,7 @@
                         <Border title="Parameter" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
                             xmlns:bxml="http://pivot.apache.org/bxml"
                             xmlns="org.apache.pivot.wtk">
-                            <ListView selectMode="multi" bxml:id="parameterListView"
+                            <ListView bxml:id="parameterListView"
                                 xmlns:bxml="http://pivot.apache.org/bxml"
                                 xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}"/>
                         </Border>
@@ -87,7 +87,7 @@
                         <Border title="Hinzugefügte Parameter" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
                             xmlns:bxml="http://pivot.apache.org/bxml"
                             xmlns="org.apache.pivot.wtk">
-                            <ListView selectMode="multi" bxml:id="chosenParameterListView"
+                            <ListView bxml:id="chosenParameterListView"
                                 xmlns:bxml="http://pivot.apache.org/bxml"
                                 xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}"/>
                         </Border>
@@ -102,21 +102,40 @@
                     <columns>
                         <TablePane.Column/>
                     </columns>
-                    <TablePane.Row height="370">
-                        <Border>
+                    <TablePane.Row height="15">
+                        <Label text="Doppelklick auf Zeile um Werte zu ändern"/>
+                    </TablePane.Row>
+                    <TablePane.Row height="355">
+                        <Border>   
+                        
                             <ScrollPane horizontalScrollBarPolicy="fill">
-                            
-                                <TableView bxml:id="parameterTable" xmlns:bxml="http://pivot.apache.org/bxml"
-                                xmlns="org.apache.pivot.wtk" maximumWidth="645" minimumWidth="645">
+                                <TableView bxml:id="parameterTableView" xmlns:bxml="http://pivot.apache.org/bxml"
+                                xmlns="org.apache.pivot.wtk" maximumWidth="645" minimumWidth="645"
+                                styles="{backgroundColor:'#EBEDEF'}">
                                     <columns>
                                         <TableView.Column name="parameter" headerData="Parameter" width="400"/>
-                                        <TableView.Column name="operator" headerData="Operator" width="75"/>
                                         <TableView.Column name="minimum" headerData="Minimum" width="85"/>
                                         <TableView.Column name="maximum" headerData="Maximum" width="85"/>
                                     </columns>
+                                    
+                                    <rowEditor>
+                                        <content:TableViewRowEditor editEffect="crossfade">
+                                            <cellEditors>
+
+                                                <minimum>
+                                                    <TextInput textKey="minimum">
+                                                    </TextInput>
+                                                </minimum>
+
+                                                <maximum>
+                                                    <TextInput textKey="maximum"/>
+                                                </maximum>
+                                            </cellEditors>
+                                        </content:TableViewRowEditor>
+                                    </rowEditor>
                                 </TableView>
                                 <columnHeader>
-                                    <TableViewHeader tableView="$parameterTable" sortMode="single_column"/>
+                                    <TableViewHeader tableView="$parameterTableView" sortMode="single_column"/>
                                 </columnHeader>
                             </ScrollPane>
                         </Border>

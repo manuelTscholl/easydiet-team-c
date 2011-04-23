@@ -10,9 +10,10 @@ import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.DietParameterData;
 import java.net.URL;
 import java.util.Date;
-import java.util.HashMap;
 
 import org.apache.pivot.beans.Bindable;
+import org.apache.pivot.collections.ArrayList;
+import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
@@ -24,6 +25,7 @@ import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ListView;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TablePane;
+import org.apache.pivot.wtk.TableView;
 import org.apache.pivot.wtk.content.ButtonData;
 
 /**
@@ -41,6 +43,7 @@ public class DietPlanDialog extends Dialog implements Bindable {
     private PushButton _addParameterButton;
     private PushButton _removeParameterButton;
     private TablePane _setParametersTablePane;
+    private TableView _parameterTableView;
     private PushButton _cancelButton;
     private PushButton _backButton;
     private PushButton _forwardButton;
@@ -52,12 +55,18 @@ public class DietPlanDialog extends Dialog implements Bindable {
     private int _selectedStep;
     private CalendarButton _startDate;
     private CalendarButton _endDate;
+    private List<DietParameterData> _parameters;
     private List<DietParameterData> _chosenParameters;
     private List<Double> _parameterMinValues;
     private List<Double> _parameterMaxValues;
 
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
         _selectedStep = 0;
+
+        // init lists
+        _chosenParameters = new ArrayList<DietParameterData>();
+        _parameterMaxValues = new ArrayList<Double>();
+        _parameterMinValues = new ArrayList<Double>();
 
         // get GUI components
         _dateChooserTablePane = (TablePane) namespace.get("dateChooserTablePane");
@@ -68,6 +77,7 @@ public class DietPlanDialog extends Dialog implements Bindable {
         _parameterListView = (ListView) namespace.get("parameterListView");
         _chosenParameterListView = (ListView) namespace.get("chosenParameterListView");
         _addParameterButton = (PushButton) namespace.get("addParameterButton");
+        _parameterTableView = (TableView) namespace.get("parameterTableView");
         _removeParameterButton = (PushButton) namespace.get("removeParameterButton");
         _cancelButton = (PushButton) namespace.get("cancelButton");
         _backButton = (PushButton) namespace.get("backButton");
@@ -89,6 +99,11 @@ public class DietPlanDialog extends Dialog implements Bindable {
         // disable back button for first step
         _backButton.setEnabled(false);
 
+        // get all parameters and put into list
+        _parameters = GUIController.getInstance().getAllParameters();
+        _parameterListView.setListData(_parameters);
+        _chosenParameterListView.setListData(_chosenParameters);
+
         // button listeners
         _forwardButton.getButtonPressListeners().add(new ButtonPressListener() {
 
@@ -103,25 +118,25 @@ public class DietPlanDialog extends Dialog implements Bindable {
                 setStep(_selectedStep, --_selectedStep);
             }
         });
-        
+
         // button listeners for adding and removing parameters
         _addParameterButton.getButtonPressListeners().add(new ButtonPressListener() {
 
             public void buttonPressed(Button button) {
-                //TODO implement
+                DietParameterData param = (DietParameterData) _parameterListView.getSelectedItem();
+                _chosenParameters.add(param);
+                _parameters.remove(param);
             }
         });
-        
+
         _removeParameterButton.getButtonPressListeners().add(new ButtonPressListener() {
 
             public void buttonPressed(Button button) {
-                //TODO implement
+                DietParameterData param = (DietParameterData) _chosenParameterListView.getSelectedItem();
+                _parameters.add(param);
+                _chosenParameters.remove(param);
             }
         });
-        
-        // get all parameters
-        List<DietParameterData> parameters = GUIController.getInstance().getAllParameters();
-        _parameterListView.setListData(parameters);
     }
 
     /**
@@ -132,7 +147,7 @@ public class DietPlanDialog extends Dialog implements Bindable {
     private void setStep(int lastStep, int nextStep) {
 
         // check if in range
-        if (nextStep < _stepsLabel.size() && nextStep >= 0) {
+        if (nextStep < _stepsLabel.getCount() && nextStep >= 0) {
 
             // go to next step
             _stepsTablePane.get(nextStep).setVisible(true);
@@ -143,8 +158,10 @@ public class DietPlanDialog extends Dialog implements Bindable {
             _stepsLabel.get(lastStep).getStyles().put("color", "#BDBDBD");
         }
 
-        // final step
-        if (_selectedStep == _stepsLabel.size() - 1) {
+        // final step -> add parameter values
+        if (_selectedStep == _stepsLabel.getCount() - 1) {
+            updateParamTable();
+
             _forwardButton.setButtonData(new ButtonData("Fertigstellen"));
         } else {
             _forwardButton.setButtonData(new ButtonData("Weiter"));
@@ -158,21 +175,39 @@ public class DietPlanDialog extends Dialog implements Bindable {
         }
 
         // selected index is too high
-        if (nextStep > _stepsLabel.size()) {
-            _selectedStep = _stepsLabel.size() - 1;
+        if (nextStep > _stepsLabel.getCount()) {
+            _selectedStep = _stepsLabel.getCount() - 1;
         }
 
         // check if finish button is pressed
-        if(nextStep == _stepsLabel.size()){
-            
+        if (nextStep == _stepsLabel.getCount()) {
+
             // get date
             Date start = _startDate.getSelectedDate().toCalendar().getTime();
             Date end = _endDate.getSelectedDate().toCalendar().getTime();
+
+            //TODO get parameter values
+            //TODO check if all parameters have values
             
             // process
             GUIController.getInstance().newDietryPlan(start, end, _chosenParameters, _parameterMaxValues,
                     _parameterMinValues);
             close();
         }
+    }
+
+    /**
+     * Update table view for adding parameter values
+     */
+    private void updateParamTable() {
+        ArrayList<HashMap<String, String>> tableData = new ArrayList<HashMap<String, String>>();
+
+        for (DietParameterData d : _chosenParameters) {
+            HashMap<String, String> row = new HashMap<String, String>();
+            row.put("parameter", d.getParameterName());
+            tableData.add(row);
+        }
+        
+        _parameterTableView.setTableData(tableData);
     }
 }

@@ -94,22 +94,9 @@ public class MealCodeBo implements java.io.Serializable, Saveable, MealCodeData
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    /**
-     * @see at.easydiet.teamc.model.data.MealCodeData#getMealName()
-     */
     @Override
-    public String getMealName()
-    {
-        return null;
-    }
-
-    /**
-     * @see at.easydiet.teamc.model.data.MealCodeData#getMealCode()
-     */
-    @Override
-    public String getMealCode()
-    {
-        return null;
+    public String toString(){
+        return _Meal.getName();
     }
 
 }
