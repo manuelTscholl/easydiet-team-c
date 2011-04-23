@@ -41,12 +41,17 @@ public class MealCodeDao
     public List<MealCodeBo> findAll()
     {
         List<MealCodeBo> codes = new ArrayList<MealCodeBo>();
-        List<Meal> meals = HibernateUtil.currentSession().createCriteria(Meal.class)
+        List<String> mealNames= HibernateUtil.currentSession().createCriteria(Meal.class)
+        .setProjection(Projections.groupProperty("name")).list();
+        List<String> mealCodes= HibernateUtil.currentSession().createCriteria(Meal.class)
         .setProjection(Projections.groupProperty("code")).list();
 
-        for (Meal item : meals)
+        //add the 2 columns into the MealCodeBo object
+        //attention there is no reference to the database values because they are grouped!
+        for (int i = 0; i < mealNames.size(); i++)
         {
-            codes.add(new MealCodeBo(item));
+            codes.add(new MealCodeBo(mealCodes.get(i),mealNames.get(i)));
+            
         }
         
         return codes;        
