@@ -68,7 +68,7 @@
                             xmlns="org.apache.pivot.wtk">
                             <ListView selectMode="multi" bxml:id="parameterListView"
                                 xmlns:bxml="http://pivot.apache.org/bxml"
-                                xmlns="org.apache.pivot.wtk"/>
+                                xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}"/>
                         </Border>
                          <!-- END Parameters -->
 
@@ -87,7 +87,9 @@
                         <Border title="Hinzugefügte Parameter" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
                             xmlns:bxml="http://pivot.apache.org/bxml"
                             xmlns="org.apache.pivot.wtk">
-
+                            <ListView selectMode="multi" bxml:id="chosenParameterListView"
+                                xmlns:bxml="http://pivot.apache.org/bxml"
+                                xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}"/>
                         </Border>
                         <!-- END Added Parameters -->
 

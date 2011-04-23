@@ -17,6 +17,8 @@ import org.apache.pivot.wtk.TextInput;
 import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
+import at.easydiet.teamc.util.ListConverter;
+import at.easydiet.teamc.view.ChooseMealDialog;
 import at.easydiet.teamc.view.ContentTabPane;
 import at.easydiet.teamc.view.DateDialog;
 import at.easydiet.teamc.view.DietPlanDialog;
@@ -170,39 +172,55 @@ public class GUIController implements PatientListener {
             LOGGER.error(ex);
         }
     }
-    
+
     /**
      * Get all parameters
      * @return All available parameters
      */
-    public List<DietParameterData> getAllParameters(){
+    public List<DietParameterData> getAllParameters() {
         java.util.List parameters = _businessLogicDelegationController.getAllParameters();
-        List<DietParameterData> pivotList = new ArrayList<DietParameterData>();
-        
-        // convert to pivot list
-        for(Object dpd:parameters){
-            pivotList.add((DietParameterData)dpd);
-        }
-        
+        List<DietParameterData> pivotList = ListConverter.convertToPivotList(parameters);
+
         return pivotList;
     }
-    
+
     /**
      * Create a new dietry plan
      * @param start Plan start date
      * @param end Plan end date
      * @param dpList List of parameters for this plan
+     * @param parameterValues Values for the chosen parameters
      */
-    public void newDietryPlan(Date start, Date end, List<DietParameterData> dpList){
-        
+    public void newDietryPlan(Date start, Date end, List<DietParameterData> dpList,
+            List<Double> parameterValues) {
+
         // convert pivot list to java list
-        java.util.List<DietParameterData> list = new java.util.ArrayList<DietParameterData>();
-        for(DietParameterData dp:dpList){
-            list.add(dp);
-        }
-        
-        DietryPlanData plan = _businessLogicDelegationController.newDietryPlan(start, end, list);
+        java.util.List<DietParameterData> list = ListConverter.convertToJavaList(dpList);
+        java.util.List<Double> valueList = ListConverter.convertToJavaList(parameterValues);
+
+        DietryPlanData plan = _businessLogicDelegationController.newDietryPlan(start, end, list, valueList);
         _navTab.drawDietryPlanMenu(plan);
         _contentTab.drawDietryPlan(plan);
+    }
+
+    /**
+     * Opens the dialog for creating a new meal
+     * @param day to add a meal
+     */
+    public void addMeal(int day) {
+
+        // load dialog for creating a new dietplan
+        BXMLSerializer bxml = new BXMLSerializer();
+        ChooseMealDialog chooseMealDialog;
+        try {
+            chooseMealDialog = (ChooseMealDialog) bxml.readObject(ChooseMealDialog.class,
+                    "bxml/choose_meal_dialog.bxml");
+            chooseMealDialog.setDay(day);
+            chooseMealDialog.open(_easyDietWindow);
+        } catch (IOException ex) {
+            LOGGER.error(ex);
+        } catch (SerializationException ex) {
+            LOGGER.error(ex);
+        }
     }
 }

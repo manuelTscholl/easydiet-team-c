@@ -19,9 +19,20 @@ import org.apache.pivot.wtk.Dialog;
  * @author Michael
  */
 public class ChooseMealDialog extends Dialog implements Bindable {
+    
+    // instance variables
+    private int _day;
 
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
         
+    }
+    
+    /**
+     * Add day for which this meal is for
+     * @param day 
+     */
+    public void setDay(int day){
+        _day = day;
     }
 
 }
