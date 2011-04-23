@@ -66,9 +66,8 @@ public class ChooseMealDialog extends Dialog implements Bindable {
         _chosenRecipeTreeView = (TreeView) namespace.get("chosenRecipeTreeView");
 
         // get meal codes
-        //TODO activate
-        //_mealCodes = GUIController.getInstance().getAllMealCodes(); 
-        //_mealChooserListButton.setListData(_mealCodes);
+        _mealCodes = GUIController.getInstance().getAllMealCodes(); 
+        _mealChooserListButton.setListData(_mealCodes);
 
         initRecipeMainCategories();
 
