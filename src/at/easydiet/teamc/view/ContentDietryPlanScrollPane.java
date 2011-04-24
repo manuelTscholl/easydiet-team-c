@@ -87,9 +87,9 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
         GUIComponents.put(getName(), this);
 
         //TODO FOR TESTING ONLY
-        for (int i = 0; i < 20; i++) {
-            addDay();
-        }
+//        for (int i = 0; i < 20; i++) {
+//            addDay();
+//        }
     }
 
     /**
@@ -133,6 +133,11 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
      * @param dpd Plan to draw
      */
     public void drawDietryPlan(DietryPlanData dpd) {
+        
+        // clean
+        //TODO clean before new plan is drawn
+        
+        // draw days
         for (int i = 0; i < dpd.getDuration(); i++) {
             addDay();
         }
