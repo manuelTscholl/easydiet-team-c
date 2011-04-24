@@ -56,6 +56,7 @@ public class DietPlanDialog extends Dialog implements Bindable {
     private CalendarButton _startDate;
     private CalendarButton _endDate;
     private List<DietParameterData> _parameters;
+    private HashMap<String, DietParameterData> _chosenParameterNames;
     private List<DietParameterData> _chosenParameters;
     private List<Double> _parameterMinValues;
     private List<Double> _parameterMaxValues;
@@ -64,6 +65,7 @@ public class DietPlanDialog extends Dialog implements Bindable {
         _selectedStep = 0;
 
         // init lists
+        _chosenParameterNames = new HashMap<String, DietParameterData>();
         _chosenParameters = new ArrayList<DietParameterData>();
         _parameterMaxValues = new ArrayList<Double>();
         _parameterMinValues = new ArrayList<Double>();
@@ -125,6 +127,7 @@ public class DietPlanDialog extends Dialog implements Bindable {
             public void buttonPressed(Button button) {
                 DietParameterData param = (DietParameterData) _parameterListView.getSelectedItem();
                 _chosenParameters.add(param);
+                _chosenParameterNames.put(param.getParameterName(), param);
                 _parameters.remove(param);
             }
         });
@@ -135,6 +138,7 @@ public class DietPlanDialog extends Dialog implements Bindable {
                 DietParameterData param = (DietParameterData) _chosenParameterListView.getSelectedItem();
                 _parameters.add(param);
                 _chosenParameters.remove(param);
+                _chosenParameterNames.remove(param.getParameterName());
             }
         });
     }
@@ -186,12 +190,25 @@ public class DietPlanDialog extends Dialog implements Bindable {
             Date start = _startDate.getSelectedDate().toCalendar().getTime();
             Date end = _endDate.getSelectedDate().toCalendar().getTime();
 
-            //TODO get parameter values
+            // get parameter values
+            ArrayList<HashMap<String, String>> map =
+                    (ArrayList<HashMap<String, String>>) _parameterTableView.getTableData();
+
+            // create max and min values list
+            List<DietParameterData> params = new ArrayList<DietParameterData>();
+            List<Double> maxValues = new ArrayList<Double>();
+            List<Double> minValues = new ArrayList<Double>();
+            for (HashMap<String, String> data : map) {
+                params.add(_chosenParameterNames.get(data.get("parameter")));
+                maxValues.add(Double.parseDouble(data.get("maximum").toString()));
+                minValues.add(Double.parseDouble(data.get("minimum").toString()));
+            }
+
             //TODO check if all parameters have values
-            
+
             // process
-            GUIController.getInstance().newDietryPlan(start, end, _chosenParameters, _parameterMaxValues,
-                    _parameterMinValues);
+            GUIController.getInstance().newDietryPlan(start, end, params, maxValues,
+                    minValues);
             close();
         }
     }
@@ -207,7 +224,7 @@ public class DietPlanDialog extends Dialog implements Bindable {
             row.put("parameter", d.getParameterName());
             tableData.add(row);
         }
-        
+
         _parameterTableView.setTableData(tableData);
     }
 }
