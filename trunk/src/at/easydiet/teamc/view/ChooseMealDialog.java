@@ -18,7 +18,6 @@ import org.apache.pivot.collections.Map;
 import org.apache.pivot.collections.Sequence.Tree.Path;
 import org.apache.pivot.collections.Set;
 import org.apache.pivot.util.Resources;
-import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Dialog;
@@ -28,7 +27,6 @@ import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.TreeView;
 import org.apache.pivot.wtk.TreeViewBranchListener;
-import org.apache.pivot.wtk.Window;
 import org.apache.pivot.wtk.content.TreeBranch;
 
 /**
