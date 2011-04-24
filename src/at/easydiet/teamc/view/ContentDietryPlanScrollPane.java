@@ -87,9 +87,9 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
         GUIComponents.put(getName(), this);
 
         //TODO FOR TESTING ONLY
-//        for (int i = 0; i < 20; i++) {
-//            addDay();
-//        }
+        for (int i = 0; i < 10; i++) {
+            addDay();
+        }
     }
 
     /**
