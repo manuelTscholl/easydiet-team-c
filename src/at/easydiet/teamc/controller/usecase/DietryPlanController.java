@@ -209,6 +209,7 @@ public class DietryPlanController extends Event<EventArgs> {
      * @param day Defines exact day in Timespan
      */
     public void addMealCode(MealCodeData mcd, int day) {
+    	System.out.println(mcd.getName());
         _tempMeal = _dietPlanBo.addMealCode(mcd, day);
     }
 
@@ -218,7 +219,7 @@ public class DietryPlanController extends Event<EventArgs> {
      * @return Index of the new MealLine
      */
     public int addMealLine() {
-        return _dietPlanBo.addMealLine();
+        return _dietPlanBo.addMealLine(this._tempMeal);
     }
 
     /**

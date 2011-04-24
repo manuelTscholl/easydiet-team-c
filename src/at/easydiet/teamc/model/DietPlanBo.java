@@ -9,6 +9,7 @@ import java.util.Set;
 
 import at.easydiet.model.DietParameter;
 import at.easydiet.model.DietPlan;
+import at.easydiet.model.Meal;
 import at.easydiet.model.TimeSpan;
 import at.easydiet.teamc.model.data.ParameterCheckResult;
 
@@ -140,11 +141,12 @@ public class DietPlanBo implements java.io.Serializable, Saveable {
     }
 
     public MealBo addMealCode(MealCodeData mcd, int day) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    	MealBo mBo=new MealBo(new Meal(mcd.getCode(), mcd.getName()));    	
+    	return mBo;
     }
 
-    public int addMealLine() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public int addMealLine(MealBo currentMealBo) {
+       return currentMealBo.addMealLine();
     }
 
     public ParameterCheckResult checkRecipeWithParameters(RecipeBo rb) {
