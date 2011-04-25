@@ -193,7 +193,9 @@ public class BusinessLogicDelegationController {
 	}
 
         /**
-	 *
+	 * Adds MealData to the DietPlan in progress
+         * @param day Defines exact day in TimeSpan
+         * @param mcd MealCode to add
 	 * @return
 	 */
 	public void addMealCode(MealCodeData mcd, int day) {
@@ -201,8 +203,8 @@ public class BusinessLogicDelegationController {
 	}
 
         /**
-	 *
-	 * @return
+	 * Add MealLineData to the Meal
+	 * @return Index of the MealLine
 	 */
 	public int addMealLine() {
 		return _dietryPlanController.addMealLine();
@@ -210,7 +212,7 @@ public class BusinessLogicDelegationController {
 
         /**
 	 * Return a list of Recipe-Categories
-	 * @return
+	 * @return Main Categories of Recipes
 	 */
 	public Set<RecipeData> getRecipeMainCategories() {	
 		return _dietryPlanController.getRecipeMainCategories();
@@ -218,13 +220,18 @@ public class BusinessLogicDelegationController {
 
     /**
      * {@link RecipeDAO#searchRecipe(String blsCategorie,String name)}
+     * @param search Search string
+     * @return Set of Recipes which are checked corresponding to the active parameters
      */
 	public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
 		return _dietryPlanController.searchRecipe(mainCategory, search);
 	}
 
         /**
-	 *
+	 * Add a Recipe to the Meal in progress
+         * @param mealLineID MealLine to whick the Recipe belongs
+         * @param quantity amount of Recipe in gramm.
+         * @param rd Recipe which will be added
 	 * @return
 	 */
 	public MealData addRecipetoMeal(RecipeData rd, float quantity,
@@ -233,7 +240,8 @@ public class BusinessLogicDelegationController {
 	}
 
         /**
-	 *
+	 * Returns DietPlan in progress
+         *
 	 * @return
 	 */
 	public void saveDietryPlan() {
@@ -241,7 +249,7 @@ public class BusinessLogicDelegationController {
 	}
 
         /**
-	 *
+	 * Returns DietPlan in progress
 	 * @return
 	 */
 	public DietryPlanData getDietryPlan() {
