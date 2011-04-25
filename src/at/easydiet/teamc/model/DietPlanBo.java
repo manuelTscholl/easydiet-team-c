@@ -159,7 +159,12 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
     }
 
     public int getDuration() {
-        //TODO implement
-        return 10;
+        int temp=0;
+        if(getTimeSpans().size()>0){
+            for (TimeSpanBo tsb : this.getTimeSpans()) {
+                temp=temp+tsb.getDuration();
+            }
+        }
+        return temp;
     }
 }
