@@ -140,12 +140,16 @@ public class ChooseMealDialog extends Dialog implements Bindable {
 
                 // get selected branch
                 RecipeTreeBranch branch = ((RecipeTreeBranch) treeView.getTreeData().get(path.toArray()[0]));
+                String blsSearch = branch.getRecipeData().getBlsCode().substring(0, 2);
                 Set<CheckedRecipeVo> checkedRecipes =
-                        GUIController.getInstance().searchRecipe(branch.getRecipeData().getBlsCode(), null);
+                        GUIController.getInstance().searchRecipe(blsSearch, null);
 
                 // add recipes
+                for(CheckedRecipeVo c:checkedRecipes){
+                    System.out.println(c.getRecipeData().getBlsCode());
+                }
                 addRecipesToCategory(checkedRecipes);
-                //TODO Rezepte müssen nach BLS Code geordnet sein
+                
             }
 
             public void branchCollapsed(TreeView treeView, Path path) {
@@ -170,7 +174,7 @@ public class ChooseMealDialog extends Dialog implements Bindable {
 
             // filter main categories
             if (!blsCode.contains(mainCategory)) {
-                RecipeTreeBranch recipeBranch = getBranchByBLSCode(blsCode.substring(0, 2));
+                RecipeTreeBranch recipeBranch = getBranchByBLSCode(blsCode.substring(0, 1));
                 RecipeTreeNode r = new RecipeTreeNode(c);
                 recipeBranch.add(r);
             }

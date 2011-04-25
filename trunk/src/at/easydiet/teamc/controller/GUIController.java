@@ -290,7 +290,7 @@ public class GUIController implements PatientListener {
      * @param mealLineId MealLine to add this recipe
      * @return 
      */
-    public MealData addRecipeToMeal(RecipeData rd, double quantity, int mealLineId) {
+    public MealData addRecipeToMeal(RecipeData rd, float quantity, int mealLineId) {
         return _businessLogicDelegationController.addRecipetoMeal(rd, quantity, mealLineId);
     }
 
