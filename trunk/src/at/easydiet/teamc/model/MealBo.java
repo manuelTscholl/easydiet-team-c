@@ -152,7 +152,7 @@ public class MealBo implements java.io.Serializable, Saveable, MealData {
 	public int addMealLine() {
 		//add a new MealLineBo to the existing lines	
 		MealLineBo newLine=new MealLineBo(new MealLine());
-		this.getMealLines().add(newLine);
+		this._meal.getMealLines().add(newLine.getMealLine());
 		//get the current mealLineIndex
 		int mealLineIndex=_meal.getMealLines().size();
 		return mealLineIndex;
