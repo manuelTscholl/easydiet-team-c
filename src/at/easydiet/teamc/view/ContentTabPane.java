@@ -17,6 +17,7 @@ import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.TabPane;
 
 import at.easydiet.teamc.model.data.PatientData;
+import org.apache.pivot.wtk.BoxPane;
 
 
 
@@ -29,6 +30,11 @@ public class ContentTabPane extends TabPane implements Bindable {
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentTabPane.class);
     // instance variables
+    private BoxPane _appointmentBoxPane;
+    private BoxPane _overviewBoxPane;
+    private BoxPane _contactJournalBoxPane;
+    private BoxPane _anamnesisBoxPane;
+    private BoxPane _dietryBoxPane;
     private ContentAppointmentScrollPane _appointmentScrollPane;
     private ContentOverviewScrollPane _overviewScrollPane;
     private ContentContactJournalScrollPane _contactJournalScrollPane;
@@ -50,6 +56,11 @@ public class ContentTabPane extends TabPane implements Bindable {
     public void initialize(Map<String, Object> map, URL url, Resources rsrcs) {
 
         // get tab content
+        _appointmentBoxPane = (BoxPane)map.get("appointmentTab");
+        _overviewBoxPane = (BoxPane)map.get("overviewTab");
+        _contactJournalBoxPane = (BoxPane)map.get("contactJournalTab");
+        _anamnesisBoxPane = (BoxPane)map.get("anamnesisTab");
+        _dietryBoxPane = (BoxPane)map.get("dietryPlanTab");
         _appointmentScrollPane = (ContentAppointmentScrollPane) map.get("content_appointment");
         _patientDataListeners.add(_appointmentScrollPane);
         _overviewScrollPane = (ContentOverviewScrollPane) map.get("content_overview");
@@ -117,9 +128,9 @@ public class ContentTabPane extends TabPane implements Bindable {
      * Unlock all menu items, which are patient specific
      */
     public void unlockPatientSpecificItems(){
-        _anamnesisScrollPane.setEnabled(true);
-        _contactJournalScrollPane.setEnabled(true);
-        _dietryPlanScrollPane.setEnabled(true);
-        _overviewScrollPane.setEnabled(true);
+        _overviewBoxPane.setEnabled(true);
+        _contactJournalBoxPane.setEnabled(true);
+        _anamnesisBoxPane.setEnabled(true);
+        _dietryBoxPane.setEnabled(true);
     }
 }
