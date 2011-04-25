@@ -77,6 +77,11 @@ public class MealLineBo  implements java.io.Serializable, Saveable, MealLineData
             this._MealLine.getMealLines().add(mealLineBo.getMealLine());
         }
     }
+
+    public void addMealLine(MealLineBo mlb){
+        this._MealLine.getMealLines().add(mlb.getMealLine());
+    }
+
     public RecipeBo getRecipe() {
         return this._recipe;
     }
