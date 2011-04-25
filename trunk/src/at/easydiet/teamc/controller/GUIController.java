@@ -36,6 +36,8 @@ import java.util.Date;
 import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.serialization.SerializationException;
+import org.apache.pivot.wtk.Alert;
+import org.apache.pivot.wtk.MessageType;
 
 /**
  * Controls and knows all GUI elements
@@ -131,8 +133,7 @@ public class GUIController implements PatientListener {
      * @param patients
      */
     public void updateSearchResult(Set<PatientData> patients) {
-        _navTab.updateSearchResult((org.apache.pivot.collections.Set<PatientData>)CollectionConverter
-                .convertToPivotSet(patients));
+        _navTab.updateSearchResult((org.apache.pivot.collections.Set<PatientData>) CollectionConverter.convertToPivotSet(patients));
     }
 
     /**
@@ -205,8 +206,15 @@ public class GUIController implements PatientListener {
 
         DietryPlanData plan = _businessLogicDelegationController.newDietryPlan(start, end, list,
                 maxValueList, minValueList);
-        _navTab.drawDietryPlanMenu(plan);
-        _contentTab.drawDietryPlan(plan);
+
+        // check for plan
+        if (plan != null) {
+            _navTab.drawDietryPlanMenu(plan);
+            _contentTab.drawDietryPlan(plan);
+        } else {
+            Alert.alert(MessageType.ERROR, "Der Diätplan konnte nicht erstellt werden.", _easyDietWindow);
+            LOGGER.error("DietPlan is empty");
+        }
     }
 
     /**
@@ -235,7 +243,7 @@ public class GUIController implements PatientListener {
      * @return 
      */
     public List<MealCodeData> getAllMealCodes() {
-        return (List<MealCodeData>)CollectionConverter.convertToPivotList(_businessLogicDelegationController.getAllMealCodes());
+        return (List<MealCodeData>) CollectionConverter.convertToPivotList(_businessLogicDelegationController.getAllMealCodes());
     }
 
     /**
@@ -259,8 +267,7 @@ public class GUIController implements PatientListener {
      * Get all recipe main categories
      */
     public org.apache.pivot.collections.Set<RecipeData> getRecipeMainCategories() {
-        return (org.apache.pivot.collections.Set<RecipeData>)CollectionConverter
-                .convertToPivotSet(_businessLogicDelegationController.getRecipeMainCategories());
+        return (org.apache.pivot.collections.Set<RecipeData>) CollectionConverter.convertToPivotSet(_businessLogicDelegationController.getRecipeMainCategories());
     }
 
     /**
@@ -271,8 +278,7 @@ public class GUIController implements PatientListener {
      * @return All matched recipe with parameter check
      */
     public org.apache.pivot.collections.Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
-        return (org.apache.pivot.collections.Set<CheckedRecipeVo>)CollectionConverter
-                .convertToPivotSet(_businessLogicDelegationController.searchRecipe(mainCategory, search));
+        return (org.apache.pivot.collections.Set<CheckedRecipeVo>) CollectionConverter.convertToPivotSet(_businessLogicDelegationController.searchRecipe(mainCategory, search));
     }
 
     /**
