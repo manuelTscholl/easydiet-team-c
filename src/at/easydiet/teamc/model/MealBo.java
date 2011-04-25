@@ -158,6 +158,17 @@ public class MealBo implements java.io.Serializable, Saveable, MealData {
 		return mealLineIndex;
 		
 	}
+
+    public MealData addRecipe(RecipeBo recipeBo, float quantity, int mealLineID) {
+        MealLineBo mlb = (MealLineBo) this._meal.getMealLines().toArray()[mealLineID];
+        if(mlb.getRecipe()==null){
+            mlb.setRecipe(recipeBo);
+            mlb.setQuantity(quantity);
+        }else{
+            mlb.addMealLine(new MealLineBo(quantity, recipeBo));
+        }
+        return (MealData) this;
+    }
 	
 	
 

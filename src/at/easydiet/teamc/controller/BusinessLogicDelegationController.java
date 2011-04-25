@@ -227,7 +227,7 @@ public class BusinessLogicDelegationController {
 	 *
 	 * @return
 	 */
-	public MealData addRecipetoMeal(RecipeData rd, double quantity,
+	public MealData addRecipetoMeal(RecipeData rd, float quantity,
 			int mealLineID) {
 		return _dietryPlanController.addRecipeToMeal(rd, quantity, mealLineID);
 	}

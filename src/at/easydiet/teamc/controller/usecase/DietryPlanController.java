@@ -286,8 +286,8 @@ public class DietryPlanController extends Event<EventArgs> {
      * @param mealLineID MealLine to which the Recipe belongs.
      * @return
      */
-    public MealData addRecipeToMeal(RecipeData rd, double quantity, int mealLineID) {
-        _dietPlanBo.addRecipe((RecipeBo) rd, quantity, mealLineID);
+    public MealData addRecipeToMeal(RecipeData rd, float quantity, int mealLineID) {
+        _tempMeal.addRecipe((RecipeBo) rd, quantity, mealLineID);
         return (MealData) _tempMeal;
     }
 
