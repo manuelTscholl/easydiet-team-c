@@ -25,6 +25,7 @@ public class RecipeTreeBranch extends TreeBranch {
     public RecipeTreeBranch(RecipeData r){
         _recipeData = r;
         setText(_recipeData.getName());
+        
     }
 
     public RecipeData getRecipeData(){

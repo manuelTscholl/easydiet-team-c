@@ -129,7 +129,7 @@ public class ChooseMealDialog extends Dialog implements Bindable {
                 // get selected branch
                 RecipeTreeBranch branch = ((RecipeTreeBranch) treeView.getTreeData().get(path.toArray()[0]));
                 Set<CheckedRecipeVo> checkedRecipes =
-                        GUIController.getInstance().searchRecipe(branch.getRecipeData().getName(), null);
+                        GUIController.getInstance().searchRecipe(branch.getRecipeData().getBlsCode(), null);
 
                 // add recipes
                 for (CheckedRecipeVo checked : checkedRecipes) {
