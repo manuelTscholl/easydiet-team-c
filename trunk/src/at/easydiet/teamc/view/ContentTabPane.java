@@ -112,4 +112,14 @@ public class ContentTabPane extends TabPane implements Bindable {
     public void drawDietryPlan(DietryPlanData plan){
         _dietryPlanScrollPane.drawDietryPlan(plan);
     }
+    
+    /**
+     * Unlock all menu items, which are patient specific
+     */
+    public void unlockPatientSpecificItems(){
+        _anamnesisScrollPane.setEnabled(true);
+        _contactJournalScrollPane.setEnabled(true);
+        _dietryPlanScrollPane.setEnabled(true);
+        _overviewScrollPane.setEnabled(true);
+    }
 }

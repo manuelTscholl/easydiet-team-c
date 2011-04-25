@@ -21,7 +21,7 @@
     </BoxPane>
 
 <!-- Overview Tab -->
-    <BoxPane bxml:id="overviewTab" orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
+    <BoxPane bxml:id="overviewTab" enabled="false" orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData icon="@document-list.png" text="Übersicht"/>
         </TabPane.tabData>
@@ -29,7 +29,7 @@
     </BoxPane>
 
 <!-- Contact Journal Tab -->
-    <BoxPane bxml:id="contactJournalTab" orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
+    <BoxPane bxml:id="contactJournalTab" enabled="false" orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData icon="@address-book-open.png" text="Kontaktjournal"/>
         </TabPane.tabData>
@@ -37,7 +37,7 @@
     </BoxPane>
 
 <!-- Anamnesis Tab -->
-    <BoxPane bxml:id="anamnesisTab" orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
+    <BoxPane bxml:id="anamnesisTab" enabled="false" orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData icon="@pin.png" text="Anamnese"/>
         </TabPane.tabData>
@@ -45,7 +45,7 @@
     </BoxPane>
 
 <!-- Dietry Plan Tab -->
-    <BoxPane bxml:id="dietryPlanTab" orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
+    <BoxPane bxml:id="dietryPlanTab" enabled="false" orientation="vertical" styles="{fill:true, horizontalAlignment:'left', verticalAlignment:'top'}">
         <TabPane.tabData>
             <content:ButtonData icon="@report-paper.png" text="Diätplan"/>
         </TabPane.tabData>
