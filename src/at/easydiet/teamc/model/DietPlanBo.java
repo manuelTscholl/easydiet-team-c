@@ -118,6 +118,10 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
         }
     }
 
+    public void addTimeSpan(TimeSpanBo timeSpanBo){
+        this._DietPlan.getTimeSpans().add(timeSpanBo.getTimeSpan());
+    }
+
     /**
      * @return the _DietPlan
      */

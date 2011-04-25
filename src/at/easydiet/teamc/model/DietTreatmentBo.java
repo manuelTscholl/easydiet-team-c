@@ -117,6 +117,11 @@ public class DietTreatmentBo  implements java.io.Serializable, Saveable {
             this._DietTreatment.getDietPlans().add(dietPlanBo.getDietPlan());
         }
     }
+
+    public void addDietPlan(DietPlanBo dietPlanBo){
+        this._DietTreatment.getDietPlans().add(dietPlanBo.getDietPlan());
+    }
+
     public Set<DietParameterBo> getDietParameters() {
         Set<DietParameterBo> temp = new HashSet<DietParameterBo>(this._DietTreatment.getDietParameters().size());
         for (DietParameter dietParameter : this._DietTreatment.getDietParameters()) {
