@@ -1,7 +1,7 @@
 /**
  * This File is part of Easy Diet
  * created on: 05.04.2011
- * created by: Friedrich B�sch
+ * created by: Ali Gümüs
  * file: BusinesLogicDelegationController.java
  */
 package at.easydiet.teamc.controller;
@@ -11,10 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.RecipeDAO;
-import at.easydiet.dao.SystemUserDAO;
-import at.easydiet.model.SystemUser;
 import at.easydiet.teamc.controller.usecase.DietryPlanController;
 import at.easydiet.teamc.controller.usecase.SearchParameterController;
 import at.easydiet.teamc.controller.usecase.SearchPatientController;
