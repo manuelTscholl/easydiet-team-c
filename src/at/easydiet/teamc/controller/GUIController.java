@@ -143,8 +143,10 @@ public class GUIController implements PatientListener {
     @Override
     public void chooseActivePatient(PatientData p) {
         _contentTab.setSelectedTabByName("overviewTab");
-        updatePatientData(p);
         _businessLogicDelegationController.setActivePatient(p);
+        _navTab.unlockPatientSpecificItems();
+        _contentTab.unlockPatientSpecificItems();
+        updatePatientData(p);
     }
 
     /**

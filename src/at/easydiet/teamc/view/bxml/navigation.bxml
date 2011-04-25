@@ -61,7 +61,7 @@
 <!-- End Search Tab -->
 
 <!-- Patientdata Tab -->
-    <BoxPane bxml:id="patientDataTab" styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
+    <BoxPane bxml:id="patientDataTab" enabled="false" styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
         <TabPane.tabData>
             <content:ButtonData icon="@table.png" text="Stammdaten"/>
         </TabPane.tabData>
@@ -87,7 +87,7 @@
 <!-- End Patientdata Tab -->
 
 <!-- Navigation Tab -->
-    <BoxPane bxml:id="navigationTab" styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
+    <BoxPane bxml:id="navigationTab" enabled="false" styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
         <TabPane.tabData>
             <content:ButtonData icon="@odata.png" text="Navigation"/>
         </TabPane.tabData>
@@ -130,7 +130,7 @@
 <!-- End Navigation Tab -->
 
 <!-- Edit Tab -->
-    <BoxPane bxml:id="editTab" styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
+    <BoxPane bxml:id="editTab" enabled="false" styles="{horizontalAlignment:'left', verticalAlignment:'top', padding:'{left:10, right:10}'}">
         <TabPane.tabData>
             <content:ButtonData icon="@pencil.png" text="Bearbeiten"/>
         </TabPane.tabData>

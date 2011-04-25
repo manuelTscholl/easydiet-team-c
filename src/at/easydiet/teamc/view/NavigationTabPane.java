@@ -37,6 +37,8 @@ public class NavigationTabPane extends TabPane implements Bindable {
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(NavigationTabPane.class);
     // instance variables
+    private BoxPane _searchBoxPane;
+    private BoxPane _editBoxPane;
     @BXML
     private TextInput _searchTextInput;
     @BXML
@@ -68,14 +70,16 @@ public class NavigationTabPane extends TabPane implements Bindable {
     public void initialize(Map<String, Object> map, URL url, Resources rsrcs) {
 
         // get GUI components
+        _searchBoxPane = (BoxPane)map.get("searchTab");
+        _editBoxPane = (BoxPane)map.get("editTab");
+        _patientDataBoxPane = (BoxPane)map.get("patientDataTab");
         _searchTextInput = (TextInput) map.get("searchTextInput");
-        _patientDataBoxPane = (BoxPane) map.get("patientDataBoxPane");
-        _navigationBoxPane = (BoxPane) map.get("navigationBoxPane");
+        _navigationBoxPane = (BoxPane) map.get("navigationTab");
         _editTablePane = (TablePane) map.get("editTablePane");
         _searchResultTablePane = (TablePane) map.get("searchResultTablePane");
         _searchResultScrollPane = (ScrollPane) map.get("searchResultScrollPane");
         _searchActivityIndicator = (ActivityIndicator) map.get("searchActivityIndicator");
-        
+
         // init navigation mode
         _navigationMode = new DefaultNavigationMode(this);
 
@@ -103,7 +107,6 @@ public class NavigationTabPane extends TabPane implements Bindable {
     public BoxPane getPatientDataBoxPane() {
         return _patientDataBoxPane;
     }
-    
 
     /**
      * Getter for the search textinput field
@@ -186,12 +189,21 @@ public class NavigationTabPane extends TabPane implements Bindable {
         _navigationMode = new DietryPlanNavigationMode(this);
         _navigationMode.draw();
     }
-    
+
     /**
      * Draw a menu for dietry plan
      * @param plan to draw a menu for
      */
-    public void drawDietryPlanMenu(DietryPlanData plan){
+    public void drawDietryPlanMenu(DietryPlanData plan) {
         //TODO implement navigation for dietry plan
+    }
+
+    /**
+     * Unlock all menu items, which are patient specific
+     */
+    public void unlockPatientSpecificItems() {
+        _patientDataBoxPane.setEnabled(true);
+        _navigationBoxPane.setEnabled(true);
+        _editBoxPane.setEnabled(true);
     }
 }
