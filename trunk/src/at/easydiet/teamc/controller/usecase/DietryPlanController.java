@@ -9,6 +9,7 @@ import java.util.Set;
 
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
+import at.easydiet.teamc.model.CheckOperatorBo;
 import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.DietPlanBo;
 import at.easydiet.teamc.model.DietTreatmentBo;
@@ -58,11 +59,10 @@ public class DietryPlanController extends Event<EventArgs> {
      * Timespan which is generated at the moment but not submitted to a dietplan.
      */
     private TimeSpanBo _tempTimeSpanBo;
-
     /**
      * Constant facotr for millisecond/day converting
      */
-    private final int MILLISECONDS_TO_DAY_FACTOR=86400000;
+    private final int MILLISECONDS_TO_DAY_FACTOR = 86400000;
 
     private DietryPlanController(Object sender) {
         super(sender);
@@ -98,9 +98,21 @@ public class DietryPlanController extends Event<EventArgs> {
         //TODO combine max and min parameters with values!
         //TODO NULL check!!
 
+        if (activePatient == null) {
+            return null;
+        }
+
+        if (startdate == null || enddate == null) {
+            return null;
+        }
+
+        //List<DietParameterData> dptd can be null
+
         Set<DietParameterBo> dpb = new HashSet<DietParameterBo>();
         long duration;
         TimeSpanBo timespanbo;
+        DietParameterBo dpbo;
+        DietParameterBo dpbo2;
 
         //cache activePatiet
         _activePatient = activePatient;
@@ -113,14 +125,21 @@ public class DietryPlanController extends Event<EventArgs> {
             _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo("Testplan"), activeUser);
 
             //cast DietParameterData to DietParameterBo
-            for (DietParameterData dpd : dptd) {
-                dpb.add((DietParameterBo) dpd);
+            if (dptd != null) {
+                for (int i = 0; i < dptd.size(); i++) {
+                    dpbo = (DietParameterBo) dptd.get(i);
+                    dpbo.setValue(parameterMinValues.get(i).toString());
+                    dpbo.setCheckOperatorBo(new CheckOperatorBo(">="));
+                    dpbo2 = new DietParameterBo(new CheckOperatorBo("<="), dpbo.getDietParameterType(), dpbo.getParameterDefinition());
+                    dpbo2.setDietParameterTemplateId(dpbo.getDietParameterTemplateId());
+                    dpbo2.setValue(parameterMaxValues.get(i).toString());
+                }
             }
 
             //Setting the Parameters for Diatplan
             _dietPlanBo.setDietParameters(dpb);
 
-            duration = (enddate.getTime() - startdate.getTime()) / MILLISECONDS_TO_DAY_FACTOR;
+            duration = 1+((enddate.getTime() - startdate.getTime()) / MILLISECONDS_TO_DAY_FACTOR);
             timespanbo = new TimeSpanBo(startdate, (int) duration);
 
             //TODO activate save methods and treatment
@@ -212,7 +231,7 @@ public class DietryPlanController extends Event<EventArgs> {
      * @param day Defines exact day in Timespan
      */
     public void addMealCode(MealCodeData mcd, int day) {
-    	System.out.println(mcd.getName());
+        System.out.println(mcd.getName());
         _tempMeal = _dietPlanBo.addMealCode(mcd, day);
     }
 
@@ -248,10 +267,11 @@ public class DietryPlanController extends Event<EventArgs> {
 
         Set<CheckedRecipeVo> temp = new HashSet<CheckedRecipeVo>();
         Set<RecipeBo> recipes = _searchRecipeController.searchRecipe(mainCategory, search);
-        
-        if(recipes!=null)
-        for (RecipeBo rb : recipes) {
-            temp.add(new CheckedRecipeVo((RecipeData) rb, _dietPlanBo.checkRecipeWithParameters(rb)));
+
+        if (recipes != null) {
+            for (RecipeBo rb : recipes) {
+                temp.add(new CheckedRecipeVo((RecipeData) rb, _dietPlanBo.checkRecipeWithParameters(rb)));
+            }
         }
         return temp;
     }

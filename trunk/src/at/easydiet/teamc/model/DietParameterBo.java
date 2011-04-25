@@ -18,6 +18,11 @@ public class DietParameterBo extends DietParameterTemplateBo implements java.io.
 
     public DietParameterBo(DietParameter dietparameter) {
         this._dietParameter = dietparameter;
+        this.setDietParameterTemplate(dietparameter);
+        this.setCheckOperatorBo(new CheckOperatorBo(_dietParameter.getCheckOperator()));
+        this.setDietParameterType(new DietParameterTypeBo(_dietParameter.getDietParameterType()));
+        this.setParameterDefinition(new ParameterDefinitionBo(_dietParameter.getParameterDefinition()));
+        this.setStart(_dietParameter.getStart());
     }
 
     public DietParameterBo(CheckOperatorBo checkOperator, DietParameterTypeBo dietParameterType, ParameterDefinitionBo parameterDefinition) {
@@ -42,7 +47,7 @@ public class DietParameterBo extends DietParameterTemplateBo implements java.io.
     /**
      * @param dieDietParameter the _dietParameter to set
      */
-    public void setDieDietParameter(DietParameter dieDietParameter) {
+    public void setDietParameter(DietParameter dieDietParameter) {
         this._dietParameter = dieDietParameter;
     }
 
