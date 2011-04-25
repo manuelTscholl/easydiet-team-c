@@ -146,7 +146,8 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
     }
 
     public MealBo addMealCode(MealCodeData mcd, int day) {
-    	MealBo mBo=new MealBo(new Meal(mcd.getCode(), mcd.getName()));    	
+    	MealBo mBo=new MealBo(new Meal(mcd.getCode(), mcd.getName()));
+        serachTimespan(day).addMeal(mBo);
     	return mBo;
     }
 
@@ -170,5 +171,21 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
             }
         }
         return temp;
+    }
+
+    /**
+     * Looks for the right Timespan in a diatplan.
+     *
+     * @param day
+     * @return
+     */
+    private TimeSpanBo serachTimespan(int day){
+        for(TimeSpanBo tsb:this.getTimeSpans()){
+            day=day-tsb.getDuration();
+            if(day<=0){
+                return tsb;
+            }
+        }
+        return null;
     }
 }

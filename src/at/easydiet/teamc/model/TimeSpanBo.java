@@ -88,6 +88,11 @@ public class TimeSpanBo  implements java.io.Serializable, Saveable {
             this._TimeSpan.getMeals().add(mealBo.getMeal());
         }
     }
+     void addMeal(MealBo mBo) {
+        this._TimeSpan.getMeals().add(mBo.getMeal());
+    }
+
+
 
     /**
      * @return the _TimeSpan
@@ -107,6 +112,7 @@ public class TimeSpanBo  implements java.io.Serializable, Saveable {
     public boolean save() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
 
 
 
