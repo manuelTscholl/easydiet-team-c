@@ -11,12 +11,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.RecipeDAO;
+import at.easydiet.dao.SystemUserDAO;
+import at.easydiet.model.SystemUser;
 import at.easydiet.teamc.controller.usecase.DietryPlanController;
 import at.easydiet.teamc.controller.usecase.SearchParameterController;
 import at.easydiet.teamc.controller.usecase.SearchPatientController;
 import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.PatientBo;
+import at.easydiet.teamc.model.SystemUserBo;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.DietParameterData;
 import at.easydiet.teamc.model.data.DietryPlanData;
@@ -43,7 +47,7 @@ public class BusinessLogicDelegationController {
 	private SearchParameterController _searchParameterController;
 	private Thread _patientSearchThread;
 	private DietryPlanController _dietryPlanController;
-
+	private LoginController _loginController;
 	/**
 	 * Initializes a new instance of the
 	 * {@link BusinessLogicDelegationController} class.
@@ -57,6 +61,15 @@ public class BusinessLogicDelegationController {
                 //TODO ONLY FOR TESTING!!!!
                 _dietryPlanController = DietryPlanController.getInstance();
 	}
+	
+    /**
+     * {@link LoginController#getActualUser()}
+     */
+    public SystemUserBo getActualUser()
+    {
+        _loginController = LoginController.getInstance();        
+        return _loginController.getActualUser();        
+    }
 
 	/**
 	 * Gets the lastSearchResult.
