@@ -272,7 +272,7 @@ public class DietryPlanController extends Event<EventArgs> {
 
         if (recipes != null) {
             for (RecipeBo rb : recipes) {
-                temp.add(new CheckedRecipeVo((RecipeData) rb, _dietPlanBo.checkRecipeWithParameters(rb)));
+                temp.add(new CheckedRecipeVo((RecipeData) rb, null));
             }
         }
         return temp;
