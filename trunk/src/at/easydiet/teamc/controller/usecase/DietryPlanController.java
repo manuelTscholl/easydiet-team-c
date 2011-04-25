@@ -7,6 +7,7 @@ package at.easydiet.teamc.controller.usecase;
 import java.util.Date;
 import java.util.Set;
 
+import at.easydiet.model.Recipe;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
 import at.easydiet.teamc.model.DietParameterBo;
@@ -237,14 +238,17 @@ public class DietryPlanController extends Event<EventArgs> {
 
     /**
      *
-     * @param mainCategory Category in which search string is searched for
+     * @param mainCategory the bls Code of the main category in which search string is searched for
      * @param search Search string
      * @return Set of Recipes which are checked corresponding to the active parameters
      */
     public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
 
         Set<CheckedRecipeVo> temp = new HashSet<CheckedRecipeVo>();
-        for (RecipeBo rb : _searchRecipeController.searchRecipe(mainCategory, search)) {
+        Set<RecipeBo> recipes = _searchRecipeController.searchRecipe(mainCategory, search);
+        
+        if(recipes!=null)
+        for (RecipeBo rb : recipes) {
             temp.add(new CheckedRecipeVo((RecipeData) rb, _dietPlanBo.checkRecipeWithParameters(rb)));
         }
         return temp;
