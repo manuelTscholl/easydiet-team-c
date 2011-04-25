@@ -145,8 +145,6 @@ public class RecipeBo  implements java.io.Serializable, Saveable, RecipeData {
     }
 
 
-
-
 }
 
 
