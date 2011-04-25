@@ -8,10 +8,7 @@ package at.easydiet.teamc.view.util;
 
 import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.view.ComponentListenerAdapter;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import javax.swing.Icon;
 
 import org.apache.pivot.wtk.Border;
 import org.apache.pivot.wtk.ButtonPressListener;
@@ -22,9 +19,6 @@ import org.apache.pivot.wtk.Mouse.Button;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.content.ButtonData;
-import org.apache.pivot.wtk.media.Drawing;
-import org.apache.pivot.wtk.media.Image;
-import org.apache.pivot.wtk.media.Picture;
 
 /**
  * Represents a single week

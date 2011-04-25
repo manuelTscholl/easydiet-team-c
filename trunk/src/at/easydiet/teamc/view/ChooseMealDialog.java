@@ -79,7 +79,7 @@ public class ChooseMealDialog extends Dialog implements Bindable {
             public void buttonPressed(Button button) {
 
                 // get and add mealCode Object
-                MealCodeData m = (MealCodeData)_mealChooserListButton.getSelectedItem();
+                MealCodeData m = (MealCodeData) _mealChooserListButton.getSelectedItem();
                 GUIController.getInstance().addMealCode(m, _day);
 
                 // activate context
@@ -97,6 +97,18 @@ public class ChooseMealDialog extends Dialog implements Bindable {
                 GUIController.getInstance().saveDietryPlan();
                 ((ContentDietryPlanScrollPane) GUIComponents.get("contentDietryPlanScrollPane")).updateDietryPlan();
                 close();
+            }
+        });
+        _searchButton.getButtonPressListeners().add(new ButtonPressListener() {
+
+            public void buttonPressed(Button button) {
+
+                // check if search string is available
+                if (_searchTextInput.getText() != "") {
+                    Set<CheckedRecipeVo> checkedRecipes =
+                            GUIController.getInstance().searchRecipe(null, _searchTextInput.getText());
+                    //TODO add these recipes to the corresponding main categories
+                }
             }
         });
     }
@@ -132,9 +144,8 @@ public class ChooseMealDialog extends Dialog implements Bindable {
                         GUIController.getInstance().searchRecipe(branch.getRecipeData().getBlsCode(), null);
 
                 // add recipes
-                for (CheckedRecipeVo checked : checkedRecipes) {
-                    RecipeTreeNode r = new RecipeTreeNode(checked);
-                }
+                addRecipesToCategory(checkedRecipes);
+                //TODO Rezepte müssen nach BLS Code geordnet sein
             }
 
             public void branchCollapsed(TreeView treeView, Path path) {
@@ -142,5 +153,42 @@ public class ChooseMealDialog extends Dialog implements Bindable {
             }
         });
 
+    }
+
+    /**
+     * Classifies recipes and put them into the correct category
+     * @param recipes Recipes to insert
+     */
+    private void addRecipesToCategory(Set<CheckedRecipeVo> recipes) {
+        for (CheckedRecipeVo c : recipes) {
+
+            // main category 0
+            final String mainCategory = "00000";
+
+            // get bls code
+            String blsCode = c.getRecipeData().getBlsCode();
+
+            // filter main categories
+            if (!blsCode.contains(mainCategory)) {
+                RecipeTreeBranch recipeBranch = getBranchByBLSCode(blsCode.substring(0, 2));
+                RecipeTreeNode r = new RecipeTreeNode(c);
+                recipeBranch.add(r);
+            }
+        }
+    }
+
+    /**
+     * Get a recipe tree branch by his bls code
+     * @param blsCode
+     * @return 
+     */
+    private RecipeTreeBranch getBranchByBLSCode(String blsCode) {
+        for (RecipeTreeBranch t : (List<RecipeTreeBranch>) _recipeTreeView.getTreeData()) {
+            if (t.getRecipeData().getBlsCode().contains(blsCode)) {
+                return t;
+            }
+        }
+
+        return null;
     }
 }
