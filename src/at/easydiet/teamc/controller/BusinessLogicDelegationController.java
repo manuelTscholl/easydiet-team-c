@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import at.easydiet.dao.RecipeDAO;
 import at.easydiet.teamc.controller.usecase.DietryPlanController;
 import at.easydiet.teamc.controller.usecase.SearchParameterController;
 import at.easydiet.teamc.controller.usecase.SearchPatientController;
@@ -202,10 +203,9 @@ public class BusinessLogicDelegationController {
 		return _dietryPlanController.getRecipeMainCategories();
 	}
 
-        /**
-	 *
-	 * @return
-	 */
+    /**
+     * {@link RecipeDAO#searchRecipe(String blsCategorie,String name)}
+     */
 	public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
 		return _dietryPlanController.searchRecipe(mainCategory, search);
 	}

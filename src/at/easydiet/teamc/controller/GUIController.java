@@ -264,7 +264,10 @@ public class GUIController implements PatientListener {
     }
 
     /**
-     * Search a recipe
+     *   
+     *
+     * @param mainCategory the BLS Code of this categorie
+     * @param search
      * @return All matched recipe with parameter check
      */
     public org.apache.pivot.collections.Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {

@@ -125,13 +125,13 @@ public class DatabaseController {
     }
    
     /**
-     * {@link RecipeDAO#searchRecipe(String categorie,String name)}
+     * {@link RecipeDAO#searchRecipe(String blsCategorie,String name)}
      */
-    public List<RecipeBo> searchRecipe(String categorie, String name)
+    public List<RecipeBo> searchRecipe(String blsCategorie, String name)
     {
         RecipeDAO recipeDao = DAOFactory.getInstance().getRecipeDAO();
         List<RecipeBo> recipesBo = new ArrayList<RecipeBo>();
-        List<Recipe> recipes = recipeDao.searchRecipe(categorie, name);
+        List<Recipe> recipes = recipeDao.searchRecipe(blsCategorie, name);
         
         //creating Bos
         if(recipes!=null)

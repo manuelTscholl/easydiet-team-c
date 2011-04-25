@@ -28,15 +28,15 @@ public class RecipeDAO
     /**
      * Searches recipes by their names or categories
      * the hibernate match method is anywhere
-     * @param categorie which the recipes must match
+     * @param blsCategorie the Code which the recipes must match
      * @param name the recipes should have
      * @return a list of the matching recipes
      */
-    public List<Recipe> searchRecipe(String categorie, String name)
+    public List<Recipe> searchRecipe(String blsCategorie, String name)
     {
-        if(categorie==null||categorie.equals(""))
+        if(blsCategorie==null||blsCategorie.equals(""))
         {
-            categorie=null;
+            blsCategorie=null;
         }
         if(name==null||name.equals(""))
         {
@@ -44,7 +44,7 @@ public class RecipeDAO
         }
         
         Recipe receipt = new Recipe();
-        receipt.setBlsCode(categorie);//all main categories will be found
+        receipt.setBlsCode(blsCategorie);//all main categories will be found
         receipt.setName(name);
         
         //The example which hibernate needs to search
