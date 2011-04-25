@@ -146,7 +146,9 @@ public class DietryPlanController extends Event<EventArgs> {
             //Save diatplanobject in database
             //_dietPlanBo.save();
 
-            //searchTreatmentForDietplan(timespanbo).getDietPlans().add(_dietPlanBo);
+            _dietPlanBo.addTimeSpan(timespanbo);
+            searchTreatmentForDietplan(timespanbo).addDietPlan(_dietPlanBo);
+            
             //_activePatient.save();
 
             return (DietryPlanData) _dietPlanBo;
