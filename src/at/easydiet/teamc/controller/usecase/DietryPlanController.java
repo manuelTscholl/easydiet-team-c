@@ -7,7 +7,6 @@ package at.easydiet.teamc.controller.usecase;
 import java.util.Date;
 import java.util.Set;
 
-import at.easydiet.model.Recipe;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
 import at.easydiet.teamc.model.DietParameterBo;
@@ -18,6 +17,7 @@ import at.easydiet.teamc.model.MealCodeBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.PlanTypeBo;
 import at.easydiet.teamc.model.RecipeBo;
+import at.easydiet.teamc.model.SystemUserBo;
 import at.easydiet.teamc.model.TimeSpanBo;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.DietParameterData;
@@ -92,7 +92,8 @@ public class DietryPlanController extends Event<EventArgs> {
      * @return 
      */
     public DietryPlanData newDietryPlan(Date startdate, Date enddate, List<DietParameterData> dptd,
-            List<Double> parameterMaxValues, List<Double> parameterMinValues, PatientBo activePatient) {
+            List<Double> parameterMaxValues, List<Double> parameterMinValues, PatientBo activePatient,
+            SystemUserBo activeUser) {
 
         //TODO combine max and min parameters with values!
         //TODO NULL check!!
@@ -108,7 +109,8 @@ public class DietryPlanController extends Event<EventArgs> {
         if (checkForTimeIntersections(startdate, enddate)) {
 
             //initiates Diatplan with needed values
-            _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo("Testplan"), null);
+            //TODO Testplan??
+            _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo("Testplan"), activeUser);
 
             //cast DietParameterData to DietParameterBo
             for (DietParameterData dpd : dptd) {
@@ -121,12 +123,12 @@ public class DietryPlanController extends Event<EventArgs> {
             duration = (enddate.getTime() - startdate.getTime()) / MILLISECONDS_TO_DAY_FACTOR;
             timespanbo = new TimeSpanBo(startdate, (int) duration);
 
-
+            //TODO activate save methods and treatment
             //Save diatplanobject in database
-            _dietPlanBo.save();
+            //_dietPlanBo.save();
 
-            searchTreatmentForDietplan(timespanbo).getDietPlans().add(_dietPlanBo);
-            _activePatient.save();
+            //searchTreatmentForDietplan(timespanbo).getDietPlans().add(_dietPlanBo);
+            //_activePatient.save();
 
             return (DietryPlanData) _dietPlanBo;
         } else {
@@ -155,7 +157,7 @@ public class DietryPlanController extends Event<EventArgs> {
 
         Date tempenddate;
 
-        if (startdate.before(enddate)) {
+        if (enddate.before(startdate)) {
             return false;
         } else {
             for (DietTreatmentBo tsb : _activePatient.getTreatments()) {
