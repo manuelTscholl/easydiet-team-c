@@ -56,7 +56,8 @@ public class SearchRecipeController {
      * @param recipe the categorie of this receipt will be returned
      * @return
      */
-    public RecipeBo getCategorieOfReceipt(RecipeBo recipe) {
+    public RecipeBo getCategorieOfRecipe(RecipeBo recipe) {
+        //FIXME 2 mal implementiert???? Diese Funktion wird nicht verwendet!!
         String blsCode = recipe.getBlsCode();
 
         blsCode = blsCode.substring(0, 1);

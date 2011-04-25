@@ -36,12 +36,12 @@ public class RecipeDAO
             name=null;            
         }
         
-        Recipe receipt = new Recipe();
-        receipt.setBlsCode(blsCategorie);//all main categories will be found
-        receipt.setName(name);
+        Recipe recipe = new Recipe();
+        recipe.setBlsCode(blsCategorie);//all main categories will be found
+        recipe.setName(name);
         
         //The example which hibernate needs to search
-        Example receiptExample = Example.create(receipt)
+        Example recipeExample = Example.create(recipe)
         .excludeZeroes()
         .ignoreCase()
         .enableLike(MatchMode.ANYWHERE)
@@ -50,7 +50,8 @@ public class RecipeDAO
                 
         //the searchresult of hibernate as a List
         List<Recipe> results = getSession().createCriteria(Recipe.class)
-        .add(receiptExample).addOrder(Order.desc("blscode"))
+        .addOrder(Order.desc("blsCode"))
+        .add(recipeExample)
         .list();
         
         

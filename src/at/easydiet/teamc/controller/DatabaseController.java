@@ -121,7 +121,7 @@ public class DatabaseController {
      */
     public List<RecipeBo> getRecipeMainCategories()
     {        
-        return searchRecipe("000000",null);
+        return searchRecipe("00000",null);
     }
    
     /**
