@@ -137,6 +137,9 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
     }
 
     @Override
+    /**
+     * Saves a diatplan in database.
+     */
     public boolean save() {
        if(DAOFactory.getInstance().getDietPlanDAO().makePersistent(this._DietPlan)!=null){
 	        return true;
@@ -145,24 +148,44 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
 
     }
 
+    /**
+     * Adds a meal to a diaplan.
+     *
+     * @param mcd
+     * @param day
+     * @return
+     */
     public MealBo addMealCode(MealCodeData mcd, int day) {
+        //TODO better name for that method addMeal instead of addMealCode
     	MealBo mBo=new MealBo(new Meal(mcd.getCode(), mcd.getName()));
         serachTimespan(day).addMeal(mBo);
     	return mBo;
     }
 
+    /**
+     * Adds a line to meal in progress.
+     *
+     * @param currentMealBo
+     * @return
+     */
     public int addMealLine(MealBo currentMealBo) {
        return currentMealBo.addMealLine();
     }
 
+    /**
+     *
+     * @param rb
+     * @return
+     */
     public ParameterCheckResult checkRecipeWithParameters(RecipeBo rb) {
+        //TODO implementation --> String as value for evaluation??
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public void addRecipe(RecipeBo recipeBo, double quantity, int mealLineID) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
+    /**
+     *
+     * @return cumulativ duration of all timespans of a diatplan
+     */
     public int getDuration() {
         int temp=0;
         if(getTimeSpans().size()>0){
