@@ -7,6 +7,7 @@
 package at.easydiet.teamc.view.util;
 
 import at.easydiet.teamc.controller.GUIController;
+import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.view.NavigationTabPane;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
@@ -19,7 +20,6 @@ import org.apache.pivot.wtk.TablePane;
  */
 public class DietryPlanNavigationMode extends NavigationMode {
 
-    // instance variables
     /**
      * Create new DietryPlanNavigationMode
      * @param navTab 

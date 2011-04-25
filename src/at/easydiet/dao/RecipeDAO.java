@@ -1,20 +1,13 @@
 package at.easydiet.dao;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.transaction.NotSupportedException;
 
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 
-import at.easydiet.model.Patient;
 import at.easydiet.model.Recipe;
-import at.easydiet.teamc.controller.DatabaseController;
-import at.easydiet.teamc.model.RecipeBo;
+import org.hibernate.criterion.Order;
 
 /**
  * A DAO implementation for Recipe objects.
@@ -57,7 +50,7 @@ public class RecipeDAO
                 
         //the searchresult of hibernate as a List
         List<Recipe> results = getSession().createCriteria(Recipe.class)
-        .add(receiptExample)
+        .add(receiptExample).addOrder(Order.desc("blscode"))
         .list();
         
         
