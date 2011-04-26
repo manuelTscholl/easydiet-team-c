@@ -323,7 +323,6 @@ public class ChooseMealDialog extends Dialog implements Bindable, QuantityListen
      * @param quantity 
      */
     public void updateQuantity(float quantity) {
-        System.out.println("JUHUUUU");
 
         // add recipe
         GUIController.getInstance().addRecipeToMeal(_actualRecipeData, quantity, _actualMealLineBoxPane.getMealLineIndex());
