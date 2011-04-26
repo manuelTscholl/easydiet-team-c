@@ -6,22 +6,34 @@
  */
 package at.easydiet.teamc.controller;
 
+import java.io.IOException;
+import java.util.Date;
+import java.util.Set;
+
+import org.apache.pivot.beans.BXMLSerializer;
+import org.apache.pivot.collections.List;
+import org.apache.pivot.collections.Map;
+import org.apache.pivot.serialization.SerializationException;
+import org.apache.pivot.wtk.Alert;
+import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.MessageType;
+import org.apache.pivot.wtk.TextInput;
+
+import at.easydiet.teamc.exception.GeneratingDietryPlanException;
+import at.easydiet.teamc.exception.NoDateException;
+import at.easydiet.teamc.exception.NoDietTreatmentException;
+import at.easydiet.teamc.exception.NoPatientException;
+import at.easydiet.teamc.exception.TimeIntersectionException;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.DietParameterData;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.MealData;
-import java.util.Set;
-
-import org.apache.pivot.collections.Map;
-import org.apache.pivot.wtk.Component;
-import org.apache.pivot.wtk.TextInput;
-
 import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.data.RecipeData;
+import at.easydiet.teamc.util.CollectionConverter;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
-import at.easydiet.teamc.util.CollectionConverter;
 import at.easydiet.teamc.view.ChooseMealDialog;
 import at.easydiet.teamc.view.ContentTabPane;
 import at.easydiet.teamc.view.DietPlanDialog;
@@ -31,13 +43,6 @@ import at.easydiet.teamc.view.GUIComponents;
 import at.easydiet.teamc.view.KeyAdapter;
 import at.easydiet.teamc.view.NavigationTabPane;
 import at.easydiet.teamc.view.PatientListener;
-import java.io.IOException;
-import java.util.Date;
-import org.apache.pivot.beans.BXMLSerializer;
-import org.apache.pivot.collections.List;
-import org.apache.pivot.serialization.SerializationException;
-import org.apache.pivot.wtk.Alert;
-import org.apache.pivot.wtk.MessageType;
 
 /**
  * Controls and knows all GUI elements
@@ -206,17 +211,28 @@ public class GUIController implements PatientListener {
         java.util.List<Double> maxValueList = (java.util.List<Double>) CollectionConverter.convertToJavaList(parameterMaxValues);
         java.util.List<Double> minValueList = (java.util.List<Double>) CollectionConverter.convertToJavaList(parameterMinValues);
 
-        DietryPlanData plan = _businessLogicDelegationController.newDietryPlan(start, end, list,
-                maxValueList, minValueList);
-
-        // check for plan
-        if (plan != null) {
-            _navTab.drawDietryPlanMenu(plan);
+        DietryPlanData plan;
+		try {
+			plan = _businessLogicDelegationController.newDietryPlan(start, end, list,
+			        maxValueList, minValueList);	
+			if(plan==null){
+				throw new GeneratingDietryPlanException();
+			}
+			_navTab.drawDietryPlanMenu(plan);
             _contentTab.drawDietryPlan(plan);
-        } else {
-            Alert.alert(MessageType.ERROR, "Der Di√§tplan konnte nicht erstellt werden.", _easyDietWindow);
+		} catch (NoPatientException e) {
+			Alert.alert("Fehler beim Erstellend des Di‰tplans! Es wurde kein Patient gefunden.", _easyDietWindow);
+		} catch (NoDateException e) {
+			Alert.alert("Fehler beim Erstellen des Di‰tplans. Kein Datum vorhanden ",_easyDietWindow);
+		} catch (TimeIntersectionException e) {
+			Alert.alert("Fehler beim Erstellen des Di‰tplans. Es existiert bereits ein Plan",_easyDietWindow);
+		} catch (NoDietTreatmentException e) {
+			Alert.alert("Fehler beim Erstellen des Di‰tplans. Der Patient ist keiner Behandlung zugeordnet",_easyDietWindow);
+		} catch (GeneratingDietryPlanException e) {
+			Alert.alert(MessageType.ERROR, "Der Di√§tplan konnte nicht erstellt werden.", _easyDietWindow);
             LOGGER.error("DietPlan is empty");
-        }
+		}
+        
     }
 
     /**
