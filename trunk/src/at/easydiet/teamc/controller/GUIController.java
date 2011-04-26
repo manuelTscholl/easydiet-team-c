@@ -314,7 +314,8 @@ public class GUIController implements PatientListener {
      * Save the actual dietry plan
      */
     public void saveDietryPlan() {
-        _businessLogicDelegationController.saveDietryPlan();
+        //_businessLogicDelegationController.saveDietryPlan();
+        _contentTab.drawDietryPlan(_businessLogicDelegationController.getDietryPlan());
     }
 
     /**
