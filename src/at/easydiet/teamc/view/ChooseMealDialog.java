@@ -118,8 +118,7 @@ public class ChooseMealDialog extends Dialog implements Bindable, QuantityListen
         _finishButton.getButtonPressListeners().add(new ButtonPressListener() {
 
             public void buttonPressed(Button button) {
-                GUIController.getInstance().saveDietryPlan();
-                ((ContentDietryPlanScrollPane) GUIComponents.get("dietryPlanScrollPane")).updateDietryPlan();
+                GUIController.getInstance().saveDietryPlan();         
                 close();
             }
         });

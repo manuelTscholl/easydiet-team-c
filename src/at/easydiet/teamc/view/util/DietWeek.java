@@ -215,10 +215,13 @@ public class DietWeek {
                     // recipes
                     Set<MealLineData> lines = m.getMealLineData();
                     if (lines != null && !lines.isEmpty()) {
-                        BoxPane recipes = new BoxPane();
+                        TablePane recipes = new TablePane();
+                        recipes.getColumns().add(new TablePane.Column());
                         for (MealLineData mLine : lines) {
+                            TablePane.Row recipeRow = new TablePane.Row();
                             Label l = new Label(mLine.getRecipeData().getName());
-                            recipes.add(l);
+                            recipeRow.add(l);
+                            recipes.getRows().add(dayRow);
                         }
                         mealRow.add(recipes);
                     } else {
