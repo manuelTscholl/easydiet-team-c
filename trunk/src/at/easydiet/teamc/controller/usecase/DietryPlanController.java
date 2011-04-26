@@ -36,12 +36,16 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
+ * Controller for generating a new Diatplan.
  *
  * @author Stephan Svoboda
  */
 public class DietryPlanController extends Event<EventArgs> {
 
     // class variables
+    /**
+     *
+     */
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BusinessLogicDelegationController.class);
     private static volatile DietryPlanController _dietryPlanController = null;
     // instance variables
@@ -66,8 +70,12 @@ public class DietryPlanController extends Event<EventArgs> {
     /**
      * Constant facotr for millisecond/day converting
      */
-    private final int MILLISECONDS_TO_DAY_FACTOR = 86400000;
+    private static final int MILLISECONDS_TO_DAY_FACTOR = 86400000;
 
+    /**
+     *
+     * @param sender
+     */
     private DietryPlanController(Object sender) {
         super(sender);
         _dbController = DatabaseController.getInstance();
@@ -87,20 +95,23 @@ public class DietryPlanController extends Event<EventArgs> {
 
     /**
      * Create a new dietry plan
-     * @param startDate Plan start date
-     * @param endDate Plan end date
-     * @param params List of parameters for this plan
+     * @param startdate Startdate for the new Plan
+     * @param dptd List of DietparameterData
+     * @param enddate Enddate for the new Plan
      * @param parameterMaxValues Max Values for the chosen parameters
      * @param parameterMinValues Min Values for the chosen parameters
      * @param activePatient Current active patient
-     * @return 
+     * @param activeUser 
+     * @return the new generated and validated dietplan
+     * @throws NoPatientException if no active patient exists
+     * @throws TimeIntersectionException if illegal timespan is defined by start and enddate
+     * @throws NoDateException if start or enddate is null
+     * @throws NoDietTreatmentException if active patient has no treatment
      */
     public DietryPlanData newDietryPlan(Date startdate, Date enddate, List<DietParameterData> dptd,
             List<Double> parameterMaxValues, List<Double> parameterMinValues, PatientBo activePatient,
             SystemUserBo activeUser) throws NoPatientException, NoDateException, TimeIntersectionException, NoDietTreatmentException {
 
-        //TODO combine max and min parameters with values!
-        //TODO NULL check!!
 
         if (activePatient == null) {
             throw new NoPatientException();
@@ -165,6 +176,10 @@ public class DietryPlanController extends Event<EventArgs> {
         }
     }
 
+    /**
+     *
+     * @return All existing mealcodes
+     */
     public Set<MealCodeData> getAllMealCodes() {
         Set<MealCodeData> temp = new HashSet<MealCodeData>();
         for (MealCodeBo mcb : _dbController.getAllMealCodes()) {
@@ -227,7 +242,7 @@ public class DietryPlanController extends Event<EventArgs> {
         Date tempenddate;
         DietTreatmentBo temp = null;
         for (DietTreatmentBo dietTreatmentBo : _activePatient.getTreatments()) {
-            tempenddate = new Date(dietTreatmentBo.getStart().getTime() + (dietTreatmentBo.getDuration() * 1000 * 60 * 60 * 24));
+            tempenddate = new Date(dietTreatmentBo.getStart().getTime() + (dietTreatmentBo.getDuration() * MILLISECONDS_TO_DAY_FACTOR));
             if (dietTreatmentBo.getStart().getTime() <= tsb.getStart().getTime() && tempenddate.getTime() >= tsb.getDuration() * 1000 * 60 * 60 * 24) {
                 return dietTreatmentBo;
             }
