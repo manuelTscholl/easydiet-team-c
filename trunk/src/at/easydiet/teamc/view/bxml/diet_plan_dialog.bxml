@@ -4,6 +4,7 @@
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:content="org.apache.pivot.wtk.content"
     xmlns:easyDiet="at.easydiet.teamc.view"
+    xmlns:util="at.easydiet.teamc.view.util"
     xmlns="org.apache.pivot.wtk">
 
     <!-- Main Table -->
@@ -123,12 +124,25 @@
                                             <cellEditors>
 
                                                 <minimum>
-                                                    <TextInput textKey="minimum">
+                                                    <TextInput strictValidation="true" textKey="minimum">
+                                                        <validator>
+                                                            <util:ParameterValidator/>
+                                                        </validator>
+                                                        <textBindMapping>
+                                                            <util:ParameterBindMapping/>
+                                                        </textBindMapping>
                                                     </TextInput>
                                                 </minimum>
 
                                                 <maximum>
-                                                    <TextInput textKey="maximum"/>
+                                                    <TextInput strictValidation="true" textKey="maximum">
+                                                        <validator>
+                                                            <util:ParameterValidator/>
+                                                        </validator>
+                                                        <textBindMapping>
+                                                            <util:ParameterBindMapping/>
+                                                        </textBindMapping>
+                                                    </TextInput>                                   
                                                 </maximum>
                                             </cellEditors>
                                         </content:TableViewRowEditor>

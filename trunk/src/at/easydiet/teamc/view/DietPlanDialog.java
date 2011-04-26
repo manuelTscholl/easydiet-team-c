@@ -16,10 +16,12 @@ import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
+import org.apache.pivot.util.CalendarDate;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.CalendarButton;
+import org.apache.pivot.wtk.CalendarButtonSelectionListener;
 import org.apache.pivot.wtk.Dialog;
 import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ListView;
@@ -63,7 +65,7 @@ public class DietPlanDialog extends Dialog implements Bindable {
 
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
         _selectedStep = 0;
-
+        
         // init lists
         _chosenParameterNames = new HashMap<String, DietParameterData>();
         _chosenParameters = new ArrayList<DietParameterData>();
@@ -141,6 +143,38 @@ public class DietPlanDialog extends Dialog implements Bindable {
                 _chosenParameterNames.remove(param.getParameterName());
             }
         });
+
+        // event for changing dates to validate them
+        _startDate.getCalendarButtonSelectionListeners().add(new CalendarButtonSelectionListener() {
+
+            public void selectedDateChanged(CalendarButton calendarButton, CalendarDate previousSelectedDate) {
+
+                // get dates
+                Date start = calendarButton.getSelectedDate().toCalendar().getTime();
+                Date end = _endDate.getSelectedDate().toCalendar().getTime();
+
+                // if endDate is now before this new start date, 
+                // set end date to start date
+                if (start.after(end)) {
+                    _endDate.setSelectedDate(calendarButton.getSelectedDate());
+                }
+            }
+        });
+        _endDate.getCalendarButtonSelectionListeners().add(new CalendarButtonSelectionListener() {
+
+            public void selectedDateChanged(CalendarButton calendarButton, CalendarDate previousSelectedDate) {
+
+                // get dates
+                Date start = _startDate.getSelectedDate().toCalendar().getTime();
+                Date end = calendarButton.getSelectedDate().toCalendar().getTime();
+
+                // if start date is now after this new end date, 
+                // set start date to end date
+                if (start.after(end)) {
+                    _startDate.setSelectedDate(calendarButton.getSelectedDate());
+                }
+            }
+        });
     }
 
     /**
@@ -204,8 +238,6 @@ public class DietPlanDialog extends Dialog implements Bindable {
                 minValues.add(Double.parseDouble(data.get("minimum").toString()));
             }
 
-            //TODO check if all parameters have values
-
             // process
             GUIController.getInstance().newDietryPlan(start, end, params, maxValues,
                     minValues);
@@ -222,6 +254,8 @@ public class DietPlanDialog extends Dialog implements Bindable {
         for (DietParameterData d : _chosenParameters) {
             HashMap<String, String> row = new HashMap<String, String>();
             row.put("parameter", d.getParameterName());
+            row.put("minimum", "0");
+            row.put("maximum", "0");
             tableData.add(row);
         }
 

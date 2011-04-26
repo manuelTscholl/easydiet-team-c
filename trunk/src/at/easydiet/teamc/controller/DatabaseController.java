@@ -14,20 +14,16 @@ import java.util.Set;
 
 import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.DietParameterDAO;
-import at.easydiet.dao.MealDAO;
 import at.easydiet.dao.PatientDAO;
 import at.easydiet.dao.RecipeDAO;
 import at.easydiet.model.DietParameter;
-import at.easydiet.model.Meal;
 import at.easydiet.model.Patient;
 import at.easydiet.model.Recipe;
 import at.easydiet.teamc.dao.MealCodeDao;
 import at.easydiet.teamc.model.DietParameterBo;
-import at.easydiet.teamc.model.MealBo;
 import at.easydiet.teamc.model.MealCodeBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.RecipeBo;
-import at.easyhibernate.DaoExporter;
 
 /** 
  * Will get all data from database via the different class dow's
