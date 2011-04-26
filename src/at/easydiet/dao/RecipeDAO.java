@@ -55,7 +55,7 @@ public class RecipeDAO
         {
             name=null;            
         }
-        
+        //very important information
         Recipe recipe = new Recipe();
         recipe.setBlsCode(blsCategorie);//all main categories will be found
         recipe.setName(name);
