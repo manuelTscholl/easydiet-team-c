@@ -171,12 +171,14 @@ public class DietryPlanController extends Event<EventArgs>
 
             // +1 because if enddate==startdae duration is 1 day not 0
             duration = 1 + ((enddate.getTime() - startdate.getTime()) / MILLISECONDS_TO_DAY_FACTOR);
+
+            //TODO PlanType TestPlan eingef√ºgt als Plantyp
             List<PlanType> types = DAOFactory.getInstance().getPlanTypeDAO()
                     .findAll();
             PlanType toSet = null;
             if (types != null) for (PlanType planType : types)
             {
-                if (planType.getName().equals("Di‰tplan"))
+                if (planType.getName().equals("TestPlanC"))
                 {
                     toSet = planType;
                 }

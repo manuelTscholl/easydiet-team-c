@@ -147,7 +147,7 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
 
         // remove previously drawn dietry plans
         removePlan();
-        addParameterTest(dpd.getDietPlanParameterCollectionVo());
+        //addParameterTest(dpd.getDietPlanParameterCollectionVo());
 
         // draw days
         for (int i = 0; i < dpd.getDuration(); i++) {
