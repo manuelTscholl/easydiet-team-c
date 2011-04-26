@@ -234,8 +234,8 @@ public class DietPlanDialog extends Dialog implements Bindable {
             List<Double> minValues = new ArrayList<Double>();
             for (HashMap<String, String> data : map) {
                 params.add(_chosenParameterNames.get(data.get("parameter")));
-                maxValues.add(Double.parseDouble(data.get("maximum").toString()));
-                minValues.add(Double.parseDouble(data.get("minimum").toString()));
+                maxValues.add(Double.parseDouble(data.get("maximum")));
+                minValues.add(Double.parseDouble(data.get("minimum")));
             }
 
             // process

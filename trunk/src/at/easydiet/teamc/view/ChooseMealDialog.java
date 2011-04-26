@@ -123,10 +123,11 @@ public class ChooseMealDialog extends Dialog implements Bindable {
     private void initRecipeMainCategories() {
 
         // get recipe main categories
-        Set<RecipeData> categories = GUIController.getInstance().getRecipeMainCategories();
+        List<RecipeData> categories = GUIController.getInstance().getRecipeMainCategories();
 
         TreeBranch startBranch = new TreeBranch();
         for (RecipeData r : categories) {
+            System.out.println(r.getBlsCode());
             RecipeTreeBranch recipe = new RecipeTreeBranch(r);
             startBranch.add(recipe);
         }

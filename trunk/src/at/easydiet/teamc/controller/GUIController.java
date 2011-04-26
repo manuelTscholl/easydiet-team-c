@@ -221,13 +221,13 @@ public class GUIController implements PatientListener {
 			_navTab.drawDietryPlanMenu(plan);
             _contentTab.drawDietryPlan(plan);
 		} catch (NoPatientException e) {
-			Alert.alert("Fehler beim Erstellend des Diätplans! Es wurde kein Patient gefunden.", _easyDietWindow);
+			Alert.alert("Fehler beim Erstellend des Diï¿½tplans! Es wurde kein Patient gefunden.", _easyDietWindow);
 		} catch (NoDateException e) {
-			Alert.alert("Fehler beim Erstellen des Diätplans. Kein Datum vorhanden ",_easyDietWindow);
+			Alert.alert("Fehler beim Erstellen des Diï¿½tplans. Kein Datum vorhanden ",_easyDietWindow);
 		} catch (TimeIntersectionException e) {
-			Alert.alert("Fehler beim Erstellen des Diätplans. Es existiert bereits ein Plan",_easyDietWindow);
+			Alert.alert("Fehler beim Erstellen des Diï¿½tplans. Es existiert bereits ein Plan",_easyDietWindow);
 		} catch (NoDietTreatmentException e) {
-			Alert.alert("Fehler beim Erstellen des Diätplans. Der Patient ist keiner Behandlung zugeordnet",_easyDietWindow);
+			Alert.alert("Fehler beim Erstellen des Diï¿½tplans. Der Patient ist keiner Behandlung zugeordnet",_easyDietWindow);
 		} catch (GeneratingDietryPlanException e) {
 			Alert.alert(MessageType.ERROR, "Der DiÃ¤tplan konnte nicht erstellt werden.", _easyDietWindow);
             LOGGER.error("DietPlan is empty");
@@ -284,8 +284,8 @@ public class GUIController implements PatientListener {
     /**
      * Get all recipe main categories
      */
-    public org.apache.pivot.collections.Set<RecipeData> getRecipeMainCategories() {
-        return (org.apache.pivot.collections.Set<RecipeData>) CollectionConverter.convertToPivotSet(_businessLogicDelegationController.getRecipeMainCategories());
+    public org.apache.pivot.collections.List<RecipeData> getRecipeMainCategories() {
+        return (org.apache.pivot.collections.List<RecipeData>) CollectionConverter.convertToPivotList(_businessLogicDelegationController.getRecipeMainCategories());
     }
 
     /**
