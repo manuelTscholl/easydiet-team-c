@@ -21,6 +21,8 @@ public class MealCodeBo implements java.io.Serializable, Saveable, MealCodeData
 {
 
     private Meal _Meal;
+    private String _code;
+    private String _name;
 
     private MealCodeBo()
     {}
@@ -30,15 +32,16 @@ public class MealCodeBo implements java.io.Serializable, Saveable, MealCodeData
         this._Meal = meal;
     }
 
-    public MealCodeBo(String code, String name, TimeSpanBo timeSpanBo)
+    public MealCodeBo(String code, String name)
     {
-        this(new Meal(code, name, timeSpanBo.getTimeSpan()));
+        this._code=code;
+        this._name=name;
     }
 
     public MealCodeBo(String code, String name,
             Set<DietParameterBo> dietParameters, Set<MealLineBo> mealLines, TimeSpanBo timeSpanBo)
     {
-        this(code, name, timeSpanBo);
+        this(new Meal(code, name, timeSpanBo.getTimeSpan()));
 
         for (DietParameterBo dietParameterBo : dietParameters)
         {
@@ -54,7 +57,10 @@ public class MealCodeBo implements java.io.Serializable, Saveable, MealCodeData
 
     public String getCode()
     {
-        return this.getMeal().getCode();
+        if(_Meal!=null){
+            return _Meal.getCode();
+        }
+        return _code;
     }
 
     public void setCode(String code)
@@ -64,7 +70,10 @@ public class MealCodeBo implements java.io.Serializable, Saveable, MealCodeData
 
     public String getName()
     {
-        return this.getMeal().getName();
+        if(_Meal!=null){
+            return _Meal.getName();
+        }
+        return _name;
     }
 
     public void setName(String name)
@@ -97,7 +106,10 @@ public class MealCodeBo implements java.io.Serializable, Saveable, MealCodeData
     
     @Override
     public String toString(){
-        return _Meal.getName();
+        if(_Meal!=null){
+            return _Meal.toString();
+        }
+        return this.getName();
     }
 
 }
