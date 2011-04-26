@@ -15,20 +15,28 @@ import org.apache.pivot.wtk.content.TreeBranch;
  */
 public class RecipeTreeBranch extends TreeBranch {
 
+    // class variables
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(RecipeTreeBranch.class);
     // instance variables
     private RecipeData _recipeData;
-    
+    private boolean _isMainCategory;
+
     /**
      * Create new Treebranch
      * @param r Recipe
      */
-    public RecipeTreeBranch(RecipeData r){
+    public RecipeTreeBranch(RecipeData r, boolean isMainCategory) {
         _recipeData = r;
+        _isMainCategory = isMainCategory;
         setText(_recipeData.getName());
-        
+
     }
 
-    public RecipeData getRecipeData(){
+    public RecipeData getRecipeData() {
         return _recipeData;
+    }
+
+    public boolean isMainCategory() {
+        return _isMainCategory;
     }
 }
