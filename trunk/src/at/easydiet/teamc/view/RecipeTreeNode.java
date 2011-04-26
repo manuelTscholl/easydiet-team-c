@@ -35,4 +35,14 @@ public class RecipeTreeNode extends TreeNode {
         _recipeData = r;
         setText(_recipeData.getName());
     }
+    
+    public RecipeData getRecipeData(){
+        
+        // check if a checked recipe is available
+        if(_recipe == null){
+            return _recipeData;
+        }
+        
+        return _recipe.getRecipeData();
+    }
 }
