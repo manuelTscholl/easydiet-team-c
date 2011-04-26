@@ -30,6 +30,7 @@ public class MealLineBo  implements java.io.Serializable, Saveable, MealLineData
     public MealLineBo(MealLine mealLine) {
         this._MealLine = mealLine;
         _MealLine.setUnitDefaultValue();
+        this._recipe=new RecipeBo(mealLine.getRecipe());
     }
 
 	
@@ -87,6 +88,9 @@ public class MealLineBo  implements java.io.Serializable, Saveable, MealLineData
     }
 
     public RecipeBo getRecipe() {
+        if(this._recipe.getRecipe()==null){
+            return null;
+        }
         return this._recipe;
     }
     
