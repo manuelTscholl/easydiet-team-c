@@ -6,7 +6,6 @@
  */
 package at.easydiet.teamc.view;
 
-import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.DietPlanParameterCollectionVo;
 import at.easydiet.teamc.view.util.DietWeek;
 import java.net.URL;
@@ -147,7 +146,7 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
 
         // remove previously drawn dietry plans
         removePlan();
-        //addParameterTest(dpd.getDietPlanParameterCollectionVo());
+        addParameterTest(dpd.getDietPlanParameterCollectionVo());
 
         // draw days
         for (int i = 0; i < dpd.getDuration(); i++) {
@@ -208,13 +207,5 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
     @Override
     public void updatePatientData(PatientData p) {
         LOGGER.trace("NOT IMPLEMENTED");
-    }
-
-    /**
-     * Update the dietry plan
-     */
-    public void updateDietryPlan() {
-        DietryPlanData dpd = GUIController.getInstance().getDietryPlan();
-        drawDietryPlan(dpd);
     }
 }
