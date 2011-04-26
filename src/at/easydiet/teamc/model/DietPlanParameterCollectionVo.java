@@ -6,6 +6,8 @@
  */
 package at.easydiet.teamc.model;
 
+import at.easydiet.model.DietParameterTemplate;
+
 /**
  *
  * @author Michael Sieber
@@ -15,7 +17,39 @@ public class DietPlanParameterCollectionVo {
     // class variables
 	
 
-    // instance variables
+    public String getName() {
+		return _name;
+	}
+
+	public void setName(String _name) {
+		this._name = _name;
+	}
+
+	public double getMinValue() {
+		return _minValue;
+	}
+
+	public void setMinValue(double _minValue) {
+		this._minValue = _minValue;
+	}
+
+	public double getMaxValue() {
+		return _maxValue;
+	}
+
+	public void setMaxValue(double _maxValue) {
+		this._maxValue = _maxValue;
+	}
+
+	public double getCurrValue() {
+		return _currValue;
+	}
+
+	public void setCurrValue(double _currValue) {
+		this._currValue = _currValue;
+	}
+
+	// instance variables
 	private String _name;
 	private double _minValue;
 	private double _maxValue;
@@ -33,6 +67,8 @@ public class DietPlanParameterCollectionVo {
 	public DietPlanParameterCollectionVo() {
 		// TODO Auto-generated constructor stub
 	}
+
+	
 	
 	
 	
