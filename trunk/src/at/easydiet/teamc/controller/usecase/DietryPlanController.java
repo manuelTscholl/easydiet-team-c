@@ -208,7 +208,8 @@ public class DietryPlanController extends Event<EventArgs>
                     _dietPlanBo.setPlanType(new PlanTypeBo(planType));
                 }
             }
-             _dietPlanBo.save();
+            //FIX nix saven do
+             //_dietPlanBo.save();
 
             for(int i=0;i<timespanbo.getDuration();i++){
                 startdate=new Date(startdate.getTime()+MILLISECONDS_TO_DAY_FACTOR);
