@@ -15,6 +15,10 @@ import at.easydiet.dao.RecipeDAO;
 import at.easydiet.teamc.controller.usecase.DietryPlanController;
 import at.easydiet.teamc.controller.usecase.SearchParameterController;
 import at.easydiet.teamc.controller.usecase.SearchPatientController;
+import at.easydiet.teamc.exception.NoDateException;
+import at.easydiet.teamc.exception.NoDietTreatmentException;
+import at.easydiet.teamc.exception.NoPatientException;
+import at.easydiet.teamc.exception.TimeIntersectionException;
 import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.SystemUserBo;
@@ -170,9 +174,13 @@ public class BusinessLogicDelegationController {
          * @param params List of parameters for this plan
          * @param parameterMaxValues Max Values for the chosen parameters
          * @param parameterMinValues Min Values for the chosen parameters
+         * @throws NoDietTreatmentException 
+         * @throws TimeIntersectionException 
+         * @throws NoDateException 
+         * @throws NoPatientException 
          */
 	public DietryPlanData newDietryPlan(Date startDate,Date endDate,List<DietParameterData> params,
-                List<Double> parameterMaxValues, List<Double> parameterMinValues){
+                List<Double> parameterMaxValues, List<Double> parameterMinValues) throws NoPatientException, NoDateException, TimeIntersectionException, NoDietTreatmentException{
 		_dietryPlanController=DietryPlanController.getInstance();
 		_dietryPlanController.newDietryPlan(startDate, endDate, params, 
                         parameterMaxValues, parameterMinValues, this._activePatient, getActualUser());
