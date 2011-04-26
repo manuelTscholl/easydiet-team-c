@@ -207,7 +207,8 @@ public class DietWeek {
                 
                 for(MealData m:_meals){
                     TablePane.Row mealRow = new TablePane.Row();
-                    mealRow.add(null); // meal button
+                    TablePane.Filler filler = new TablePane.Filler();
+                    mealRow.add(filler); // meal button
                     Label mealCode = new Label(m.getMealCodeData().getName());
                     mealRow.add(mealCode);
                     

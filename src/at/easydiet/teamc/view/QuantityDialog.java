@@ -49,6 +49,7 @@ public class QuantityDialog extends Dialog implements Bindable {
             public void buttonPressed(Button button) {
                 _quantity = Float.parseFloat(_quantityTextInput.getText());
                 notifyListeners();
+                close();
             }
         });
         
