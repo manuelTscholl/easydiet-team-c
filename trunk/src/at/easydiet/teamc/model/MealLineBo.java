@@ -23,17 +23,19 @@ public class MealLineBo  implements java.io.Serializable, Saveable, MealLineData
      private MealLine _MealLine;
 
 
-
     private MealLineBo() {
+        
     }
 
     public MealLineBo(MealLine mealLine) {
         this._MealLine = mealLine;
+        _MealLine.setUnitDefaultValue();
     }
 
 	
     public MealLineBo(float quantity, RecipeBo recipeBo, ParameterDefinitionUnitBo parameterDefinitionUnitBo,MealLineBo parentbo,MealBo mealBo) {
         this(new MealLine(quantity, recipeBo.getRecipe(), parameterDefinitionUnitBo.getParameterDefinitionUnit(), parentbo.getMealLine(), mealBo.getMeal()));
+        _MealLine.setUnitDefaultValue();
     }
     public MealLineBo(float quantity, Clob info, Set<MealLineBo> mealLinesBo, RecipeBo recipeBo, ParameterDefinitionUnitBo parameterDefinitionUnitBo, MealLineBo parentBo, MealBo mealBo) {
         this(quantity, recipeBo, parameterDefinitionUnitBo, parentBo, mealBo);
@@ -41,6 +43,7 @@ public class MealLineBo  implements java.io.Serializable, Saveable, MealLineData
         for (MealLineBo mealLineBo : mealLinesBo) {
             this._MealLine.getAlternatives().add(mealLineBo.getMealLine());
         }
+        _MealLine.setUnitDefaultValue();
     }
    
     public long getMealLineId() {

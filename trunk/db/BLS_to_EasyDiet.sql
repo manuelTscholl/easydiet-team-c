@@ -1,4 +1,8 @@
-﻿-- Map Dimensions
+﻿INSERT INTO fhv_easydiet.recipe
+ (Name, BlsCode) 
+select name,id from fhv_bls.nahrungsmittelgruppe;
+
+-- Map Dimensions
 INSERT INTO fhv_easydiet.ParameterDefinitionUnit (Name, Type) 
     SELECT Bezeichnung, 'Numbers' FROM fhv_bls.dimension;
 

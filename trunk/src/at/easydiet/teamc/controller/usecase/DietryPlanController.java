@@ -10,6 +10,7 @@ import java.util.Set;
 import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.DietParameterTypeDAO;
 import at.easydiet.dao.HibernateUtil;
+import at.easydiet.dao.PlanTypeDAO;
 import at.easydiet.model.DietParameterType;
 import at.easydiet.model.PlanType;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
@@ -81,8 +82,7 @@ public class DietryPlanController extends Event<EventArgs>
     /**
      * Constant factor for millisecond/day converting
      */
-    private static final long MILLISECONDS_TO_DAY_FACTOR = 86400000;
-
+    private static final long                    MILLISECONDS_TO_DAY_FACTOR = 86400000;
 
     /**
      * 
@@ -171,10 +171,20 @@ public class DietryPlanController extends Event<EventArgs>
 
             // +1 because if enddate==startdae duration is 1 day not 0
             duration = 1 + ((enddate.getTime() - startdate.getTime()) / MILLISECONDS_TO_DAY_FACTOR);
+            List<PlanType> types = DAOFactory.getInstance().getPlanTypeDAO()
+                    .findAll();
+            PlanType toSet = null;
+            if (types != null) for (PlanType planType : types)
+            {
+                if (planType.getName().equals("Diätplan"))
+                {
+                    toSet = planType;
+                }
 
+            }
             // initiates Diatplan with needed values
-            _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo(
-                    "Testplan"), activeUser, activePatient.searchDietTreatmentBo(startdate, enddate));
+            _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo(toSet), activeUser,
+                    activePatient.searchDietTreatmentBo(startdate, enddate));
 
             // cast DietParameterData to DietParameterBo
             if (dptd != null)
@@ -196,26 +206,28 @@ public class DietryPlanController extends Event<EventArgs>
             // Setting the Parameters for Diatplan
             _dietPlanBo.setDietParameters(dpb);
 
-            
             timespanbo = new TimeSpanBo(startdate, (int) duration, _dietPlanBo);
 
             // TODO activate save methods and treatment
             // Save diatplanobject in database
-            
-            List<PlanType> types = DAOFactory.getInstance().getPlanTypeDAO().findAll();
+
+            List<PlanType> planTypes = DAOFactory.getInstance().getPlanTypeDAO()
+                    .findAll();
             for (PlanType planType : types)
             {
-                if(planType.getName().equalsIgnoreCase("Diï¿½tplanung"))
+                if (planType.getName().equalsIgnoreCase("Diï¿½tplanung"))
                 {
                     _dietPlanBo.setPlanType(new PlanTypeBo(planType));
                 }
             }
-            //FIX nix saven do
-             //_dietPlanBo.save();
+            // FIX nix saven do
+            // _dietPlanBo.save();
 
-            for(int i=0;i<timespanbo.getDuration();i++){
-                startdate=new Date(startdate.getTime()+MILLISECONDS_TO_DAY_FACTOR);
-                _tempTimeSpanBo=new TimeSpanBo(startdate, 1,_dietPlanBo);
+            for (int i = 0; i < timespanbo.getDuration(); i++)
+            {
+                startdate = new Date(startdate.getTime()
+                        + MILLISECONDS_TO_DAY_FACTOR);
+                _tempTimeSpanBo = new TimeSpanBo(startdate, 1, _dietPlanBo);
                 _dietPlanBo.addTimeSpan(timespanbo);
             }
 
@@ -282,12 +294,17 @@ public class DietryPlanController extends Event<EventArgs>
                     {
                         for (TimeSpanBo timesb : dpb.getTimeSpans())
                         {
-                            //TODO kick hugos
+                            // TODO kick hugos
                             // -1 because duration starts with 1 instead of 0
 
-                            tempenddate = new Date((timesb.getDuration()*MILLISECONDS_TO_DAY_FACTOR)-1+(timesb.getStart().getTime()));
-                            //check wether intersection not possible because of logically not overlapping startdate and enddate
-                            if (enddate.before(timesb.getStart()) || startdate.after(tempenddate)) {
+                            tempenddate = new Date(
+                                    (timesb.getDuration() * MILLISECONDS_TO_DAY_FACTOR)
+                                            - 1 + (timesb.getStart().getTime()));
+                            // check wether intersection not possible because of
+                            // logically not overlapping startdate and enddate
+                            if (enddate.before(timesb.getStart())
+                                    || startdate.after(tempenddate))
+                            {
 
                                 continue;
                             }
