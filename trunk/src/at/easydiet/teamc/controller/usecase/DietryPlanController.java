@@ -14,6 +14,7 @@ import at.easydiet.model.DietParameterType;
 import at.easydiet.model.PlanType;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
+import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.exception.NoDateException;
 import at.easydiet.teamc.exception.NoDietTreatmentException;
 import at.easydiet.teamc.exception.NoPatientException;
@@ -170,7 +171,7 @@ public class DietryPlanController extends Event<EventArgs>
 
             // initiates Diatplan with needed values
             _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo(
-                    "Testplan"), activeUser);
+                    "Testplan"), activeUser, null);
 
             // cast DietParameterData to DietParameterBo
             if (dptd != null)
@@ -194,7 +195,7 @@ public class DietryPlanController extends Event<EventArgs>
 
             // +1 because if enddate==startdae duration is 1 day not 0
             duration = 1 + ((enddate.getTime() - startdate.getTime()) / MILLISECONDS_TO_DAY_FACTOR);
-            timespanbo = new TimeSpanBo(startdate, (int) duration);
+            timespanbo = new TimeSpanBo(startdate, (int) duration, _dietPlanBo);
 
             // TODO activate save methods and treatment
             // Save diatplanobject in database
@@ -202,7 +203,7 @@ public class DietryPlanController extends Event<EventArgs>
             List<PlanType> types = DAOFactory.getInstance().getPlanTypeDAO().findAll();
             for (PlanType planType : types)
             {
-                if(planType.getName().equalsIgnoreCase("Diätplanung"))
+                if(planType.getName().equalsIgnoreCase("Diï¿½tplanung"))
                 {
                     _dietPlanBo.setPlanType(new PlanTypeBo(planType));
                 }
