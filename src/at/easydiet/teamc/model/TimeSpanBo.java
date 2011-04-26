@@ -26,11 +26,11 @@ public class TimeSpanBo  implements java.io.Serializable, Saveable {
     }
 
 	
-    public TimeSpanBo(Date start, int duration) {
-        this(new TimeSpan(start, duration));
+    public TimeSpanBo(Date start, int duration, DietPlanBo dietPlanBo) {
+        this(new TimeSpan(start, duration, dietPlanBo.getDietPlan()));
     }
-    public TimeSpanBo(Date start, int duration, Set<DietParameterBo> dietParametersBo, Set<MealBo> mealsBo) {
-       this(start, duration);
+    public TimeSpanBo(Date start, int duration, Set<DietParameterBo> dietParametersBo, Set<MealBo> mealsBo, DietPlanBo dietPlanBo) {
+       this(start, duration, dietPlanBo);
         for (MealBo mealBo : mealsBo) {
             this._TimeSpan.getMeals().add(mealBo.getMeal());
         }

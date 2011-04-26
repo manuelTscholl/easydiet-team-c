@@ -8,6 +8,10 @@ import java.util.Date;
 public class DietParameter extends at.easydiet.model.DietParameterTemplate implements java.io.Serializable
 {
 
+    /**
+     * A unique serialization id. 
+     */
+    private static final long serialVersionUID = -8505565857503590488L;
     private Date _start;
 
     /**
@@ -19,12 +23,7 @@ public class DietParameter extends at.easydiet.model.DietParameterTemplate imple
     }
 
     /**
-     * 
-     * Initializes a new instance of the {@link DietParameter} class. 
-     * @param checkOperator
-     * @param parameterDefinitionUnit
-     * @param dietParameterType
-     * @param parameterDefinition
+     * Initializes a new instance of the {@link DietParameter} class.
      */
     public DietParameter(CheckOperator checkOperator, ParameterDefinitionUnit parameterDefinitionUnit, DietParameterType dietParameterType, ParameterDefinition parameterDefinition) 
     {
@@ -67,7 +66,6 @@ public class DietParameter extends at.easydiet.model.DietParameterTemplate imple
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
         builder.append("]");

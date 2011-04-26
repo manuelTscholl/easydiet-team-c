@@ -46,8 +46,9 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
      * @param planTypeBo
      * @param creatorBo
      */
-    public DietPlanBo(String name, Date createdOn, PlanTypeBo planTypeBo, SystemUserBo creatorBo) {
-        this(new DietPlan(name, createdOn, planTypeBo.getPlanType(), creatorBo.getSystemUser()));
+    public DietPlanBo(String name, Date createdOn, PlanTypeBo planTypeBo, SystemUserBo creatorBo, DietTreatmentBo dietTreatmentBo) {
+        
+        this(new DietPlan(name, createdOn, planTypeBo.getPlanType(), dietTreatmentBo.getDietTreatment(), creatorBo.getSystemUser()));
         this._planType = planTypeBo;
         this._creator = creatorBo;
     }
@@ -61,8 +62,8 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
      * @param creator
      * @param timeSpans
      */
-    public DietPlanBo(String name, Date createdOn, PlanTypeBo planType, Set<DietParameterBo> dietParameters, SystemUserBo creator, Set<TimeSpanBo> timeSpans) {
-        this(name, createdOn, planType, creator);
+    public DietPlanBo(String name, Date createdOn, PlanTypeBo planType, Set<DietParameterBo> dietParameters, SystemUserBo creator, Set<TimeSpanBo> timeSpans, DietTreatmentBo dietTreatmentBo) {
+        this(name, createdOn, planType, creator, dietTreatmentBo);
 
         for (DietParameterBo dietParameterBo : dietParameters) {
             this._DietPlan.getDietParameters().add(dietParameterBo.getDietParameter());
@@ -246,8 +247,9 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
      */
     public MealBo addMealCode(MealCodeData mcd, int day) {
         //TODO better name for that method addMeal instead of addMealCode
-        MealBo mBo = new MealBo(new Meal(mcd.getCode(), mcd.getName()));
-        serachTimespan(day).addMeal(mBo);
+        TimeSpanBo timeSpanBo=serachTimespan(day);
+        MealBo mBo = new MealBo(new Meal(mcd.getCode(), mcd.getName(), timeSpanBo.getTimeSpan()));
+        timeSpanBo.addMeal(mBo);
         return mBo;
     }
 

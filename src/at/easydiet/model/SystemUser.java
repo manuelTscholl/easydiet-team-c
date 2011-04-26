@@ -9,6 +9,10 @@ import java.util.Set;
 public class SystemUser  implements java.io.Serializable
 {
 
+    /**
+     * A unique serialization id. 
+     */
+    private static final long serialVersionUID = 5847655385889813965L;
     private long _systemUserId;
     private String _username;
     private String _password;
@@ -235,7 +239,6 @@ public class SystemUser  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
         builder.append("]");

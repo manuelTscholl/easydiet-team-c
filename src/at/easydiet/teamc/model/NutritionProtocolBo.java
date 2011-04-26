@@ -6,6 +6,7 @@ import java.sql.Clob;
 import java.util.Date;
 import java.util.Set;
 
+import at.easydiet.model.DietParameter;
 import at.easydiet.model.DietPlan;
 import at.easydiet.model.NutritionProtocol;
 
@@ -27,11 +28,11 @@ public class NutritionProtocolBo extends DietPlanBo implements java.io.Serializa
     }
 
 	
-    public NutritionProtocolBo(DietPlan dietPlan, String name, Date createdOn, PlanTypeBo planTypeBo, SystemUserBo creatorBo, Date date) {
-        this(new NutritionProtocol(name, createdOn, planTypeBo.getPlanType(), creatorBo.getSystemUser(), date));
+    public NutritionProtocolBo(DietPlan dietPlan, String name, Date createdOn, PlanTypeBo planTypeBo, SystemUserBo creatorBo, Date date, DietTreatmentBo dietTreatmentBo, Set<DietParameterBo> dietParameterBos) {
+        this(new NutritionProtocol(name, createdOn, planTypeBo.getPlanType(), dietTreatmentBo.getDietTreatment(), creatorBo.getSystemUser(), createdOn));
     }
-    public NutritionProtocolBo(DietPlan dietPlan, String name, Date createdOn, PlanTypeBo planType, Set<DietParameterBo> dietParametersBo, SystemUserBo creatorBo, Set<TimeSpanBo> timeSpansBo, Date date, String contact, Clob notice) {
-       this(dietPlan, name, createdOn, planType, creatorBo, date);
+    public NutritionProtocolBo(DietPlan dietPlan, String name, Date createdOn, PlanTypeBo planType, Set<DietParameterBo> dietParametersBo, SystemUserBo creatorBo, Set<TimeSpanBo> timeSpansBo, Date date, String contact, Clob notice, DietTreatmentBo dietTreatmentBo) {
+       this(dietPlan, name, createdOn, planType, creatorBo, createdOn, dietTreatmentBo, dietParametersBo);
 
        for (DietParameterBo dietParameterBo : dietParametersBo) {
             this._NutritionProtocol.getDietParameters().add(dietParameterBo.getDietParameter());

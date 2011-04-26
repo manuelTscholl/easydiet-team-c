@@ -9,6 +9,10 @@ import java.util.Set;
 public class ParameterDefinition  implements java.io.Serializable
 {
 
+    /**
+     * A unique serialization id. 
+     */
+    private static final long serialVersionUID = 3183702814462580641L;
     private long _parameterDefinitionId;
     private String _name;
     private String _checkPattern;
@@ -124,7 +128,6 @@ public class ParameterDefinition  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
         builder.append("]");

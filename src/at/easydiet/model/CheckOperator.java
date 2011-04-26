@@ -7,6 +7,10 @@ package at.easydiet.model;
 public class CheckOperator  implements java.io.Serializable
 {
 
+    /**
+     * A unique serialization id. 
+     */
+    private static final long serialVersionUID = -1009934062631168086L;
     private String _name;
 
     /**
@@ -53,7 +57,6 @@ public class CheckOperator  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
         builder.append("name").append("='").append(getName()).append("' ");			

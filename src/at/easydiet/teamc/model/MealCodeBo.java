@@ -11,6 +11,7 @@ import java.util.Set;
 import at.easydiet.model.DietParameter;
 import at.easydiet.model.Meal;
 import at.easydiet.model.MealLine;
+import at.easydiet.model.TimeSpan;
 import at.easydiet.teamc.model.data.MealData;
 
 /**
@@ -29,15 +30,15 @@ public class MealCodeBo implements java.io.Serializable, Saveable, MealCodeData
         this._Meal = meal;
     }
 
-    public MealCodeBo(String code, String name)
+    public MealCodeBo(String code, String name, TimeSpanBo timeSpanBo)
     {
-        this(new Meal(code, name));
+        this(new Meal(code, name, timeSpanBo.getTimeSpan()));
     }
 
     public MealCodeBo(String code, String name,
-            Set<DietParameterBo> dietParameters, Set<MealLineBo> mealLines)
+            Set<DietParameterBo> dietParameters, Set<MealLineBo> mealLines, TimeSpanBo timeSpanBo)
     {
-        this(code, name);
+        this(code, name, timeSpanBo);
 
         for (DietParameterBo dietParameterBo : dietParameters)
         {

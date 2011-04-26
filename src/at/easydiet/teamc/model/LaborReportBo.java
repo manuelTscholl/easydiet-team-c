@@ -30,12 +30,12 @@ public class LaborReportBo  implements java.io.Serializable, Saveable {
 
 	
 
-    public LaborReportBo(Date date, SystemUserBo creatorBo) {
-        this(new LaborReport(date, creatorBo.getSystemUser()));
+    public LaborReportBo(Date date, SystemUserBo creatorBo, PatientBo patientBo) {
+        this(new LaborReport(date, creatorBo.getSystemUser(), patientBo.getPatient()));
         this._creator=creatorBo;
     }
-    public LaborReportBo(Date date, Clob notice, SystemUserBo creatorBo, Set<DietParameterBo> dietParametersBo) {
-       this(date, creatorBo);
+    public LaborReportBo(Date date, Clob notice, SystemUserBo creatorBo, Set<DietParameterBo> dietParametersBo, PatientBo patientBo) {
+       this(date, creatorBo, patientBo);
        this._LaborReport.setNotice(notice);
 
         for (DietParameterBo dietParameterBo : dietParametersBo) {

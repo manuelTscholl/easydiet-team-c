@@ -27,11 +27,11 @@ public class ContactJournalBo  implements java.io.Serializable, Saveable {
     }
 
 	
-    public ContactJournalBo(Date date, SystemUserBo creatorBo, ContactTypeBo contactTypeBo) {
-        this(new ContactJournal(date, creatorBo.getSystemUser(), contactTypeBo.getContactType()));
+    public ContactJournalBo(Date date, SystemUserBo creatorBo, ContactTypeBo contactTypeBo, DietTreatmentBo dietTreatmentBo) {
+        this(new ContactJournal(date, creatorBo.getSystemUser(), contactTypeBo.getContactType(), dietTreatmentBo.getDietTreatment()));
     }
-    public ContactJournalBo(Date date, Clob description, SystemUserBo creatorBo, ContactTypeBo contactTypeBo) {
-        this(new ContactJournal(date, description, creatorBo.getSystemUser(), contactTypeBo.getContactType()));
+    public ContactJournalBo(Date date, Clob description, SystemUserBo creatorBo, ContactTypeBo contactTypeBo, DietTreatmentBo dietTreatmentBo) {
+        this(new ContactJournal(date, description, creatorBo.getSystemUser(), contactTypeBo.getContactType(), dietTreatmentBo.getDietTreatment()));
     }
    
     public long getContactJournalId() {
