@@ -9,6 +9,10 @@ import java.util.Set;
 
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
+import at.easydiet.teamc.exception.NoDateException;
+import at.easydiet.teamc.exception.NoDietTreatmentException;
+import at.easydiet.teamc.exception.NoPatientException;
+import at.easydiet.teamc.exception.TimeIntersectionException;
 import at.easydiet.teamc.model.CheckOperatorBo;
 import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.DietPlanBo;
@@ -93,17 +97,17 @@ public class DietryPlanController extends Event<EventArgs> {
      */
     public DietryPlanData newDietryPlan(Date startdate, Date enddate, List<DietParameterData> dptd,
             List<Double> parameterMaxValues, List<Double> parameterMinValues, PatientBo activePatient,
-            SystemUserBo activeUser) {
+            SystemUserBo activeUser) throws NoPatientException, NoDateException, TimeIntersectionException, NoDietTreatmentException {
 
         //TODO combine max and min parameters with values!
         //TODO NULL check!!
 
         if (activePatient == null) {
-            return null;
+            throw new NoPatientException();
         }
 
         if (startdate == null || enddate == null) {
-            return null;
+            throw new NoDateException();
         }
 
         //List<DietParameterData> dptd can be null
@@ -147,13 +151,17 @@ public class DietryPlanController extends Event<EventArgs> {
             //_dietPlanBo.save();
 
             _dietPlanBo.addTimeSpan(timespanbo);
+            if(activePatient.getTreatments().size()>0){
             searchTreatmentForDietplan(timespanbo).addDietPlan(_dietPlanBo);
+            }else{
+                throw new NoDietTreatmentException();
+            }
             
             //_activePatient.save();
 
             return (DietryPlanData) _dietPlanBo;
         } else {
-            return null;
+            throw new TimeIntersectionException();
         }
     }
 
