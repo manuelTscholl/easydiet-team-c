@@ -47,7 +47,6 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
      * @param creatorBo
      */
     public DietPlanBo(String name, Date createdOn, PlanTypeBo planTypeBo, SystemUserBo creatorBo, DietTreatmentBo dietTreatmentBo) {
-        
         this(new DietPlan(name, createdOn, planTypeBo.getPlanType(), dietTreatmentBo.getDietTreatment(), creatorBo.getSystemUser()));
         this._planType = planTypeBo;
         this._creator = creatorBo;
