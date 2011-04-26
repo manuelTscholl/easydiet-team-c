@@ -25,6 +25,7 @@ import org.apache.pivot.wtk.ViewportListener;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealData;
 import at.easydiet.teamc.model.data.PatientData;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -118,11 +119,14 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
      * Add parameter test section to plan
      * @param d Collection of the parameters of the actual plan
      */
-    private void addParameterTest(DietPlanParameterCollectionVo d) {
-        TablePane.Row tro = new TablePane.Row();
-        Label l = new Label("PARAMETER TEST");
-        tro.add(l);
-        _parameterTable.getRows().add(tro);
+    private void addParameterTest(List<DietPlanParameterCollectionVo> d) {
+        for (DietPlanParameterCollectionVo p : d) {
+            TablePane.Row tro = new TablePane.Row();
+            Label l = new Label(p.getName() + " " + p.getMinValue()+ "/" +
+                    p.getCurrValue()+ " " +p.getMaxValue());
+            tro.add(l);
+            _parameterTable.getRows().add(tro);
+        }
     }
 
     /**
@@ -130,22 +134,22 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
      * @param dpd Plan to draw
      */
     public void drawDietryPlan(DietryPlanData dpd) {
-        
+
         // remove previously drawn dietry plans
         removePlan();
         addParameterTest(dpd.getDietPlanParameterCollectionVo());
-        
+
         // draw days
         for (int i = 0; i < dpd.getDuration(); i++) {
             Set<MealData> meals = dpd.getMealsByDay(i);
             addDay(meals);
         }
     }
-    
+
     /**
      * Removes the actual plan
      */
-    private void removePlan(){
+    private void removePlan() {
         _planTable.getRows().remove(0, _planTable.getRows().getLength());
         _parameterTable.getRows().remove(0, _parameterTable.getRows().getLength());
         initMainTable();
