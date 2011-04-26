@@ -29,8 +29,8 @@ public class RecipeDAO
     {
         //the searchresult of hibernate as a List
         List<Recipe> results = getSession().createCriteria(Recipe.class)
-        .createAlias("blscode", "b")
-        .add(Restrictions.ge("b.length", 2))
+        .createAlias("blsCode", "b")
+        .add(Restrictions.ge("blsCode.length", 2))
         .list();
         
         return results;
