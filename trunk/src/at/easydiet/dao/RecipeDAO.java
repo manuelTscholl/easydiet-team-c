@@ -53,7 +53,7 @@ public class RecipeDAO
         List<Recipe> results = getSession().createCriteria(Recipe.class)
         .addOrder(Order.desc("blsCode"))
         .add(recipeExample)
-        .addOrder(Order.desc("blscode"))
+        .addOrder(Order.desc("blsCode"))
         .list();
         
         return results;
