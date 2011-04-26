@@ -296,6 +296,7 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
                                 if (mlb.getMealLines().size() > 0) {
                                     averageparametervalue = 0;
                                     for (MealLineBo mlbmlb : mlb.getMealLines()) {
+
                                         averageparametervalue += mlbmlb.getRecipe().getNutrimentParameterValue(nutrimentParameterBo);
                                     }
                                     currentparametervalue += (averageparametervalue / mlb.getMealLines().size());
