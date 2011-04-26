@@ -3,6 +3,7 @@ package at.easydiet.dao;
 import java.util.List;
 
 
+import org.hibernate.Query;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -27,13 +28,13 @@ public class RecipeDAO
      */
     public List<Recipe> getCategories()
     {
-        //the searchresult of hibernate as a List
-        List<Recipe> results = getSession().createCriteria(Recipe.class)
-        .createAlias("blsCode", "b")
-        .add(Restrictions.ge("blsCode.length", 2))
-        .list();
         
-        return results;
+        
+        String query = "From Recipe WHERE Length(blsCode)=2";
+           Query result = getSession().createQuery(query);
+        List<Recipe> test = result.list();
+
+        return test;
  
         
     }
@@ -47,6 +48,7 @@ public class RecipeDAO
      */
     public List<Recipe> searchRecipe(String blsCategorie, String name)
     {
+       
         if(blsCategorie==null||blsCategorie.equals(""))
         {
             blsCategorie=null;
@@ -55,7 +57,7 @@ public class RecipeDAO
         {
             name=null;            
         }
-        //very important information
+        
         Recipe recipe = new Recipe();
         recipe.setBlsCode(blsCategorie);//all main categories will be found
         recipe.setName(name);
