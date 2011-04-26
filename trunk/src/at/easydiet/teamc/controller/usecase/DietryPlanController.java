@@ -185,7 +185,8 @@ public class DietryPlanController extends Event<EventArgs> {
                 if (tsb.getStart().equals(startdate) || tsb.getStart().before(startdate)) {
                     for (DietPlanBo dpb : tsb.getDietPlans()) {
                         for (TimeSpanBo timesb : dpb.getTimeSpans()) {
-                            tempenddate = new Date(timesb.getStart().getTime() + (timesb.getDuration() * MILLISECONDS_TO_DAY_FACTOR));
+                            // -1 because duration starts with 1 instead of 0
+                            tempenddate = new Date(timesb.getStart().getTime() + (timesb.getDuration() * MILLISECONDS_TO_DAY_FACTOR)-1);
                             //check wether intersection not possible because of logically not overlapping startdate and enddate
                             if (enddate.before(timesb.getStart()) || startdate.after(tempenddate)) {
                                 continue;
