@@ -72,9 +72,10 @@ public class DietryPlanController extends Event<EventArgs>
      */
     private TimeSpanBo                           _tempTimeSpanBo;
     /**
-     * Constant facotr for millisecond/day converting
+     * Constant factor for millisecond/day converting
      */
-    private static final int                     MILLISECONDS_TO_DAY_FACTOR = 86400000;
+    private static final long MILLISECONDS_TO_DAY_FACTOR = 86400000;
+
 
     /**
      * 
@@ -193,7 +194,12 @@ public class DietryPlanController extends Event<EventArgs>
             // Save diatplanobject in database
             // _dietPlanBo.save();
 
-            _dietPlanBo.addTimeSpan(timespanbo);
+            for(int i=0;i<timespanbo.getDuration();i++){
+                startdate=new Date(startdate.getTime()+MILLISECONDS_TO_DAY_FACTOR);
+                _tempTimeSpanBo=new TimeSpanBo(startdate, 1);
+                _dietPlanBo.addTimeSpan(timespanbo);
+            }
+
             if (activePatient.getTreatments().size() > 0)
             {
                 searchTreatmentForDietplan(timespanbo).addDietPlan(_dietPlanBo);
@@ -257,16 +263,13 @@ public class DietryPlanController extends Event<EventArgs>
                     {
                         for (TimeSpanBo timesb : dpb.getTimeSpans())
                         {
+                            //TODO kick hugos
                             // -1 because duration starts with 1 instead of 0
-                            tempenddate = new Date(
-                                    timesb.getStart().getTime()
-                                            + (timesb.getDuration() * MILLISECONDS_TO_DAY_FACTOR)
-                                            - 1);
-                            // check wether intersection not possible because of
-                            // logically not overlapping startdate and enddate
-                            if (enddate.before(timesb.getStart())
-                                    || startdate.after(tempenddate))
-                            {
+
+                            tempenddate = new Date((timesb.getDuration()*MILLISECONDS_TO_DAY_FACTOR)-1+(timesb.getStart().getTime()));
+                            //check wether intersection not possible because of logically not overlapping startdate and enddate
+                            if (enddate.before(timesb.getStart()) || startdate.after(tempenddate)) {
+
                                 continue;
                             }
 
@@ -330,7 +333,6 @@ public class DietryPlanController extends Event<EventArgs>
      */
     public void addMealCode(MealCodeData mcd, int day)
     {
-        System.out.println(mcd.getName());
         _tempMeal = _dietPlanBo.addMealCode(mcd, day);
     }
 
