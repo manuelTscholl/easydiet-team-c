@@ -27,16 +27,17 @@ public class RecipeDAO
      * @return
      */
     public List<Recipe> getCategories()
-    {
+    {        
+        String query = "From Recipe WHERE Length(blsCode)=2 order by blsCode";
+           Query result = getSession().createQuery(query);           
+        List<Recipe> recipes = result.list();
         
+        for (Recipe recipe : recipes)
+        {
+            LOGGER.info(recipe.getBlsCode());
+        }
         
-        String query = "From Recipe WHERE Length(blsCode)=2";
-           Query result = getSession().createQuery(query);
-        List<Recipe> test = result.list();
-
-        return test;
- 
-        
+        return recipes;        
     }
     
     /**
