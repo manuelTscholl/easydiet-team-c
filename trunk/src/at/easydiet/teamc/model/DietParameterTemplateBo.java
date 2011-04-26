@@ -25,7 +25,8 @@ public class DietParameterTemplateBo  implements java.io.Serializable, Saveable 
 
 	
     public DietParameterTemplateBo(CheckOperatorBo checkOperatorBo, DietParameterTypeBo dietParameterType, ParameterDefinitionBo parameterDefinition) {
-        this(new DietParameterTemplate(checkOperatorBo.getCheckoperator(), dietParameterType.getDietParameterType(), parameterDefinition.getParameterDefinition()));
+        this(new DietParameterTemplate(checkOperatorBo.getCheckoperator(),((ParameterDefinitionUnitBo) parameterDefinition.getUnit().toArray()[0]).getParameterDefinitionUnit(),dietParameterType.getDietParameterType(), parameterDefinition.getParameterDefinition()));
+
         this._checkOperatorBo=checkOperatorBo;
         this._dietParameterTypeBo = dietParameterType;
         this._parameterDefinitionBo = parameterDefinition;

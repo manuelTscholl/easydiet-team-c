@@ -7,10 +7,6 @@ package at.easydiet.model;
 public class ParameterDefinitionUnit  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -5166550150466202722L;
     private long _parameterDefinitionUnitId;
     private String _name;
     private ParameterDefinitionDataType _type;

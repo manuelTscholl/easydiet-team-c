@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 
 import at.easydiet.model.Recipe;
 import org.hibernate.criterion.Order;
@@ -52,8 +53,8 @@ public class RecipeDAO
         List<Recipe> results = getSession().createCriteria(Recipe.class)
         .addOrder(Order.desc("blsCode"))
         .add(recipeExample)
+        .addOrder(Order.desc("blscode"))
         .list();
-        
         
         return results;
  

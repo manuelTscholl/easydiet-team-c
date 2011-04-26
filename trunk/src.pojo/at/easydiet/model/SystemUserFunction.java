@@ -56,6 +56,7 @@ public class SystemUserFunction  implements java.io.Serializable
 
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
+        buffer.append("name").append("='").append(getName()).append("' ");			
         builder.append("]");
       
         return builder.toString();

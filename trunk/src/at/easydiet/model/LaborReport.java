@@ -11,10 +11,6 @@ import java.util.Set;
 public class LaborReport  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -5874498161136010551L;
     private long _laborReportId;
     private Date _date;
     private Clob _notice;

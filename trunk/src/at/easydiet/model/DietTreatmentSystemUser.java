@@ -7,10 +7,6 @@ package at.easydiet.model;
 public class DietTreatmentSystemUser  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -7605548321600043837L;
     private int _dietTreatmentSystemUserId;
     private SystemUser _systemUser;
     private SystemUserFunction _function;

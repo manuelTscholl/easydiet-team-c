@@ -1,5 +1,7 @@
 package at.easydiet.model;
 
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a FamilyAnamnesis
@@ -9,7 +11,7 @@ public class FamilyAnamnesis  implements java.io.Serializable
 
     private long _familyAnamnesisId;
     private String _person;
-    private String[] _illnesses;
+    private Set<String> _illnesses = new HashSet<String>(0);
 
     /**
      * Initializes a new instance of the {@link FamilyAnamnesis} class.
@@ -33,7 +35,7 @@ public class FamilyAnamnesis  implements java.io.Serializable
      * @param person the person to set for this instance
      * @param illnesses the illnesses to set for this instance
      */
-    public FamilyAnamnesis(String person, String[] illnesses) 
+    public FamilyAnamnesis(String person, Set<String> illnesses) 
     {
        _person = person;
        _illnesses = illnesses;
@@ -79,7 +81,7 @@ public class FamilyAnamnesis  implements java.io.Serializable
      * Gets the illnesses of this instance. 
      * @return the illnesses currently set for this instance.
      */
-    public String[] getIllnesses() 
+    public Set<String> getIllnesses() 
     {
         return _illnesses;
     }
@@ -88,7 +90,7 @@ public class FamilyAnamnesis  implements java.io.Serializable
      * Sets the illnesses of this instance. 
      * @param illnesses the new illnesses of this instance.
      */    
-    public void setIllnesses(String[] illnesses) 
+    public void setIllnesses(Set<String> illnesses) 
     {
         _illnesses = illnesses;
     }

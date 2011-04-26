@@ -9,10 +9,6 @@ import java.util.Set;
 public class FamilyAnamnesis  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -3173217157674917806L;
     private long _familyAnamnesisId;
     private String _person;
     private Set<String> _illnesses = new HashSet<String>(0);

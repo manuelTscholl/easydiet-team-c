@@ -4,6 +4,7 @@ package at.easydiet.teamc.model;
 import java.util.Date;
 
 import at.easydiet.model.DietParameter;
+import at.easydiet.model.ParameterDefinitionUnit;
 import at.easydiet.teamc.model.data.DietParameterData;
 
 /**
@@ -26,7 +27,12 @@ public class DietParameterBo extends DietParameterTemplateBo implements java.io.
     }
 
     public DietParameterBo(CheckOperatorBo checkOperator, DietParameterTypeBo dietParameterType, ParameterDefinitionBo parameterDefinition) {
-        this(new DietParameter(checkOperator.getCheckoperator(), dietParameterType.getDietParameterType(), parameterDefinition.getParameterDefinition()));
+        
+        
+        this(new DietParameter(checkOperator.getCheckoperator(),
+                (ParameterDefinitionUnit)((ParameterDefinitionBo)parameterDefinition.getUnit().toArray()[0]).getParameterDefinition().getUnits().toArray()[0],
+                dietParameterType.getDietParameterType(),
+                parameterDefinition.getParameterDefinition()));
     }
 
     public DietParameterBo(CheckOperatorBo checkOperator, int duration, String value, DietParameterTypeBo dietParameterType, ParameterDefinitionBo parameterDefinition, Date start) {

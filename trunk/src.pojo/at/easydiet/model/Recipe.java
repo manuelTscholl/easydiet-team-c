@@ -32,12 +32,10 @@ public class Recipe  implements java.io.Serializable
 
     /**
      * Initializes a new instance of the {@link Recipe} class.
-     * @param name the name to set for this instance
      * @param difficulty the difficulty to set for this instance
      */
-    public Recipe(String name, int difficulty) 
+    public Recipe(int difficulty) 
     {
-        _name = name;
         _difficulty = difficulty;
     }
 

@@ -36,6 +36,7 @@
         CheckOperator varchar(255) not null,
         Duration integer,
         Value varchar(255),
+        ParameterDefinitionUnitId bigint not null,
         DietParameterType varchar(255) not null,
         ParameterDefinitionId bigint not null,
         DietParameterSetId bigint not null,
@@ -102,9 +103,7 @@
 
     create table FamilyAnamnesisIllnesses (
         FamilyAnamnesisId bigint not null,
-        Illness varchar(255),
-        Idx integer not null,
-        primary key (FamilyAnamnesisId, Idx)
+        Illness varchar(255)
     );
 
     create table Gender (
@@ -155,6 +154,7 @@
         NutrimentParameterId bigint not null auto_increment,
         Value varchar(255) not null,
         ParameterDefinitionId bigint not null,
+        ParameterDefinitionUnitId bigint not null,
         RecipeId bigint not null,
         primary key (NutrimentParameterId)
     );
@@ -220,9 +220,7 @@
 
     create table PatientIllnesses (
         PatientId bigint not null,
-        Illness varchar(255),
-        Idx integer not null,
-        primary key (PatientId, Idx)
+        Illness varchar(255)
     );
 
     create table PatientState (
@@ -259,14 +257,14 @@
 
     create table Recipe (
         RecipeId bigint not null auto_increment,
-        Name varchar(255) not null unique,
+        Name varchar(255),
         BlsCode varchar(255),
         Difficulty integer not null,
         Description longtext,
         Benefits longtext,
         CookInstructions longtext,
         Amount float,
-        Unit bigint,
+        ParameterDefinitionUnitId bigint,
         primary key (RecipeId)
     );
 
@@ -366,6 +364,12 @@
         add constraint FK177958F6E3C21F1 
         foreign key (ParameterDefinitionId) 
         references ParameterDefinition (ParameterDefinitionId);
+
+    alter table DietParameterTemplate 
+        add index FK177958FE3E89D19 (ParameterDefinitionUnitId), 
+        add constraint FK177958FE3E89D19 
+        foreign key (ParameterDefinitionUnitId) 
+        references ParameterDefinitionUnit (ParameterDefinitionUnitId);
 
     alter table DietParameterTemplate 
         add index FK177958FD29C5A36 (CheckOperator), 
@@ -536,6 +540,12 @@
         references ParameterDefinition (ParameterDefinitionId);
 
     alter table NutrimentParameter 
+        add index FKCE37D007E3E89D19 (ParameterDefinitionUnitId), 
+        add constraint FKCE37D007E3E89D19 
+        foreign key (ParameterDefinitionUnitId) 
+        references ParameterDefinitionUnit (ParameterDefinitionUnitId);
+
+    alter table NutrimentParameter 
         add index FKCE37D00776981BB9 (RecipeId), 
         add constraint FKCE37D00776981BB9 
         foreign key (RecipeId) 
@@ -626,9 +636,9 @@
         references PatientState (PatientStateId);
 
     alter table Recipe 
-        add index FK91AB41AE4DA9F442 (Unit), 
-        add constraint FK91AB41AE4DA9F442 
-        foreign key (Unit) 
+        add index FK91AB41AEE3E89D19 (ParameterDefinitionUnitId), 
+        add constraint FK91AB41AEE3E89D19 
+        foreign key (ParameterDefinitionUnitId) 
         references ParameterDefinitionUnit (ParameterDefinitionUnitId);
 
     alter table RecipeIngredient 
