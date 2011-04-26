@@ -35,20 +35,18 @@ public class SearchRecipeController {
      * Returns a list of Recipe-Categoreis
      * @return
      */
-    public Set<RecipeBo> getRecipeMainCategories() {
+    public List<RecipeBo> getRecipeMainCategories() {
         List<RecipeBo> mainCategories = DatabaseController.getInstance().getRecipeMainCategories();
-        Set<RecipeBo> setOfMainCategories = new HashSet<RecipeBo>(mainCategories);
-        return setOfMainCategories;
+        return mainCategories;
     }
 
     /**
      * Returns a list of Recipe
      * @return
      */
-    public Set<RecipeBo> searchRecipe(String mainCategory, String search) {
+    public List<RecipeBo> searchRecipe(String mainCategory, String search) {
         List<RecipeBo> recipes = DatabaseController.getInstance().searchRecipe(mainCategory, search);
-        Set<RecipeBo> setOfSearchRecipe = new HashSet<RecipeBo>(recipes);
-        return setOfSearchRecipe;
+        return recipes;
     }
 
     /**
@@ -62,7 +60,7 @@ public class SearchRecipeController {
 
         blsCode = blsCode.substring(0, 1);
         blsCode += "00000";
-        Set<RecipeBo> recipes = searchRecipe(blsCode, null);
+        List<RecipeBo> recipes = searchRecipe(blsCode, null);
 
         if (recipes.size() >= 1) {
             return (RecipeBo) recipes.toArray()[0];

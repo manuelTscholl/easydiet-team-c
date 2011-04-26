@@ -277,7 +277,7 @@ public class DietryPlanController extends Event<EventArgs> {
     public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
 
         Set<CheckedRecipeVo> temp = new HashSet<CheckedRecipeVo>();
-        Set<RecipeBo> recipes = _searchRecipeController.searchRecipe(mainCategory, search);
+        List<RecipeBo> recipes = _searchRecipeController.searchRecipe(mainCategory, search);
 
         if (recipes != null) {
             for (RecipeBo rb : recipes) {
