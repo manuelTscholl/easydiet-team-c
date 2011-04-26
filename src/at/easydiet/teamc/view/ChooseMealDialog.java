@@ -70,7 +70,6 @@ public class ChooseMealDialog extends Dialog implements Bindable {
         _mealChooserListButton.setListData(_mealCodes);
         _mealChooserListButton.setSelectedIndex(0);
 
-
         initRecipeMainCategories();
 
         // add button listeners
@@ -145,11 +144,11 @@ public class ChooseMealDialog extends Dialog implements Bindable {
                         GUIController.getInstance().searchRecipe(blsSearch, null);
 
                 // add recipes
-                for(CheckedRecipeVo c:checkedRecipes){
+                for (CheckedRecipeVo c : checkedRecipes) {
                     System.out.println(c.getRecipeData().getBlsCode());
                 }
                 addRecipesToCategory(checkedRecipes);
-                
+
             }
 
             public void branchCollapsed(TreeView treeView, Path path) {
