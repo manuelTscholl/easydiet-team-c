@@ -27,6 +27,7 @@ import at.easydiet.teamc.model.MealBo;
 import at.easydiet.teamc.model.MealCodeBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.RecipeBo;
+import at.easyhibernate.DaoExporter;
 
 /** 
  * Will get all data from database via the different class dow's
@@ -116,12 +117,20 @@ public class DatabaseController {
     }
     
     /**
-     * Looks in database for all recipe categories bls looks like (B000000)6x0
+     * Gets all Bls categories out of the db
      * @return a list of categories
      */
     public List<RecipeBo> getRecipeMainCategories()
     {        
-        return searchRecipe("00000",null);
+        List<Recipe> recipes = DAOFactory.getInstance().getRecipeDAO().getCategories();
+        List<RecipeBo> recipesBo= new ArrayList<RecipeBo>();
+        
+        if(recipes!=null)
+            for (Recipe item : recipes)
+            {
+                recipesBo.add(new RecipeBo(item));
+            }
+        return recipesBo;
     }
    
     /**

@@ -182,8 +182,27 @@ public class BusinessLogicDelegationController {
 	public DietryPlanData newDietryPlan(Date startDate,Date endDate,List<DietParameterData> params,
                 List<Double> parameterMaxValues, List<Double> parameterMinValues) throws NoPatientException, NoDateException, TimeIntersectionException, NoDietTreatmentException{
 		_dietryPlanController=DietryPlanController.getInstance();
-		_dietryPlanController.newDietryPlan(startDate, endDate, params, 
-                        parameterMaxValues, parameterMinValues, this._activePatient, getActualUser());
+		try
+        {
+            _dietryPlanController.newDietryPlan(startDate, endDate, params, 
+                            parameterMaxValues, parameterMinValues, this._activePatient, getActualUser());
+        }
+        catch (NoPatientException e)
+        {
+            LOGGER.debug(e);
+        }
+        catch (NoDateException e)
+        {
+            LOGGER.debug(e);
+        }
+        catch (TimeIntersectionException e)
+        {
+            LOGGER.debug(e);
+        }
+        catch (NoDietTreatmentException e)
+        {
+            LOGGER.debug(e);
+        }
 		
 		//return the DietryPlanData
 		return _dietryPlanController.getDietryPlan();		

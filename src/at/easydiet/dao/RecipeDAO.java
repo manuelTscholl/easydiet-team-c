@@ -6,6 +6,8 @@ import java.util.List;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 import at.easydiet.model.Recipe;
 import org.hibernate.criterion.Order;
@@ -18,6 +20,23 @@ public class RecipeDAO
 {
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(RecipeDAO.class);
 
+    
+    /**
+     * the BLS Categories
+     * @return
+     */
+    public List<Recipe> getCategories()
+    {
+        //the searchresult of hibernate as a List
+        List<Recipe> results = getSession().createCriteria(Recipe.class)
+        .createAlias("blscode", "b")
+        .add(Restrictions.ge("b.length", 2))
+        .list();
+        
+        return results;
+ 
+        
+    }
     
     /**
      * Searches recipes by their names or categories
@@ -48,7 +67,6 @@ public class RecipeDAO
         .enableLike(MatchMode.ANYWHERE)
         ;
         
-                
         //the searchresult of hibernate as a List
         List<Recipe> results = getSession().createCriteria(Recipe.class)
         .addOrder(Order.desc("blsCode"))
