@@ -32,42 +32,47 @@ import org.apache.pivot.wtk.TableView;
 import org.apache.pivot.wtk.content.ButtonData;
 
 /**
- * Represents the dialog to add a new dietry plan
- * Timespan -> Choose Parameters -> Add Parameter values
+ * Represents the dialog to add a new dietry plan Timespan -> Choose Parameters
+ * -> Add Parameter values
+ * 
  * @author Michael
  */
-public class DietPlanDialog extends Dialog implements Bindable {
+public class DietPlanDialog extends Dialog implements Bindable
+{
 
-    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(DietPlanDialog.class);
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
+                                                               .getLogger(DietPlanDialog.class);
     // instance variables
-    private TablePane _dateChooserTablePane;
-    private TablePane _parameterChooserTablePane;
-    private ListView _parameterListView;
-    private ListView _chosenParameterListView;
-    private PushButton _addParameterButton;
-    private PushButton _removeParameterButton;
-    private TablePane _setParametersTablePane;
-    private TableView _parameterTableView;
-    private PushButton _cancelButton;
-    private PushButton _backButton;
-    private PushButton _forwardButton;
-    private Label _dateChooserLabel;
-    private Label _parametersChooserLabel;
-    private Label _setParametersLabel;
-    private HashMap<Integer, TablePane> _stepsTablePane;
-    private HashMap<Integer, Label> _stepsLabel;
-    private int _selectedStep;
-    private CalendarButton _startDate;
-    private CalendarButton _endDate;
-    private List<DietParameterData> _parameters;
-    private HashMap<String, DietParameterData> _chosenParameterNames;
-    private List<DietParameterData> _chosenParameters;
-    private List<Double> _parameterMinValues;
-    private List<Double> _parameterMaxValues;
+    private TablePane                           _dateChooserTablePane;
+    private TablePane                           _parameterChooserTablePane;
+    private ListView                            _parameterListView;
+    private ListView                            _chosenParameterListView;
+    private PushButton                          _addParameterButton;
+    private PushButton                          _removeParameterButton;
+    private TablePane                           _setParametersTablePane;
+    private TableView                           _parameterTableView;
+    private PushButton                          _cancelButton;
+    private PushButton                          _backButton;
+    private PushButton                          _forwardButton;
+    private Label                               _dateChooserLabel;
+    private Label                               _parametersChooserLabel;
+    private Label                               _setParametersLabel;
+    private HashMap<Integer, TablePane>         _stepsTablePane;
+    private HashMap<Integer, Label>             _stepsLabel;
+    private int                                 _selectedStep;
+    private CalendarButton                      _startDate;
+    private CalendarButton                      _endDate;
+    private List<DietParameterData>             _parameters;
+    private HashMap<String, DietParameterData>  _chosenParameterNames;
+    private List<DietParameterData>             _chosenParameters;
+    private List<Double>                        _parameterMinValues;
+    private List<Double>                        _parameterMaxValues;
 
-    public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
+    public void initialize(Map<String, Object> namespace, URL location,
+            Resources resources)
+    {
         _selectedStep = 0;
-        
+
         // init lists
         _chosenParameterNames = new HashMap<String, DietParameterData>();
         _chosenParameters = new ArrayList<DietParameterData>();
@@ -75,21 +80,27 @@ public class DietPlanDialog extends Dialog implements Bindable {
         _parameterMinValues = new ArrayList<Double>();
 
         // get GUI components
-        _dateChooserTablePane = (TablePane) namespace.get("dateChooserTablePane");
+        _dateChooserTablePane = (TablePane) namespace
+                .get("dateChooserTablePane");
         _startDate = (CalendarButton) namespace.get("startDate");
         _endDate = (CalendarButton) namespace.get("endDate");
-        _parameterChooserTablePane = (TablePane) namespace.get("parameterChooserTablePane");
-        _setParametersTablePane = (TablePane) namespace.get("setParametersTablePane");
+        _parameterChooserTablePane = (TablePane) namespace
+                .get("parameterChooserTablePane");
+        _setParametersTablePane = (TablePane) namespace
+                .get("setParametersTablePane");
         _parameterListView = (ListView) namespace.get("parameterListView");
-        _chosenParameterListView = (ListView) namespace.get("chosenParameterListView");
+        _chosenParameterListView = (ListView) namespace
+                .get("chosenParameterListView");
         _addParameterButton = (PushButton) namespace.get("addParameterButton");
         _parameterTableView = (TableView) namespace.get("parameterTableView");
-        _removeParameterButton = (PushButton) namespace.get("removeParameterButton");
+        _removeParameterButton = (PushButton) namespace
+                .get("removeParameterButton");
         _cancelButton = (PushButton) namespace.get("cancelButton");
         _backButton = (PushButton) namespace.get("backButton");
         _forwardButton = (PushButton) namespace.get("forwardButton");
         _dateChooserLabel = (Label) namespace.get("dateChooserLabel");
-        _parametersChooserLabel = (Label) namespace.get("parametersChooserLabel");
+        _parametersChooserLabel = (Label) namespace
+                .get("parametersChooserLabel");
         _setParametersLabel = (Label) namespace.get("setParametersLabel");
 
         // store tablepanes and labels with step index
@@ -111,83 +122,142 @@ public class DietPlanDialog extends Dialog implements Bindable {
         _chosenParameterListView.setListData(_chosenParameters);
 
         // button listeners
-        _forwardButton.getButtonPressListeners().add(new ButtonPressListener() {
+        _forwardButton.getButtonPressListeners().add(new ButtonPressListener()
+        {
 
-            public void buttonPressed(Button button) {
+            public void buttonPressed(Button button)
+            {                
                 setStep(_selectedStep, ++_selectedStep);
+                
             }
         });
 
-        _backButton.getButtonPressListeners().add(new ButtonPressListener() {
+        _backButton.getButtonPressListeners().add(new ButtonPressListener()
+        {
 
-            public void buttonPressed(Button button) {
+            public void buttonPressed(Button button)
+            {
                 setStep(_selectedStep, --_selectedStep);
             }
         });
 
         // button listeners for adding and removing parameters
-        _addParameterButton.getButtonPressListeners().add(new ButtonPressListener() {
+        _addParameterButton.getButtonPressListeners().add(
+                new ButtonPressListener()
+                {
 
-            public void buttonPressed(Button button) {
-                DietParameterData param = (DietParameterData) _parameterListView.getSelectedItem();
-                _chosenParameters.add(param);
-                _chosenParameterNames.put(param.getParameterName(), param);
-                _parameters.remove(param);
-            }
-        });
+                    public void buttonPressed(Button button)
+                    {
+                        DietParameterData param = (DietParameterData) _parameterListView
+                                .getSelectedItem();
+                        _chosenParameters.add(param);
+                        _chosenParameterNames.put(param.getParameterName(),
+                                param);
+                        _parameters.remove(param);
+                    }
+                });
 
-        _removeParameterButton.getButtonPressListeners().add(new ButtonPressListener() {
+        _removeParameterButton.getButtonPressListeners().add(
+                new ButtonPressListener()
+                {
 
-            public void buttonPressed(Button button) {
-                DietParameterData param = (DietParameterData) _chosenParameterListView.getSelectedItem();
-                _parameters.add(param);
-                _chosenParameters.remove(param);
-                _chosenParameterNames.remove(param.getParameterName());
-            }
-        });
+                    public void buttonPressed(Button button)
+                    {
+                        DietParameterData param = (DietParameterData) _chosenParameterListView
+                                .getSelectedItem();
+                        _parameters.add(param);
+                        _chosenParameters.remove(param);
+                        _chosenParameterNames.remove(param.getParameterName());
+                    }
+                });
 
         // event for changing dates to validate them
-        _startDate.getCalendarButtonSelectionListeners().add(new CalendarButtonSelectionListener() {
+        _startDate.getCalendarButtonSelectionListeners().add(
+                new CalendarButtonSelectionListener()
+                {
 
-            public void selectedDateChanged(CalendarButton calendarButton, CalendarDate previousSelectedDate) {
+                    public void selectedDateChanged(
+                            CalendarButton calendarButton,
+                            CalendarDate previousSelectedDate)
+                    {
 
-                // get dates
-                Date start = calendarButton.getSelectedDate().toCalendar().getTime();
-                Date end = _endDate.getSelectedDate().toCalendar().getTime();
+                        // get dates
+                        Date start = calendarButton.getSelectedDate()
+                                .toCalendar().getTime();
+                        Date end = _endDate.getSelectedDate().toCalendar()
+                                .getTime();
 
-                // if endDate is now before this new start date, 
-                // set end date to start date
-                if (start.after(end)) {
-                    _endDate.setSelectedDate(calendarButton.getSelectedDate());
-                }
+                        // if endDate is now before this new start date,
+                        // set end date to start date
+                        if (start.after(end))
+                        {
+                            _endDate.setSelectedDate(calendarButton
+                                    .getSelectedDate());
+                        }
+                    }
+                });
+        _endDate.getCalendarButtonSelectionListeners().add(
+                new CalendarButtonSelectionListener()
+                {
+
+                    public void selectedDateChanged(
+                            CalendarButton calendarButton,
+                            CalendarDate previousSelectedDate)
+                    {
+
+                        // get dates
+                        Date start = _startDate.getSelectedDate().toCalendar()
+                                .getTime();
+                        Date end = calendarButton.getSelectedDate()
+                                .toCalendar().getTime();
+
+                        // if start date is now after this new end date,
+                        // set start date to end date
+                        if (start.after(end))
+                        {
+                            _startDate.setSelectedDate(calendarButton
+                                    .getSelectedDate());
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Checks if all Parameter have correct min and max values
+     * @return
+     */
+    private boolean isMinMaxParameterValid(ArrayList<HashMap<String, String>> map)
+    {
+       
+        for (HashMap<String, String> data : map)
+        {
+            if (Double.parseDouble(String.valueOf(data.get("maximum"))) < Double
+                    .parseDouble(String.valueOf(data.get("minimum"))))
+            {
+                return false;
             }
-        });
-        _endDate.getCalendarButtonSelectionListeners().add(new CalendarButtonSelectionListener() {
+        }
 
-            public void selectedDateChanged(CalendarButton calendarButton, CalendarDate previousSelectedDate) {
-
-                // get dates
-                Date start = _startDate.getSelectedDate().toCalendar().getTime();
-                Date end = calendarButton.getSelectedDate().toCalendar().getTime();
-
-                // if start date is now after this new end date, 
-                // set start date to end date
-                if (start.after(end)) {
-                    _startDate.setSelectedDate(calendarButton.getSelectedDate());
-                }
-            }
-        });
+        return true;
     }
 
     /**
      * Set active step and disable all other steps
-     * @param lastStep Index of the last step which is actually active
-     * @param nextStep Index of the next step
+     * 
+     * @param lastStep
+     *            Index of the last step which is actually active
+     * @param nextStep
+     *            Index of the next step
      */
-    private void setStep(int lastStep, int nextStep) {
-
+    private void setStep(int lastStep, int nextStep)
+    {
+        // get parameter values
+        ArrayList<HashMap<String, String>> map = (ArrayList<HashMap<String, String>>) _parameterTableView
+                .getTableData();
+        
         // check if in range
-        if (nextStep < _stepsLabel.getCount() && nextStep >= 0) {
+        if (nextStep < _stepsLabel.getCount() && nextStep >= 0)
+        {
 
             // go to next step
             _stepsTablePane.get(nextStep).setVisible(true);
@@ -199,50 +269,64 @@ public class DietPlanDialog extends Dialog implements Bindable {
         }
 
         // final step -> add parameter values
-        if (_selectedStep == _stepsLabel.getCount() - 1) {
+        if (_selectedStep == _stepsLabel.getCount() - 1)
+        {
             updateParamTable();
 
             _forwardButton.setButtonData(new ButtonData("Fertigstellen"));
-        } else {
+        }
+        else
+        {            
+            if(!isMinMaxParameterValid(map))
+            {
+                _selectedStep=_selectedStep-1;
+                return;
+            }            
             _forwardButton.setButtonData(new ButtonData("Weiter"));
         }
 
         // fist step -> back not available
-        if (_selectedStep == 0) {
+        if (_selectedStep == 0)
+        {
             _backButton.setEnabled(false);
-        } else {
+        }
+        else
+        {
             _backButton.setEnabled(true);
         }
 
         // selected index is too high
-        if (nextStep > _stepsLabel.getCount()) {
+        if (nextStep > _stepsLabel.getCount())
+        {
             _selectedStep = _stepsLabel.getCount() - 1;
         }
 
         // check if finish button is pressed
-        if (nextStep == _stepsLabel.getCount()) {
-
+        if (nextStep == _stepsLabel.getCount())
+        {
             // get date
             Date start = _startDate.getSelectedDate().toCalendar().getTime();
             Date end = _endDate.getSelectedDate().toCalendar().getTime();
 
-            // get parameter values
-            ArrayList<HashMap<String, String>> map =
-                    (ArrayList<HashMap<String, String>>) _parameterTableView.getTableData();
 
             // create max and min values list
             List<DietParameterData> params = new ArrayList<DietParameterData>();
             List<Double> maxValues = new ArrayList<Double>();
             List<Double> minValues = new ArrayList<Double>();
-            for (HashMap<String, String> data : map) {
+            for (HashMap<String, String> data : map)
+            {
                 params.add(_chosenParameterNames.get(data.get("parameter")));
-                maxValues.add(Double.parseDouble(String.valueOf(data.get("maximum"))));
-                minValues.add(Double.parseDouble(String.valueOf(data.get("minimum"))));
+                maxValues.add(Double.parseDouble(String.valueOf(data
+                        .get("maximum"))));// special pivot string cast to java
+                                           // string
+                minValues.add(Double.parseDouble(String.valueOf(data
+                        .get("minimum"))));// special pivot string cast to java
+                                           // string
             }
 
             // process
-            GUIController.getInstance().newDietryPlan(start, end, params, maxValues,
-                    minValues);
+            GUIController.getInstance().newDietryPlan(start, end, params,
+                    maxValues, minValues);
             close();
         }
     }
@@ -250,10 +334,12 @@ public class DietPlanDialog extends Dialog implements Bindable {
     /**
      * Update table view for adding parameter values
      */
-    private void updateParamTable() {
+    private void updateParamTable()
+    {
         ArrayList<HashMap<String, String>> tableData = new ArrayList<HashMap<String, String>>();
 
-        for (DietParameterData d : _chosenParameters) {
+        for (DietParameterData d : _chosenParameters)
+        {
             HashMap<String, String> row = new HashMap<String, String>();
             row.put("parameter", d.getParameterName());
             row.put("minimum", "0");
