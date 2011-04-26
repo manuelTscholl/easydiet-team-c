@@ -184,12 +184,12 @@ public class DietWeek {
             _dayBorder = new Border();
             _dayBorder.setTitle("Tag: " + _actualDay);
             _dayBorder.getStyles().put("backgroundColor", "#EBEDEF");
-            
+
             // add day content
             _mealTable.getColumns().add(new TablePane.Column()); // new meal button
             _mealTable.getColumns().add(new TablePane.Column()); // meal code
             _mealTable.getColumns().add(new TablePane.Column()); // meal recipes
-            
+
             // first row for add button
             TablePane.Row buttonRow = new TablePane.Row();
             ButtonData buttonData = new ButtonData();
@@ -201,31 +201,35 @@ public class DietWeek {
             newMealButton.setTooltipText("Neue Mahlzeit hinzufügen");
             buttonRow.add(newMealButton);
             _mealTable.getRows().add(buttonRow);
-            
+
             // add meals if exist
-            if(_meals != null && !_meals.isEmpty()){
-                
-                for(MealData m:_meals){
+            if (_meals != null && !_meals.isEmpty()) {
+
+                for (MealData m : _meals) {
                     TablePane.Row mealRow = new TablePane.Row();
                     TablePane.Filler filler = new TablePane.Filler();
                     mealRow.add(filler); // meal button
                     Label mealCode = new Label(m.getMealCodeData().getName());
                     mealRow.add(mealCode);
-                    
+
                     // recipes
-                    BoxPane recipes = new BoxPane();
                     Set<MealLineData> lines = m.getMealLineData();
-                    for(MealLineData mLine:lines){
-                        Label l = new Label(mLine.getRecipeData().getName());
-                        recipes.add(l);
+                    if (lines != null && !lines.isEmpty()) {
+                        BoxPane recipes = new BoxPane();
+                        for (MealLineData mLine : lines) {
+                            Label l = new Label(mLine.getRecipeData().getName());
+                            recipes.add(l);
+                        }
+                        mealRow.add(recipes);
+                    } else {
+                        mealRow.add(new TablePane.Filler());
                     }
-                    mealRow.add(recipes);
-                    
+
                     // add content to table
                     _mealTable.getRows().add(mealRow);
                 }
             }
-            
+
             // add button listener
             newMealButton.getButtonPressListeners().add(new ButtonPressListener() {
 
@@ -233,10 +237,10 @@ public class DietWeek {
                     GUIController.getInstance().addMeal(_actualDay);
                 }
             });
-            
+
             // add meal table
             _dayBorder.setContent(_mealTable);
-            
+
             // add row
             dayRow.add(_dayBorder);
             _weekTable.getRows().add(dayRow);

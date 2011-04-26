@@ -120,10 +120,19 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
      * @param d Collection of the parameters of the actual plan
      */
     private void addParameterTest(List<DietPlanParameterCollectionVo> d) {
-        for (DietPlanParameterCollectionVo p : d) {
+
+        // check if parameters are available
+        if (d != null && !d.isEmpty()) {
+            for (DietPlanParameterCollectionVo p : d) {
+                TablePane.Row tro = new TablePane.Row();
+                Label l = new Label(p.getName() + " " + p.getMinValue() + "/"
+                        + p.getCurrValue() + " " + p.getMaxValue());
+                tro.add(l);
+                _parameterTable.getRows().add(tro);
+            }
+        } else {
             TablePane.Row tro = new TablePane.Row();
-            Label l = new Label(p.getName() + " " + p.getMinValue()+ "/" +
-                    p.getCurrValue()+ " " +p.getMaxValue());
+            Label l = new Label("Keine Parameter vorhanden");
             tro.add(l);
             _parameterTable.getRows().add(tro);
         }
