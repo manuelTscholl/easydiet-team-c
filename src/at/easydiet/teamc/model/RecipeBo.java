@@ -153,6 +153,9 @@ public class RecipeBo  implements java.io.Serializable, Saveable, RecipeData {
         return 0;
     }
 
+    public String toString(){
+        return _Recipe.getName();
+    }
 
 }
 

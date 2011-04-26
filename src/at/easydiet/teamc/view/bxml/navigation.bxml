@@ -73,13 +73,6 @@
                 <TablePane.Column width="-1"/>
             </columns>
             <TablePane.Row height="-1">
-                <Accordion styles="{backgroundColor:'#CCE8FC', buttonBackgroundColor:'#DFF1FD'}"
-                        xmlns:bxml="http://pivot.apache.org/bxml"
-                        xmlns="org.apache.pivot.wtk">
-                    <Label Accordion.headerData="Stammdaten" text="Hello"/>
-                    <Label Accordion.headerData="Anamnese" text="World"/>
-                    <Label Accordion.headerData="Parameter" text="Pivot"/>
-                </Accordion>
             </TablePane.Row>
         </TablePane>
     </BoxPane>
@@ -102,27 +95,6 @@
                 <Label text="Navigation" styles="{font:{bold:true}}"/>
             </TablePane.Row>
             <TablePane.Row height="-1">
-                <TreeView bxml:id="treeView"
-                        xmlns:bxml="http://pivot.apache.org/bxml"
-                        xmlns:content="org.apache.pivot.wtk.content"
-                        xmlns="org.apache.pivot.wtk"
-                        styles="{spacing:'0', indent:'10', backgroundColor:'#CCE8FC', selectionBackgroundColor:'#DFF1FD',
-                        highlightBackgroundColor:'#DFF1FD', selectionColor:'#000000', branchControlSelectionColor:'#000000'}"
-                        ComponentListener.parentChanged="treeView.expandAll();">
-
-                    <treeData>
-                        <content:TreeBranch>
-                            <content:TreeBranch text="Woche 1">
-                                <content:TreeNode text="Tag 1"/>
-                                <content:TreeNode text="Tag 2"/>
-                                <content:TreeNode text="Tag 3"/>
-                            </content:TreeBranch>
-                            <content:TreeBranch text="Woche 2">
-                                <content:TreeNode text="Tag 1"/>
-                            </content:TreeBranch>
-                        </content:TreeBranch>
-                    </treeData>
-                </TreeView>
             </TablePane.Row>
         </TablePane>
     </BoxPane>

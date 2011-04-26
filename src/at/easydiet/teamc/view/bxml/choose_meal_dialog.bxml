@@ -55,7 +55,7 @@
                             </BoxPane>
                         </TablePane.Row>
                         <TablePane.Row height="-1">
-                            <TreeView selectMode="multi" bxml:id="recipeTreeView"
+                            <TreeView bxml:id="recipeTreeView"
                                 xmlns:bxml="http://pivot.apache.org/bxml"
                                 xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}"/>
                         </TablePane.Row>
@@ -79,9 +79,17 @@
             <Border title="Fertige Mahlzeit" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
                 xmlns:bxml="http://pivot.apache.org/bxml"
                 xmlns="org.apache.pivot.wtk">
-                <TreeView selectMode="multi" bxml:id="chosenRecipeTreeView" visible="false"
-                                xmlns:bxml="http://pivot.apache.org/bxml"
-                                xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}"/>
+                <ScrollPane visible="false" xmlns:bxml="http://pivot.apache.org/bxml"
+                            bxml:id="chosenRecipeScrollPane"
+                            xmlns:explorer="org.apache.pivot.tutorials.explorer"
+                            xmlns="org.apache.pivot.wtk" horizontalScrollBarPolicy="auto"
+                             verticalScrollBarPolicy="auto" styles="{backgroundColor:'#EBEDEF'}">
+                    <Accordion preferredWidth="245" bxml:id="chosenMealAccordion"
+                    xmlns:bxml="http://pivot.apache.org/bxml"
+                    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
+
+                    </Accordion>
+                </ScrollPane>
             </Border>
             <!-- END Added Meals -->
 

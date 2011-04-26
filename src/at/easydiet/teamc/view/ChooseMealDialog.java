@@ -13,14 +13,17 @@ import at.easydiet.teamc.model.data.RecipeData;
 import java.net.URL;
 
 import org.apache.pivot.beans.Bindable;
+import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.collections.Sequence.Tree.Path;
 import org.apache.pivot.collections.Set;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.Accordion;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Dialog;
+import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.ScrollPane;
@@ -50,11 +53,14 @@ public class ChooseMealDialog extends Dialog implements Bindable {
     private PushButton _addAlternativeButton;
     private PushButton _finishButton;
     private TreeView _recipeTreeView;
-    private TreeView _chosenRecipeTreeView;
+    private Accordion _chosenRecipeAccordion;
+    private ScrollPane _chosenRecipeScrollPane;
     private List<MealCodeData> _mealCodes;
     private int _day;
+    private List<MealLineBoxPane> _mealLines;
 
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
+        _mealLines = new ArrayList<MealLineBoxPane>();
 
         // get GUI components
         _chooseMealButton = (PushButton) namespace.get("chooseMealButton");
@@ -68,7 +74,8 @@ public class ChooseMealDialog extends Dialog implements Bindable {
         _addAlternativeButton = (PushButton) namespace.get("addAlternativeButton");
         _finishButton = (PushButton) namespace.get("finishButton");
         _recipeTreeView = (TreeView) namespace.get("recipeTreeView");
-        _chosenRecipeTreeView = (TreeView) namespace.get("chosenRecipeTreeView");
+        _chosenRecipeScrollPane = (ScrollPane) namespace.get("chosenRecipeScrollPane");
+        _chosenRecipeAccordion = (Accordion) namespace.get("chosenMealAccordion");
 
         // get meal codes
         _mealCodes = GUIController.getInstance().getAllMealCodes();
@@ -88,11 +95,14 @@ public class ChooseMealDialog extends Dialog implements Bindable {
 
                 // activate context
                 _recipeScrollPane.setVisible(true);
-                _chosenRecipeTreeView.setVisible(true);
+                _chosenRecipeScrollPane.setVisible(true);
                 _addAlternativeButton.setEnabled(true);
                 _finishButton.setEnabled(true);
                 _addRecipeButton.setEnabled(true);
                 _removeRecipeButton.setEnabled(true);
+
+                // add first meal
+                addMealLine();
             }
         });
         _finishButton.getButtonPressListeners().add(new ButtonPressListener() {
@@ -113,6 +123,42 @@ public class ChooseMealDialog extends Dialog implements Bindable {
                             GUIController.getInstance().searchRecipe(null, _searchTextInput.getText());
                     //TODO add these recipes to the corresponding main categories
                 }
+            }
+        });
+
+        // listener for additional ingredients
+        _addAlternativeButton.getButtonPressListeners().add(new ButtonPressListener() {
+
+            public void buttonPressed(Button button) {
+                addMealLine();
+            }
+        });
+
+        // add listener for add recipe button
+        _addRecipeButton.getButtonPressListeners().add(new ButtonPressListener() {
+
+            public void buttonPressed(Button button) {
+
+                // check if a node is selected and not a branch
+                if (_recipeTreeView.getSelectedNode() instanceof RecipeTreeNode) {
+
+                    // get selected recipe
+                    RecipeData r = ((RecipeTreeNode)_recipeTreeView.getSelectedNode()).getRecipeData();
+                    MealLineBoxPane m = (MealLineBoxPane) _chosenRecipeAccordion.getSelectedPanel();
+                    m.addRecipe(r);
+                }
+            }
+        });
+        
+        // add listener for removing recipes
+        _removeRecipeButton.getButtonPressListeners().add(new ButtonPressListener() {
+
+            public void buttonPressed(Button button) {
+                 
+                int selected = _chosenRecipeAccordion.getSelectedIndex();
+                MealLineBoxPane m = _mealLines.get(selected);
+                RecipeData r = m.getSelectedRecipe();
+                m.removeRecipe(r);
             }
         });
     }
@@ -142,6 +188,9 @@ public class ChooseMealDialog extends Dialog implements Bindable {
 
         _recipeTreeView.setTreeData(startBranch);
         addSubToMainCategory(categories);
+        
+        // style tree view
+        _recipeTreeView.getStyles().put("spacing", "1");
 
         // add listener for opening main categories
         _recipeTreeView.getTreeViewBranchListeners().add(new TreeViewBranchListener() {
@@ -149,23 +198,26 @@ public class ChooseMealDialog extends Dialog implements Bindable {
             public void branchExpanded(TreeView treeView, Path path) {
 
                 // get main category branch
-                RecipeTreeBranch branch = ((RecipeTreeBranch) treeView.getTreeData()
-                        .get(path.toArray()[path.getLength()-1]));
-                System.out.println(branch.getRecipeData().getName());
-                System.out.println(branch.getRecipeData().getBlsCode());
-                // check if a subcategory is expanded
-//                if (subBranch.getRecipeData().getBlsCode().length() > 1) {
-//                    String blsSearch = subBranch.getRecipeData().getBlsCode();
-//                    Set<CheckedRecipeVo> checkedRecipes =
-//                            GUIController.getInstance().searchRecipe(blsSearch, null);
-//
-//                    // add recipes
-//                    for (CheckedRecipeVo c : checkedRecipes) {
-//                        System.out.println(c.getRecipeData().getBlsCode());
-//                        RecipeTreeNode r = new RecipeTreeNode(c);
-//                        subBranch.add(r);
-//                    }
-//                }
+                RecipeTreeBranch branch = ((RecipeTreeBranch) treeView.getTreeData().get(path.toArray()[0]));
+
+                // get sub category
+                if (path.getLength() > 1) { //TODO schöner machen :P
+                    RecipeTreeBranch sub = (RecipeTreeBranch) branch.get(path.toArray()[1]);
+
+                    String blsSearch = sub.getRecipeData().getBlsCode();
+                    Set<CheckedRecipeVo> checkedRecipes =
+                            GUIController.getInstance().searchRecipe(blsSearch, null);
+
+                    // check if already loaded
+                    if (sub.getLength() <= 0) {
+
+                        // add recipes
+                        for (CheckedRecipeVo c : checkedRecipes) {
+                            RecipeTreeNode r = new RecipeTreeNode(c);
+                            sub.add(r);
+                        }
+                    }
+                }
 
             }
 
@@ -214,5 +266,19 @@ public class ChooseMealDialog extends Dialog implements Bindable {
         }
 
         return null;
+    }
+
+    /**
+     * Add a new meal line
+     */
+    private void addMealLine() {
+        MealLineBoxPane m = new MealLineBoxPane();
+        Accordion.setHeaderData(m, "Bestandteil " + (_mealLines.getLength() + 1));
+        _chosenRecipeAccordion.getPanels().add(m);
+        _mealLines.add(m);
+        
+        _chosenRecipeAccordion.setSelectedIndex(_mealLines.getLength()-1);
+
+        GUIController.getInstance().addMealLine();
     }
 }
