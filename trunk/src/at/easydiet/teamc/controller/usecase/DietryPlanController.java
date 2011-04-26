@@ -38,56 +38,64 @@ import java.util.List;
 
 /**
  * Controller for generating a new Diatplan.
- *
+ * 
  * @author Stephan Svoboda
  */
-public class DietryPlanController extends Event<EventArgs> {
+public class DietryPlanController extends Event<EventArgs>
+{
 
     // class variables
     /**
      *
      */
-    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BusinessLogicDelegationController.class);
-    private static volatile DietryPlanController _dietryPlanController = null;
+    public static final org.apache.log4j.Logger  LOGGER                     = org.apache.log4j.Logger
+                                                                                    .getLogger(BusinessLogicDelegationController.class);
+    private static volatile DietryPlanController _dietryPlanController      = null;
     // instance variables
-    private DatabaseController _dbController;
-    private SearchRecipeController _searchRecipeController;
+    private DatabaseController                   _dbController;
+    private SearchRecipeController               _searchRecipeController;
     /**
      * Patient which was predefined as patient to use.
      */
-    private PatientBo _activePatient;
+    private PatientBo                            _activePatient;
     /**
      * Dietplan which is generated at the moment but not submitted to a patient.
      */
-    private DietPlanBo _dietPlanBo;
+    private DietPlanBo                           _dietPlanBo;
     /**
      * Meal which is generated at the moment but not submitted to a timespan.
      */
-    private MealBo _tempMeal;
+    private MealBo                               _tempMeal;
     /**
-     * Timespan which is generated at the moment but not submitted to a dietplan.
+     * Timespan which is generated at the moment but not submitted to a
+     * dietplan.
      */
-    private TimeSpanBo _tempTimeSpanBo;
+    private TimeSpanBo                           _tempTimeSpanBo;
     /**
      * Constant facotr for millisecond/day converting
      */
-    private static final int MILLISECONDS_TO_DAY_FACTOR = 86400000;
+    private static final int                     MILLISECONDS_TO_DAY_FACTOR = 86400000;
 
     /**
-     *
+     * 
      * @param sender
      */
-    private DietryPlanController(Object sender) {
+    private DietryPlanController(Object sender)
+    {
         super(sender);
         _dbController = DatabaseController.getInstance();
     }
 
     /**
      * Singelton
-     * @return Will return the existing Instance or if no exists a new Instance of {@link DietryPlanController}
+     * 
+     * @return Will return the existing Instance or if no exists a new Instance
+     *         of {@link DietryPlanController}
      */
-    public static DietryPlanController getInstance() {
-        if (_dietryPlanController == null) {
+    public static DietryPlanController getInstance()
+    {
+        if (_dietryPlanController == null)
+        {
             _dietryPlanController = new DietryPlanController(null);
         }
         return _dietryPlanController;
@@ -96,33 +104,49 @@ public class DietryPlanController extends Event<EventArgs> {
 
     /**
      * Create a new dietry plan
-     * @param startdate Startdate for the new Plan
-     * @param dptd List of DietparameterData
-     * @param enddate Enddate for the new Plan
-     * @param parameterMaxValues Max Values for the chosen parameters
-     * @param parameterMinValues Min Values for the chosen parameters
-     * @param activePatient Current active patient
-     * @param activeUser 
+     * 
+     * @param startdate
+     *            Startdate for the new Plan
+     * @param dptd
+     *            List of DietparameterData
+     * @param enddate
+     *            Enddate for the new Plan
+     * @param parameterMaxValues
+     *            Max Values for the chosen parameters
+     * @param parameterMinValues
+     *            Min Values for the chosen parameters
+     * @param activePatient
+     *            Current active patient
+     * @param activeUser
      * @return the new generated and validated dietplan
-     * @throws NoPatientException if no active patient exists
-     * @throws TimeIntersectionException if illegal timespan is defined by start and enddate
-     * @throws NoDateException if start or enddate is null
-     * @throws NoDietTreatmentException if active patient has no treatment
+     * @throws NoPatientException
+     *             if no active patient exists
+     * @throws TimeIntersectionException
+     *             if illegal timespan is defined by start and enddate
+     * @throws NoDateException
+     *             if start or enddate is null
+     * @throws NoDietTreatmentException
+     *             if active patient has no treatment
      */
-    public DietryPlanData newDietryPlan(Date startdate, Date enddate, List<DietParameterData> dptd,
-            List<Double> parameterMaxValues, List<Double> parameterMinValues, PatientBo activePatient,
-            SystemUserBo activeUser) throws NoPatientException, NoDateException, TimeIntersectionException, NoDietTreatmentException {
+    public DietryPlanData newDietryPlan(Date startdate, Date enddate,
+            List<DietParameterData> dptd, List<Double> parameterMaxValues,
+            List<Double> parameterMinValues, PatientBo activePatient,
+            SystemUserBo activeUser) throws NoPatientException,
+            NoDateException, TimeIntersectionException,
+            NoDietTreatmentException
+    {
 
-
-        if (activePatient == null) {
+        if (activePatient == null)
+        {
             throw new NoPatientException();
         }
 
-        if (startdate == null || enddate == null) {
+        if (startdate == null || enddate == null)
+        {
             throw new NoDateException();
         }
 
-        //List<DietParameterData> dptd can be null
+        // List<DietParameterData> dptd can be null
 
         Set<DietParameterBo> dpb = new HashSet<DietParameterBo>();
         long duration;
@@ -130,61 +154,75 @@ public class DietryPlanController extends Event<EventArgs> {
         DietParameterBo dpbo;
         DietParameterBo dpbo2;
 
-        //cache activePatiet
+        // cache activePatiet
         _activePatient = activePatient;
 
-        //check time intersections
-        if (checkForTimeIntersections(startdate, enddate)) {
+        // check time intersections
+        if (checkForTimeIntersections(startdate, enddate))
+        {
 
-            //initiates Diatplan with needed values
-            _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo("Testplan"), activeUser);
+            // initiates Diatplan with needed values
+            _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo(
+                    "Testplan"), activeUser);
 
-            //cast DietParameterData to DietParameterBo
-            if (dptd != null) {
-                for (int i = 0; i < dptd.size(); i++) {
+            // cast DietParameterData to DietParameterBo
+            if (dptd != null)
+            {
+                for (int i = 0; i < dptd.size(); i++)
+                {
                     dpbo = (DietParameterBo) dptd.get(i);
                     dpbo.setValue(parameterMinValues.get(i).toString());
                     dpbo.setCheckOperatorBo(new CheckOperatorBo(">="));
-                    dpbo2 = new DietParameterBo(new CheckOperatorBo("<="), dpbo.getDietParameterType(), dpbo.getParameterDefinition());
-                    dpbo2.setDietParameterTemplateId(dpbo.getDietParameterTemplateId());
+                    dpbo2 = new DietParameterBo(new CheckOperatorBo("<="),
+                            dpbo.getDietParameterType(),
+                            dpbo.getParameterDefinition());
+                    dpbo2.setDietParameterTemplateId(dpbo
+                            .getDietParameterTemplateId());
                     dpbo2.setValue(parameterMaxValues.get(i).toString());
                 }
             }
 
-            //Setting the Parameters for Diatplan
+            // Setting the Parameters for Diatplan
             _dietPlanBo.setDietParameters(dpb);
 
-            //+1 because if enddate==startdae duration is 1 day not 0
+            // +1 because if enddate==startdae duration is 1 day not 0
             duration = 1 + ((enddate.getTime() - startdate.getTime()) / MILLISECONDS_TO_DAY_FACTOR);
             timespanbo = new TimeSpanBo(startdate, (int) duration);
 
-            //TODO activate save methods and treatment
-            //Save diatplanobject in database
-            //_dietPlanBo.save();
+            // TODO activate save methods and treatment
+            // Save diatplanobject in database
+            // _dietPlanBo.save();
 
             _dietPlanBo.addTimeSpan(timespanbo);
-            if (activePatient.getTreatments().size() > 0) {
+            if (activePatient.getTreatments().size() > 0)
+            {
                 searchTreatmentForDietplan(timespanbo).addDietPlan(_dietPlanBo);
-                _tempTimeSpanBo=timespanbo;
-            } else {
+                _tempTimeSpanBo = timespanbo;
+            }
+            else
+            {
                 throw new NoDietTreatmentException();
             }
 
-            //_activePatient.save();
+            // _activePatient.save();
 
             return (DietryPlanData) _dietPlanBo;
-        } else {
+        }
+        else
+        {
             throw new TimeIntersectionException();
         }
     }
 
     /**
-     *
+     * 
      * @return All existing mealcodes
      */
-    public Set<MealCodeData> getAllMealCodes() {
+    public Set<MealCodeData> getAllMealCodes()
+    {
         Set<MealCodeData> temp = new HashSet<MealCodeData>();
-        for (MealCodeBo mcb : _dbController.getAllMealCodes()) {
+        for (MealCodeBo mcb : _dbController.getAllMealCodes())
+        {
             temp.add((MealCodeData) mcb);
         }
 
@@ -192,38 +230,60 @@ public class DietryPlanController extends Event<EventArgs> {
     }
 
     /**
-     * Checks a given timespan for intersections with existing timespans on dietplan level
-     *
+     * Checks a given timespan for intersections with existing timespans on
+     * dietplan level
+     * 
      * @param startdate
      * @param enddate
      * @return
      */
-    private boolean checkForTimeIntersections(Date startdate, Date enddate) {
-
+    private boolean checkForTimeIntersections(Date startdate, Date enddate)
+    {
 
         Date tempenddate;
 
-        if (enddate.before(startdate)) {
+        if (enddate.before(startdate))
+        {
             return false;
-        } else {
-            for (DietTreatmentBo tsb : _activePatient.getTreatments()) {
-                if (tsb.getStart().equals(startdate) || tsb.getStart().before(startdate)) {
-                    for (DietPlanBo dpb : tsb.getDietPlans()) {
-                        for (TimeSpanBo timesb : dpb.getTimeSpans()) {
+        }
+        else
+        {
+            for (DietTreatmentBo tsb : _activePatient.getTreatments())
+            {
+                if (tsb.getStart().equals(startdate)
+                        || tsb.getStart().before(startdate))
+                {
+                    for (DietPlanBo dpb : tsb.getDietPlans())
+                    {
+                        for (TimeSpanBo timesb : dpb.getTimeSpans())
+                        {
                             // -1 because duration starts with 1 instead of 0
-                            tempenddate = new Date(timesb.getStart().getTime() + (timesb.getDuration() * MILLISECONDS_TO_DAY_FACTOR) - 1);
-                            //check wether intersection not possible because of logically not overlapping startdate and enddate
-                            if (enddate.before(timesb.getStart()) || startdate.after(tempenddate)) {
+                            tempenddate = new Date(
+                                    timesb.getStart().getTime()
+                                            + (timesb.getDuration() * MILLISECONDS_TO_DAY_FACTOR)
+                                            - 1);
+                            // check wether intersection not possible because of
+                            // logically not overlapping startdate and enddate
+                            if (enddate.before(timesb.getStart())
+                                    || startdate.after(tempenddate))
+                            {
                                 continue;
                             }
 
-                            //check wether intersection because of at least one datepoint possible
-                            if ((startdate.before(tempenddate) || startdate.equals(tempenddate))
-                                    && (enddate.equals(timesb.getStart()) || enddate.after(timesb.getStart()))) {
+                            // check wether intersection because of at least one
+                            // datepoint possible
+                            if ((startdate.before(tempenddate) || startdate
+                                    .equals(tempenddate))
+                                    && (enddate.equals(timesb.getStart()) || enddate
+                                            .after(timesb.getStart())))
+                            {
                                 return false;
                             }
-                            if ((enddate.after(timesb.getStart()) || enddate.equals(timesb.getStart()))
-                                    && (startdate.equals(timesb.getStart()) || startdate.before(timesb.getStart()))) {
+                            if ((enddate.after(timesb.getStart()) || enddate
+                                    .equals(timesb.getStart()))
+                                    && (startdate.equals(timesb.getStart()) || startdate
+                                            .before(timesb.getStart())))
+                            {
                                 return false;
                             }
                         }
@@ -236,16 +296,24 @@ public class DietryPlanController extends Event<EventArgs> {
 
     /**
      * Searches the right treatment for a given timespan of a DietTreatment.
-     *
+     * 
      * @param tsb
      * @return
      */
-    private DietTreatmentBo searchTreatmentForDietplan(TimeSpanBo tsb) {
+    private DietTreatmentBo searchTreatmentForDietplan(TimeSpanBo tsb)
+    {
         Date tempenddate;
         DietTreatmentBo temp = null;
-        for (DietTreatmentBo dietTreatmentBo : _activePatient.getTreatments()) {
-            tempenddate = new Date(dietTreatmentBo.getStart().getTime() + (dietTreatmentBo.getDuration() * MILLISECONDS_TO_DAY_FACTOR));
-            if (dietTreatmentBo.getStart().getTime() <= tsb.getStart().getTime() && tempenddate.getTime() >= tsb.getDuration() * 1000 * 60 * 60 * 24) {
+        for (DietTreatmentBo dietTreatmentBo : _activePatient.getTreatments())
+        {
+            tempenddate = new Date(
+                    dietTreatmentBo.getStart().getTime()
+                            + (dietTreatmentBo.getDuration() * MILLISECONDS_TO_DAY_FACTOR));
+            if (dietTreatmentBo.getStart().getTime() <= tsb.getStart()
+                    .getTime()
+                    && tempenddate.getTime() >= tsb.getDuration() * 1000 * 60
+                            * 60 * 24)
+            {
                 return dietTreatmentBo;
             }
         }
@@ -254,55 +322,74 @@ public class DietryPlanController extends Event<EventArgs> {
 
     /**
      * Adds MealBo to the diatplan in progress represtented by _dietplanBo.
-     *
-     * @param mcd MealCode to add
-     * @param day Defines exact day in Timespan
+     * 
+     * @param mcd
+     *            MealCode to add
+     * @param day
+     *            Defines exact day in Timespan
      */
-    public void addMealCode(MealCodeData mcd, int day) {
+    public void addMealCode(MealCodeData mcd, int day)
+    {
         System.out.println(mcd.getName());
         _tempMeal = _dietPlanBo.addMealCode(mcd, day);
     }
 
     /**
      * Adds MealLineBo to the Meal in progress.
-     *
+     * 
      * @return Index of the new MealLine
      */
-    public int addMealLine() {
+    public int addMealLine()
+    {
         return _dietPlanBo.addMealLine(this._tempMeal);
     }
 
     /**
-     *
+     * 
      * @return Main Categories of Recipes from BLS
      */
-    public List<RecipeData> getRecipeMainCategories() {
+    public List<RecipeData> getRecipeMainCategories()
+    {
         _searchRecipeController = SearchRecipeController.getInstance();
         List<RecipeData> temp = new ArrayList<RecipeData>();
-        for (RecipeBo rb : _searchRecipeController.getRecipeMainCategories()) {
+        for (RecipeBo rb : _searchRecipeController.getRecipeMainCategories())
+        {
             temp.add((RecipeData) rb);
         }
         return temp;
     }
 
     /**
-     *
-     * @param mainCategory the bls Code of the main category in which search string is searched for
-     * @param search Search string
-     * @return Set of Recipes which are checked corresponding to the active parameters
+     * 
+     * @param mainCategory
+     *            the bls Code of the main category in which search string is
+     *            searched for
+     * @param search
+     *            Search string
+     * @return Set of Recipes which are checked corresponding to the active
+     *         parameters
      */
-    public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
+    public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search)
+    {
 
         Set<CheckedRecipeVo> temps = new HashSet<CheckedRecipeVo>();
         CheckedRecipeVo temp;
-        List<RecipeBo> recipes = _searchRecipeController.searchRecipe(mainCategory, search);
+        List<RecipeBo> recipes = _searchRecipeController.searchRecipe(
+                mainCategory, search);
 
-        if (recipes != null) {
-            for (RecipeBo rb : recipes) {
-                temp=new CheckedRecipeVo((RecipeData) rb, _dietPlanBo.checkRecipeWithParameters(rb, searchTreatmentForDietplan(_tempTimeSpanBo), _dietPlanBo));
+        if (recipes != null)
+        {
+            for (RecipeBo rb : recipes)
+            {
+                temp = new CheckedRecipeVo((RecipeData) rb,
+                        _dietPlanBo.checkRecipeWithParameters(rb,
+                                searchTreatmentForDietplan(_tempTimeSpanBo),
+                                _dietPlanBo));
                 temps.add(temp);
-                for(RecipeBo disfav:_activePatient.getDisfavors()){
-                    if(rb.getName().equals(disfav.getName())){
+                for (RecipeBo disfav : _activePatient.getDisfavors())
+                {
+                    if (rb.getName().equals(disfav.getName()))
+                    {
                         temp.setDisfavour(true);
                     }
                 }
@@ -313,29 +400,36 @@ public class DietryPlanController extends Event<EventArgs> {
 
     /**
      * Adds a Recipe to the Meal in progress.
-     *
-     * @param rd Recipe which will be added.
-     * @param quantity amount of Recipe in gramm.
-     * @param mealLineID MealLine to which the Recipe belongs.
+     * 
+     * @param rd
+     *            Recipe which will be added.
+     * @param quantity
+     *            amount of Recipe in gramm.
+     * @param mealLineID
+     *            MealLine to which the Recipe belongs.
      * @return
      */
-    public MealData addRecipeToMeal(RecipeData rd, float quantity, int mealLineID) {
+    public MealData addRecipeToMeal(RecipeData rd, float quantity,
+            int mealLineID)
+    {
         return _tempMeal.addRecipe((RecipeBo) rd, quantity, mealLineID);
     }
 
     /**
      * Saves DiatPlan in progress in Database.
      */
-    public void saveDietryPlan() {
+    public void saveDietryPlan()
+    {
         _dietPlanBo.save();
     }
 
     /**
      * Returns dietplan in progress.
-     *
+     * 
      * @return
      */
-    public DietryPlanData getDietryPlan() {
+    public DietryPlanData getDietryPlan()
+    {
         return (DietryPlanData) _dietPlanBo;
     }
 }
