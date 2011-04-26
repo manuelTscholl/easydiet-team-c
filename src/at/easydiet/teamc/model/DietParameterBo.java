@@ -27,12 +27,12 @@ public class DietParameterBo extends DietParameterTemplateBo implements java.io.
     }
 
     public DietParameterBo(CheckOperatorBo checkOperator, DietParameterTypeBo dietParameterType, ParameterDefinitionBo parameterDefinition) {
-        
-        
+
         this(new DietParameter(checkOperator.getCheckoperator(),
-                (ParameterDefinitionUnit)((ParameterDefinitionBo)parameterDefinition.getUnit().toArray()[0]).getParameterDefinition().getUnits().toArray()[0],
+                parameterDefinition.getUnit().toArray(new ParameterDefinitionUnitBo[parameterDefinition.getUnit().size()])[0].getParameterDefinitionUnit(),
                 dietParameterType.getDietParameterType(),
                 parameterDefinition.getParameterDefinition()));
+
     }
 
     public DietParameterBo(CheckOperatorBo checkOperator, int duration, String value, DietParameterTypeBo dietParameterType, ParameterDefinitionBo parameterDefinition, Date start) {

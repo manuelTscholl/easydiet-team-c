@@ -53,6 +53,7 @@ public class ParameterDefinitionBo  implements java.io.Serializable, Saveable {
     public void setName(String name) {
         this.getParameterDefinition().setName(name);
     }
+
     public Set<ParameterDefinitionUnitBo> getUnit() {
         Set<ParameterDefinitionUnitBo> temp = new HashSet<ParameterDefinitionUnitBo>(this._ParameterDefinition.getUnits().size());
         for (ParameterDefinitionUnit parameterDefinitionUnit : this._ParameterDefinition.getUnits()) {
