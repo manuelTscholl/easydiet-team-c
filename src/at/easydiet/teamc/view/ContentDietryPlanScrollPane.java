@@ -7,6 +7,7 @@
 package at.easydiet.teamc.view;
 
 import at.easydiet.teamc.controller.GUIController;
+import at.easydiet.teamc.model.DietPlanParameterCollectionVo;
 import at.easydiet.teamc.view.util.DietWeek;
 import java.net.URL;
 import java.util.ArrayList;
@@ -109,14 +110,13 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
 
         _mainTable.getRows().add(tro);
         _mainTable.getStyles().put("verticalSpacing", "5");
-
-        addParameterTest();
     }
 
     /**
      * Add parameter test section to plan
+     * @param d Collection of the parameters of the actual plan
      */
-    private void addParameterTest() {
+    private void addParameterTest(DietPlanParameterCollectionVo d) {
         TablePane.Row tro = new TablePane.Row();
         Label l = new Label("PARAMETER TEST");
         tro.add(l);
@@ -131,6 +131,7 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
         
         // remove previously drawn dietry plans
         removePlan();
+        addParameterTest(dpd.getDietPlanParameterCollectionVo());
         
         // draw days
         for (int i = 0; i < dpd.getDuration(); i++) {
