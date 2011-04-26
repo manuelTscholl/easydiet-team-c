@@ -1,16 +1,25 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package at.easydiet.teamc.model.data;
 
-/**
- *
- * @author Stephan
- */
+import java.util.Set;
+
 public class ParameterCheckResult {
 
-    //TODO whole implementation of this class an determination wether class will be interface instead.
-
+	private Set<DietParameterData> _dietParameterData;
+	
+	public ParameterCheckResult(){
+		
+	}
+	
+	public void addDietParameter(DietParameterData toadd){
+		_dietParameterData.add(toadd);
+	}
+	
+	
+	public Set<DietParameterData> getCheckResult(){
+		return _dietParameterData;
+	}
+	
+	
+    
 }
