@@ -11,6 +11,10 @@ import java.util.Set;
 public class Patient  implements java.io.Serializable
 {
 
+    /**
+     * A unique serialization id. 
+     */
+    private static final long serialVersionUID = 8553072159208926474L;
     private long _patientId;
     private String _insuranceNumber;
     private String _forename;
@@ -501,7 +505,6 @@ public class Patient  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
         builder.append("]");

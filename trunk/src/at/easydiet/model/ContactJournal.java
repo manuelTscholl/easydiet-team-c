@@ -9,11 +9,16 @@ import java.util.Date;
 public class ContactJournal  implements java.io.Serializable
 {
 
+    /**
+     * A unique serialization id. 
+     */
+    private static final long serialVersionUID = 4121628204567852781L;
     private long _contactJournalId;
     private Date _date;
     private Clob _description;
     private SystemUser _createdBy;
     private ContactType _contactType;
+    private DietTreatment _dietTreatment;
 
     /**
      * Initializes a new instance of the {@link ContactJournal} class.
@@ -28,12 +33,14 @@ public class ContactJournal  implements java.io.Serializable
      * @param date the date to set for this instance
      * @param createdBy the createdBy to set for this instance
      * @param contactType the contactType to set for this instance
+     * @param dietTreatment the dietTreatment to set for this instance
      */
-    public ContactJournal(Date date, SystemUser createdBy, ContactType contactType) 
+    public ContactJournal(Date date, SystemUser createdBy, ContactType contactType, DietTreatment dietTreatment) 
     {
         _date = date;
         _createdBy = createdBy;
         _contactType = contactType;
+        _dietTreatment = dietTreatment;
     }
 
     /**
@@ -42,13 +49,15 @@ public class ContactJournal  implements java.io.Serializable
      * @param description the description to set for this instance
      * @param createdBy the createdBy to set for this instance
      * @param contactType the contactType to set for this instance
+     * @param dietTreatment the dietTreatment to set for this instance
      */
-    public ContactJournal(Date date, Clob description, SystemUser createdBy, ContactType contactType) 
+    public ContactJournal(Date date, Clob description, SystemUser createdBy, ContactType contactType, DietTreatment dietTreatment) 
     {
        _date = date;
        _description = description;
        _createdBy = createdBy;
        _contactType = contactType;
+       _dietTreatment = dietTreatment;
     }
    
     /**       
@@ -141,6 +150,24 @@ public class ContactJournal  implements java.io.Serializable
         _contactType = contactType;
     }
     
+    /**       
+     * Gets the dietTreatment of this instance. 
+     * @return the dietTreatment currently set for this instance.
+     */
+    public DietTreatment getDietTreatment() 
+    {
+        return _dietTreatment;
+    }
+    
+    /**       
+     * Sets the dietTreatment of this instance. 
+     * @param dietTreatment the new dietTreatment of this instance.
+     */    
+    public void setDietTreatment(DietTreatment dietTreatment) 
+    {
+        _dietTreatment = dietTreatment;
+    }
+    
     /**
      * Returns a string representation of this instance.
      * @return a string
@@ -149,7 +176,6 @@ public class ContactJournal  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
         builder.append("]");

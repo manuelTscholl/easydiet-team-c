@@ -30,9 +30,9 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable
      * @param amount the amount to set for this instance
      * @param ingredientBo the ingredient to set for this instance
      */
-    public RecipeIngredientBo(float amount, RecipeBo ingredientBo)
+    public RecipeIngredientBo(float amount, RecipeBo ingredientBo, RecipeBo recipeBo)
     {
-        this(new RecipeIngredient(amount, ingredientBo.getRecipe()));
+        this(new RecipeIngredient(amount, ingredientBo.getRecipe(), recipeBo.getRecipe()));
     }
    
     /**       

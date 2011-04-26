@@ -7,6 +7,10 @@ package at.easydiet.model;
 public class NutrimentParameter  implements java.io.Serializable
 {
 
+    /**
+     * A unique serialization id. 
+     */
+    private static final long serialVersionUID = 2579863774576179705L;
     private long _nutrimentParameterId;
     private String _value;
     private ParameterDefinition _parameterDefinition;
@@ -114,7 +118,6 @@ public class NutrimentParameter  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
         builder.append("]");

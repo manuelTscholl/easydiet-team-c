@@ -31,11 +31,11 @@ public class DietTreatmentBo  implements java.io.Serializable, Saveable {
         this._DietTreatment=dietTreatment;
     }
 	
-    public DietTreatmentBo(Date start, int duration, String name, TreatmentStateBo treatmentStateBo) {
-        this(new DietTreatment(start, duration, name, treatmentStateBo.getTreatmentState()));
+    public DietTreatmentBo(Date start, int duration, String name, TreatmentStateBo treatmentStateBo, PatientBo patientBo) {
+        this(new DietTreatment(start, duration, name, treatmentStateBo.getTreatmentState(), patientBo.getPatient()));
     }
-    public DietTreatmentBo(Date start, int duration, String name, Set<NutritionProtocolBo> nutritionProtocolsBo, Set<DietPlanBo> dietPlansBo, Set<DietParameterBo> dietParametersBo, Set<PatientStateBo> patientStatesBo, Set<DietTreatmentSystemUserBo> dietTreatmentSystemUsersBo, Set<ContactJournalBo> contactJournalsBo, TreatmentStateBo treatmentStateBo) {
-       this(start, duration, name, treatmentStateBo);
+    public DietTreatmentBo(Date start, int duration, String name, Set<NutritionProtocolBo> nutritionProtocolsBo, Set<DietPlanBo> dietPlansBo, Set<DietParameterBo> dietParametersBo, Set<PatientStateBo> patientStatesBo, Set<DietTreatmentSystemUserBo> dietTreatmentSystemUsersBo, Set<ContactJournalBo> contactJournalsBo, TreatmentStateBo treatmentStateBo, PatientBo patientBo) {
+       this(start, duration, name, treatmentStateBo, patientBo);
 
         for (NutritionProtocolBo nutritionProtocolBo : nutritionProtocolsBo) {
             this._DietTreatment.getNutritionProtocols().add(nutritionProtocolBo.getNutritionProtocol());

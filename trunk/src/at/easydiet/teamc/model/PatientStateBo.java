@@ -30,11 +30,11 @@ public class PatientStateBo  implements java.io.Serializable, Saveable {
     }
 
 	
-    public PatientStateBo(Date date, PatientStateTypeBo typeBo, SystemUserBo creatorBo) {
-        this(new PatientState(date, typeBo.getPatientStateType(), creatorBo.getSystemUser()));
+    public PatientStateBo(Date date, PatientStateTypeBo typeBo, SystemUserBo creatorBo, PatientBo patientBo) {
+        this(new PatientState(date, typeBo.getPatientStateType(), creatorBo.getSystemUser(), patientBo.getPatient()));
     }
-    public PatientStateBo(Date date, Clob anamnesis, Integer weight, float weightPercentile, Integer height, float heightPercentile, int compliance, int motivation, PatientStateTypeBo typeBo, SystemUserBo creatorBo, Set<LaborReportBo> laborReportsBo) {
-       this(date, typeBo, creatorBo);
+    public PatientStateBo(Date date, Clob anamnesis, Integer weight, float weightPercentile, Integer height, float heightPercentile, int compliance, int motivation, PatientStateTypeBo typeBo, SystemUserBo creatorBo, Set<LaborReportBo> laborReportsBo, PatientBo patientBo) {
+       this(date, typeBo, creatorBo, patientBo);
        this._PatientState.setAnamnesis(anamnesis);
        this._PatientState.setWeight(weight);
        this._PatientState.setWeightPercentile(weightPercentile);

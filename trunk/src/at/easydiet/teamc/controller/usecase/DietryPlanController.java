@@ -7,6 +7,11 @@ package at.easydiet.teamc.controller.usecase;
 import java.util.Date;
 import java.util.Set;
 
+import at.easydiet.dao.DAOFactory;
+import at.easydiet.dao.DietParameterTypeDAO;
+import at.easydiet.dao.HibernateUtil;
+import at.easydiet.model.DietParameterType;
+import at.easydiet.model.PlanType;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
 import at.easydiet.teamc.exception.NoDateException;
@@ -15,6 +20,7 @@ import at.easydiet.teamc.exception.NoPatientException;
 import at.easydiet.teamc.exception.TimeIntersectionException;
 import at.easydiet.teamc.model.CheckOperatorBo;
 import at.easydiet.teamc.model.DietParameterBo;
+import at.easydiet.teamc.model.DietParameterTypeBo;
 import at.easydiet.teamc.model.DietPlanBo;
 import at.easydiet.teamc.model.DietTreatmentBo;
 import at.easydiet.teamc.model.MealBo;
@@ -192,11 +198,20 @@ public class DietryPlanController extends Event<EventArgs>
 
             // TODO activate save methods and treatment
             // Save diatplanobject in database
-            // _dietPlanBo.save();
+            
+            List<PlanType> types = DAOFactory.getInstance().getPlanTypeDAO().findAll();
+            for (PlanType planType : types)
+            {
+                if(planType.getName().equalsIgnoreCase("Diätplanung"))
+                {
+                    _dietPlanBo.setPlanType(new PlanTypeBo(planType));
+                }
+            }
+             _dietPlanBo.save();
 
             for(int i=0;i<timespanbo.getDuration();i++){
                 startdate=new Date(startdate.getTime()+MILLISECONDS_TO_DAY_FACTOR);
-                _tempTimeSpanBo=new TimeSpanBo(startdate, 1);
+                _tempTimeSpanBo=new TimeSpanBo(startdate, 1,_dietPlanBo);
                 _dietPlanBo.addTimeSpan(timespanbo);
             }
 

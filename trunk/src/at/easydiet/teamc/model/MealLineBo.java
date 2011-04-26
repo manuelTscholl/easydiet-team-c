@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import at.easydiet.model.MealLine;
+import at.easydiet.model.ParameterDefinitionUnit;
 import at.easydiet.teamc.model.data.MealLineData;
 
 
@@ -31,14 +32,14 @@ public class MealLineBo  implements java.io.Serializable, Saveable, MealLineData
     }
 
 	
-    public MealLineBo(float quantity, RecipeBo recipeBo) {
-        this(new MealLine(quantity, recipeBo.getRecipe()));
+    public MealLineBo(float quantity, RecipeBo recipeBo, ParameterDefinitionUnitBo parameterDefinitionUnitBo,MealLineBo parentbo,MealBo mealBo) {
+        this(new MealLine(quantity, recipeBo.getRecipe(), parameterDefinitionUnitBo.getParameterDefinitionUnit(), parentbo.getMealLine(), mealBo.getMeal()));
     }
-    public MealLineBo(float quantity, Clob info, Set<MealLineBo> mealLinesBo, RecipeBo recipeBo) {
-        this(quantity, recipeBo);
+    public MealLineBo(float quantity, Clob info, Set<MealLineBo> mealLinesBo, RecipeBo recipeBo, ParameterDefinitionUnitBo parameterDefinitionUnitBo, MealLineBo parentBo, MealBo mealBo) {
+        this(quantity, recipeBo, parameterDefinitionUnitBo, parentBo, mealBo);
        this._MealLine.setInfo(info);
         for (MealLineBo mealLineBo : mealLinesBo) {
-            this._MealLine.getMealLines().add(mealLineBo.getMealLine());
+            this._MealLine.getAlternatives().add(mealLineBo.getMealLine());
         }
     }
    
@@ -65,8 +66,8 @@ public class MealLineBo  implements java.io.Serializable, Saveable, MealLineData
     }
     
     public Set<MealLineBo> getMealLines() {
-        Set<MealLineBo> temp = new HashSet<MealLineBo>(this._MealLine.getMealLines().size());
-        for (MealLine mealLine : this._MealLine.getMealLines()) {
+        Set<MealLineBo> temp = new HashSet<MealLineBo>(this._MealLine.getAlternatives().size());
+        for (MealLine mealLine : this._MealLine.getAlternatives()) {
             temp.add(new MealLineBo(mealLine));
         }
         return temp;
@@ -74,12 +75,12 @@ public class MealLineBo  implements java.io.Serializable, Saveable, MealLineData
     
     public void setMealLines(Set<MealLineBo> mealLinesBo) {
         for (MealLineBo mealLineBo : mealLinesBo) {
-            this._MealLine.getMealLines().add(mealLineBo.getMealLine());
+            this._MealLine.getAlternatives().add(mealLineBo.getMealLine());
         }
     }
 
     public void addMealLine(MealLineBo mlb){
-        this._MealLine.getMealLines().add(mlb.getMealLine());
+        this._MealLine.getAlternatives().add(mlb.getMealLine());
     }
 
     public RecipeBo getRecipe() {

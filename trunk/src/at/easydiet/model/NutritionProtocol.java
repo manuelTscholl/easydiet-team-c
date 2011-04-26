@@ -10,6 +10,10 @@ import java.util.Set;
 public class NutritionProtocol extends at.easydiet.model.DietPlan implements java.io.Serializable
 {
 
+    /**
+     * A unique serialization id. 
+     */
+    private static final long serialVersionUID = -1874487456969697799L;
     private Date _date;
     private String _contact;
     private Clob _notice;
@@ -26,9 +30,9 @@ public class NutritionProtocol extends at.easydiet.model.DietPlan implements jav
      * Initializes a new instance of the {@link NutritionProtocol} class.
      * @param date the date to set for this instance
      */
-    public NutritionProtocol(String name, Date createdOn, PlanType planType, SystemUser creator, Date date) 
+    public NutritionProtocol(String name, Date createdOn, PlanType planType, DietTreatment dietTreatment, SystemUser creator, Date date) 
     {
-        super(name, createdOn, planType, creator);        
+        super(name, createdOn, planType, dietTreatment, creator);        
         _date = date;
     }
 
@@ -38,9 +42,9 @@ public class NutritionProtocol extends at.easydiet.model.DietPlan implements jav
      * @param contact the contact to set for this instance
      * @param notice the notice to set for this instance
      */
-    public NutritionProtocol(String name, Date createdOn, PlanType planType, Set<DietParameter> dietParameters, SystemUser creator, Set<TimeSpan> timeSpans, Date date, String contact, Clob notice) 
+    public NutritionProtocol(String name, Date createdOn, PlanType planType, DietTreatment dietTreatment, Set<DietParameter> dietParameters, SystemUser creator, Set<TimeSpan> timeSpans, Date date, String contact, Clob notice) 
     {
-        super(name, createdOn, planType, dietParameters, creator, timeSpans);        
+        super(name, createdOn, planType, dietTreatment, dietParameters, creator, timeSpans);        
        _date = date;
        _contact = contact;
        _notice = notice;
@@ -108,7 +112,6 @@ public class NutritionProtocol extends at.easydiet.model.DietPlan implements jav
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
         builder.append("]");
