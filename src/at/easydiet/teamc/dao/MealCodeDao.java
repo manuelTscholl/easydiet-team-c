@@ -50,7 +50,7 @@ public class MealCodeDao
         //attention there is no reference to the database values because they are grouped!
         for (int i = 0; i < mealNames.size(); i++)
         {
-            codes.add(new MealCodeBo(mealCodes.get(i),mealNames.get(i)));
+            codes.add(new MealCodeBo(mealCodes.get(i),mealNames.get(i), null));
             
         }
         
