@@ -7,14 +7,19 @@
 package at.easydiet.teamc.view.util;
 
 import at.easydiet.teamc.controller.GUIController;
+import at.easydiet.teamc.model.data.MealData;
+import at.easydiet.teamc.model.data.MealLineData;
 import at.easydiet.teamc.view.ComponentListenerAdapter;
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.apache.pivot.wtk.Border;
+import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ComponentMouseButtonListener;
 import org.apache.pivot.wtk.Expander;
+import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.Mouse.Button;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TablePane;
@@ -139,9 +144,10 @@ public class DietWeek {
 
     /**
      * Add a new day
+     * @param meals for this day
      */
-    public void addDay() {
-        DietDay dd = new DietDay(_days.size() + 1);
+    public void addDay(Set<MealData> meals) {
+        DietDay dd = new DietDay(_days.size() + 1, meals);
         _days.add(dd);
     }
 
@@ -155,13 +161,15 @@ public class DietWeek {
         private Border _dayBorder;
         private int _actualDay;
         private TablePane _mealTable;
+        private Set<MealData> _meals;
 
         /**
          * Constructor
          * @param actualDay
          */
-        public DietDay(int actualDay) {
+        public DietDay(int actualDay, Set<MealData> meals) {
             _actualDay = actualDay;
+            _meals = meals;
             _mealTable = new TablePane();
             drawDay();
         }
@@ -193,6 +201,29 @@ public class DietWeek {
             newMealButton.setTooltipText("Neue Mahlzeit hinzufügen");
             buttonRow.add(newMealButton);
             _mealTable.getRows().add(buttonRow);
+            
+            // add meals if exist
+            if(_meals != null && !_meals.isEmpty()){
+                
+                for(MealData m:_meals){
+                    TablePane.Row mealRow = new TablePane.Row();
+                    mealRow.add(null); // meal button
+                    Label mealCode = new Label(m.getMealCodeData().getName());
+                    mealRow.add(mealCode);
+                    
+                    // recipes
+                    BoxPane recipes = new BoxPane();
+                    Set<MealLineData> lines = m.getMealLineData();
+                    for(MealLineData mLine:lines){
+                        Label l = new Label(mLine.getRecipeData().getName());
+                        recipes.add(l);
+                    }
+                    mealRow.add(recipes);
+                    
+                    // add content to table
+                    _mealTable.getRows().add(mealRow);
+                }
+            }
             
             // add button listener
             newMealButton.getButtonPressListeners().add(new ButtonPressListener() {

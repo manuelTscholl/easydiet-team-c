@@ -23,7 +23,9 @@ import org.apache.pivot.wtk.Viewport;
 import org.apache.pivot.wtk.ViewportListener;
 
 import at.easydiet.teamc.model.data.DietryPlanData;
+import at.easydiet.teamc.model.data.MealData;
 import at.easydiet.teamc.model.data.PatientData;
+import java.util.Set;
 
 /**
  * Represents the application's content dietry plan tab (content_dietryPlan.bxml)
@@ -135,7 +137,8 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
         
         // draw days
         for (int i = 0; i < dpd.getDuration(); i++) {
-            addDay();
+            Set<MealData> meals = dpd.getMealsByDay(i);
+            addDay(meals);
         }
     }
     
@@ -158,15 +161,16 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
 
     /**
      * Add a new dietry day
+     * @param meals for this day
      */
-    public void addDay() {
+    public void addDay(Set<MealData> meals) {
         int actualWeek;
 
         // check for existing weeks
         if (_dietWeeks.isEmpty()) {
             addWeek();
             actualWeek = _dietWeeks.size() - 1;
-            _dietWeeks.get(actualWeek).addDay();
+            _dietWeeks.get(actualWeek).addDay(meals);
         } else { // existing week
 
             // get actual week
@@ -176,9 +180,9 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
             if (_dietWeeks.get(actualWeek).size() >= 7) {
                 addWeek();
                 actualWeek = _dietWeeks.size() - 1;
-                _dietWeeks.get(actualWeek).addDay();
+                _dietWeeks.get(actualWeek).addDay(meals);
             } else {
-                _dietWeeks.get(actualWeek).addDay();
+                _dietWeeks.get(actualWeek).addDay(meals);
             }
         }
     }
