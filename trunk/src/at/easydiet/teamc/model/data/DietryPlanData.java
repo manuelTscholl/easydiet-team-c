@@ -7,8 +7,12 @@
 
 package at.easydiet.teamc.model.data;
 
+import at.easydiet.teamc.model.DietPlanParameterCollectionVo;
+
 
 public interface DietryPlanData {
 
     int getDuration();
+    MealData getMealData();
+    DietPlanParameterCollectionVo getDietPlanParameterCollectionVo();
 }
