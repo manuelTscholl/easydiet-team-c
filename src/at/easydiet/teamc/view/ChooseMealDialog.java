@@ -26,7 +26,10 @@ import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Accordion;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
+import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.ComponentKeyListener;
 import org.apache.pivot.wtk.Dialog;
+import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.ScrollPane;
@@ -118,6 +121,26 @@ public class ChooseMealDialog extends Dialog implements Bindable, QuantityListen
                 GUIController.getInstance().saveDietryPlan();
                 ((ContentDietryPlanScrollPane) GUIComponents.get("contentDietryPlanScrollPane")).updateDietryPlan();
                 close();
+            }
+        });
+        getComponentKeyListeners().add(new ComponentKeyListener() {
+
+            public boolean keyTyped(Component component, char character) {
+                return true;
+            }
+
+            public boolean keyPressed(Component component, int keyCode, KeyLocation keyLocation) {
+                final int enterKey = 10;
+                
+                // check if enter button is pressed
+                if(keyCode == 10){
+                    _finishButton.press();
+                }
+                return true;
+            }
+
+            public boolean keyReleased(Component component, int keyCode, KeyLocation keyLocation) {
+                return true;
             }
         });
 
