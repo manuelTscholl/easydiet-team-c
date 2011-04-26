@@ -4,7 +4,6 @@ package at.easydiet.teamc.model;
 import java.util.Date;
 
 import at.easydiet.model.DietParameter;
-import at.easydiet.model.ParameterDefinitionUnit;
 import at.easydiet.teamc.model.data.DietParameterData;
 
 /**
