@@ -23,6 +23,7 @@ import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Dialog;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
+import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.TreeView;
@@ -35,8 +36,11 @@ import org.apache.pivot.wtk.content.TreeBranch;
  */
 public class ChooseMealDialog extends Dialog implements Bindable {
 
+    // class variables
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ChooseMealDialog.class);
     // instance variables
     private PushButton _chooseMealButton;
+    private ScrollPane _recipeScrollPane;
     private TablePane _recipeTablePane;
     private TextInput _searchTextInput;
     private PushButton _searchButton;
@@ -54,6 +58,7 @@ public class ChooseMealDialog extends Dialog implements Bindable {
 
         // get GUI components
         _chooseMealButton = (PushButton) namespace.get("chooseMealButton");
+        _recipeScrollPane = (ScrollPane) namespace.get("recipeScrollPane");
         _recipeTablePane = (TablePane) namespace.get("recipeTablePane");
         _searchTextInput = (TextInput) namespace.get("searchtTextInput");
         _searchButton = (PushButton) namespace.get("searchButton");
@@ -82,7 +87,7 @@ public class ChooseMealDialog extends Dialog implements Bindable {
                 GUIController.getInstance().addMealCode(m, _day);
 
                 // activate context
-                _recipeTablePane.setVisible(true);
+                _recipeScrollPane.setVisible(true);
                 _chosenRecipeTreeView.setVisible(true);
                 _addAlternativeButton.setEnabled(true);
                 _finishButton.setEnabled(true);
@@ -127,28 +132,40 @@ public class ChooseMealDialog extends Dialog implements Bindable {
 
         TreeBranch startBranch = new TreeBranch();
         for (RecipeData r : categories) {
-            System.out.println(r.getBlsCode());
-            RecipeTreeBranch recipe = new RecipeTreeBranch(r);
-            startBranch.add(recipe);
+
+            // create main categories
+            if (r.getBlsCode().length() == 1) {
+                RecipeTreeBranch recipe = new RecipeTreeBranch(r, true);
+                startBranch.add(recipe);
+            }
         }
+
         _recipeTreeView.setTreeData(startBranch);
+        addSubToMainCategory(categories);
 
         // add listener for opening main categories
         _recipeTreeView.getTreeViewBranchListeners().add(new TreeViewBranchListener() {
 
             public void branchExpanded(TreeView treeView, Path path) {
 
-                // get selected branch
-                RecipeTreeBranch branch = ((RecipeTreeBranch) treeView.getTreeData().get(path.toArray()[0]));
-                String blsSearch = branch.getRecipeData().getBlsCode().substring(0, 2);
-                Set<CheckedRecipeVo> checkedRecipes =
-                        GUIController.getInstance().searchRecipe(blsSearch, null);
-
-                // add recipes
-                for (CheckedRecipeVo c : checkedRecipes) {
-                    System.out.println(c.getRecipeData().getBlsCode());
-                }
-                addRecipesToCategory(checkedRecipes);
+                // get main category branch
+                RecipeTreeBranch branch = ((RecipeTreeBranch) treeView.getTreeData()
+                        .get(path.toArray()[path.getLength()-1]));
+                System.out.println(branch.getRecipeData().getName());
+                System.out.println(branch.getRecipeData().getBlsCode());
+                // check if a subcategory is expanded
+//                if (subBranch.getRecipeData().getBlsCode().length() > 1) {
+//                    String blsSearch = subBranch.getRecipeData().getBlsCode();
+//                    Set<CheckedRecipeVo> checkedRecipes =
+//                            GUIController.getInstance().searchRecipe(blsSearch, null);
+//
+//                    // add recipes
+//                    for (CheckedRecipeVo c : checkedRecipes) {
+//                        System.out.println(c.getRecipeData().getBlsCode());
+//                        RecipeTreeNode r = new RecipeTreeNode(c);
+//                        subBranch.add(r);
+//                    }
+//                }
 
             }
 
@@ -160,22 +177,25 @@ public class ChooseMealDialog extends Dialog implements Bindable {
     }
 
     /**
-     * Classifies recipes and put them into the correct category
+     * Add sub categories to the corresponding main categories
      * @param recipes Recipes to insert
      */
-    private void addRecipesToCategory(Set<CheckedRecipeVo> recipes) {
-        for (CheckedRecipeVo c : recipes) {
+    private void addSubToMainCategory(List<RecipeData> recipes) {
+        final int mainCategoryLength = 1;
+        final int subCategoryLength = 2;
 
-            // main category 0
-            final String mainCategory = "00000";
+        for (RecipeData c : recipes) {
 
             // get bls code
-            String blsCode = c.getRecipeData().getBlsCode();
+            String blsCode = c.getBlsCode();
 
             // filter main categories
-            if (!blsCode.contains(mainCategory)) {
+            if (blsCode.length() > mainCategoryLength) {
+//                System.out.println("addSubToMain new: "+c.getBlsCode());
                 RecipeTreeBranch recipeBranch = getBranchByBLSCode(blsCode.substring(0, 1));
-                RecipeTreeNode r = new RecipeTreeNode(c);
+//                System.out.println("addSutbtoMain added: "+
+//                recipeBranch.getRecipeData().getBlsCode());
+                RecipeTreeBranch r = new RecipeTreeBranch(c, false);
                 recipeBranch.add(r);
             }
         }

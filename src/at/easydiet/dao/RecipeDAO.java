@@ -31,11 +31,6 @@ public class RecipeDAO
            Query result = getSession().createQuery(query);           
         List<Recipe> recipes = result.list();
         
-        for (Recipe recipe : recipes)
-        {
-            LOGGER.info(recipe.getBlsCode());
-        }
-        
         return recipes;        
     }
 

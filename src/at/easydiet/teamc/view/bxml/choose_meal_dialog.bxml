@@ -31,7 +31,8 @@
             <Border title="Rezepte" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
                 xmlns:bxml="http://pivot.apache.org/bxml"
                 xmlns="org.apache.pivot.wtk">
-                <ScrollPane xmlns:bxml="http://pivot.apache.org/bxml"
+                <ScrollPane visible="false" xmlns:bxml="http://pivot.apache.org/bxml"
+                            bxml:id="recipeScrollPane"
                             xmlns:explorer="org.apache.pivot.tutorials.explorer"
                             xmlns="org.apache.pivot.wtk" horizontalScrollBarPolicy="auto"
                              verticalScrollBarPolicy="auto" styles="{backgroundColor:'#EBEDEF'}">
@@ -39,7 +40,7 @@
                         horizontalSpacing:1, showVerticalGridLines:false}"
                         bxml:id="recipeTablePane"
                         xmlns:bxml="http://pivot.apache.org/bxml"
-                        xmlns="org.apache.pivot.wtk" visible="false">
+                        xmlns="org.apache.pivot.wtk">
                         <columns>
                             <TablePane.Column width="-1"/>
                         </columns>
