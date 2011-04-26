@@ -6,6 +6,7 @@
  */
 package at.easydiet.teamc.view;
 
+import at.easydiet.teamc.controller.DatabaseController;
 import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.DietParameterData;
 import java.net.URL;
@@ -37,6 +38,7 @@ import org.apache.pivot.wtk.content.ButtonData;
  */
 public class DietPlanDialog extends Dialog implements Bindable {
 
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(DietPlanDialog.class);
     // instance variables
     private TablePane _dateChooserTablePane;
     private TablePane _parameterChooserTablePane;
@@ -234,8 +236,8 @@ public class DietPlanDialog extends Dialog implements Bindable {
             List<Double> minValues = new ArrayList<Double>();
             for (HashMap<String, String> data : map) {
                 params.add(_chosenParameterNames.get(data.get("parameter")));
-                maxValues.add(Double.parseDouble(data.get("maximum")));
-                minValues.add(Double.parseDouble(data.get("minimum")));
+                maxValues.add(Double.parseDouble(String.valueOf(data.get("maximum"))));
+                minValues.add(Double.parseDouble(String.valueOf(data.get("minimum"))));
             }
 
             // process
