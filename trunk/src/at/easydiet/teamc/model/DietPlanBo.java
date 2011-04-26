@@ -248,7 +248,7 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
      */
     public MealBo addMealCode(MealCodeData mcd, int day) {
         //TODO better name for that method addMeal instead of addMealCode
-        TimeSpanBo timeSpanBo=serachTimespan(day);
+        TimeSpanBo timeSpanBo = serachTimespan(day);
         MealBo mBo = new MealBo(new Meal(mcd.getCode(), mcd.getName(), timeSpanBo.getTimeSpan()));
         timeSpanBo.addMeal(mBo);
         return mBo;
@@ -303,13 +303,13 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
                         }
 
                     }
-                    if(dietParameterBo.getCheckOperatorBo().getName().equals(">=")){
-                        if(currentparametervalue<=Double.parseDouble(dietParameterBo.getParameterValue())){
-                            pcr.addDietParameter((DietParameterData)dietParameterBo);
+                    if (dietParameterBo.getCheckOperatorBo().getName().equals(">=")) {
+                        if (currentparametervalue <= Double.parseDouble(dietParameterBo.getParameterValue())) {
+                            pcr.addDietParameter((DietParameterData) dietParameterBo);
                         }
-                    }else{
-                        if(currentparametervalue>=Double.parseDouble(dietParameterBo.getParameterValue())){
-                            pcr.addDietParameter((DietParameterData)dietParameterBo);
+                    } else {
+                        if (currentparametervalue >= Double.parseDouble(dietParameterBo.getParameterValue())) {
+                            pcr.addDietParameter((DietParameterData) dietParameterBo);
                         }
                     }
 
@@ -317,7 +317,7 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
 
             }
         }
-       return pcr;
+        return pcr;
     }
 
     /**
@@ -366,25 +366,25 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
     }
 
     public DietPlanParameterCollectionVo getDietPlanParameterCollectionVo() {
-        DietPlanParameterCollectionVo dietPlanColl=new DietPlanParameterCollectionVo();
+        DietPlanParameterCollectionVo dietPlanColl = new DietPlanParameterCollectionVo();
         return null;
     }
 
     public Set<MealData> getMealsByDay(int day) {
-        Set<MealData> _meals=null;
-        ArrayList<TimeSpan> timespans=(ArrayList<TimeSpan>) _dietPlan.getTimeSpans();
-        
-        TimeSpan currTimespan=null;
-        for(int i=0;i<timespans.size();i++){
-        	currTimespan=timespans.get(i);
-        	if(i==day){
-        		for(Meal m:currTimespan.getMeals()){
-        			MealBo mBo=new MealBo(m);
-        			_meals.add((MealData)mBo);
-        		}
-        	}
+        Set<MealData> _meals = new HashSet<MealData>();;
+        TimeSpan[] timespans = _dietPlan.getTimeSpans().toArray(new TimeSpan[_dietPlan.getTimeSpans().size()]);
+
+        TimeSpan currTimespan = null;
+        for (int i = 0; i < timespans.length; i++) {
+            currTimespan = timespans[i];
+            if (i == day) {
+                for (Meal m : currTimespan.getMeals()) {
+                    MealBo mBo = new MealBo(m);
+                    _meals.add((MealData) mBo);
+                }
+            }
         }
         return _meals;
-        
+
     }
 }
