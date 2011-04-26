@@ -221,13 +221,13 @@ public class GUIController implements PatientListener {
 			_navTab.drawDietryPlanMenu(plan);
             _contentTab.drawDietryPlan(plan);
 		} catch (NoPatientException e) {
-			Alert.alert("Fehler beim Erstellend des Di�tplans! Es wurde kein Patient gefunden.", _easyDietWindow);
+			Alert.alert("Fehler beim Erstellen des Diätplans! Es wurde kein Patient gefunden.", _easyDietWindow);
 		} catch (NoDateException e) {
-			Alert.alert("Fehler beim Erstellen des Di�tplans. Kein Datum vorhanden ",_easyDietWindow);
+			Alert.alert("Fehler beim Erstellen des Diätplans. Kein Datum vorhanden.",_easyDietWindow);
 		} catch (TimeIntersectionException e) {
-			Alert.alert("Fehler beim Erstellen des Di�tplans. Es existiert bereits ein Plan",_easyDietWindow);
+			Alert.alert("Fehler beim Erstellen des Diätplans. Es existiert bereits ein Plan.",_easyDietWindow);
 		} catch (NoDietTreatmentException e) {
-			Alert.alert("Fehler beim Erstellen des Di�tplans. Der Patient ist keiner Behandlung zugeordnet",_easyDietWindow);
+			Alert.alert("Fehler beim Erstellen des Diätplans. Dem Patienten ist keine Behandlung zugeordnet.",_easyDietWindow);
 		} catch (GeneratingDietryPlanException e) {
 			Alert.alert(MessageType.ERROR, "Der Diätplan konnte nicht erstellt werden.", _easyDietWindow);
             LOGGER.error("DietPlan is empty");
