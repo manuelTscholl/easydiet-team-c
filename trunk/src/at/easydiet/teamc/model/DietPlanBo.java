@@ -3,6 +3,7 @@ package at.easydiet.teamc.model;
 
 import at.easydiet.dao.DAOFactory;
 import at.easydiet.teamc.model.data.MealCodeData;
+import at.easydiet.teamc.model.data.MealData;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -357,5 +358,17 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
         }
         return null;
 
+    }
+
+    public MealData getMealData() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public DietPlanParameterCollectionVo getDietPlanParameterCollectionVo() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Set<MealData> getMealsByDay(int day) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
