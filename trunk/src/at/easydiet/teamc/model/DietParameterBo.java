@@ -17,6 +17,10 @@ public class DietParameterBo extends DietParameterTemplateBo implements java.io.
     private DietParameterBo() {
     }
 
+    /**
+     *
+     * @param dietparameter
+     */
     public DietParameterBo(DietParameter dietparameter) {
         this._dietParameter = dietparameter;
         this.setDietParameterTemplate(dietparameter);
@@ -26,6 +30,12 @@ public class DietParameterBo extends DietParameterTemplateBo implements java.io.
         this.setStart(_dietParameter.getStart());
     }
 
+    /**
+     *
+     * @param checkOperator
+     * @param dietParameterType
+     * @param parameterDefinition
+     */
     public DietParameterBo(CheckOperatorBo checkOperator, DietParameterTypeBo dietParameterType, ParameterDefinitionBo parameterDefinition) {
 
         this(new DietParameter(checkOperator.getCheckoperator(),
@@ -35,6 +45,15 @@ public class DietParameterBo extends DietParameterTemplateBo implements java.io.
 
     }
 
+    /**
+     *
+     * @param checkOperator
+     * @param duration
+     * @param value
+     * @param dietParameterType
+     * @param parameterDefinition
+     * @param start
+     */
     public DietParameterBo(CheckOperatorBo checkOperator, int duration, String value, DietParameterTypeBo dietParameterType, ParameterDefinitionBo parameterDefinition, Date start) {
         this(checkOperator, dietParameterType, parameterDefinition);
 //        this._dieDietParameter.setDuration(duration);
@@ -42,10 +61,18 @@ public class DietParameterBo extends DietParameterTemplateBo implements java.io.
         this._dietParameter.setStart(start);
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getStart() {
         return getDietParameter().getStart();
     }
 
+    /**
+     *
+     * @param start
+     */
     public void setStart(Date start) {
         getDietParameter().setStart(start);
     }
@@ -64,17 +91,29 @@ public class DietParameterBo extends DietParameterTemplateBo implements java.io.
         return _dietParameter;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean save() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getParameterName() {
         return _dietParameter.getParameterDefinition().getName();
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getParameterValue() {
         // TODO Auto-generated method stub

@@ -137,7 +137,6 @@ public class DietryPlanController extends Event<EventArgs> {
         if (checkForTimeIntersections(startdate, enddate)) {
 
             //initiates Diatplan with needed values
-            //TODO Testplan??
             _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo("Testplan"), activeUser);
 
             //cast DietParameterData to DietParameterBo
@@ -155,7 +154,8 @@ public class DietryPlanController extends Event<EventArgs> {
             //Setting the Parameters for Diatplan
             _dietPlanBo.setDietParameters(dpb);
 
-            duration = 1+((enddate.getTime() - startdate.getTime()) / MILLISECONDS_TO_DAY_FACTOR);
+            //+1 because if enddate==startdae duration is 1 day not 0
+            duration = 1 + ((enddate.getTime() - startdate.getTime()) / MILLISECONDS_TO_DAY_FACTOR);
             timespanbo = new TimeSpanBo(startdate, (int) duration);
 
             //TODO activate save methods and treatment
@@ -163,12 +163,13 @@ public class DietryPlanController extends Event<EventArgs> {
             //_dietPlanBo.save();
 
             _dietPlanBo.addTimeSpan(timespanbo);
-            if(activePatient.getTreatments().size()>0){
-            searchTreatmentForDietplan(timespanbo).addDietPlan(_dietPlanBo);
-            }else{
+            if (activePatient.getTreatments().size() > 0) {
+                searchTreatmentForDietplan(timespanbo).addDietPlan(_dietPlanBo);
+                _tempTimeSpanBo=timespanbo;
+            } else {
                 throw new NoDietTreatmentException();
             }
-            
+
             //_activePatient.save();
 
             return (DietryPlanData) _dietPlanBo;
@@ -210,7 +211,7 @@ public class DietryPlanController extends Event<EventArgs> {
                     for (DietPlanBo dpb : tsb.getDietPlans()) {
                         for (TimeSpanBo timesb : dpb.getTimeSpans()) {
                             // -1 because duration starts with 1 instead of 0
-                            tempenddate = new Date(timesb.getStart().getTime() + (timesb.getDuration() * MILLISECONDS_TO_DAY_FACTOR)-1);
+                            tempenddate = new Date(timesb.getStart().getTime() + (timesb.getDuration() * MILLISECONDS_TO_DAY_FACTOR) - 1);
                             //check wether intersection not possible because of logically not overlapping startdate and enddate
                             if (enddate.before(timesb.getStart()) || startdate.after(tempenddate)) {
                                 continue;
@@ -292,15 +293,22 @@ public class DietryPlanController extends Event<EventArgs> {
      */
     public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
 
-        Set<CheckedRecipeVo> temp = new HashSet<CheckedRecipeVo>();
+        Set<CheckedRecipeVo> temps = new HashSet<CheckedRecipeVo>();
+        CheckedRecipeVo temp;
         List<RecipeBo> recipes = _searchRecipeController.searchRecipe(mainCategory, search);
 
         if (recipes != null) {
             for (RecipeBo rb : recipes) {
-                temp.add(new CheckedRecipeVo((RecipeData) rb, null));
+                temp=new CheckedRecipeVo((RecipeData) rb, _dietPlanBo.checkRecipeWithParameters(rb, searchTreatmentForDietplan(_tempTimeSpanBo), _dietPlanBo));
+                temps.add(temp);
+                for(RecipeBo disfav:_activePatient.getDisfavors()){
+                    if(rb.getName().equals(disfav.getName())){
+                        temp.setDisfavour(true);
+                    }
+                }
             }
         }
-        return temp;
+        return temps;
     }
 
     /**

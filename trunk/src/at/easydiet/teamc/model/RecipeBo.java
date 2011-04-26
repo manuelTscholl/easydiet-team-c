@@ -111,7 +111,7 @@ public class RecipeBo  implements java.io.Serializable, Saveable, RecipeData {
            this._Recipe.getIngredients().add(recipeIngredientBo.getRecipeIngredient());
        }
     }
-    public Set getNutrimentParameters() {
+    public Set<NutrimentParameterBo> getNutrimentParameters() {
         Set<NutrimentParameterBo> temp = new HashSet<NutrimentParameterBo>(this._Recipe.getNutrimentParameters().size());
         for (NutrimentParameter nutrimentParameter : this._Recipe.getNutrimentParameters()) {
             temp.add(new NutrimentParameterBo(nutrimentParameter));
@@ -142,6 +142,15 @@ public class RecipeBo  implements java.io.Serializable, Saveable, RecipeData {
     @Override
     public boolean save() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    protected double getNutrimentParameterValue(NutrimentParameterBo npb){
+        for(NutrimentParameterBo nutrimentParameterBo: this.getNutrimentParameters()){
+            if(nutrimentParameterBo.getParameterDefinition().getName().equals(npb.getParameterDefinition().getName())){
+                return Double.parseDouble(nutrimentParameterBo.getValue());
+            }
+        }
+        return 0;
     }
 
 
