@@ -5,11 +5,14 @@ import at.easydiet.teamc.model.data.MealData;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import at.easydiet.dao.DAOFactory;
 import at.easydiet.model.DietParameter;
+import at.easydiet.model.DietParameterTemplate;
 import at.easydiet.model.DietPlan;
 import at.easydiet.model.Meal;
 import at.easydiet.model.TimeSpan;
@@ -365,10 +368,43 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public DietPlanParameterCollectionVo getDietPlanParameterCollectionVo() {
-        DietPlanParameterCollectionVo dietPlanColl = new DietPlanParameterCollectionVo();
+
+    public List<DietPlanParameterCollectionVo> getDietPlanParameterCollectionVo() {
+        HashMap<String, ValueRange> parameters=new HashMap<String, ValueRange>();
+        
+        Set<DietParameterBo> dpbo= this.getDietParameters();
+        ArrayList<DietPlanParameterCollectionVo> paramsToReturn=new ArrayList<DietPlanParameterCollectionVo>();
+       
+        for(DietParameterBo currentDietParamBo: dpbo){
+        	if(!parameters.containsKey(currentDietParamBo.getParameterDefinition().getName())){
+        		parameters.put(currentDietParamBo.getParameterDefinition().getName(), new ValueRange(0,0,0));
+        		
+        		if(currentDietParamBo.getCheckOperatorBo().getName().equals(">=")){
+        			parameters.get(currentDietParamBo.getParameterDefinition().getName()).
+        			setMin(Double.parseDouble(currentDietParamBo.getValue()));        			
+        		}else{        		
+        			parameters.get(currentDietParamBo.getParameterDefinition().getName()).
+        			setMax(Double.parseDouble(currentDietParamBo.getValue())); 
+        		}
+        	}else{
+        		if(currentDietParamBo.getCheckOperatorBo().getName().equals(">=")){
+        			parameters.get(currentDietParamBo.getParameterDefinition().getName()).
+        			setMin(Double.parseDouble(currentDietParamBo.getValue()));        			
+        		}else{        		
+        			parameters.get(currentDietParamBo.getParameterDefinition().getName()).
+        			setMax(Double.parseDouble(currentDietParamBo.getValue())); 
+        		}
+        	}
+        }
+        //get the current values
         return null;
-    }
+        
+}
+        
+        
+        
+        
+
 
     public Set<MealData> getMealsByDay(int day) {
         Set<MealData> _meals = new HashSet<MealData>();;
