@@ -1,0 +1,25 @@
+
+<easyDiet:QuantityDialog bxml:id="quantityDialog" title="Menge auswählen"
+modal="true"
+    xmlns:bxml="http://pivot.apache.org/bxml"
+    xmlns:easyDiet="at.easydiet.teamc.view"
+    xmlns="org.apache.pivot.wtk">
+    <BoxPane styles="{verticalAlignment:'bottom'}">
+        <TablePane styles="{verticalSpacing:10}">
+            <columns>
+                <TablePane.Column width="80"/>
+                <TablePane.Column width="50"/>
+            </columns>
+ 
+            <TablePane.Row height="1*">
+                <Label text="Menge: [g]"/>
+                <TextInput bxml:id="quantityTextInput"/>
+            </TablePane.Row>
+ 
+            <TablePane.Row height="-1">
+                <TablePane.Filler/>
+                <PushButton buttonData="Ok" bxml:id="okButton"/>
+            </TablePane.Row>
+        </TablePane>
+    </BoxPane>
+</easyDiet:QuantityDialog>

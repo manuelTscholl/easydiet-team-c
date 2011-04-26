@@ -10,7 +10,10 @@ import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.RecipeData;
+import at.easydiet.teamc.view.util.QuantityListener;
+import java.io.IOException;
 import java.net.URL;
+import org.apache.pivot.beans.BXMLSerializer;
 
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.ArrayList;
@@ -18,12 +21,12 @@ import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.collections.Sequence.Tree.Path;
 import org.apache.pivot.collections.Set;
+import org.apache.pivot.serialization.SerializationException;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Accordion;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Dialog;
-import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.ScrollPane;
@@ -37,7 +40,7 @@ import org.apache.pivot.wtk.content.TreeBranch;
  * Represents the ChooseMealDialog.bxml
  * @author Michael
  */
-public class ChooseMealDialog extends Dialog implements Bindable {
+public class ChooseMealDialog extends Dialog implements Bindable, QuantityListener {
 
     // class variables
     public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ChooseMealDialog.class);
@@ -58,9 +61,13 @@ public class ChooseMealDialog extends Dialog implements Bindable {
     private List<MealCodeData> _mealCodes;
     private int _day;
     private List<MealLineBoxPane> _mealLines;
+    private RecipeData _actualRecipeData;
+    private MealLineBoxPane _actualMealLineBoxPane;
+    private ChooseMealDialog _chooseMealDialog;
 
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
         _mealLines = new ArrayList<MealLineBoxPane>();
+        _chooseMealDialog = this;
 
         // get GUI components
         _chooseMealButton = (PushButton) namespace.get("chooseMealButton");
@@ -131,49 +138,65 @@ public class ChooseMealDialog extends Dialog implements Bindable {
                 if (_recipeTreeView.getSelectedNode() instanceof RecipeTreeNode) {
 
                     // get selected recipe
-                    RecipeData r = ((RecipeTreeNode)_recipeTreeView.getSelectedNode()).getRecipeData();
-                    MealLineBoxPane m = (MealLineBoxPane) _chosenRecipeAccordion.getSelectedPanel();
-                    m.addRecipe(r);
+                    _actualRecipeData = ((RecipeTreeNode) _recipeTreeView.getSelectedNode()).getRecipeData();
+                    _actualMealLineBoxPane = (MealLineBoxPane) _chosenRecipeAccordion.getSelectedPanel();
+                    _actualMealLineBoxPane.addRecipe(_actualRecipeData);
+
+                    // load dialog for creating a new dietplan
+                    BXMLSerializer bxml = new BXMLSerializer();
+                    QuantityDialog quantityDialog;
+                 
+                    try {
+                        quantityDialog = (QuantityDialog) bxml.readObject(ChooseMealDialog.class,
+                                "bxml/quantityPopup.bxml");
+                        quantityDialog.open(getWindow());
+                        quantityDialog.addQuantityListener(_chooseMealDialog);
+                    } catch (IOException ex) {
+                        LOGGER.error(ex);
+                    } catch (SerializationException ex) {
+                        LOGGER.error(ex);
+                    }
+
                 }
             }
         });
-        
+
         // add listener for removing recipes
         _removeRecipeButton.getButtonPressListeners().add(new ButtonPressListener() {
 
             public void buttonPressed(Button button) {
-                 
+
                 int selected = _chosenRecipeAccordion.getSelectedIndex();
                 MealLineBoxPane m = _mealLines.get(selected);
                 RecipeData r = m.getSelectedRecipe();
                 m.removeRecipe(r);
             }
         });
-        
+
         // listener for searching
         _searchButton.getButtonPressListeners().add(new ButtonPressListener() {
 
             public void buttonPressed(Button button) {
-                
+
                 // get search string
                 String search = _searchTextInput.getText();
-                
-                if(!search.equals("")){
+
+                if (!search.equals("")) {
                     Set<CheckedRecipeVo> checkedRecipes =
                             GUIController.getInstance().searchRecipe(null, search);
-                    
+
                     // clean tree view
                     _recipeTreeView.getTreeData().remove(0, _recipeTreeView.getTreeData().getLength());
-                    
+
                     // add search results
                     TreeBranch tree = new TreeBranch();
-                    for(CheckedRecipeVo c:checkedRecipes){
+                    for (CheckedRecipeVo c : checkedRecipes) {
                         RecipeTreeNode node = new RecipeTreeNode(c);
                         tree.add(node);
                     }
-                    
+
                     _recipeTreeView.setTreeData(tree);
-                    
+
                 }
             }
         });
@@ -204,7 +227,7 @@ public class ChooseMealDialog extends Dialog implements Bindable {
 
         _recipeTreeView.setTreeData(startBranch);
         addSubToMainCategory(categories);
-        
+
         // style tree view
         _recipeTreeView.getStyles().put("spacing", "1");
 
@@ -259,10 +282,7 @@ public class ChooseMealDialog extends Dialog implements Bindable {
 
             // filter main categories
             if (blsCode.length() > mainCategoryLength) {
-//                System.out.println("addSubToMain new: "+c.getBlsCode());
                 RecipeTreeBranch recipeBranch = getBranchByBLSCode(blsCode.substring(0, 1));
-//                System.out.println("addSutbtoMain added: "+
-//                recipeBranch.getRecipeData().getBlsCode());
                 RecipeTreeBranch r = new RecipeTreeBranch(c, false);
                 recipeBranch.add(r);
             }
@@ -292,9 +312,23 @@ public class ChooseMealDialog extends Dialog implements Bindable {
         Accordion.setHeaderData(m, "Bestandteil " + (_mealLines.getLength() + 1));
         _chosenRecipeAccordion.getPanels().add(m);
         _mealLines.add(m);
-        
-        _chosenRecipeAccordion.setSelectedIndex(_mealLines.getLength()-1);
 
-        GUIController.getInstance().addMealLine();
+        _chosenRecipeAccordion.setSelectedIndex(_mealLines.getLength() - 1);
+
+        m.setMealLineIndex(GUIController.getInstance().addMealLine());
+    }
+
+    /**
+     * Update quantity
+     * @param quantity 
+     */
+    public void updateQuantity(float quantity) {
+        System.out.println("JUHUUUU");
+
+        // add recipe
+        GUIController.getInstance().addRecipeToMeal(_actualRecipeData, quantity, _actualMealLineBoxPane.getMealLineIndex());
+
+        // reload recipe list
+        initRecipeMainCategories();
     }
 }

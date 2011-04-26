@@ -23,6 +23,7 @@ public class MealLineBoxPane extends BoxPane {
     // instance variables
     private ListView _recipeListView;
     private List<RecipeData> _recipes;
+    private int _mealLineIndex;
     
     public MealLineBoxPane(){
         
@@ -56,5 +57,13 @@ public class MealLineBoxPane extends BoxPane {
      */
     public void removeRecipe(RecipeData r){
         _recipes.remove(r);
+    }
+    
+    public int getMealLineIndex(){
+        return _mealLineIndex;
+    }
+    
+    public void setMealLineIndex(int index){
+        _mealLineIndex = index;
     }
 }
