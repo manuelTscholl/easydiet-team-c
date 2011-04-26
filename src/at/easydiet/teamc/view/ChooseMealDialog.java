@@ -66,7 +66,7 @@ public class ChooseMealDialog extends Dialog implements Bindable {
         _chooseMealButton = (PushButton) namespace.get("chooseMealButton");
         _recipeScrollPane = (ScrollPane) namespace.get("recipeScrollPane");
         _recipeTablePane = (TablePane) namespace.get("recipeTablePane");
-        _searchTextInput = (TextInput) namespace.get("searchtTextInput");
+        _searchTextInput = (TextInput) namespace.get("recipeSearchTextInput");
         _searchButton = (PushButton) namespace.get("searchButton");
         _mealChooserListButton = (ListButton) namespace.get("mealChooserListButton");
         _addRecipeButton = (PushButton) namespace.get("addRecipeButton");
@@ -113,18 +113,6 @@ public class ChooseMealDialog extends Dialog implements Bindable {
                 close();
             }
         });
-        _searchButton.getButtonPressListeners().add(new ButtonPressListener() {
-
-            public void buttonPressed(Button button) {
-
-                // check if search string is available
-                if (_searchTextInput.getText() != "") {
-                    Set<CheckedRecipeVo> checkedRecipes =
-                            GUIController.getInstance().searchRecipe(null, _searchTextInput.getText());
-                    //TODO add these recipes to the corresponding main categories
-                }
-            }
-        });
 
         // listener for additional ingredients
         _addAlternativeButton.getButtonPressListeners().add(new ButtonPressListener() {
@@ -159,6 +147,34 @@ public class ChooseMealDialog extends Dialog implements Bindable {
                 MealLineBoxPane m = _mealLines.get(selected);
                 RecipeData r = m.getSelectedRecipe();
                 m.removeRecipe(r);
+            }
+        });
+        
+        // listener for searching
+        _searchButton.getButtonPressListeners().add(new ButtonPressListener() {
+
+            public void buttonPressed(Button button) {
+                
+                // get search string
+                String search = _searchTextInput.getText();
+                
+                if(!search.equals("")){
+                    Set<CheckedRecipeVo> checkedRecipes =
+                            GUIController.getInstance().searchRecipe(null, search);
+                    
+                    // clean tree view
+                    _recipeTreeView.getTreeData().remove(0, _recipeTreeView.getTreeData().getLength());
+                    
+                    // add search results
+                    TreeBranch tree = new TreeBranch();
+                    for(CheckedRecipeVo c:checkedRecipes){
+                        RecipeTreeNode node = new RecipeTreeNode(c);
+                        tree.add(node);
+                    }
+                    
+                    _recipeTreeView.setTreeData(tree);
+                    
+                }
             }
         });
     }
