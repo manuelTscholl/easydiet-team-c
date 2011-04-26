@@ -10,10 +10,6 @@ import java.util.Set;
 public class MealLine  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -3489398156468047811L;
     private long _mealLineId;
     private float _quantity;
     private Clob _info;

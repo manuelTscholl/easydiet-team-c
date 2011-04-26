@@ -61,7 +61,7 @@ public class PatientBo implements java.io.Serializable, Saveable, PatientData {
 		}
 
 		for (PatientStateBo patientStateBo : patientstatesBo) {
-			this._Patient.getPatientstate().add(
+			this._Patient.getPatientStates().add(
 					patientStateBo.getPatientState());
 		}
 
@@ -231,8 +231,8 @@ public class PatientBo implements java.io.Serializable, Saveable, PatientData {
 
 	public Set<PatientStateBo> getPatientstates() {
 		Set<PatientStateBo> temp = new HashSet<PatientStateBo>(this._Patient
-				.getPatientstate().size());
-		for (PatientState patientState : this._Patient.getPatientstate()) {
+				.getPatientStates().size());
+		for (PatientState patientState : this._Patient.getPatientStates()) {
 			temp.add(new PatientStateBo(patientState));
 		}
 		return temp;
@@ -240,7 +240,7 @@ public class PatientBo implements java.io.Serializable, Saveable, PatientData {
 
 	public void setPatientstates(Set<PatientStateBo> patientstatesBo) {
 		for (PatientStateBo patientStateBo : patientstatesBo) {
-			this._Patient.getPatientstate().add(
+			this._Patient.getPatientStates().add(
 					patientStateBo.getPatientState());
 		}
 	}

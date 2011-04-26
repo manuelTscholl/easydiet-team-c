@@ -8,10 +8,6 @@ import java.util.Date;
 public class DietParameter extends at.easydiet.model.DietParameterTemplate implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -5415629633663504397L;
     private Date _start;
 
     /**
@@ -23,20 +19,25 @@ public class DietParameter extends at.easydiet.model.DietParameterTemplate imple
     }
 
     /**
-     * Initializes a new instance of the {@link DietParameter} class.
+     * 
+     * Initializes a new instance of the {@link DietParameter} class. 
+     * @param checkOperator
+     * @param parameterDefinitionUnit
+     * @param dietParameterType
+     * @param parameterDefinition
      */
-    public DietParameter(CheckOperator checkOperator, DietParameterType dietParameterType, ParameterDefinition parameterDefinition) 
+    public DietParameter(CheckOperator checkOperator, ParameterDefinitionUnit parameterDefinitionUnit, DietParameterType dietParameterType, ParameterDefinition parameterDefinition) 
     {
-        super(checkOperator, dietParameterType, parameterDefinition);        
+        super(checkOperator, parameterDefinitionUnit, dietParameterType, parameterDefinition);        
     }
 
     /**
      * Initializes a new instance of the {@link DietParameter} class.
      * @param start the start to set for this instance
      */
-    public DietParameter(CheckOperator checkOperator, int duration, String value, DietParameterType dietParameterType, ParameterDefinition parameterDefinition, Date start) 
+    public DietParameter(CheckOperator checkOperator, int duration, String value, ParameterDefinitionUnit parameterDefinitionUnit, DietParameterType dietParameterType, ParameterDefinition parameterDefinition, Date start) 
     {
-        super(checkOperator, duration, value, dietParameterType, parameterDefinition);        
+        super(checkOperator, duration, value, parameterDefinitionUnit, dietParameterType, parameterDefinition);        
        _start = start;
     }
    

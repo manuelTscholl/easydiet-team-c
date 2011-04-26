@@ -5,13 +5,14 @@
 <hibernate-configuration>
         <session-factory>
                 <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-                <property name="hibernate.connection.url">jdbc:mysql://manuel.vserver.softronics.ch:3306/fhv_easydiet</property>
+         <!--        <property name="hibernate.connection.url">jdbc:mysql://manuel.vserver.softronics.ch:3306/fhv_easydiet</property> -->
+              <property name="hibernate.connection.url">jdbc:mysql://manuel.vserver.softronics.ch:3306/fhv_easydiet2</property>
                 <property name="hibernate.connection.username">fhv</property>
                 <property name="connection.password">fhv_pw</property>
                 <property name="connection.pool_size">1</property>
                 <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
                 <property name="show_sql">true</property>
-<!--                 <property name="hbm2ddl.auto">update</property> -->
+<!-- 				<property name="hbm2ddl.auto">create-drop</property> -->
                                 
                 <mapping resource="EasyDiet.hbm.xml"/>
         </session-factory>

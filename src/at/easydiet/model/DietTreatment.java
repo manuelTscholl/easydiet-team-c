@@ -10,10 +10,6 @@ import java.util.Set;
 public class DietTreatment  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -1587531563621117473L;
     private long _dietTreatmentId;
     private Date _start;
     private int _duration;

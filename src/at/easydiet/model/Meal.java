@@ -9,10 +9,6 @@ import java.util.Set;
 public class Meal  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -1391160338008683314L;
     private long _mealId;
     private String _code;
     private String _name;

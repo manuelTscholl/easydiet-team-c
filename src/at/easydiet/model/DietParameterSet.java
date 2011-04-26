@@ -9,10 +9,6 @@ import java.util.Set;
 public class DietParameterSet  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = 999651491618976517L;
     private long _dietParameterSetId;
     private String _name;
     private Set<DietParameterTemplate> _dietParameterTemplates = new HashSet<DietParameterTemplate>(0);

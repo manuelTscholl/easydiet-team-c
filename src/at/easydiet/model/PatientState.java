@@ -11,10 +11,6 @@ import java.util.Set;
 public class PatientState  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -2330123253871789027L;
     private long _patientStateId;
     private Date _date;
     private Clob _anamnesis;

@@ -10,10 +10,6 @@ import java.util.Set;
 public class NutritionProtocol extends at.easydiet.model.DietPlan implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = 8298474578780248965L;
     private Date _date;
     private String _contact;
     private Clob _notice;

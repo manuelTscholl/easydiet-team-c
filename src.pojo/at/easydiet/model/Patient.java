@@ -23,12 +23,12 @@ public class Patient  implements java.io.Serializable
     private Date _birthday;
     private String _job;
     private String _religion;
-    private String[] _illnesses;
     private String _regime;
     private Clob _notice;
     private Gender _gender;
+    private Set<String> _illnesses = new HashSet<String>(0);
     private Set<FamilyAnamnesis> _familyanamnesis = new HashSet<FamilyAnamnesis>(0);
-    private Set<PatientState> _patientstate = new HashSet<PatientState>(0);
+    private Set<PatientState> _patientStates = new HashSet<PatientState>(0);
     private Set<LaborReport> _laborReports = new HashSet<LaborReport>(0);
     private Set<DietTreatment> _treatments = new HashSet<DietTreatment>(0);
     private Set<Recipe> _disfavors = new HashSet<Recipe>(0);
@@ -81,17 +81,17 @@ public class Patient  implements java.io.Serializable
      * @param birthday the birthday to set for this instance
      * @param job the job to set for this instance
      * @param religion the religion to set for this instance
-     * @param illnesses the illnesses to set for this instance
      * @param regime the regime to set for this instance
      * @param notice the notice to set for this instance
      * @param gender the gender to set for this instance
+     * @param illnesses the illnesses to set for this instance
      * @param familyanamnesis the familyanamnesis to set for this instance
-     * @param patientstate the patientstate to set for this instance
+     * @param patientStates the patientStates to set for this instance
      * @param laborReports the laborReports to set for this instance
      * @param treatments the treatments to set for this instance
      * @param disfavors the disfavors to set for this instance
      */
-    public Patient(String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, String job, String religion, String[] illnesses, String regime, Clob notice, Gender gender, Set<FamilyAnamnesis> familyanamnesis, Set<PatientState> patientstate, Set<LaborReport> laborReports, Set<DietTreatment> treatments, Set<Recipe> disfavors) 
+    public Patient(String insuranceNumber, String forename, String lastname, String title, String street, String zip, String place, String country, Date birthday, String job, String religion, String regime, Clob notice, Gender gender, Set<String> illnesses, Set<FamilyAnamnesis> familyanamnesis, Set<PatientState> patientStates, Set<LaborReport> laborReports, Set<DietTreatment> treatments, Set<Recipe> disfavors) 
     {
        _insuranceNumber = insuranceNumber;
        _forename = forename;
@@ -104,12 +104,12 @@ public class Patient  implements java.io.Serializable
        _birthday = birthday;
        _job = job;
        _religion = religion;
-       _illnesses = illnesses;
        _regime = regime;
        _notice = notice;
        _gender = gender;
+       _illnesses = illnesses;
        _familyanamnesis = familyanamnesis;
-       _patientstate = patientstate;
+       _patientStates = patientStates;
        _laborReports = laborReports;
        _treatments = treatments;
        _disfavors = disfavors;
@@ -332,24 +332,6 @@ public class Patient  implements java.io.Serializable
     }
     
     /**       
-     * Gets the illnesses of this instance. 
-     * @return the illnesses currently set for this instance.
-     */
-    public String[] getIllnesses() 
-    {
-        return _illnesses;
-    }
-    
-    /**       
-     * Sets the illnesses of this instance. 
-     * @param illnesses the new illnesses of this instance.
-     */    
-    public void setIllnesses(String[] illnesses) 
-    {
-        _illnesses = illnesses;
-    }
-    
-    /**       
      * Gets the regime of this instance. 
      * @return the regime currently set for this instance.
      */
@@ -404,6 +386,24 @@ public class Patient  implements java.io.Serializable
     }
     
     /**       
+     * Gets the illnesses of this instance. 
+     * @return the illnesses currently set for this instance.
+     */
+    public Set<String> getIllnesses() 
+    {
+        return _illnesses;
+    }
+    
+    /**       
+     * Sets the illnesses of this instance. 
+     * @param illnesses the new illnesses of this instance.
+     */    
+    public void setIllnesses(Set<String> illnesses) 
+    {
+        _illnesses = illnesses;
+    }
+    
+    /**       
      * Gets the familyanamnesis of this instance. 
      * @return the familyanamnesis currently set for this instance.
      */
@@ -422,21 +422,21 @@ public class Patient  implements java.io.Serializable
     }
     
     /**       
-     * Gets the patientstate of this instance. 
-     * @return the patientstate currently set for this instance.
+     * Gets the patientStates of this instance. 
+     * @return the patientStates currently set for this instance.
      */
-    public Set<PatientState> getPatientstate() 
+    public Set<PatientState> getPatientStates() 
     {
-        return _patientstate;
+        return _patientStates;
     }
     
     /**       
-     * Sets the patientstate of this instance. 
-     * @param patientstate the new patientstate of this instance.
+     * Sets the patientStates of this instance. 
+     * @param patientStates the new patientStates of this instance.
      */    
-    public void setPatientstate(Set<PatientState> patientstate) 
+    public void setPatientStates(Set<PatientState> patientStates) 
     {
-        _patientstate = patientstate;
+        _patientStates = patientStates;
     }
     
     /**       
