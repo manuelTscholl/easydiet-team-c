@@ -32,6 +32,7 @@ import at.easydiet.teamc.model.data.MealData;
 import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.util.Event;
 import at.easydiet.teamc.util.EventArgs;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -274,9 +275,9 @@ public class DietryPlanController extends Event<EventArgs> {
      *
      * @return Main Categories of Recipes from BLS
      */
-    public Set<RecipeData> getRecipeMainCategories() {
+    public List<RecipeData> getRecipeMainCategories() {
         _searchRecipeController = SearchRecipeController.getInstance();
-        Set<RecipeData> temp = new HashSet<RecipeData>();
+        List<RecipeData> temp = new ArrayList<RecipeData>();
         for (RecipeBo rb : _searchRecipeController.getRecipeMainCategories()) {
             temp.add((RecipeData) rb);
         }

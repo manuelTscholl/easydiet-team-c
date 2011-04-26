@@ -238,7 +238,7 @@ public class BusinessLogicDelegationController {
 	 * Return a list of Recipe-Categories
 	 * @return Main Categories of Recipes
 	 */
-	public Set<RecipeData> getRecipeMainCategories() {	
+	public List<RecipeData> getRecipeMainCategories() {	
 		return _dietryPlanController.getRecipeMainCategories();
 	}
 
