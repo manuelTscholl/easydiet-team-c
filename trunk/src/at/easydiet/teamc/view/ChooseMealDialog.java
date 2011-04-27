@@ -67,6 +67,7 @@ public class ChooseMealDialog extends Dialog implements Bindable, QuantityListen
     private RecipeData _actualRecipeData;
     private MealLineBoxPane _actualMealLineBoxPane;
     private ChooseMealDialog _chooseMealDialog;
+    private MealCodeData _actualMealCode;
 
     public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
         _mealLines = new ArrayList<MealLineBoxPane>();
@@ -100,8 +101,8 @@ public class ChooseMealDialog extends Dialog implements Bindable, QuantityListen
             public void buttonPressed(Button button) {
 
                 // get and add mealCode Object
-                MealCodeData m = (MealCodeData) _mealChooserListButton.getSelectedItem();
-                GUIController.getInstance().addMealCode(m, _day);
+                _actualMealCode = (MealCodeData) _mealChooserListButton.getSelectedItem();
+                GUIController.getInstance().addMealCode(_actualMealCode, _day);
 
                 // activate context
                 _recipeScrollPane.setVisible(true);
@@ -347,7 +348,8 @@ public class ChooseMealDialog extends Dialog implements Bindable, QuantityListen
     public void updateQuantity(float quantity) {
 
         // add recipe
-        GUIController.getInstance().addRecipeToMeal(_actualRecipeData, _day, quantity, _actualMealLineBoxPane.getMealLineIndex());
+        GUIController.getInstance().addRecipeToMeal(_actualRecipeData, _day, quantity
+                , _actualMealLineBoxPane.getMealLineIndex(), _actualMealCode);
 
         // reload recipe list
         initRecipeMainCategories();
