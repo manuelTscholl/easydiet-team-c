@@ -9,10 +9,13 @@ package at.easydiet.teamc.view.util;
 import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.view.NavigationTabPane;
+import org.apache.pivot.collections.List;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
+import org.apache.pivot.wtk.LinkButton;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TablePane;
+import org.apache.pivot.wtk.content.ButtonData;
 
 /**
  * Mode for dietry plan
@@ -49,5 +52,17 @@ public class DietryPlanNavigationMode extends NavigationMode {
                 GUIController.getInstance().createDietryPlan();
             }
         });
+        
+        // add all available diet plans
+        //TODO show all dietry plans
+//        List<DietryPlanData> dietPlans = GUIController.getInstance().getAllDietryPlans();
+//        for(DietryPlanData d: dietPlans){
+//            //TODO add dietry plan name
+//            TablePane.Row dpRow = new TablePane.Row();
+//            ButtonData data = new ButtonData();
+//            LinkButton planLink = new LinkButton(data);
+//            dpRow.add(planLink);
+//            _navTab.getEditTablePane().getRows().add(dpRow);
+//        }
     }
 }
