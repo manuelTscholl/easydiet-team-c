@@ -4,6 +4,7 @@ package at.easydiet.teamc.model;
 import java.util.Date;
 
 import at.easydiet.model.DietParameter;
+import at.easydiet.model.DietParameterTemplate;
 import at.easydiet.teamc.model.data.DietParameterData;
 
 /**
@@ -12,6 +13,7 @@ import at.easydiet.teamc.model.data.DietParameterData;
 public class DietParameterBo extends DietParameterTemplateBo implements java.io.Serializable, Saveable, DietParameterData {
 
     private DietParameter _dietParameter;
+    private DietParameterTemplate _DietParameterTemplate;
 
     private DietParameterBo() {
     }
@@ -21,6 +23,7 @@ public class DietParameterBo extends DietParameterTemplateBo implements java.io.
      * @param dietparameter
      */
     public DietParameterBo(DietParameter dietparameter) {
+        super(dietparameter);
         this._dietParameter = dietparameter;
         this.setDietParameterTemplate(dietparameter);
         this.setCheckOperatorBo(new CheckOperatorBo(_dietParameter.getCheckOperator()));
@@ -115,8 +118,7 @@ public class DietParameterBo extends DietParameterTemplateBo implements java.io.
      */
     @Override
     public String getParameterValue() {
-        // TODO Auto-generated method stub
-        return null;
+        return this._dietParameter.getValue();
     }
     
     public String toString(){
