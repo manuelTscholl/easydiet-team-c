@@ -1,0 +1,17 @@
+Team C
+
+5.1.1: Rezepte anlegen von Team B integrieren
+
++Parameter berechnen
+
+Team B
+
+Patienten anlegen
++
+Patientenstatus anlegen
+
+Team A
+
+Diät anlegen
+Gut&Schlecht Liste
+
