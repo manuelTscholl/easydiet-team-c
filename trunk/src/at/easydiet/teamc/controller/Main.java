@@ -14,7 +14,7 @@ import at.easydiet.teamc.view.EasyDiet;
 
 
 /**
- * Main entry point of the application
+ * Main entry point of the app lication
  * @author Michael
  */
 public class Main {
