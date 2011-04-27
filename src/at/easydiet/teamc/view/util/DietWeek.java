@@ -153,7 +153,7 @@ public class DietWeek {
      * @param meals for this day
      */
     public void addDay(Set<MealData> meals) {
-        DietDay dd = new DietDay(_days.size(), meals);
+        DietDay dd = new DietDay(_days.size()+1, meals);
         _days.add(dd);
     }
 
