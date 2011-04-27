@@ -302,12 +302,13 @@ public class GUIController implements PatientListener {
     /**
      * Add a recipe to a meal
      * @param rd Recipe to add
+     * @param day to add this meal
      * @param quantity Quantity of the recipe
      * @param mealLineId MealLine to add this recipe
      * @return 
      */
-    public MealData addRecipeToMeal(RecipeData rd, float quantity, int mealLineId) {
-        return _businessLogicDelegationController.addRecipetoMeal(rd, quantity, mealLineId);
+    public MealData addRecipeToMeal(RecipeData rd, int day, float quantity, int mealLineId) {
+        return _businessLogicDelegationController.addRecipetoMeal(rd, day, quantity, mealLineId);
     }
 
     /**

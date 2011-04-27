@@ -254,13 +254,14 @@ public class BusinessLogicDelegationController {
         /**
 	 * Add a Recipe to the Meal in progress
          * @param mealLineID MealLine to whick the Recipe belongs
+         * @param day to add this meal
          * @param quantity amount of Recipe in gramm.
          * @param rd Recipe which will be added
 	 * @return
 	 */
-	public MealData addRecipetoMeal(RecipeData rd, float quantity,
+	public MealData addRecipetoMeal(RecipeData rd, int day, float quantity,
 			int mealLineID) {
-		return _dietryPlanController.addRecipeToMeal(rd, quantity, mealLineID);
+		return _dietryPlanController.addRecipeToMeal(rd, day, quantity, mealLineID);
 	}
 
         /**
