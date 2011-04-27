@@ -429,4 +429,16 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
         return _meals;
 
     }
+
+    public MealData addRecipe(RecipeBo recipeBo, int day, float quantity, int mealLineID, MealCodeData mcd) {
+        MealBo mb;
+        for(MealData md: getMealsByDay(day)){
+            if(mcd.getName().equals(md.getMealCodeData().getName())){
+                mb =(MealBo) md;
+                mb.addRecipe(recipeBo, quantity, mealLineID);
+                return (MealData) mb;
+            }
+        }
+        return null;
+    }
 }
