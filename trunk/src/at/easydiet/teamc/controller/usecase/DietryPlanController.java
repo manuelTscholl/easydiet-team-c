@@ -223,7 +223,7 @@ public class DietryPlanController extends Event<EventArgs>
                 }
             }
             // FIX nix saven do
-            // _dietPlanBo.save();
+            //_dietPlanBo.save();
 
             for (int i = 0; i < timespanbo.getDuration(); i++)
             {
@@ -460,7 +460,17 @@ public class DietryPlanController extends Event<EventArgs>
      */
     public void saveDietryPlan()
     {
-        _dietPlanBo.save();
+        try
+        {
+            HibernateUtil.currentSession().beginTransaction();
+            _dietPlanBo.save();
+            HibernateUtil.currentSession().getTransaction().commit();
+        }
+        catch (Exception e)
+        {
+            HibernateUtil.currentSession().getTransaction().rollback();
+        }
+        
     }
 
     /**
