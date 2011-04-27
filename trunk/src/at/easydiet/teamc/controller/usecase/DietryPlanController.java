@@ -227,10 +227,10 @@ public class DietryPlanController extends Event<EventArgs>
 
             for (int i = 0; i < timespanbo.getDuration(); i++)
             {
+                
+                _dietPlanBo.addTimeSpan(new TimeSpanBo(startdate, 1, _dietPlanBo));
                 startdate = new Date(startdate.getTime()
                         + MILLISECONDS_TO_DAY_FACTOR);
-                _tempTimeSpanBo = new TimeSpanBo(startdate, 1, _dietPlanBo);
-                _dietPlanBo.addTimeSpan(timespanbo);
             }
 
             if (activePatient.getTreatments().size() > 0)

@@ -441,6 +441,9 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
                 return (MealData) mb;
             }
         }
+        if(getMealsByDay(day).isEmpty()){
+            return (MealData) addMealCode(mcd, day);
+        }
         return null;
     }
 }
