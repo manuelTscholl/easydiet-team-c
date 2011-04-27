@@ -149,7 +149,7 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements Bindable,
         addParameterTest(dpd.getDietPlanParameterCollectionVo());
 
         // draw days
-        for (int i = 0; i < dpd.getDuration(); i++) {
+        for (int i = 1; i <= dpd.getDuration(); i++) {
             Set<MealData> meals = dpd.getMealsByDay(i);
             addDay(meals);
         }
