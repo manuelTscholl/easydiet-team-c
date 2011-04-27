@@ -101,7 +101,7 @@
             <TablePane.Filler/>
             <TablePane.Filler/>
             <BoxPane styles="{horizontalAlignment:'Right'}">
-                <PushButton bxml:id="addAlternativeButton" buttonData="Alternative hinzufügen" enabled="false"/>
+                <PushButton bxml:id="addAlternativeButton" buttonData="Bestandteil hinzufügen" enabled="false"/>
                 <PushButton bxml:id="finishButton" buttonData="Speichern" enabled="false"/>
             </BoxPane>
         </TablePane.Row>
