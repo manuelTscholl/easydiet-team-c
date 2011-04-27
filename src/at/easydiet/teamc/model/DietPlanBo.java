@@ -413,9 +413,9 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
 
 
     public Set<MealData> getMealsByDay(int day) {
-        Set<MealData> _meals = new HashSet<MealData>();;
+        Set<MealData> _meals = new HashSet<MealData>();
         TimeSpan[] timespans = _dietPlan.getTimeSpans().toArray(new TimeSpan[_dietPlan.getTimeSpans().size()]);
-
+        //eins indexiert statt 0 indexiert daher dekrement
         day--;
 
         TimeSpan currTimespan = null;
@@ -442,7 +442,9 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
             }
         }
         if(getMealsByDay(day).isEmpty()){
-            return (MealData) addMealCode(mcd, day);
+            mb=new MealBo(mcd.getCode(), mcd.getName(), serachTimespan(day));
+            mb.addRecipe(recipeBo, quantity, mealLineID);
+            return (MealData) mb;
         }
         return null;
     }
