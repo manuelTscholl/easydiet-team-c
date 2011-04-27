@@ -416,6 +416,8 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
         Set<MealData> _meals = new HashSet<MealData>();;
         TimeSpan[] timespans = _dietPlan.getTimeSpans().toArray(new TimeSpan[_dietPlan.getTimeSpans().size()]);
 
+        day--;
+
         TimeSpan currTimespan = null;
         for (int i = 0; i < timespans.length; i++) {
             currTimespan = timespans[i];
