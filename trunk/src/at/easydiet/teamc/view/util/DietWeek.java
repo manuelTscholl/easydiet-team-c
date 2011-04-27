@@ -56,6 +56,12 @@ public class DietWeek {
      * Draw this week
      */
     private void drawWeek() {
+        
+        // clean if not empty
+        if(_weekTable != null){
+            _weekTable.getRows().remove(0, _weekTable.getRows().getLength());
+            _weekTable.getColumns().remove(0, _weekTable.getRows().getLength());
+        }
 
         // Expander
         _weekExpander = new Expander();
@@ -178,6 +184,7 @@ public class DietWeek {
          * Draw this day
          */
         private void drawDay() {
+            clean();
 
             // create new row
             TablePane.Row dayRow = new TablePane.Row();
@@ -221,7 +228,7 @@ public class DietWeek {
                             TablePane.Row recipeRow = new TablePane.Row();
                             Label l = new Label(mLine.getRecipeData().getName());
                             recipeRow.add(l);
-                            recipes.getRows().add(dayRow);
+                            recipes.getRows().add(recipeRow);
                         }
                         mealRow.add(recipes);
                     } else {
@@ -256,6 +263,17 @@ public class DietWeek {
          */
         private void resize(int width, int height) {
             _dayBorder.setPreferredWidth(width);
+        }
+
+        /**
+         * Clean the table for this day
+         */
+        private void clean() {
+
+            if (_dayBorder != null && _mealTable != null) {
+                _dayBorder.removeAll();
+                _mealTable.getRows().remove(0, _mealTable.getRows().getLength());
+            }
         }
     }
 }
