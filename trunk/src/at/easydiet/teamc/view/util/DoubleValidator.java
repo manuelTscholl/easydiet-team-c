@@ -26,7 +26,7 @@ public class DoubleValidator implements Validator {
 
 	@Override
 	public boolean isValid(String text) {
-		boolean valid = true;
+		boolean valid = false;
 
 		// check for valid input
 		if (text.length() > 0) {
