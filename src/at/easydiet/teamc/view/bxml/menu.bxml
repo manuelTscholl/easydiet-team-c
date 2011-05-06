@@ -1,41 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<easyDiet:EasyDietMenuBar styles="{backgroundColor:'#CCE8FC', font:{bold:false}}"
-    xmlns:bxml="http://pivot.apache.org/bxml"
-    bxml:id="menuBar"
-    xmlns:content="org.apache.pivot.wtk.content"
-    xmlns:easyDiet="at.easydiet.teamc.view"
-    xmlns="org.apache.pivot.wtk">
+<easyDiet:EasyDietMenuBar
+	styles="{backgroundColor:'#CCE8FC', font:{bold:false}}" xmlns:bxml="http://pivot.apache.org/bxml"
+	bxml:id="menuBar" xmlns:content="org.apache.pivot.wtk.content"
+	xmlns:easyDiet="at.easydiet.teamc.view" xmlns="org.apache.pivot.wtk">
 
-    <MenuBar.Item bxml:id="fileMenu" buttonData="Datei">
-        <Menu>
-            <Menu.Section>
-                <Menu.Item bxml:id="openMenuItem" buttonData="Öffnen"/>
-                <Menu.Item bxml:id="printMenuItem" buttonData="Drucken"/>
-				<Menu.Item bxml:id="close" buttonData="Schliessen"/>
-            </Menu.Section>
-        </Menu>
-    </MenuBar.Item>
+	<MenuBar.Item bxml:id="fileMenu" buttonData="Datei">
+		<Menu>
+			<Menu.Section>
+				<Menu.Item bxml:id="openMenuItem" buttonData="Öffnen" />
+				<Menu.Item bxml:id="printMenuItem" buttonData="Drucken" />
+				<Menu.Item bxml:id="close" buttonData="Schliessen" />
+			</Menu.Section>
+		</Menu>
+	</MenuBar.Item>
 
-    <MenuBar.Item bxml:id="patientMenu" buttonData="Patient">
-        <Menu>
-            <Menu.Section>
-                <Menu.Item bxml:id="newDietryPlanMenuItem">
-                    <buttonData>
-                        <content:MenuItemData text="Neuen Plan erstellen"/>
-                    </buttonData>
-                </Menu.Item>
-                <Menu.Item bxml:id="parameterMenuItem">
-                    <buttonData>
-                        <content:MenuItemData text="Aktuelle Parameter anzeigen"/>
-                    </buttonData>
-                </Menu.Item>
-                <Menu.Item bxml:id="statisticMenuItem">
-                    <buttonData>
-                        <content:MenuItemData text="Statistiken"/>
-                    </buttonData>
-                </Menu.Item>
-            </Menu.Section>
-        </Menu>
-    </MenuBar.Item>
+	<MenuBar.Item bxml:id="recipeMenu" buttonData="Rezepte">
+		<Menu>
+			<Menu.Section>
+				<Menu.Item bxml:id="newRecipeMenuItem">
+					<buttonData>
+						<content:MenuItemData bxml:id="addRecipe" text="Rezept hinzufügen"/>
+					</buttonData>				
+				</Menu.Item>
+			</Menu.Section>
+		</Menu>
+	</MenuBar.Item>
 </easyDiet:EasyDietMenuBar>
 
