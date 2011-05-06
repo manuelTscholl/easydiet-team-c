@@ -125,7 +125,8 @@ public class AddRecipeDialog extends Dialog implements Bindable {
 	 */
 	private void initDataLists() {
 		// TODO getAllNutrimentParameters -> cachen
-		_recipesMainCategories = GUIController.getInstance().getRecipeMainCategories();
+		_recipesMainCategories = GUIController.getInstance()
+				.getRecipeMainCategories();
 	}
 
 	/**
@@ -202,7 +203,7 @@ public class AddRecipeDialog extends Dialog implements Bindable {
 					public void buttonPressed(Button arg0) {
 
 						// validate textareas
-						if (validateTextAreas()) {
+						if (validateTextInputs() && validateTextAreas()) {
 							GUIController.getInstance().saveRecipe();
 						}
 					}
@@ -285,9 +286,18 @@ public class AddRecipeDialog extends Dialog implements Bindable {
 		}
 
 		// mark corresponding textareas as not valid
-		_preparationTextArea.getStyles().put("backgroundColor", "#FF0000");
-		_benefitsTextArea.getStyles().put("backgroundColor", "#FF0000");
+		if (_preparationTextArea.getText().length() == 0) {
+			_preparationTextArea.getStyles().put("backgroundColor", "#FF0000");
+		}
+		if (_benefitsTextArea.getText().length() == 0) {
+			_benefitsTextArea.getStyles().put("backgroundColor", "#FF0000");
+		}
 
 		return false;
+	}
+
+	private boolean validateTextInputs() {
+		return _recipeNameTextInput.isTextValid()
+				&& _preparationTimeTextInput.isTextValid();
 	}
 }
