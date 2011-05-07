@@ -18,6 +18,8 @@ public class RecipeNameValidator implements Validator {
 	@Override
 	public boolean isValid(String text) {
 
+		// TODO check if name already exists
+
 		if (text.length() > 0) {
 
 			String regex = "^[a-zA-Z/ 0-9]{0,}$";

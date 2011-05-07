@@ -15,12 +15,14 @@ import at.easydiet.dao.RecipeDAO;
 import at.easydiet.teamc.controller.usecase.DietryPlanController;
 import at.easydiet.teamc.controller.usecase.SearchParameterController;
 import at.easydiet.teamc.controller.usecase.SearchPatientController;
+import at.easydiet.teamc.controller.usecase.SearchRecipeController;
 import at.easydiet.teamc.exception.NoDateException;
 import at.easydiet.teamc.exception.NoDietTreatmentException;
 import at.easydiet.teamc.exception.NoPatientException;
 import at.easydiet.teamc.exception.TimeIntersectionException;
 import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.PatientBo;
+import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.SystemUserBo;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.DietParameterData;
@@ -44,11 +46,12 @@ public class BusinessLogicDelegationController {
 	private static volatile BusinessLogicDelegationController _businessLogicDelegationController;
 	// instance variables
 	private PatientBo _activePatient;
-	private SearchPatientController _searchPatientController;
-	private SearchParameterController _searchParameterController;
+	private final SearchPatientController _searchPatientController;
+	private final SearchParameterController _searchParameterController;
 	private Thread _patientSearchThread;
 	private DietryPlanController _dietryPlanController;
 	private LoginController _loginController;
+
 	/**
 	 * Initializes a new instance of the
 	 * {@link BusinessLogicDelegationController} class.
@@ -58,19 +61,18 @@ public class BusinessLogicDelegationController {
 	private BusinessLogicDelegationController() {
 		_searchPatientController = SearchPatientController.getInstance();
 		_searchParameterController = SearchParameterController.getInstance();
-                
-                //TODO ONLY FOR TESTING!!!!
-                _dietryPlanController = DietryPlanController.getInstance();
+
+		// TODO ONLY FOR TESTING!!!!
+		_dietryPlanController = DietryPlanController.getInstance();
 	}
-	
-    /**
-     * {@link LoginController#getActualUser()}
-     */
-    public SystemUserBo getActualUser()
-    {
-        _loginController = LoginController.getInstance();        
-        return _loginController.getActualUser();        
-    }
+
+	/**
+	 * {@link LoginController#getActualUser()}
+	 */
+	public SystemUserBo getActualUser() {
+		_loginController = LoginController.getInstance();
+		return _loginController.getActualUser();
+	}
 
 	/**
 	 * Gets the lastSearchResult.
@@ -126,6 +128,7 @@ public class BusinessLogicDelegationController {
 
 	/**
 	 * Sets the active Patient
+	 * 
 	 * @param p the patient which should be set to active
 	 */
 	public void setActivePatient(PatientData p) {
@@ -153,132 +156,149 @@ public class BusinessLogicDelegationController {
 	 */
 	public List<DietParameterData> getAllParameters() {
 
-		//get all Business Objects of DietParameters
+		// get all Business Objects of DietParameters
 		List<DietParameterBo> parameterBo = _searchParameterController
 				.getAllParameters();
 
-	
 		List<DietParameterData> parameterData = new ArrayList<DietParameterData>();
 
-		//encapsulate the bo's with putting the interface objects around
+		// encapsulate the bo's with putting the interface objects around
 		for (DietParameterBo dpBo : parameterBo) {
 			parameterData.add(dpBo);
 		}
 		return parameterData;
 	}
 
-        /**
-         * Create a new dietry plan
-         * @param startDate Plan start date
-         * @param endDate Plan end date
-         * @param params List of parameters for this plan
-         * @param parameterMaxValues Max Values for the chosen parameters
-         * @param parameterMinValues Min Values for the chosen parameters
-         * @throws NoDietTreatmentException 
-         * @throws TimeIntersectionException 
-         * @throws NoDateException 
-         * @throws NoPatientException 
-         */
-	public DietryPlanData newDietryPlan(Date startDate,Date endDate,List<DietParameterData> params,
-                List<Double> parameterMaxValues, List<Double> parameterMinValues) throws NoPatientException, NoDateException, TimeIntersectionException, NoDietTreatmentException{
-		_dietryPlanController=DietryPlanController.getInstance();
-		try
-        {
-            _dietryPlanController.newDietryPlan(startDate, endDate, params, 
-                            parameterMaxValues, parameterMinValues, this._activePatient, getActualUser());
-        }
-        catch (NoPatientException e)
-        {
-            LOGGER.debug(e);
-        }
-        catch (NoDateException e)
-        {
-            LOGGER.debug(e);
-        }
-        catch (TimeIntersectionException e)
-        {
-            LOGGER.debug(e);
-        }
-        catch (NoDietTreatmentException e)
-        {
-            LOGGER.debug(e);
-        }
-		
-		//return the DietryPlanData
-		return _dietryPlanController.getDietryPlan();		
+	/**
+	 * Create a new dietry plan
+	 * 
+	 * @param startDate Plan start date
+	 * @param endDate Plan end date
+	 * @param params List of parameters for this plan
+	 * @param parameterMaxValues Max Values for the chosen parameters
+	 * @param parameterMinValues Min Values for the chosen parameters
+	 * @throws NoDietTreatmentException
+	 * @throws TimeIntersectionException
+	 * @throws NoDateException
+	 * @throws NoPatientException
+	 */
+	public DietryPlanData newDietryPlan(Date startDate, Date endDate,
+			List<DietParameterData> params, List<Double> parameterMaxValues,
+			List<Double> parameterMinValues) throws NoPatientException,
+			NoDateException, TimeIntersectionException,
+			NoDietTreatmentException {
+		_dietryPlanController = DietryPlanController.getInstance();
+		try {
+			_dietryPlanController.newDietryPlan(startDate, endDate, params,
+					parameterMaxValues, parameterMinValues,
+					this._activePatient, getActualUser());
+		} catch (NoPatientException e) {
+			LOGGER.debug(e);
+		} catch (NoDateException e) {
+			LOGGER.debug(e);
+		} catch (TimeIntersectionException e) {
+			LOGGER.debug(e);
+		} catch (NoDietTreatmentException e) {
+			LOGGER.debug(e);
+		}
+
+		// return the DietryPlanData
+		return _dietryPlanController.getDietryPlan();
 	}
-	
+
 	/**
 	 * Returns all meals with the given codes
+	 * 
 	 * @return
 	 */
 	public Set<MealCodeData> getAllMealCodes() {
 		return _dietryPlanController.getAllMealCodes();
 	}
 
-        /**
+	/**
 	 * Adds MealData to the DietPlan in progress
-         * @param day Defines exact day in TimeSpan
-         * @param mcd MealCode to add
+	 * 
+	 * @param day Defines exact day in TimeSpan
+	 * @param mcd MealCode to add
 	 * @return
 	 */
 	public void addMealCode(MealCodeData mcd, int day) {
 		_dietryPlanController.addMealCode(mcd, day);
 	}
 
-        /**
+	/**
 	 * Add MealLineData to the Meal
+	 * 
 	 * @return Index of the MealLine
 	 */
 	public int addMealLine() {
 		return _dietryPlanController.addMealLine();
 	}
 
-        /**
+	/**
 	 * Return a list of Recipe-Categories
+	 * 
 	 * @return Main Categories of Recipes
 	 */
-	public List<RecipeData> getRecipeMainCategories() {	
+	public List<RecipeData> getRecipeMainCategories() {
 		return _dietryPlanController.getRecipeMainCategories();
 	}
 
-    /**
-     * {@link RecipeDAO#searchRecipe(String blsCategorie,String name)}
-     * @param search Search string
-     * @return Set of Recipes which are checked corresponding to the active parameters
-     */
+	/**
+	 * {@link RecipeDAO#searchRecipe(String blsCategorie,String name)}
+	 * 
+	 * @param search Search string
+	 * @return Set of Recipes which are checked corresponding to the active
+	 *         parameters
+	 */
 	public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
 		return _dietryPlanController.searchRecipe(mainCategory, search);
 	}
 
-        /**
+	/**
 	 * Add a Recipe to the Meal in progress
-         * @param mealLineID MealLine to whick the Recipe belongs
-         * @param day to add this meal
-         * @param quantity amount of Recipe in gramm.
-         * @param rd Recipe which will be added
-         * @param mealCode actual mealcode
+	 * 
+	 * @param mealLineID MealLine to whick the Recipe belongs
+	 * @param day to add this meal
+	 * @param quantity amount of Recipe in gramm.
+	 * @param rd Recipe which will be added
+	 * @param mealCode actual mealcode
 	 * @return
 	 */
 	public MealData addRecipetoMeal(RecipeData rd, int day, float quantity,
 			int mealLineID, MealCodeData mealCode) {
-		return _dietryPlanController.addRecipeToMeal(rd, day, quantity, mealLineID, mealCode);
+		return _dietryPlanController.addRecipeToMeal(rd, day, quantity,
+				mealLineID, mealCode);
 	}
 
-        /**
+	/**
 	 * Returns DietPlan in progress
-         *
+	 * 
 	 * @return
 	 */
 	public void saveDietryPlan() {
 		_dietryPlanController.saveDietryPlan();
 	}
 
-        /**
+	/**
 	 * Returns DietPlan in progress
+	 * 
 	 * @return
 	 */
 	public DietryPlanData getDietryPlan() {
 		return _dietryPlanController.getDietryPlan();
+	}
+
+	public List<RecipeData> recipeSearch(String mainCategory, String search) {
+		List<RecipeBo> recipes = SearchRecipeController.getInstance()
+				.searchRecipe(mainCategory, search);
+
+		// convert to data
+		List<RecipeData> recipeDatas = new ArrayList<RecipeData>();
+		for (RecipeBo r : recipes) {
+			recipeDatas.add((RecipeData)r);
+		}
+
+		return recipeDatas;
 	}
 }
