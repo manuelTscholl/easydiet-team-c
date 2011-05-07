@@ -22,6 +22,7 @@ import at.easydiet.model.Recipe;
 import at.easydiet.teamc.dao.MealCodeDao;
 import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.MealCodeBo;
+import at.easydiet.teamc.model.ParameterDefinitionBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.RecipeBo;
 
@@ -146,6 +147,11 @@ public class DatabaseController {
         }
         return recipesBo;
     }
+
+	public List<ParameterDefinitionBo> getAllNutrimentParameters() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     
 }

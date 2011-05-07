@@ -1,7 +1,7 @@
 /**
  * This File is part of Easy Diet
  * created on: 05.04.2011
- * created by: Ali Gümüs
+ * created by: Friedrich B�sch
  * file: BusinesLogicDelegationController.java
  */
 package at.easydiet.teamc.controller;
@@ -29,6 +29,7 @@ import at.easydiet.teamc.model.data.DietParameterData;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.MealData;
+import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.util.EventArgs;
@@ -167,6 +168,11 @@ public class BusinessLogicDelegationController {
 			parameterData.add(dpBo);
 		}
 		return parameterData;
+	}
+	
+	public List<ParameterDefinitionData>  getAllNutrimentParameters(){
+		return _searchParameterController.getAllNutrimentParameters();
+		
 	}
 
 	/**
