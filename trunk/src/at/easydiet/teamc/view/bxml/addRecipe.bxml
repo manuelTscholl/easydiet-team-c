@@ -1,68 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<easyDiet:AddRecipeDialog xmlns:bxml="http://pivot.apache.org/bxml"
-	xmlns:content="org.apache.pivot.wtk.content" xmlns:easyDiet="at.easydiet.teamc.view"
-	xmlns="org.apache.pivot.wtk" xmlns:util="at.easydiet.teamc.view.util"
-	modal="true">
+<easyDiet:AddRecipeScrollPane xmlns:util="at.easydiet.teamc.view.util"
+	xmlns:easyDiet="at.easydiet.teamc.view" preferredHeight="600"
+	xmlns:bxml="http://pivot.apache.org/bxml" xmlns:content="org.apache.pivot.wtk.content"
+	xmlns="org.apache.pivot.wtk">
+	<BoxPane orientation="vertical"
+		styles="{padding:{left:10, right:10, top:10, bottom:10}, fill:true}">
 
-	<ScrollPane bxml:id="newRecipeScrollPane" preferredHeight="600">
-		<BoxPane orientation="vertical"
-			styles="{padding:{left:10, right:10, top:10, bottom:10}, fill:true}">
+		<!-- General informations -->
+		<Separator heading="Generelle Informationen" />
+		<BoxPane bxml:id="generalInformationBoxPane">
+			<Label text="Rezeptname:" />
+			<TextInput bxml:id="nameTextInput" strictValidation="true"
+				textKey="recipeName">
+				<validator>
+					<util:RecipeNameValidator />
+				</validator>
+			</TextInput>
+		</BoxPane>
 
-			<!-- General informations -->
-			<Separator heading="Generelle Informationen" />
-			<BoxPane bxml:id="generalInformationBoxPane">
-				<Label text="Rezeptname:" />
-				<TextInput bxml:id="nameTextInput" strictValidation="true"
-					textKey="recipeName">
-					<validator>
-						<util:RecipeNameValidator />
-					</validator>
-				</TextInput>
-			</BoxPane>
+		<!-- Parameters -->
+		<Separator heading="Parameter" />
 
-			<!-- Parameters -->
-			<Separator heading="Parameter" />
-
-			<TablePane
-				styles="{verticalSpacing:1, showHorizontalGridLines:false,
+		<TablePane
+			styles="{verticalSpacing:1, showHorizontalGridLines:false,
     				horizontalSpacing:1, showVerticalGridLines:false}"
-				xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk">
-				<columns>
-					<TablePane.Column width="-1" />
-					<TablePane.Column width="500" />
-				</columns>
+			xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk">
+			<columns>
+				<TablePane.Column width="-1" />
+				<TablePane.Column width="500" />
+			</columns>
 
-				<TablePane.Row height="-1">
+			<TablePane.Row height="-1">
 
-					<!-- Buttons for adding and removing parameters -->
-					<BoxPane orientation="vertical" styles="{spacing:1}"
-						preferredWidth="30">
-						<PushButton bxml:id="addParameterButton" styles="{toolbar:true}">
-							<content:ButtonData icon="@plus-circle.png" />
-						</PushButton>
-						<PushButton bxml:id="removeParameterButton" styles="{toolbar:true}">
-							<content:ButtonData icon="@minus-circle.png" />
-						</PushButton>
-					</BoxPane>
+				<!-- Buttons for adding and removing parameters -->
+				<BoxPane orientation="vertical" styles="{spacing:1}"
+					preferredWidth="30">
+					<PushButton bxml:id="addParameterButton" styles="{toolbar:true}">
+						<content:ButtonData icon="@plus-circle.png" />
+					</PushButton>
+					<PushButton bxml:id="removeParameterButton" styles="{toolbar:true}">
+						<content:ButtonData icon="@minus-circle.png" />
+					</PushButton>
+				</BoxPane>
 
-					<!-- Table for parameter data -->
-					<ScrollPane horizontalScrollBarPolicy="fill">
-						<easyDiet:ParameterTableView bxml:id="parameterTableView"
-							xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk"
-							styles="{backgroundColor:'#EBEDEF'}" minimumWidth="460"
-							maximumWidth="460">
+				<!-- Table for parameter data -->
+				<ScrollPane horizontalScrollBarPolicy="fill">
+					<easyDiet:ParameterTableView bxml:id="parameterTableView"
+						xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk"
+						styles="{backgroundColor:'#EBEDEF'}" minimumWidth="460"
+						maximumWidth="460">
+						<columns>
+							<TableView.Column name="parameter" headerData="Parameter"
+								width="120" />
+							<TableView.Column name="minimum" headerData="Minimum"
+								width="60" />
+							<TableView.Column name="maximum" headerData="Maximum"
+								width="60" />
+							<TableView.Column name="actualGram" headerData="Aktuell auf 100g"
+								width="100" />
+							<TableView.Column name="actualPortion"
+								headerData="Aktuell auf Portion" width="120" />
+						</columns>
+
+						<rowEditor>
+							<content:TableViewRowEditor
+								editEffect="crossfade">
+								<cellEditors>
+
+									<minimum>
+										<TextInput strictValidation="true" textKey="minimum">
+										</TextInput>
+									</minimum>
+
+									<maximum>
+										<TextInput strictValidation="true" textKey="maximum">
+										</TextInput>
+									</maximum>
+								</cellEditors>
+							</content:TableViewRowEditor>
+						</rowEditor>
+					</easyDiet:ParameterTableView>
+					<columnHeader>
+						<TableViewHeader tableView="$parameterTableView"
+							sortMode="single_column" />
+					</columnHeader>
+				</ScrollPane>
+			</TablePane.Row>
+		</TablePane>
+
+		<!-- Recipes -->
+		<Separator heading="Rezepte" />
+		<TablePane
+			styles="{verticalSpacing:1, showHorizontalGridLines:false,
+    			horizontalSpacing:1, showVerticalGridLines:false}"
+			xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk">
+			<columns>
+				<TablePane.Column width="240" />
+				<TablePane.Column width="25" />
+				<TablePane.Column width="280" />
+			</columns>
+
+			<!-- Recipe chooser -->
+			<TablePane.Row height="-1">
+
+				<!-- Recipes -->
+				<Border title="Vorhandene Rezepte" styles="{padding:2}"
+					preferredHeight="330" xmlns:bxml="http://pivot.apache.org/bxml"
+					xmlns="org.apache.pivot.wtk">
+					<ScrollPane xmlns:bxml="http://pivot.apache.org/bxml"
+						bxml:id="recipeScrollPane" xmlns:explorer="org.apache.pivot.tutorials.explorer"
+						xmlns="org.apache.pivot.wtk" horizontalScrollBarPolicy="auto"
+						verticalScrollBarPolicy="auto">
+						<TablePane
+							styles="{verticalSpacing:10, showHorizontalGridLines:false,
+                        horizontalSpacing:1, showVerticalGridLines:false}"
+							bxml:id="recipeTablePane" xmlns:bxml="http://pivot.apache.org/bxml"
+							xmlns="org.apache.pivot.wtk">
 							<columns>
-								<TableView.Column name="parameter" headerData="Parameter"
-									width="120" />
-								<TableView.Column name="minimum" headerData="Minimum"
-									width="60" />
-								<TableView.Column name="maximum" headerData="Maximum"
-									width="60" />
-								<TableView.Column name="actualGram" headerData="Aktuell auf 100g"
-									width="100" />
-								<TableView.Column name="actualPortion"
-									headerData="Aktuell auf Portion" width="120" />
+								<TablePane.Column width="-1" />
+							</columns>
+							<TablePane.Row height="-1">
+								<BoxPane styles="{padding:{top:5, right:5, bottom:5, left:5}}">
+									<TextInput textSize="12" bxml:id="recipeSearchTextInput"
+										xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk" />
+									<PushButton bxml:id="searchRecipeButton">
+										<content:ButtonData text="Suche" />
+									</PushButton>
+								</BoxPane>
+							</TablePane.Row>
+							<TablePane.Row height="-1">
+								<easyDiet:RecipeTreeView bxml:id="recipeTreeView"
+									xmlns:bxml="http://pivot.apache.org/bxml" styles="{indent:5, spacing:0}"
+									xmlns="org.apache.pivot.wtk" />
+							</TablePane.Row>
+						</TablePane>
+					</ScrollPane>
+				</Border>
+				<!-- END Recipes -->
+
+				<!-- add and remove buttons -->
+				<BoxPane
+					styles="{horizontalAlignment:'center', verticalAlignment:'center'}"
+					orientation="vertical">
+					<PushButton bxml:id="addRecipeButton" styles="{toolbar:true}">
+						<content:ButtonData icon="@navigation.png" />
+					</PushButton>
+					<PushButton bxml:id="removeRecipeButton" styles="{toolbar:true}">
+						<content:ButtonData icon="@navigation-180.png" />
+					</PushButton>
+				</BoxPane>
+				<!-- END add and remove buttons -->
+
+				<!-- Added recipes -->
+				<Border title="Hinzugefügte Rezepte" styles="{padding:2}"
+					preferredHeight="330" xmlns:bxml="http://pivot.apache.org/bxml"
+					xmlns="org.apache.pivot.wtk">
+					<ScrollPane xmlns:bxml="http://pivot.apache.org/bxml"
+						bxml:id="chosenRecipeScrollPane" xmlns:explorer="org.apache.pivot.tutorials.explorer"
+						xmlns="org.apache.pivot.wtk" horizontalScrollBarPolicy="auto"
+						verticalScrollBarPolicy="auto">
+						<easyDiet:RecipeTableView bxml:id="chosenRecipeTableView"
+							xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk"
+							styles="{backgroundColor:'#EBEDEF'}" minimumWidth="270"
+							maximumWidth="270">
+							<columns>
+								<TableView.Column name="recipe" headerData="Rezept"
+									width="160" />
+								<TableView.Column name="quantity" headerData="Menge"
+									width="50" />
+								<TableView.Column name="unit" headerData="Einheit"
+									width="50" />
 							</columns>
 
 							<rowEditor>
@@ -72,221 +180,110 @@
 
 										<minimum>
 											<TextInput strictValidation="true" textKey="minimum">
+												<validator>
+													<util:ParameterValidator />
+												</validator>
+												<textBindMapping>
+													<util:ParameterBindMapping />
+												</textBindMapping>
 											</TextInput>
 										</minimum>
 
 										<maximum>
 											<TextInput strictValidation="true" textKey="maximum">
+												<validator>
+													<util:ParameterValidator />
+												</validator>
+												<textBindMapping>
+													<util:ParameterBindMapping />
+												</textBindMapping>
 											</TextInput>
 										</maximum>
 									</cellEditors>
 								</content:TableViewRowEditor>
 							</rowEditor>
-						</easyDiet:ParameterTableView>
+						</easyDiet:RecipeTableView>
 						<columnHeader>
-							<TableViewHeader tableView="$parameterTableView"
+							<TableViewHeader tableView="$chosenRecipeTableView"
 								sortMode="single_column" />
 						</columnHeader>
 					</ScrollPane>
-				</TablePane.Row>
-			</TablePane>
+				</Border>
+				<!-- END Added recipes -->
 
-			<!-- Recipes -->
-			<Separator heading="Rezepte" />
-			<TablePane
-				styles="{verticalSpacing:1, showHorizontalGridLines:false,
-    			horizontalSpacing:1, showVerticalGridLines:false}"
-				xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk">
-				<columns>
-					<TablePane.Column width="240" />
-					<TablePane.Column width="25" />
-					<TablePane.Column width="280" />
-				</columns>
+			</TablePane.Row>
+			<!-- END Recipe chooser -->
 
-				<!-- Recipe chooser -->
-				<TablePane.Row height="-1">
+		</TablePane>
 
-					<!-- Recipes -->
-					<Border title="Vorhandene Rezepte" styles="{padding:2}"
-						preferredHeight="330" xmlns:bxml="http://pivot.apache.org/bxml"
-						xmlns="org.apache.pivot.wtk">
-						<ScrollPane xmlns:bxml="http://pivot.apache.org/bxml"
-							bxml:id="recipeScrollPane" xmlns:explorer="org.apache.pivot.tutorials.explorer"
-							xmlns="org.apache.pivot.wtk" horizontalScrollBarPolicy="auto"
-							verticalScrollBarPolicy="auto">
-							<TablePane
-								styles="{verticalSpacing:10, showHorizontalGridLines:false,
-                        horizontalSpacing:1, showVerticalGridLines:false}"
-								bxml:id="recipeTablePane" xmlns:bxml="http://pivot.apache.org/bxml"
-								xmlns="org.apache.pivot.wtk">
-								<columns>
-									<TablePane.Column width="-1" />
-								</columns>
-								<TablePane.Row height="-1">
-									<BoxPane styles="{padding:{top:5, right:5, bottom:5, left:5}}">
-										<TextInput textSize="12" bxml:id="recipeSearchTextInput"
-											xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk" />
-										<PushButton bxml:id="searchRecipeButton">
-											<content:ButtonData text="Suche" />
-										</PushButton>
-									</BoxPane>
-								</TablePane.Row>
-								<TablePane.Row height="-1">
-									<easyDiet:RecipeTreeView bxml:id="recipeTreeView" xmlns:bxml="http://pivot.apache.org/bxml"
-										styles="{indent:3, spacing:0}" xmlns="org.apache.pivot.wtk" />
-								</TablePane.Row>
-							</TablePane>
-						</ScrollPane>
-					</Border>
-					<!-- END Recipes -->
+		<!-- Preparation -->
+		<Separator heading="Zubereitung" />
+		<Border styles="{color:10}">
+			<ScrollPane bxml:id="preparationScrollPane"
+				horizontalScrollBarPolicy="fill" verticalScrollBarPolicy="fill_to_capacity"
+				preferredHeight="80">
+				<TextArea bxml:id="preparationTextArea" maximumWidth="300" />
+			</ScrollPane>
+		</Border>
 
-					<!-- add and remove buttons -->
-					<BoxPane
-						styles="{horizontalAlignment:'center', verticalAlignment:'center'}"
-						orientation="vertical">
-						<PushButton bxml:id="addRecipeButton" styles="{toolbar:true}">
-							<content:ButtonData icon="@navigation.png" />
-						</PushButton>
-						<PushButton bxml:id="removeRecipeButton" styles="{toolbar:true}">
-							<content:ButtonData icon="@navigation-180.png" />
-						</PushButton>
-					</BoxPane>
-					<!-- END add and remove buttons -->
+		<!-- Description -->
+		<Separator heading="Kurzbeschreibung" />
+		<Border styles="{color:10}">
+			<ScrollPane bxml:id="descriptionScrollPane"
+				horizontalScrollBarPolicy="fill" verticalScrollBarPolicy="fill_to_capacity"
+				preferredHeight="80">
+				<TextArea bxml:id="descriptionTextArea" maximumWidth="300" />
+			</ScrollPane>
+		</Border>
 
-					<!-- Added recipes -->
-					<Border title="Hinzugefügte Rezepte" styles="{padding:2}"
-						preferredHeight="330" xmlns:bxml="http://pivot.apache.org/bxml"
-						xmlns="org.apache.pivot.wtk">
-						<ScrollPane xmlns:bxml="http://pivot.apache.org/bxml"
-							bxml:id="chosenRecipeScrollPane" xmlns:explorer="org.apache.pivot.tutorials.explorer"
-							xmlns="org.apache.pivot.wtk" horizontalScrollBarPolicy="auto"
-							verticalScrollBarPolicy="auto">
-							<easyDiet:RecipeTableView bxml:id="chosenRecipeTableView"
-								xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk"
-								styles="{backgroundColor:'#EBEDEF'}" minimumWidth="270"
-								maximumWidth="270">
-								<columns>
-									<TableView.Column name="recipe" headerData="Rezept"
-										width="160" />
-									<TableView.Column name="quantity" headerData="Menge"
-										width="50" />
-									<TableView.Column name="unit" headerData="Einheit"
-										width="50" />
-								</columns>
+		<!-- Benefits -->
+		<Separator heading="Benefits" />
+		<Border styles="{color:10}">
+			<ScrollPane bxml:id="benefitsScrollPane"
+				horizontalScrollBarPolicy="fill" verticalScrollBarPolicy="fill_to_capacity"
+				preferredHeight="80">
+				<TextArea bxml:id="benefitsTextArea" maximumWidth="300" />
+			</ScrollPane>
+		</Border>
 
-								<rowEditor>
-									<content:TableViewRowEditor
-										editEffect="crossfade">
-										<cellEditors>
-
-											<minimum>
-												<TextInput strictValidation="true" textKey="minimum">
-													<validator>
-														<util:ParameterValidator />
-													</validator>
-													<textBindMapping>
-														<util:ParameterBindMapping />
-													</textBindMapping>
-												</TextInput>
-											</minimum>
-
-											<maximum>
-												<TextInput strictValidation="true" textKey="maximum">
-													<validator>
-														<util:ParameterValidator />
-													</validator>
-													<textBindMapping>
-														<util:ParameterBindMapping />
-													</textBindMapping>
-												</TextInput>
-											</maximum>
-										</cellEditors>
-									</content:TableViewRowEditor>
-								</rowEditor>
-							</easyDiet:RecipeTableView>
-							<columnHeader>
-								<TableViewHeader tableView="$chosenRecipeTableView"
-									sortMode="single_column" />
-							</columnHeader>
-						</ScrollPane>
-					</Border>
-					<!-- END Added recipes -->
-
-				</TablePane.Row>
-				<!-- END Recipe chooser -->
-
-			</TablePane>
-
-			<!-- Preparation -->
-			<Separator heading="Zubereitung" />
-			<Border styles="{color:10}">
-				<ScrollPane bxml:id="preparationScrollPane"
-					horizontalScrollBarPolicy="fill" verticalScrollBarPolicy="fill_to_capacity"
-					preferredHeight="80">
-					<TextArea bxml:id="preparationTextArea" maximumWidth="300" />
-				</ScrollPane>
-			</Border>
-
-			<!-- Description -->
-			<Separator heading="Kurzbeschreibung" />
-			<Border styles="{color:10}">
-				<ScrollPane bxml:id="descriptionScrollPane"
-					horizontalScrollBarPolicy="fill" verticalScrollBarPolicy="fill_to_capacity"
-					preferredHeight="80">
-					<TextArea bxml:id="descriptionTextArea" maximumWidth="300" />
-				</ScrollPane>
-			</Border>
-
-			<!-- Benefits -->
-			<Separator heading="Benefits" />
-			<Border styles="{color:10}">
-				<ScrollPane bxml:id="benefitsScrollPane"
-					horizontalScrollBarPolicy="fill" verticalScrollBarPolicy="fill_to_capacity"
-					preferredHeight="80">
-					<TextArea bxml:id="benefitsTextArea" maximumWidth="300" />
-				</ScrollPane>
-			</Border>
-
-			<!-- Details -->
-			<Separator heading="Zusatzinformationen" />
-			<TablePane
-				styles="{verticalSpacing:5, showHorizontalGridLines:false,
+		<!-- Details -->
+		<Separator heading="Zusatzinformationen" />
+		<TablePane
+			styles="{verticalSpacing:5, showHorizontalGridLines:false,
     				horizontalSpacing:5, showVerticalGridLines:false}"
-				xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk">
-				<columns>
-					<TablePane.Column width="-1" />
-					<TablePane.Column width="-1" />
-					<TablePane.Column width="-1" />
-				</columns>
+			xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk">
+			<columns>
+				<TablePane.Column width="-1" />
+				<TablePane.Column width="-1" />
+				<TablePane.Column width="-1" />
+			</columns>
 
-				<!-- Preparation time -->
-				<TablePane.Row height="-1">
-					<Label text="Zubereitungszeit: " />
-					<TextInput bxml:id="preparationTimeTextInput" textSize="3"
-						strictValidation="true" textKey="preparationTime">
-						<validator>
-							<util:DoubleValidator />
-						</validator>
-					</TextInput>
-					<Label text="h" />
-				</TablePane.Row>
+			<!-- Preparation time -->
+			<TablePane.Row height="-1">
+				<Label text="Zubereitungszeit: " />
+				<TextInput bxml:id="preparationTimeTextInput" textSize="3"
+					strictValidation="true" textKey="preparationTime">
+					<validator>
+						<util:DoubleValidator />
+					</validator>
+				</TextInput>
+				<Label text="h" />
+			</TablePane.Row>
 
-				<!-- Difficulty -->
-				<TablePane.Row height="-1">
-					<Label text="Schwierigkeitsgrad: " />
-					<ListButton bxml:id="difficultyListButton" listData="['1', '2', '3', '4', '5']"
-						selectedIndex="2" />
-					<Label text="(1=leicht, 5=schwer)" />
-				</TablePane.Row>
-			</TablePane>
+			<!-- Difficulty -->
+			<TablePane.Row height="-1">
+				<Label text="Schwierigkeitsgrad: " />
+				<ListButton bxml:id="difficultyListButton" listData="['1', '2', '3', '4', '5']"
+					selectedIndex="2" />
+				<Label text="(1=leicht, 5=schwer)" />
+			</TablePane.Row>
+		</TablePane>
 
-			<!-- Buttons -->
-			<Separator />
-			<BoxPane bxml:id="buttonsBoxPane" styles="{horizontalAlignment:'right'}">
-				<PushButton bxml:id="clearButton" buttonData="Zurücksetzen" />
-				<PushButton bxml:id="saveButton" buttonData="Speichern" />
-			</BoxPane>
+		<!-- Buttons -->
+		<Separator />
+		<BoxPane bxml:id="buttonsBoxPane" styles="{horizontalAlignment:'right'}">
+			<PushButton bxml:id="clearButton" buttonData="Zurücksetzen" />
+			<PushButton bxml:id="saveButton" buttonData="Speichern" />
 		</BoxPane>
-	</ScrollPane>
-
-</easyDiet:AddRecipeDialog>
+	</BoxPane>
+</easyDiet:AddRecipeScrollPane>

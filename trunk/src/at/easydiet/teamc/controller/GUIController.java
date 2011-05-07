@@ -16,7 +16,9 @@ import org.apache.pivot.collections.Map;
 import org.apache.pivot.serialization.SerializationException;
 import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.Dialog;
 import org.apache.pivot.wtk.MessageType;
+import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TextInput;
 
 import at.easydiet.teamc.exception.GeneratingDietryPlanException;
@@ -34,7 +36,7 @@ import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.util.CollectionConverter;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
-import at.easydiet.teamc.view.AddRecipeDialog;
+import at.easydiet.teamc.view.AddRecipeScrollPane;
 import at.easydiet.teamc.view.ChooseMealDialog;
 import at.easydiet.teamc.view.ContentTabPane;
 import at.easydiet.teamc.view.DietPlanDialog;
@@ -377,22 +379,46 @@ public class GUIController implements PatientListener {
 	}
 
 	/**
-	 * Open dialog for adding a new recipse
+	 * Open dialog for adding a new recipes
 	 */
 	public void openAddRecipeDialog() {
 
 		// load dialog for creating a new recipe
 		BXMLSerializer bxml = new BXMLSerializer();
-		AddRecipeDialog addRecipeDialog;
+		ScrollPane addRecipeScrollPane;
+		Dialog dialog = new Dialog();
 		try {
-			addRecipeDialog = (AddRecipeDialog) bxml.readObject(
-					AddRecipeDialog.class, "bxml/addRecipe.bxml");
-			addRecipeDialog.open(_easyDietWindow);
+			addRecipeScrollPane = (AddRecipeScrollPane) bxml
+					.readObject(getClass().getResource(
+							"../view/bxml/addRecipe.bxml"));
+			dialog.setContent(addRecipeScrollPane);
+			dialog.open(_easyDietWindow);
+
+			// TODO height is for testing only
+			// set window height
+			dialog.setPreferredHeight(dialog.getWindow().getPreferredHeight() - 150);
+
+			// set dialog title
+			dialog.setTitle("Neues Rezept erstellen");
 		} catch (IOException ex) {
 			LOGGER.error(ex);
 		} catch (SerializationException ex) {
 			LOGGER.error(ex);
 		}
+	}
+
+	/**
+	 * Do dietplan independet recipe search
+	 * 
+	 * @param mainCategory
+	 * @param search
+	 * @return
+	 */
+	public org.apache.pivot.collections.List<RecipeData> recipeSearch(
+			String mainCategory, String search) {
+		return (List<RecipeData>) CollectionConverter
+				.convertToPivotList(_businessLogicDelegationController
+						.recipeSearch(mainCategory, search));
 	}
 
 	/**
