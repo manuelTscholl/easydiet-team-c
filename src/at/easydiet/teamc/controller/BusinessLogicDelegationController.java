@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Set;
 
 import at.easydiet.dao.RecipeDAO;
+import at.easydiet.model.NutrimentParameter;
+import at.easydiet.teamc.controller.usecase.CreateRecipeController;
 import at.easydiet.teamc.controller.usecase.DietryPlanController;
 import at.easydiet.teamc.controller.usecase.SearchParameterController;
 import at.easydiet.teamc.controller.usecase.SearchPatientController;
@@ -29,6 +31,7 @@ import at.easydiet.teamc.model.data.DietParameterData;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.MealData;
+import at.easydiet.teamc.model.data.NutrimentParameterData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.data.RecipeData;
@@ -52,6 +55,7 @@ public class BusinessLogicDelegationController {
 	private Thread _patientSearchThread;
 	private DietryPlanController _dietryPlanController;
 	private LoginController _loginController;
+	private CreateRecipeController _createRecipeController;
 
 	/**
 	 * Initializes a new instance of the
@@ -170,6 +174,9 @@ public class BusinessLogicDelegationController {
 		return parameterData;
 	}
 	
+	/**
+	 * returns a list of all NutrimentParameterss
+	 */
 	public List<ParameterDefinitionData>  getAllNutrimentParameters(){
 		return _searchParameterController.getAllNutrimentParameters();
 		
@@ -307,4 +314,19 @@ public class BusinessLogicDelegationController {
 
 		return recipeDatas;
 	}
+	
+	/**
+	 * Creates a new Recipe by initalizing a new instance of a createRecipeController 
+	 * and delegating
+	 */
+	public void createNewRecipe(){
+		_createRecipeController=new CreateRecipeController();
+		_createRecipeController.create();
+	}
+	
+	public void addParameter(NutrimentParameterData np){
+		_createRecipeController.addParameter(np);
+	}
+	
+	
 }
