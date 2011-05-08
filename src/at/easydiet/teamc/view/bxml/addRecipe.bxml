@@ -178,27 +178,18 @@
 									editEffect="crossfade">
 									<cellEditors>
 
-										<minimum>
-											<TextInput strictValidation="true" textKey="minimum">
+										<quantity>
+											<TextInput strictValidation="true" textKey="quantity">
 												<validator>
-													<util:ParameterValidator />
+													<util:DoubleValidator />
 												</validator>
-												<textBindMapping>
-													<util:ParameterBindMapping />
-												</textBindMapping>
 											</TextInput>
-										</minimum>
+										</quantity>
 
-										<maximum>
-											<TextInput strictValidation="true" textKey="maximum">
-												<validator>
-													<util:ParameterValidator />
-												</validator>
-												<textBindMapping>
-													<util:ParameterBindMapping />
-												</textBindMapping>
-											</TextInput>
-										</maximum>
+										<unit>
+											<ListButton bxml:id="unitListButton">
+											</ListButton>
+										</unit>
 									</cellEditors>
 								</content:TableViewRowEditor>
 							</rowEditor>

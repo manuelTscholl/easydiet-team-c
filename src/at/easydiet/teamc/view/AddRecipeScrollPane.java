@@ -12,17 +12,21 @@ import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
+import org.apache.pivot.collections.Sequence.Tree.Path;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.ComponentKeyListener;
 import org.apache.pivot.wtk.ComponentMouseButtonListener;
-import org.apache.pivot.wtk.Dialog;
+import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
-import org.apache.pivot.wtk.TableView;
+import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TextArea;
 import org.apache.pivot.wtk.TextInput;
+import org.apache.pivot.wtk.TreeView;
+import org.apache.pivot.wtk.TreeViewBranchListener;
 
 import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleVo;
@@ -33,11 +37,11 @@ import at.easydiet.teamc.model.data.RecipeData;
  * 
  * @author Michael
  */
-public class AddRecipeDialog extends Dialog implements Bindable {
+public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 	// class variables
 	public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
-			.getLogger(AddRecipeDialog.class);
+			.getLogger(AddRecipeScrollPane.class);
 
 	// instance variables | GUI components
 	private TextInput _recipeNameTextInput;
@@ -49,7 +53,8 @@ public class AddRecipeDialog extends Dialog implements Bindable {
 	private RecipeTreeView _recipeTreeView;
 	private PushButton _addRecipeButton;
 	private PushButton _removeRecipeButton;
-	private TableView _chosenRecipeTableView;
+	private RecipeTableView _chosenRecipeTableView;
+	private ListButton _unitListButton;
 	private TextArea _preparationTextArea;
 	private TextArea _descriptionTextArea;
 	private TextArea _benefitsTextArea;
@@ -78,15 +83,8 @@ public class AddRecipeDialog extends Dialog implements Bindable {
 		 * validieren
 		 */
 
-		// TODO eigene Komponente für parameter tableview, rezept treeview und
+		// TODO eigene Komponente für parameter tableview und
 		// chosenrezept tableview
-
-		// TODO height is for testing only
-		// set window height
-		setPreferredHeight(getWindow().getPreferredHeight() - 150);
-
-		// set dialog title
-		setTitle("Neues Rezept erstellen");
 
 		// get GUI components
 		_recipeNameTextInput = (TextInput) map.get("nameTextInput");
@@ -99,7 +97,9 @@ public class AddRecipeDialog extends Dialog implements Bindable {
 		_recipeTreeView = (RecipeTreeView) map.get("recipeTreeView");
 		_addRecipeButton = (PushButton) map.get("addRecipeButton");
 		_removeRecipeButton = (PushButton) map.get("removeRecipeButton");
-		_chosenRecipeTableView = (TableView) map.get("chosenRecipeTableView");
+		_chosenRecipeTableView = (RecipeTableView) map
+				.get("chosenRecipeTableView");
+		_unitListButton = (ListButton) map.get("unitListButton");
 		_preparationTextArea = (TextArea) map.get("preparationTextArea");
 		_descriptionTextArea = (TextArea) map.get("descriptionTextArea");
 		_benefitsTextArea = (TextArea) map.get("benefitsTextArea");
@@ -111,13 +111,14 @@ public class AddRecipeDialog extends Dialog implements Bindable {
 
 		// set and cache data
 		initDataLists();
-		_recipeTreeView.setMainCategories(_recipesMainCategories);
+		_recipeTreeView.setCategories(_recipesMainCategories);
 
 		// listeners
 		addParameterButtonListeners();
 		addRecipeButtonListeners();
 		addFunctionButtonListerners();
 		addTextAreaListeners();
+		addRecipeListeners();
 	}
 
 	/**
@@ -127,6 +128,85 @@ public class AddRecipeDialog extends Dialog implements Bindable {
 		// TODO getAllNutrimentParameters -> cachen
 		_recipesMainCategories = GUIController.getInstance()
 				.getRecipeMainCategories();
+
+		// TODO set unit list button data
+	}
+
+	/**
+	 * Add listeners for recipe components
+	 */
+	private void addRecipeListeners() {
+		_recipeSearchTextInput.getComponentKeyListeners().add(
+				new ComponentKeyListener() {
+
+					@Override
+					public boolean keyTyped(Component arg0, char arg1) {
+						if (_recipeSearchTextInput.getText().isEmpty()) {
+							_recipeTreeView.clearSearchResult();
+						}
+						return true;
+					}
+
+					@Override
+					public boolean keyReleased(Component arg0, int arg1,
+							KeyLocation arg2) {
+						// not neccessary in this context
+						return false;
+					}
+
+					@Override
+					public boolean keyPressed(Component arg0, int arg1,
+							KeyLocation arg2) {
+						// not neccessary in this context
+						return false;
+					}
+				});
+
+		// add listener for opening tree branch
+		_recipeTreeView.getTreeViewBranchListeners().add(
+				new TreeViewBranchListener() {
+
+					@Override
+					public void branchExpanded(TreeView treeView, Path path) {
+
+						if (!_recipeTreeView.isSearchMode()) {
+							final int mainCat = 0;
+							final int subCat = 1;
+
+							// check if subcategory is opened
+							if (path.getLength() > 1) {
+
+								// get main category branch
+								RecipeTreeBranch mainCategoryBranch = ((RecipeTreeBranch) treeView
+										.getTreeData().get(
+												path.toArray()[mainCat]));
+
+								RecipeTreeBranch subCategoryBranch = (RecipeTreeBranch) mainCategoryBranch
+										.get(path.toArray()[subCat]);
+
+								// check if tree branch is already in cache
+								if (!_recipeTreeView
+										.cacheContains(subCategoryBranch)) {
+
+									// get recipes for subCategoryBranch
+									String blsSearch = subCategoryBranch
+											.getRecipeData().getBlsCode();
+									List<RecipeData> recipes = GUIController
+											.getInstance().recipeSearch(
+													blsSearch, null);
+
+									_recipeTreeView.addRecipesToOpenedBranch(
+											subCategoryBranch, recipes);
+								}
+							}
+						}
+					}
+
+					@Override
+					public void branchCollapsed(TreeView arg0, Path arg1) {
+						// not neccessary in this context
+					}
+				});
 	}
 
 	/**
@@ -167,8 +247,22 @@ public class AddRecipeDialog extends Dialog implements Bindable {
 
 					@Override
 					public void buttonPressed(Button arg0) {
-						// TODO Auto-generated method stub
 
+						// check if a node is selected and not a branch
+						if (_recipeTreeView.getSelectedNode() instanceof RecipeTreeNode) {
+
+							// check if recipe is already added
+							if (!_chosenRecipeTableView
+									.containsRecipeData(((RecipeTreeNode) _recipeTreeView
+											.getSelectedNode()).getRecipeData())) {
+
+								// get selected recipe
+								_chosenRecipeTableView
+										.addRecipe(((RecipeTreeNode) _recipeTreeView
+												.getSelectedNode())
+												.getRecipeData());
+							}
+						}
 					}
 				});
 
@@ -177,8 +271,14 @@ public class AddRecipeDialog extends Dialog implements Bindable {
 
 					@Override
 					public void buttonPressed(Button arg0) {
-						// TODO Auto-generated method stub
 
+						RecipeData remove = _chosenRecipeTableView
+								.getTableData()
+								.get(_chosenRecipeTableView.getSelectedIndex())
+								.get("recipe");
+
+						// get selected recipe
+						_chosenRecipeTableView.removeRecipe(remove);
 					}
 				});
 	}
@@ -187,6 +287,21 @@ public class AddRecipeDialog extends Dialog implements Bindable {
 	 * Add button listeners for functional buttons
 	 */
 	private void addFunctionButtonListerners() {
+		_searchRecipeButton.getButtonPressListeners().add(
+				new ButtonPressListener() {
+
+					@Override
+					public void buttonPressed(Button arg0) {
+
+						// check for existing search string
+						if (!_recipeSearchTextInput.getText().isEmpty()) {
+							_recipeTreeView.setSearchedRecipes(GUIController
+									.getInstance().recipeSearch(null,
+											_recipeSearchTextInput.getText()));
+						}
+					}
+				});
+
 		_clearPushButton.getButtonPressListeners().add(
 				new ButtonPressListener() {
 

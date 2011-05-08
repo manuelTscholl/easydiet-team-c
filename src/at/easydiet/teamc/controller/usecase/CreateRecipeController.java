@@ -12,26 +12,21 @@ import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.data.NutrimentParameterData;
 
 public class CreateRecipeController {
-	
-	//the recipe, which will be created and edited by this instance of the controller
-	RecipeBo _currentRecipe;
-	
-	
-	NutrimentRulesBo _currentRules; 
-	
+
+	// the recipe, which will be created and edited by this instance of the
+	// controller
+	private RecipeBo _currentRecipe;
+
+	NutrimentRulesBo _currentRules;
 
 	public void create() {
-		
-		_currentRecipe=new RecipeBo(new Recipe());
-		
-	}
 
+		_currentRecipe = new RecipeBo(new Recipe());
+
+	}
 
 	public void addParameter(NutrimentParameterData np) {
-		
-		
+
 	}
-	
-	
 
 }
