@@ -376,7 +376,7 @@
 		</id>
 		<property name="value" column="Value" type="string" not-null="true" />
 
-		<many-to-one name="parameterDefinition" column="ParameterDefinitionId" lazy="false" "ParameterDefinition" not-null="true"/>
+		<many-to-one name="parameterDefinition" column="ParameterDefinitionId" lazy="false" class="ParameterDefinition" not-null="true"/>
 		<many-to-one name="unit" column="ParameterDefinitionUnitId" lazy="false" class="ParameterDefinitionUnit" not-null="true"/>
 	</class>
 
