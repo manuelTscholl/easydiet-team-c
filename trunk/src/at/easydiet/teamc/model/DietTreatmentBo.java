@@ -2,7 +2,6 @@ package at.easydiet.teamc.model;
 // Generated 02.04.2011 00:41:04 by Hibernate Tools 3.4.0.CR1
 
 
-import at.easydiet.teamc.model.data.Saveable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
