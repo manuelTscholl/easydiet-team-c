@@ -34,8 +34,12 @@ public class SearchParameterController {
 	 * @return
 	 */
 	public List<DietParameterBo> getAllParameters() {
+
 		List<DietParameterBo> parameters = _dbController.getInstance()
 				.getAllParameters();
+
+                
+                System.out.println(parameters.get(0).getParameterName());
 		return parameters;
 	}
 

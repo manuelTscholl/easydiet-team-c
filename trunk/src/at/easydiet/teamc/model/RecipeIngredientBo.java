@@ -1,12 +1,17 @@
 package at.easydiet.teamc.model;
 
 import at.easydiet.model.RecipeIngredient;
+import at.easydiet.teamc.model.data.NutrimentParameterData;
+import at.easydiet.teamc.model.data.RecipeData;
+import at.easydiet.teamc.model.data.RecipeIngredientData;
+import java.sql.Clob;
+import java.util.List;
 
 
 /**
  * Represents a RecipeIngredient
  */
-public class RecipeIngredientBo  implements java.io.Serializable, Saveable
+public class RecipeIngredientBo  implements java.io.Serializable, Saveable, RecipeIngredientData
 {
 
     
@@ -57,7 +62,7 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable
      * Gets the amount of this instance. 
      * @return the amount currently set for this instance.
      */
-    public float getAmount() 
+    public float getIngredientAmount()
     {
         return this.getRecipeIngredient().getAmount();
     }
@@ -107,6 +112,42 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable
 
     @Override
     public boolean save() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String getName() {
+        return this._ingredient.getName();
+    }
+
+    public String getBlsCode() {
+        return this._ingredient.getBlsCode();
+    }
+
+    public Clob getBenefits() {
+        return this._ingredient.getBenefits();
+    }
+
+    public Clob getDescription() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public int getDifficulty() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Clob getCookInstructions() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<RecipeData> getRecipeIngredientsData() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<NutrimentParameterData> getNutrimentParametersData() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public float getTotalAmount() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
