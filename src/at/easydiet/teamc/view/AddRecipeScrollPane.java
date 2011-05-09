@@ -30,10 +30,12 @@ import org.apache.pivot.wtk.TreeViewBranchListener;
 
 import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleVo;
+import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.RecipeData;
 
 /**
- * This class represents the dialog for creating a new recipe (addRecipe.bxml)
+ * This class represents the scrollpane for creating a new recipe
+ * (addRecipe.bxml)
  * 
  * @author Michael
  */
@@ -77,14 +79,11 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 		// TODO todo for add recipe gui
 		/*
-		 * Länge für Rezeptname überprüfen, Rezeptname erlaubte Zeichen
-		 * validieren, Überprüfen ob Rezeptname bereits vergeben ist,
+		 * LÃ¤nge fÃ¼r Rezeptname Ã¼berprÃ¼fen, Rezeptname erlaubte Zeichen
+		 * validieren, ÃœberprÃ¼fen ob Rezeptname bereits vergeben ist,
 		 * Parameterwerte validieren, Menge validieren, Zubereitungszeit
 		 * validieren
 		 */
-
-		// TODO eigene Komponente für parameter tableview und
-		// chosenrezept tableview
 
 		// get GUI components
 		_recipeNameTextInput = (TextInput) map.get("nameTextInput");
@@ -126,10 +125,14 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	 */
 	private void initDataLists() {
 		// TODO getAllNutrimentParameters -> cachen
+		_parameterTableView.setParameterData(GUIController.getInstance()
+				.getAllParameterDefinitions());
+
 		_recipesMainCategories = GUIController.getInstance()
 				.getRecipeMainCategories();
 
 		// TODO set unit list button data
+		// GUIController.getInstance().getAllParameterDefinitionUnits();
 	}
 
 	/**
@@ -220,8 +223,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 					@Override
 					public void buttonPressed(Button arg0) {
-						// TODO Auto-generated method stub
-
+						_parameterTableView.addParameter();
 					}
 				});
 
@@ -231,7 +233,14 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 					@Override
 					public void buttonPressed(Button arg0) {
-						// TODO Auto-generated method stub
+
+						// get selected parameter
+						ParameterDefinitionData remove = _parameterTableView
+								.getTableData()
+								.get(_parameterTableView.getSelectedIndex())
+								.get("parameter");
+
+						_parameterTableView.removeParameter(remove);
 
 					}
 				});
@@ -272,12 +281,12 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 					@Override
 					public void buttonPressed(Button arg0) {
 
+						// get selected recipe
 						RecipeData remove = _chosenRecipeTableView
 								.getTableData()
 								.get(_chosenRecipeTableView.getSelectedIndex())
 								.get("recipe");
 
-						// get selected recipe
 						_chosenRecipeTableView.removeRecipe(remove);
 					}
 				});
