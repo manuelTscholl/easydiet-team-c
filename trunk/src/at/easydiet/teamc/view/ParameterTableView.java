@@ -11,6 +11,7 @@ import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.wtk.TableView;
 
+import at.easydiet.teamc.model.data.CheckOperatorData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 
 /**
@@ -21,10 +22,10 @@ public class ParameterTableView extends TableView {
 
 	// instance variables
 	private List<ParameterDefinitionData> _parameterCache;
-	private List<HashMap<String, ParameterDefinitionData>> _tableData;
+	private List<HashMap<String, Object>> _tableData;
 
 	{
-		_tableData = new ArrayList<HashMap<String, ParameterDefinitionData>>();
+		_tableData = new ArrayList<HashMap<String, Object>>();
 		setTableData(_tableData);
 	}
 
@@ -34,7 +35,7 @@ public class ParameterTableView extends TableView {
 	 * @param param
 	 */
 	public void setParameterData(ParameterDefinitionData p, int index) {
-		HashMap<String, ParameterDefinitionData> map = _tableData.get(index);
+		HashMap<String, Object> map = _tableData.get(index);
 		final String paramString = "parameter";
 
 		// check if already set
@@ -46,10 +47,29 @@ public class ParameterTableView extends TableView {
 	}
 
 	/**
+	 * Set a unit in a specific row
+	 * 
+	 * @param p
+	 * @param index
+	 */
+	public void setUnit(CheckOperatorData p, int index) {
+		HashMap<String, Object> map = _tableData.get(index);
+		final String s = "checkOperator";
+
+		// check if already set
+		if (map.containsKey(s)) {
+			map.remove(s);
+		}
+
+		map.put(s, p);
+	}
+
+	/**
 	 * Add a new parameter
 	 */
 	public void addParameter() {
-		HashMap<String, ParameterDefinitionData> map = new HashMap<String, ParameterDefinitionData>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("value", 0);
 		_tableData.add(map);
 	}
 
@@ -65,8 +85,7 @@ public class ParameterTableView extends TableView {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<HashMap<String, ParameterDefinitionData>> getTableData() {
-		return (List<HashMap<String, ParameterDefinitionData>>) super
-				.getTableData();
+	public List<HashMap<String, Object>> getTableData() {
+		return (List<HashMap<String, Object>>) super.getTableData();
 	}
 }

@@ -34,6 +34,7 @@ import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.CheckOperatorData;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleVo;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
+import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import at.easydiet.teamc.model.data.RecipeData;
 
 /**
@@ -52,6 +53,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	private TextInput _recipeNameTextInput;
 	private PushButton _addParameterButton;
 	private PushButton _removeParameterButton;
+	private ListButton _checkOperatorListButton;
 	private ParameterTableView _parameterTableView;
 	private ListButton _parameterListButton;
 	private TextInput _recipeSearchTextInput;
@@ -73,6 +75,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	private List<NutrimentParameterRuleVo> _parameters;
 	private List<RecipeData> _recipesMainCategories;
 	private List<CheckOperatorData> _checkOperators;
+	private List<ParameterDefinitionUnitData> _units;
 
 	{
 		_parameters = new ArrayList<NutrimentParameterRuleVo>();
@@ -94,6 +97,8 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 		// get GUI components
 		_recipeNameTextInput = (TextInput) map.get("nameTextInput");
 		_addParameterButton = (PushButton) map.get("addParameterButton");
+		_checkOperatorListButton = (ListButton) map
+				.get("checkOperatorListButton");
 		_removeParameterButton = (PushButton) map.get("removeParameterButton");
 		_parameterTableView = (ParameterTableView) map
 				.get("parameterTableView");
@@ -135,16 +140,27 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 		// set data for parameter list
 		_parameterListButton.setListData(GUIController.getInstance()
 				.getAllParameterDefinitions());
+
+		// set default
+		_parameterListButton.setSelectedIndex(0);
 		_parameterTableView.addParameter();
 
 		_recipesMainCategories = GUIController.getInstance()
 				.getRecipeMainCategories();
 
-		// TODO set unit list button data
-		// GUIController.getInstance().getAllParameterDefinitionUnits();
+		// units
+		_units = GUIController.getInstance().getAllParameterDefinitionUnits();
+		_unitListButton.setListData(_units);
 
-		// TODO set check operator button data
-		// GUIController.getInstance().getAllCheckOperators();
+		// set default
+		_unitListButton.setSelectedIndex(0);
+
+		// checkoperator
+		_checkOperators = GUIController.getInstance().getAllCheckoperators();
+		_checkOperatorListButton.setListData(_checkOperators);
+
+		// set default
+		_checkOperatorListButton.setSelectedIndex(0);
 	}
 
 	/**
@@ -222,6 +238,41 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						// not neccessary in this context
 					}
 				});
+
+		_chosenRecipeTableView.getTableViewRowListeners().add(
+				new TableViewRowListener() {
+
+					@Override
+					public void rowsSorted(TableView arg0) {
+						// not neccessary in this context
+
+					}
+
+					@Override
+					public void rowsRemoved(TableView arg0, int arg1, int arg2) {
+						// not neccessary in this context
+
+					}
+
+					@Override
+					public void rowsCleared(TableView arg0) {
+						// not neccessary in this context
+
+					}
+
+					@Override
+					public void rowUpdated(TableView arg0, int index) {
+						ParameterDefinitionUnitData selected = (ParameterDefinitionUnitData) _unitListButton
+								.getSelectedItem();
+						_chosenRecipeTableView.setUnit(selected, index);
+
+					}
+
+					@Override
+					public void rowInserted(TableView arg0, int arg1) {
+						// not neccessary in this context
+					}
+				});
 	}
 
 	/**
@@ -274,9 +325,13 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 					@Override
 					public void rowUpdated(TableView arg0, int index) {
-						ParameterDefinitionData selected = (ParameterDefinitionData) _parameterListButton
+						ParameterDefinitionData parameter = (ParameterDefinitionData) _parameterListButton
 								.getSelectedItem();
-						_parameterTableView.setParameterData(selected, index);
+						_parameterTableView.setParameterData(parameter, index);
+
+						CheckOperatorData unit = (CheckOperatorData) _checkOperatorListButton
+								.getSelectedItem();
+						_parameterTableView.setUnit(unit, index);
 
 					}
 
@@ -323,7 +378,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 					public void buttonPressed(Button arg0) {
 
 						// get selected recipe
-						RecipeData remove = _chosenRecipeTableView
+						RecipeData remove = (RecipeData) _chosenRecipeTableView
 								.getTableData()
 								.get(_chosenRecipeTableView.getSelectedIndex())
 								.get("recipe");

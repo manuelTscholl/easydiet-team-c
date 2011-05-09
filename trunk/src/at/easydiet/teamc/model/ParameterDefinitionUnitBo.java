@@ -119,4 +119,9 @@ public class ParameterDefinitionUnitBo implements java.io.Serializable,
 			ParameterDefinitionUnit ParameterDefinitionUnit) {
 		this._ParameterDefinitionUnit = ParameterDefinitionUnit;
 	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
 }
