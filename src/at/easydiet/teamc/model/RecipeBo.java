@@ -198,6 +198,9 @@ public class RecipeBo  implements java.io.Serializable, Saveable, RecipeData {
             //FIXME: muss implementiert werden
         }
     }
+    public void addRecipeIngredient(RecipeData d){
+    	d.getRecipeIngredientsData().add((RecipeIngredientData)d);
+    }
 
 }
 
