@@ -119,7 +119,7 @@ public class RecipeTreeView extends TreeView {
 	}
 
 	/**
-	 * Search recipes by name and display them
+	 * Displays a list of recipes as search result
 	 * 
 	 * @param recipe
 	 */

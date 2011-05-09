@@ -68,6 +68,11 @@
 								editEffect="crossfade">
 								<cellEditors>
 
+									<parameter>
+										<ListButton bxml:id="parameterListButton">
+										</ListButton>
+									</parameter>
+
 									<minimum>
 										<TextInput strictValidation="true" textKey="minimum">
 										</TextInput>
