@@ -23,6 +23,8 @@ import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.ScrollPane;
+import org.apache.pivot.wtk.TableView;
+import org.apache.pivot.wtk.TableViewRowListener;
 import org.apache.pivot.wtk.TextArea;
 import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.TreeView;
@@ -30,6 +32,7 @@ import org.apache.pivot.wtk.TreeViewBranchListener;
 
 import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleVo;
+import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.RecipeData;
 
 /**
@@ -242,6 +245,41 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						_parameterTableView.removeParameter(_parameterTableView
 								.getSelectedIndex());
 
+					}
+				});
+
+		_parameterTableView.getTableViewRowListeners().add(
+				new TableViewRowListener() {
+
+					@Override
+					public void rowsSorted(TableView arg0) {
+						// not neccessary in this context
+
+					}
+
+					@Override
+					public void rowsRemoved(TableView arg0, int arg1, int arg2) {
+						// not neccessary in this context
+
+					}
+
+					@Override
+					public void rowsCleared(TableView arg0) {
+						// not neccessary in this context
+
+					}
+
+					@Override
+					public void rowUpdated(TableView arg0, int index) {
+						ParameterDefinitionData selected = (ParameterDefinitionData) _parameterListButton
+								.getSelectedItem();
+						_parameterTableView.setParameterData(selected, index);
+
+					}
+
+					@Override
+					public void rowInserted(TableView arg0, int arg1) {
+						// not neccessary in this context
 					}
 				});
 	}
