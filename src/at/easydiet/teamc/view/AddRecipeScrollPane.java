@@ -143,7 +143,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 		// set default
 		_parameterListButton.setSelectedIndex(0);
-		_parameterTableView.addParameter();
+		_addParameterButton.press();
 
 		_recipesMainCategories = GUIController.getInstance()
 				.getRecipeMainCategories();
@@ -287,6 +287,17 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 					@Override
 					public void buttonPressed(Button arg0) {
 						_parameterTableView.addParameter();
+
+						// set default values
+						int index = _parameterTableView.getTableData()
+								.getLength() - 1;
+						ParameterDefinitionData param = (ParameterDefinitionData) _parameterListButton
+								.getListData().get(0);
+						CheckOperatorData checkoperator = (CheckOperatorData) _checkOperatorListButton
+								.getListData().get(0);
+						_parameterTableView.setParameterData(param, index);
+						_parameterTableView.setCheckOperator(checkoperator,
+								index);
 					}
 				});
 
@@ -329,9 +340,9 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 								.getSelectedItem();
 						_parameterTableView.setParameterData(parameter, index);
 
-						CheckOperatorData unit = (CheckOperatorData) _checkOperatorListButton
+						CheckOperatorData operator = (CheckOperatorData) _checkOperatorListButton
 								.getSelectedItem();
-						_parameterTableView.setUnit(unit, index);
+						_parameterTableView.setCheckOperator(operator, index);
 
 					}
 
@@ -366,6 +377,12 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 										.addRecipe(((RecipeTreeNode) _recipeTreeView
 												.getSelectedNode())
 												.getRecipeData());
+
+								int index = _chosenRecipeTableView
+										.getTableData().getLength() - 1;
+								ParameterDefinitionUnitData selected = (ParameterDefinitionUnitData) _unitListButton
+										.getSelectedItem();
+								_chosenRecipeTableView.setUnit(selected, index);
 							}
 						}
 					}

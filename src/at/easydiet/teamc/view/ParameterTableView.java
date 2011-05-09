@@ -52,7 +52,7 @@ public class ParameterTableView extends TableView {
 	 * @param p
 	 * @param index
 	 */
-	public void setUnit(CheckOperatorData p, int index) {
+	public void setCheckOperator(CheckOperatorData p, int index) {
 		HashMap<String, Object> map = _tableData.get(index);
 		final String s = "checkOperator";
 
