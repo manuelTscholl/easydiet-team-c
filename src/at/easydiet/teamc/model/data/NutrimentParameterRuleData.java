@@ -10,9 +10,10 @@ package at.easydiet.teamc.model.data;
  * 
  * @author Michael
  */
-public class NutrimentParameterRuleVo {
+public interface NutrimentParameterRuleData {
 
-	// class variables
-
-	// instance variables
+	public double getValue();
+        public boolean IsViolated();
+        public String getName();
+        public CheckOperatorData getCheckOperator();
 }

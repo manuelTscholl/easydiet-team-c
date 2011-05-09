@@ -1,5 +1,6 @@
 package at.easydiet.teamc.model;
 
+import at.easydiet.teamc.model.data.Saveable;
 import at.easydiet.model.ParameterDefinitionUnit;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 

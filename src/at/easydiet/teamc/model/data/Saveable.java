@@ -4,7 +4,7 @@
  *   created by: Manuel
  *   file: Saveable.java
  */
-package at.easydiet.teamc.model;
+package at.easydiet.teamc.model.data;
 
 /**
  * @author Manuel

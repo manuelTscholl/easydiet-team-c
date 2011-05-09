@@ -1,4 +1,4 @@
-package at.easydiet.teamc.model;
+package at.easydiet.teamc.model.data;
 
 public class ValueRange {
 	private double _min;

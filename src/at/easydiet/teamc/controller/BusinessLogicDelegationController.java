@@ -387,9 +387,9 @@ public class BusinessLogicDelegationController
         _createRecipeController.addParameter(np);
     }
 
-    public CheckedRecipeVo addRecipeIngredient(RecipeData d)
+    public CheckedRecipeVo addRecipeIngredient(RecipeData d, float amount)
     {
-        return _createRecipeController.addRecipeIngredient(d);
+        return _createRecipeController.addRecipeIngredient(d, amount);
     }
 
     public List<ParameterDefinitionUnitData> getAllParameterDefinitionUnits()
