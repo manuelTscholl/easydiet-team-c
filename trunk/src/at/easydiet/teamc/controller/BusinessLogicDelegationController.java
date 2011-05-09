@@ -331,5 +331,21 @@ public class BusinessLogicDelegationController {
 	public CheckedRecipeVo addRecipeIngredient(RecipeData d){
 		return _createRecipeController.addRecipeIngredient(d);
 	}
+        public void changeParameter(NutrimentParameter ndr, String checkOperator, double value) {
+
+            //TO-DO
+        }
+
+        public void changeRecipeIngredient(float amount, RecipeData rd) {
+
+            //TO-DO
+        }
+        /*
+         * save the Recipe
+         */
+        public void saveRecipe() {
+
+
+        }
 	
 }
