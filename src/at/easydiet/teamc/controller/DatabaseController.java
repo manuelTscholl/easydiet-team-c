@@ -16,12 +16,14 @@ import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.DietParameterDAO;
 import at.easydiet.dao.PatientDAO;
 import at.easydiet.dao.RecipeDAO;
+import at.easydiet.model.CheckOperator;
 import at.easydiet.model.DietParameter;
 import at.easydiet.model.ParameterDefinition;
 import at.easydiet.model.ParameterDefinitionUnit;
 import at.easydiet.model.Patient;
 import at.easydiet.model.Recipe;
 import at.easydiet.teamc.dao.MealCodeDao;
+import at.easydiet.teamc.model.CheckOperatorBo;
 import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.MealCodeBo;
 import at.easydiet.teamc.model.ParameterDefinitionBo;
@@ -196,5 +198,42 @@ public class DatabaseController
         
         return dataBos;
     }
+    
+    /**
+     * 
+     * @return
+     */
+    public List<CheckOperatorBo> getAllCheckoperators()
+    {
+        List<CheckOperator> datas = DAOFactory.getInstance().getCheckOperatorDAO().findAll();
+        List<CheckOperatorBo> dataBos = new ArrayList<CheckOperatorBo>();
+        if(datas!=null)
+            for (CheckOperator item : datas)
+            {
+                dataBos.add(new CheckOperatorBo(item));
+            }
+        
+        return dataBos;
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public List<ParameterDefinitionUnitBo> getAllParameterDefinitionUnit()
+    {
+        List<ParameterDefinitionUnit> datas = DAOFactory.getInstance().getParameterDefinitionUnitDAO().findAll();
+        List<ParameterDefinitionUnitBo> dataBos = new ArrayList<ParameterDefinitionUnitBo>();
+        if(datas!=null)
+            for (ParameterDefinitionUnit item : datas)
+            {
+                dataBos.add(new ParameterDefinitionUnitBo(item));
+            }
+        
+        return dataBos;
+    }
+    
+    
+    
 
 }
