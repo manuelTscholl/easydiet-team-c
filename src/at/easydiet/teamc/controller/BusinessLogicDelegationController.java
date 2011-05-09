@@ -177,8 +177,8 @@ public class BusinessLogicDelegationController {
 	/**
 	 * returns a list of all NutrimentParameterss
 	 */
-	public List<ParameterDefinitionData>  getAllNutrimentParameters(){
-		return _searchParameterController.getAllNutrimentParameters();
+	public List<ParameterDefinitionData>  getAllParameterDefinitions(){
+		return _searchParameterController.getAllParameterDefinitions();
 		
 	}
 
