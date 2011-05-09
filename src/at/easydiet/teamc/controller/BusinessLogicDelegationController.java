@@ -417,4 +417,14 @@ public class BusinessLogicDelegationController
         return new ArrayList<ParameterDefinitionUnitData>(DatabaseController.getInstance().getAllParameterDefinitionUnit());
     }
 
+    public void changeParameter(NutrimentParameterData ndr, CheckOperatorData checkOperator, double value) {
+
+        //TODO
+    }
+
+    public void changeRecipeIngredient(float amount, RecipeData rd) {
+
+        //TODO
+    }
+
 }
