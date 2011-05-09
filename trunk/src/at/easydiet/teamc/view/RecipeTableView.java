@@ -38,7 +38,7 @@ public class RecipeTableView extends TableView {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("recipe", r); // recipe name is set by overridden toString
 								// method of RecipeData
-		map.put("quantity", 0);
+		map.put("quantity", 100);
 		_recipes.add(map);
 	}
 
