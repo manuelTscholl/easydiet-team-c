@@ -6,7 +6,7 @@
  */
 package at.easydiet.teamc.view;
 
-import at.easydiet.teamc.model.DietPlanParameterCollectionVo;
+import at.easydiet.teamc.model.data.DietPlanParameterCollectionVo;
 import at.easydiet.teamc.view.util.DietWeek;
 import java.net.URL;
 import java.util.ArrayList;

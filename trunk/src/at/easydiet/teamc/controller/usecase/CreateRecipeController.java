@@ -17,7 +17,7 @@ import at.easydiet.teamc.model.NutrimentRulesBo;
 import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.NutrimentParameterData;
-import at.easydiet.teamc.model.data.NutrimentParameterRuleVo;
+import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.RecipeData;
 
 public class CreateRecipeController {
@@ -38,12 +38,12 @@ public class CreateRecipeController {
 
 	}
 
-	public CheckedRecipeVo addRecipeIngredient(RecipeData d) {
+	public CheckedRecipeVo addRecipeIngredient(RecipeData d, float amount) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	public List<NutrimentParameterRuleVo> checkRecipe()
+	public List<NutrimentParameterRuleData> checkRecipe()
 	{
 	    //FIXME: implementieren	    
 	    return null;

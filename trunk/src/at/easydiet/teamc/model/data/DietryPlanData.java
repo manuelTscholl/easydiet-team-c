@@ -7,7 +7,6 @@
 
 package at.easydiet.teamc.model.data;
 
-import at.easydiet.teamc.model.DietPlanParameterCollectionVo;
 
 import java.util.List;
 import java.util.Set;

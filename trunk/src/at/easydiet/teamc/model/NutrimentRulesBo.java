@@ -6,7 +6,7 @@
  */
 package at.easydiet.teamc.model;
 
-import at.easydiet.teamc.model.data.NutrimentParameterRuleVo;
+import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,15 +19,15 @@ public class NutrimentRulesBo {
         _parameters=new HashMap<String, NutrimentRuleBo>();
     }
 
-    public void addParameter(ParameterDefinitionBo parameterdefintion){
-        _parameters.put(parameterdefintion.getName(), new NutrimentRuleBo(parameterdefintion));
+    public void addParameter(ParameterDefinitionBo parameterdefintion, CheckOperatorBo checkOperatorBo){
+        _parameters.put(parameterdefintion.getName(), new NutrimentRuleBo(parameterdefintion, checkOperatorBo));
     }
 
-    public void changeParameter(){
+    public void changeParameter(NutrimentParameterRuleData nprv, double value){
         //TODO setParameter Value
     }
 
-    public List<NutrimentParameterRuleVo> checkRecipe(RecipeBo recipe) {
+    public List<NutrimentParameterRuleData> checkRecipe(RecipeBo recipe) {
 
         throw new UnsupportedOperationException();
     }

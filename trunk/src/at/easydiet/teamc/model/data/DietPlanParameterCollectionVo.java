@@ -4,7 +4,7 @@
  * Created by: Friedrich Bösch
  * File: DietPlanParameterCollectionVo.java
  */
-package at.easydiet.teamc.model;
+package at.easydiet.teamc.model.data;
 
 import at.easydiet.model.DietParameterTemplate;
 

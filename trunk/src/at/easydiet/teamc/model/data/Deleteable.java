@@ -4,7 +4,7 @@
  *   created by: Manuel
  *   file: Deleteable.java
  */
-package at.easydiet.teamc.model;
+package at.easydiet.teamc.model.data;
 
 /**
  * @author Manuel
