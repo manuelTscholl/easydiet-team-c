@@ -35,7 +35,14 @@ public class ParameterTableView extends TableView {
 	 */
 	public void setParameterData(ParameterDefinitionData p, int index) {
 		HashMap<String, ParameterDefinitionData> map = _tableData.get(index);
-		map.put("parameter", p);
+		final String paramString = "parameter";
+
+		// check if already set
+		if (map.containsKey(paramString)) {
+			map.remove(paramString);
+		}
+
+		map.put(paramString, p);
 	}
 
 	/**

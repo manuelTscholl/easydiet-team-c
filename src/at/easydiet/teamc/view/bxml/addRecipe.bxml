@@ -48,19 +48,19 @@
 				<ScrollPane horizontalScrollBarPolicy="fill">
 					<easyDiet:ParameterTableView bxml:id="parameterTableView"
 						xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk"
-						styles="{backgroundColor:'#EBEDEF'}" minimumWidth="460"
-						maximumWidth="460">
+						styles="{backgroundColor:'#EBEDEF'}" minimumWidth="480"
+						maximumWidth="480">
 						<columns>
 							<TableView.Column name="parameter" headerData="Parameter"
-								width="120" />
-							<TableView.Column name="minimum" headerData="Minimum"
+								width="150" />
+							<TableView.Column name="checkOperator" headerData="Operator"
 								width="60" />
-							<TableView.Column name="maximum" headerData="Maximum"
+							<TableView.Column name="value" headerData="Wert"
 								width="60" />
 							<TableView.Column name="actualGram" headerData="Aktuell auf 100g"
 								width="100" />
 							<TableView.Column name="actualPortion"
-								headerData="Aktuell auf Portion" width="120" />
+								headerData="Aktuell auf Portion" width="110" />
 						</columns>
 
 						<rowEditor>
@@ -73,10 +73,10 @@
 										</ListButton>
 									</parameter>
 
-									<minimum>
-										<TextInput strictValidation="true" textKey="minimum">
-										</TextInput>
-									</minimum>
+									<checkOperator>
+										<ListButton bxml:id="checkOperatorListButton">
+										</ListButton>
+									</checkOperator>
 
 									<maximum>
 										<TextInput strictValidation="true" textKey="maximum">

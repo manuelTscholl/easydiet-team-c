@@ -104,7 +104,14 @@ public class ParameterDefinitionBo implements java.io.Serializable, Saveable,
 
 	@Override
 	public String toString() {
-		return getName();
+		String unit = "";
+		if (_ParameterDefinition.getUnits().toArray() != null
+				&& _ParameterDefinition.getUnits().toArray().length > 0) {
+			unit = " ["
+					+ _ParameterDefinition.getUnits().toArray()[0].toString()
+					+ "]";
+		}
+		return getName() + unit;
 	}
 
 }

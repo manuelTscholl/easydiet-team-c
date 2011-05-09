@@ -31,6 +31,7 @@ import org.apache.pivot.wtk.TreeView;
 import org.apache.pivot.wtk.TreeViewBranchListener;
 
 import at.easydiet.teamc.controller.GUIController;
+import at.easydiet.teamc.model.data.CheckOperatorData;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleVo;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.RecipeData;
@@ -71,6 +72,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	// instance variables | datas
 	private List<NutrimentParameterRuleVo> _parameters;
 	private List<RecipeData> _recipesMainCategories;
+	private List<CheckOperatorData> _checkOperators;
 
 	{
 		_parameters = new ArrayList<NutrimentParameterRuleVo>();
@@ -140,6 +142,9 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 		// TODO set unit list button data
 		// GUIController.getInstance().getAllParameterDefinitionUnits();
+
+		// TODO set check operator button data
+		// GUIController.getInstance().getAllCheckOperators();
 	}
 
 	/**
