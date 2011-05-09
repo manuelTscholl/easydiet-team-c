@@ -2,14 +2,17 @@ package at.easydiet.teamc.model;
 // Generated 02.04.2011 00:41:04 by Hibernate Tools 3.4.0.CR1
 
 
+import at.easydiet.teamc.model.data.NutrimentParameterData;
 import java.sql.Clob;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import at.easydiet.model.NutrimentParameter;
 import at.easydiet.model.Recipe;
 import at.easydiet.model.RecipeIngredient;
 import at.easydiet.teamc.model.data.RecipeData;
+import java.util.ArrayList;
 
 
 
@@ -47,6 +50,13 @@ public class RecipeBo  implements java.io.Serializable, Saveable, RecipeData {
             this._Recipe.getNutrimentParameters().add(nutrimentParameterBo.getNutrimentParameter());
         }
 
+    }
+
+    /**
+     * Calculates the values for all nutriment parameter.
+     */
+    public void calculateNutrimentParameter(){
+        throw new UnsupportedOperationException("Not supported yet.");
     }
    
     public long getRecipeId() {
@@ -155,6 +165,29 @@ public class RecipeBo  implements java.io.Serializable, Saveable, RecipeData {
 
     public String toString(){
         return _Recipe.getName();
+    }
+
+    public List<RecipeData> getRecipeIngredientsData() {
+        List<RecipeData> temp = new ArrayList<RecipeData>(this.getRecipeIngredientsBo().size());
+
+        if(this.getRecipeIngredientsBo().size()<=0){
+            temp.add((RecipeData) this);
+            return temp;
+        }
+
+        for (RecipeIngredientBo rib: this.getRecipeIngredientsBo()) {
+            temp.add((RecipeData) rib.getIngredient());
+        }
+
+        return temp;
+    }
+
+    public List<NutrimentParameterData> getNutrimentParametersData() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public float getTotalAmount() {
+        return this._Recipe.getAmount();
     }
 
 }

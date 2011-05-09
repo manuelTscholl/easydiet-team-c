@@ -5,6 +5,9 @@
 
 package at.easydiet.teamc.model.data;
 
+import java.sql.Clob;
+import java.util.List;
+
 /**
  *
  * @author Stephan
@@ -20,4 +23,40 @@ public interface RecipeData {
      * @return
      */
     public String getBlsCode();
+    /**
+     * Get the Benefits of the recipe
+     * @return
+     */
+    public Clob getBenefits();
+    /**
+     * Description of the recipe
+     * @return
+     */
+    public Clob getDescription();
+    /**
+     * Complexity of the recipe.
+     * @return
+     */
+    public int getDifficulty();
+    /**
+     * Describes how to cook the recipe.
+     * @return
+     */
+    public Clob getCookInstructions();
+    /**
+     * Ingredients of the recipe.
+     * @return
+     */
+    public List<RecipeData> getRecipeIngredientsData();
+    /**
+     * List of all BLS parameter calculated for the whole recipe
+     * @return
+     */
+    public List<NutrimentParameterData> getNutrimentParametersData();
+
+    /**
+     * Total amount of the recipe.
+     * @return
+     */
+    public float getTotalAmount();
 }
