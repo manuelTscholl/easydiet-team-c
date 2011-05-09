@@ -29,12 +29,13 @@ public class ParameterTableView extends TableView {
 	}
 
 	/**
-	 * Set the parameters
+	 * Set a parameter in specific row
 	 * 
 	 * @param param
 	 */
-	public void setParameterData(List<ParameterDefinitionData> param) {
-		_parameterCache = param;
+	public void setParameterData(ParameterDefinitionData p, int index) {
+		HashMap<String, ParameterDefinitionData> map = _tableData.get(index);
+		map.put("parameter", p);
 	}
 
 	/**
