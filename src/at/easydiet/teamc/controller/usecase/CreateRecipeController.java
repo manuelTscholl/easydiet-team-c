@@ -6,11 +6,14 @@
  */
 package at.easydiet.teamc.controller.usecase;
 
+import java.util.List;
+
 import at.easydiet.model.Recipe;
 import at.easydiet.teamc.model.NutrimentRulesBo;
 import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.NutrimentParameterData;
+import at.easydiet.teamc.model.data.NutrimentParameterRuleVo;
 import at.easydiet.teamc.model.data.RecipeData;
 
 public class CreateRecipeController {
@@ -36,6 +39,16 @@ public class CreateRecipeController {
 		return null;
 	}
 	
+	public List<NutrimentParameterRuleVo> checkRecipe()
+	{
+	    //FIXME: implementieren	    
+	    return null;
+	}
+	
+	public void save()
+	{
+	    //FIXME: implementieren
+	}
 	
 
 }

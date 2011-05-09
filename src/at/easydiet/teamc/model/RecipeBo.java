@@ -190,6 +190,14 @@ public class RecipeBo  implements java.io.Serializable, Saveable, RecipeData {
     public float getTotalAmount() {
         return this._Recipe.getAmount();
     }
+    
+    public void calcParameters()
+    {
+        for (RecipeIngredientBo recipeIngredient : getRecipeIngredientsBo())
+        {
+            //FIXME: muss implementiert werden
+        }
+    }
 
 }
 
