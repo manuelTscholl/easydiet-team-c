@@ -1,7 +1,7 @@
 /**
  * This File is part of Easy Diet
  * created on: 07.05.2011
- * created by: Friedrich Bösch
+ * created by: Friedrich BÃ¶sch
  * file: CreateRecipeController
  */
 package at.easydiet.teamc.controller.usecase;
@@ -9,7 +9,9 @@ package at.easydiet.teamc.controller.usecase;
 import at.easydiet.model.Recipe;
 import at.easydiet.teamc.model.NutrimentRulesBo;
 import at.easydiet.teamc.model.RecipeBo;
+import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.NutrimentParameterData;
+import at.easydiet.teamc.model.data.RecipeData;
 
 public class CreateRecipeController {
 
@@ -28,5 +30,12 @@ public class CreateRecipeController {
 	public void addParameter(NutrimentParameterData np) {
 
 	}
+
+	public CheckedRecipeVo addRecipeIngredient(RecipeData d) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 
 }
