@@ -30,7 +30,6 @@ import org.apache.pivot.wtk.TreeViewBranchListener;
 
 import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleVo;
-import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.RecipeData;
 
 /**
@@ -50,6 +49,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	private PushButton _addParameterButton;
 	private PushButton _removeParameterButton;
 	private ParameterTableView _parameterTableView;
+	private ListButton _parameterListButton;
 	private TextInput _recipeSearchTextInput;
 	private PushButton _searchRecipeButton;
 	private RecipeTreeView _recipeTreeView;
@@ -84,6 +84,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 		 * Parameterwerte validieren, Menge validieren, Zubereitungszeit
 		 * validieren
 		 */
+		System.out.println(map);
 
 		// get GUI components
 		_recipeNameTextInput = (TextInput) map.get("nameTextInput");
@@ -91,6 +92,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 		_removeParameterButton = (PushButton) map.get("removeParameterButton");
 		_parameterTableView = (ParameterTableView) map
 				.get("parameterTableView");
+		_parameterListButton = (ListButton) map.get("parameterListButton");
 		_recipeSearchTextInput = (TextInput) map.get("recipeSearchTextInput");
 		_searchRecipeButton = (PushButton) map.get("searchRecipeButton");
 		_recipeTreeView = (RecipeTreeView) map.get("recipeTreeView");
@@ -124,9 +126,11 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	 * Initialize data lists
 	 */
 	private void initDataLists() {
-		// TODO getAllNutrimentParameters -> cachen
-		_parameterTableView.setParameterData(GUIController.getInstance()
+
+		// set data for parameter list
+		_parameterListButton.setListData(GUIController.getInstance()
 				.getAllParameterDefinitions());
+		_parameterTableView.addParameter();
 
 		_recipesMainCategories = GUIController.getInstance()
 				.getRecipeMainCategories();
@@ -233,14 +237,10 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 					@Override
 					public void buttonPressed(Button arg0) {
-
-						// get selected parameter
-						ParameterDefinitionData remove = _parameterTableView
-								.getTableData()
-								.get(_parameterTableView.getSelectedIndex())
-								.get("parameter");
-
-						_parameterTableView.removeParameter(remove);
+						System.out.println(_parameterTableView
+								.getSelectedIndex());
+						_parameterTableView.removeParameter(_parameterTableView
+								.getSelectedIndex());
 
 					}
 				});

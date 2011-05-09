@@ -23,7 +23,6 @@ public class SearchParameterController {
 			.getLogger(SearchParameterController.class);
 	private static volatile SearchParameterController _searchParameterController = null;
 	// instance variables
-	private DatabaseController _dbController;
 	private Set<PatientData> _lastSearchResult;
 	private boolean _running = false;
 	private final int _sleepBetweenEachSearchLoop = 500;
@@ -35,11 +34,10 @@ public class SearchParameterController {
 	 */
 	public List<DietParameterBo> getAllParameters() {
 
-		List<DietParameterBo> parameters = _dbController.getInstance()
+		List<DietParameterBo> parameters = DatabaseController.getInstance()
 				.getAllParameters();
 
-                
-                System.out.println(parameters.get(0).getParameterName());
+		System.out.println(parameters.get(0).getParameterName());
 		return parameters;
 	}
 
@@ -57,7 +55,7 @@ public class SearchParameterController {
 	}
 
 	public List<ParameterDefinitionData> getAllParameterDefinitions() {
-		List<ParameterDefinitionBo> params = _dbController
+		List<ParameterDefinitionBo> params = DatabaseController.getInstance()
 				.getAllParameterDefinitions();
 		List<ParameterDefinitionData> paramsToReturn = new ArrayList<ParameterDefinitionData>();
 		// encapsulate the bo's with putting the interface around
