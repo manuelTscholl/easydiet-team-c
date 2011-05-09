@@ -245,8 +245,6 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 					@Override
 					public void buttonPressed(Button arg0) {
-						System.out.println(_parameterTableView
-								.getSelectedIndex());
 						_parameterTableView.removeParameter(_parameterTableView
 								.getSelectedIndex());
 
