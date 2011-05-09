@@ -3,7 +3,6 @@ package at.easydiet.teamc.model;
 
 import at.easydiet.teamc.model.data.DietPlanParameterCollectionVo;
 import at.easydiet.teamc.model.data.ValueRange;
-import at.easydiet.teamc.model.data.Saveable;
 import at.easydiet.teamc.model.data.MealData;
 
 import java.util.ArrayList;
