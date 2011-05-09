@@ -12,6 +12,7 @@ import at.easydiet.model.NutrimentParameter;
 import at.easydiet.model.Recipe;
 import at.easydiet.model.RecipeIngredient;
 import at.easydiet.teamc.model.data.RecipeData;
+import at.easydiet.teamc.model.data.RecipeIngredientData;
 import java.util.ArrayList;
 
 
@@ -167,16 +168,16 @@ public class RecipeBo  implements java.io.Serializable, Saveable, RecipeData {
         return _Recipe.getName();
     }
 
-    public List<RecipeData> getRecipeIngredientsData() {
-        List<RecipeData> temp = new ArrayList<RecipeData>(this.getRecipeIngredientsBo().size());
+    public List<RecipeIngredientData> getRecipeIngredientsData() {
+        List<RecipeIngredientData> temp = new ArrayList<RecipeIngredientData>(this.getRecipeIngredientsBo().size());
 
         if(this.getRecipeIngredientsBo().size()<=0){
-            temp.add((RecipeData) this);
+            temp.add((RecipeIngredientData) this);
             return temp;
         }
 
         for (RecipeIngredientBo rib: this.getRecipeIngredientsBo()) {
-            temp.add((RecipeData) rib.getIngredient());
+            temp.add((RecipeIngredientData) rib.getIngredient());
         }
 
         return temp;
