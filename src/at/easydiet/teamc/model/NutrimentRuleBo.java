@@ -23,6 +23,11 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
         this._checkOperatorBo=checkOperator;
         this._value=0;
     }
+    public NutrimentRuleBo(ParameterDefinitionBo parameterdefinition, CheckOperatorBo checkOperator,double val) {
+        this._parameterDefintionBo=parameterdefinition;
+        this._checkOperatorBo=checkOperator;
+        this._value=val;
+    }
 
     public String getName(){
         return this._parameterDefintionBo.getName();

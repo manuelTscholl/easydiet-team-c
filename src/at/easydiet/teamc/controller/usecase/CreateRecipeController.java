@@ -6,12 +6,14 @@
  */
 package at.easydiet.teamc.controller.usecase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 import at.easydiet.dao.HibernateUtil;
 import at.easydiet.model.Recipe;
 import at.easydiet.teamc.model.CheckOperatorBo;
+import at.easydiet.teamc.model.NutrimentRuleBo;
 import at.easydiet.teamc.model.NutrimentRulesBo;
 import at.easydiet.teamc.model.ParameterDefinitionBo;
 import at.easydiet.teamc.model.RecipeBo;
@@ -47,8 +49,11 @@ public class CreateRecipeController {
 	
 	public List<NutrimentParameterRuleData> checkRecipe()
 	{
-	    //FIXME: implementieren	    
-	    return null;
+		List<NutrimentParameterRuleData> toReturn=new ArrayList<NutrimentParameterRuleData>();
+		for(NutrimentRuleBo nrbo:this._currentRules.checkRecipe(this._currentRecipe)){
+			toReturn.add((NutrimentParameterRuleData)nrbo);
+		}
+	   return toReturn;
 	}
 	
 	public void save()
