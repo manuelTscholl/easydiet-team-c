@@ -47,7 +47,7 @@ public interface RecipeData {
      * Ingredients of the recipe.
      * @return
      */
-    public List<RecipeData> getRecipeIngredientsData();
+    public List<RecipeIngredientData> getRecipeIngredientsData();
     /**
      * List of all BLS parameter calculated for the whole recipe
      * @return

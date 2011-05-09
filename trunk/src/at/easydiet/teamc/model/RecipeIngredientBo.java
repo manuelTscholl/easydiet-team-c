@@ -15,7 +15,7 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable, Reci
 {
 
     
-    private RecipeBo _ingredient;
+    private RecipeBo _recipe;
     private RecipeIngredient _RecipeIngredient;
 
     /**
@@ -82,7 +82,7 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable, Reci
      */
     public RecipeBo getIngredient()
     {
-        return this._ingredient;
+        return this._recipe;
     }
     
     /**       
@@ -92,7 +92,7 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable, Reci
     public void setIngredient(RecipeBo ingredientBo)
     {
         this.getRecipeIngredient().setIngredient(ingredientBo.getRecipe());
-        this._ingredient=ingredientBo;
+        this._recipe=ingredientBo;
 
     }
 
@@ -115,41 +115,8 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable, Reci
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public String getName() {
-        return this._ingredient.getName();
+    public RecipeData getRecipeData() {
+        return (RecipeData) this._recipe;
     }
 
-    public String getBlsCode() {
-        return this._ingredient.getBlsCode();
-    }
-
-    public Clob getBenefits() {
-        return this._ingredient.getBenefits();
-    }
-
-    public Clob getDescription() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public int getDifficulty() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public Clob getCookInstructions() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<RecipeData> getRecipeIngredientsData() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<NutrimentParameterData> getNutrimentParametersData() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public float getTotalAmount() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    
 }
