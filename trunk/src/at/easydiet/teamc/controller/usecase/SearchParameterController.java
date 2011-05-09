@@ -52,9 +52,9 @@ public class SearchParameterController {
 		return _searchParameterController;
 	}
 
-	public List<ParameterDefinitionData> getAllNutrimentParameters() {
+	public List<ParameterDefinitionData> getAllParameterDefinitions() {
 		List<ParameterDefinitionBo> params = _dbController
-				.getAllNutrimentParameters();
+				.getAllParameterDefinitions();
 		List<ParameterDefinitionData> paramsToReturn = new ArrayList<ParameterDefinitionData>();
 		// encapsulate the bo's with putting the interface around
 		for (ParameterDefinitionBo dbo : params) {
