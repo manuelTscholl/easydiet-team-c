@@ -1,7 +1,7 @@
 /**
  * This File is part of Easy Diet
  * created on: 05.04.2011
- * created by: Friedrich Bösch
+ * created by: Ali Gümüs
  * file: BusinesLogicDelegationController.java
  */
 package at.easydiet.teamc.controller;
