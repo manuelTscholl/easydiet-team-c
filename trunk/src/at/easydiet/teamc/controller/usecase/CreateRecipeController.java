@@ -9,7 +9,6 @@ package at.easydiet.teamc.controller.usecase;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import at.easydiet.dao.HibernateUtil;
 import at.easydiet.model.Recipe;
 import at.easydiet.teamc.model.CheckOperatorBo;
@@ -22,6 +21,7 @@ import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.RecipeData;
+import at.easydiet.teamc.model.data.ValidatedRecipeVo;
 
 public class CreateRecipeController {
 
@@ -34,36 +34,36 @@ public class CreateRecipeController {
 	public void create() {
 
 		_currentRecipe = new RecipeBo(new Recipe());
-                _currentRules = new NutrimentRulesBo();
+		_currentRules = new NutrimentRulesBo();
 
 	}
 
-	public void addParameter(ParameterDefinitionData pdd, CheckOperatorData cod, double value) {
-            _currentRules.addParameter((ParameterDefinitionBo) pdd, (CheckOperatorBo) cod, value);
+	public void addParameter(ParameterDefinitionData pdd,
+			CheckOperatorData cod, double value) {
+		_currentRules.addParameter((ParameterDefinitionBo) pdd,
+				(CheckOperatorBo) cod, value);
 	}
 
 	public CheckedRecipeVo addRecipeIngredient(RecipeData d, float amount) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public List<NutrimentParameterRuleData> checkRecipe()
-	{
-		List<NutrimentParameterRuleData> toReturn=new ArrayList<NutrimentParameterRuleData>();
-		for(NutrimentRuleBo nrbo:this._currentRules.checkRecipe(this._currentRecipe)){
-			toReturn.add((NutrimentParameterRuleData)nrbo);
+
+	public ValidatedRecipeVo checkRecipe() {
+		List<NutrimentParameterRuleData> nutrimentParams = new ArrayList<NutrimentParameterRuleData>();
+		for (NutrimentRuleBo nrbo : this._currentRules
+				.checkRecipe(this._currentRecipe)) {
+			nutrimentParams.add((NutrimentParameterRuleData) nrbo);
 		}
-	   return toReturn;
+		ValidatedRecipeVo validatedRecipe = new ValidatedRecipeVo(
+				(RecipeData) this._currentRecipe, nutrimentParams);
+		return validatedRecipe;
 	}
-	
-	public void save()
-	{
-	    HibernateUtil.currentSession().beginTransaction();
-	    _currentRecipe.save();
-	    HibernateUtil.currentSession().getTransaction().commit();
+
+	public void save() {
+		HibernateUtil.currentSession().beginTransaction();
+		_currentRecipe.save();
+		HibernateUtil.currentSession().getTransaction().commit();
 	}
-	
-	
-	
 
 }
