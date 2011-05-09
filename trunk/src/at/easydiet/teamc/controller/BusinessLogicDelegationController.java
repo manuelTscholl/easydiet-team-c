@@ -11,8 +11,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.RecipeDAO;
+import at.easydiet.model.CheckOperator;
 import at.easydiet.model.NutrimentParameter;
+import at.easydiet.model.ParameterDefinitionUnit;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import at.easydiet.teamc.controller.usecase.CreateRecipeController;
 import at.easydiet.teamc.controller.usecase.DietryPlanController;
@@ -23,11 +26,13 @@ import at.easydiet.teamc.exception.NoDateException;
 import at.easydiet.teamc.exception.NoDietTreatmentException;
 import at.easydiet.teamc.exception.NoPatientException;
 import at.easydiet.teamc.exception.TimeIntersectionException;
+import at.easydiet.teamc.model.CheckOperatorBo;
 import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.ParameterDefinitionUnitBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.SystemUserBo;
+import at.easydiet.teamc.model.data.CheckOperatorData;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.DietParameterData;
 import at.easydiet.teamc.model.data.DietryPlanData;
@@ -37,6 +42,7 @@ import at.easydiet.teamc.model.data.NutrimentParameterData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.data.RecipeData;
+import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
 
@@ -389,6 +395,26 @@ public class BusinessLogicDelegationController
     public List<ParameterDefinitionUnitData> getAllParameterDefinitionUnits()
     {
         return new ArrayList<ParameterDefinitionUnitData>(DatabaseController.getInstance().getAllParameterDefinitionUnits());
+    }
+    
+    
+    /**
+     * 
+     * @return
+     */
+    public List<CheckOperatorData> getAllCheckoperators()
+    {
+        
+        return new ArrayList<CheckOperatorData>(DatabaseController.getInstance().getAllCheckoperators());
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public List<ParameterDefinitionUnitData> getAllParameterDefinitionUnit()
+    {
+        return new ArrayList<ParameterDefinitionUnitData>(DatabaseController.getInstance().getAllParameterDefinitionUnit());
     }
 
 }

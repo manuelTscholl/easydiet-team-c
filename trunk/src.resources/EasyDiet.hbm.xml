@@ -133,7 +133,7 @@
 			<key column="ParameterDefinitionId" not-null="true" />
 			<many-to-many class="ParameterDefinitionUnit" column="ParameterDefinitionUnitId" />
 		</set>        
-	</class>
+	</class> 
 
 	<class name="ParameterDefinitionDataType">
 		<meta attribute="is-enum">true</meta>
