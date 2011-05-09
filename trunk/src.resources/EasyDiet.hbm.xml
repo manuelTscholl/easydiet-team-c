@@ -342,14 +342,14 @@
 		
 		<!-- Used for NutrimentParameter calculations -->
 		<property name="amount" column="Amount" type="float" />
-		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" />
+		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" lazy="false"/>
 
-		<set name="ingredients" inverse="true">
+		<set name="ingredients" inverse="true" lazy="false">
 			<key column="RecipeId" not-null="true" />
 			<one-to-many class="RecipeIngredient" />
 		</set>
 
-		<set name="nutrimentParameters">
+		<set name="nutrimentParameters" lazy="false">
 			<key column="RecipeId" not-null="true" />
 			<one-to-many class="NutrimentParameter" />
 		</set>

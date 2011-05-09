@@ -8,6 +8,10 @@ package at.easydiet.teamc.controller.usecase;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
+
+import at.easydiet.dao.DAOFactory;
+import at.easydiet.dao.HibernateUtil;
 import at.easydiet.model.Recipe;
 import at.easydiet.teamc.model.NutrimentRulesBo;
 import at.easydiet.teamc.model.RecipeBo;
@@ -47,7 +51,9 @@ public class CreateRecipeController {
 	
 	public void save()
 	{
-	    //FIXME: implementieren
+	    HibernateUtil.currentSession().beginTransaction();
+	    _currentRecipe.save();
+	    HibernateUtil.currentSession().getTransaction().commit();
 	}
 	
 	
