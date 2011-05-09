@@ -1,7 +1,7 @@
 /**
  * This File is part of Easy Diet
  * created on: 05.04.2011
- * created by: Friedrich Bösch
+ * created by: Friedrich BÃ¶sch
  * file: BusinesLogicDelegationController.java
  */
 package at.easydiet.teamc.controller;
@@ -328,5 +328,8 @@ public class BusinessLogicDelegationController {
 		_createRecipeController.addParameter(np);
 	}
 	
+	public CheckedRecipeVo addRecipeIngredient(RecipeData d){
+		return _createRecipeController.addRecipeIngredient(d);
+	}
 	
 }
