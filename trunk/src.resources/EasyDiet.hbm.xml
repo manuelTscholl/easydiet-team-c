@@ -120,7 +120,7 @@
 		</id>
 	</class>
 	
-	<class name="ParameterDefinition">
+	<class name="ParameterDefinition" lazy="false">
 		<id name="parameterDefinitionId" column="ParameterDefinitionId"
 			type="long">
 			<generator class="native" />
@@ -129,13 +129,13 @@
 		<property name="checkPattern" column="CheckPattern" type="string" />	
         
         <!-- No lazy loading, we will need units always -->
-        <set name="units" table="ParameterDefinitionUnits" lazy="false">
+        <set name="units" table="ParameterDefinitionUnits" lazy="false" fetch="join">
 			<key column="ParameterDefinitionId" not-null="true" />
 			<many-to-many class="ParameterDefinitionUnit" column="ParameterDefinitionUnitId" lazy="false"/>
 		</set>        
 	</class> 
 
-	<class name="ParameterDefinitionDataType">
+	<class name="ParameterDefinitionDataType" lazy="false">
 		<meta attribute="is-enum">true</meta>
 		<id name="name" column="Name" type="string">
 			<meta attribute="use-in-tostring">true</meta>
@@ -143,7 +143,7 @@
 	</class>
 
     
-    <class name="ParameterDefinitionUnit">
+    <class name="ParameterDefinitionUnit" lazy="false">
         <id name="parameterDefinitionUnitId" column="ParameterDefinitionUnitId" type="long">
 			<generator class="native" />
 		</id>
