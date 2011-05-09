@@ -55,4 +55,9 @@ public class CheckOperatorBo implements java.io.Serializable, Saveable,
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
+	@Override
+	public String toString() {
+		return getName();
+	}
+
 }

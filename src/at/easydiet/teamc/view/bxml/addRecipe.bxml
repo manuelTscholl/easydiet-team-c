@@ -78,10 +78,13 @@
 										</ListButton>
 									</checkOperator>
 
-									<maximum>
-										<TextInput strictValidation="true" textKey="maximum">
+									<value>
+										<TextInput strictValidation="true" textKey="value">
+											<validator>
+													<util:DoubleValidator />
+												</validator>
 										</TextInput>
-									</maximum>
+									</value>
 								</cellEditors>
 							</content:TableViewRowEditor>
 						</rowEditor>
