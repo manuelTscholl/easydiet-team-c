@@ -8,16 +8,17 @@ package at.easydiet.teamc.controller.usecase;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
 
-import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.HibernateUtil;
 import at.easydiet.model.Recipe;
+import at.easydiet.teamc.model.CheckOperatorBo;
 import at.easydiet.teamc.model.NutrimentRulesBo;
+import at.easydiet.teamc.model.ParameterDefinitionBo;
 import at.easydiet.teamc.model.RecipeBo;
+import at.easydiet.teamc.model.data.CheckOperatorData;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
-import at.easydiet.teamc.model.data.NutrimentParameterData;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
+import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.RecipeData;
 
 public class CreateRecipeController {
@@ -26,16 +27,17 @@ public class CreateRecipeController {
 	// controller
 	private RecipeBo _currentRecipe;
 
-	NutrimentRulesBo _currentRules;
+	private NutrimentRulesBo _currentRules;
 
 	public void create() {
 
 		_currentRecipe = new RecipeBo(new Recipe());
+                _currentRules = new NutrimentRulesBo();
 
 	}
 
-	public void addParameter(NutrimentParameterData np) {
-
+	public void addParameter(ParameterDefinitionData pdd, CheckOperatorData cod, double value) {
+            _currentRules.addParameter((ParameterDefinitionBo) pdd, (CheckOperatorBo) cod, value);
 	}
 
 	public CheckedRecipeVo addRecipeIngredient(RecipeData d, float amount) {
