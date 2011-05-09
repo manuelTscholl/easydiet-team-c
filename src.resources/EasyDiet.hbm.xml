@@ -342,14 +342,14 @@
 		
 		<!-- Used for NutrimentParameter calculations -->
 		<property name="amount" column="Amount" type="float" />
-		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" lazy="false"/>
+		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" />
 
-		<set name="ingredients" inverse="true" lazy="false">
+		<set name="ingredients" inverse="true">
 			<key column="RecipeId" not-null="true" />
 			<one-to-many class="RecipeIngredient" />
 		</set>
 
-		<set name="nutrimentParameters" lazy="false">
+		<set name="nutrimentParameters">
 			<key column="RecipeId" not-null="true" />
 			<one-to-many class="NutrimentParameter" />
 		</set>
@@ -376,8 +376,8 @@
 		</id>
 		<property name="value" column="Value" type="string" not-null="true" />
 
-		<many-to-one name="parameterDefinition" column="ParameterDefinitionId" class="ParameterDefinition" not-null="true"/>
-		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" not-null="true"/>
+		<many-to-one name="parameterDefinition" column="ParameterDefinitionId" lazy="false" "ParameterDefinition" not-null="true"/>
+		<many-to-one name="unit" column="ParameterDefinitionUnitId" lazy="false" class="ParameterDefinitionUnit" not-null="true"/>
 	</class>
 
 	<class name="PatientStateType">
