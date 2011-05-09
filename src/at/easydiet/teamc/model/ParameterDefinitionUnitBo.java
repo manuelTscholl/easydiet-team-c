@@ -1,12 +1,13 @@
 package at.easydiet.teamc.model;
 
 import at.easydiet.model.ParameterDefinitionUnit;
+import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 
 
 /**
  * Represents a ParameterDefinitionUnit
  */
-public class ParameterDefinitionUnitBo  implements java.io.Serializable, Saveable
+public class ParameterDefinitionUnitBo  implements java.io.Serializable, Saveable, ParameterDefinitionUnitData
 {
 
     /**

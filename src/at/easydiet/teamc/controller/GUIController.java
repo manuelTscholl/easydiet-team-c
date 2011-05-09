@@ -26,11 +26,14 @@ import at.easydiet.teamc.exception.NoDateException;
 import at.easydiet.teamc.exception.NoDietTreatmentException;
 import at.easydiet.teamc.exception.NoPatientException;
 import at.easydiet.teamc.exception.TimeIntersectionException;
+import at.easydiet.teamc.model.ParameterDefinitionUnitBo;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.DietParameterData;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.MealData;
+import at.easydiet.teamc.model.data.ParameterDefinitionData;
+import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.util.CollectionConverter;
@@ -427,4 +430,17 @@ public class GUIController implements PatientListener {
 	public void saveRecipe() {
 		// TODO implement save recipe
 	}
+	
+	public org.apache.pivot.collections.List<ParameterDefinitionUnitData> getAllParameterDefinitionUnits()
+    {
+	       return (List<ParameterDefinitionUnitData>) CollectionConverter
+           .convertToPivotList(_businessLogicDelegationController.getAllParameterDefinitionUnits());
+    }
+
+	   public org.apache.pivot.collections.List<ParameterDefinitionData> getAllParameterDefinitions()
+	    {
+	           return (List<ParameterDefinitionData>) CollectionConverter
+	           .convertToPivotList(_businessLogicDelegationController.getAllParameterDefinitions());
+	    }
+
 }
