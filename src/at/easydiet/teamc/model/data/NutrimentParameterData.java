@@ -6,6 +6,8 @@
  */
 package at.easydiet.teamc.model.data;
 
-public class NutrimentParameterData {
+public interface NutrimentParameterData {
 
+    public String getName();
+    
 }
