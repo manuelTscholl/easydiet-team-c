@@ -382,9 +382,9 @@ public class BusinessLogicDelegationController
         _createRecipeController.create();
     }
 
-    public void addParameter(NutrimentParameterData np)
+    public void addParameter(ParameterDefinitionData pd, CheckOperatorData cod, double value)
     {
-        _createRecipeController.addParameter(np);
+        _createRecipeController.addParameter(pd, cod, value);
     }
 
     public CheckedRecipeVo addRecipeIngredient(RecipeData d, float amount)
