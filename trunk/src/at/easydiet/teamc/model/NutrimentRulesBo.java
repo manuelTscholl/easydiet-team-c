@@ -25,7 +25,7 @@ public class NutrimentRulesBo {
 	public void addParameter(ParameterDefinitionBo parameterdefintion,
 			CheckOperatorBo checkOperatorBo, double value) {
 		_parameters.put(parameterdefintion.getName(), new NutrimentRuleBo(
-				parameterdefintion, checkOperatorBo));
+				parameterdefintion, checkOperatorBo,value));
 	}
 
 	public void changeParameter(NutrimentParameterRuleData nprv, double value) {
@@ -34,29 +34,31 @@ public class NutrimentRulesBo {
 
 	public List<NutrimentRuleBo> checkRecipe(RecipeBo recipe) {
 		List<NutrimentRuleBo> currParams = new ArrayList<NutrimentRuleBo>();
-
 		Set<NutrimentParameterBo> paramsOfRecipe = recipe
 				.getNutrimentParameters();
 
 		for (NutrimentParameterBo npbo : recipe.getNutrimentParameters()) {
 			NutrimentRuleBo currentPar = _parameters.get(npbo
 					.getParameterDefinition().getName());
-			double currValue = currentPar.getValue();
-			if (currentPar.getCheckOperator().equals("<=")) {
-				if (currValue >= Double.parseDouble(npbo.getValue())) {
-					currentPar.setIsViolated(true);
+			if (currentPar != null) {
+				double currValue = currentPar.getValue();
+				if (currentPar.getCheckOperator().equals("<=")) {
+					if (currValue > Double.parseDouble(npbo.getValue())) {
+						currentPar.setIsViolated(true);
 
-				} else {
-					currentPar.setIsViolated(false);
-				}
-			} else if (currentPar.getCheckOperator().equals("=>")) {
-				if (currValue <= Double.parseDouble(npbo.getValue())) {
-					currentPar.setIsViolated(true);
-				} else {
-					currentPar.setIsViolated(false);
-				}
+					} else {
+						currentPar.setIsViolated(false);
+					}
+				} else if (currentPar.getCheckOperator().equals(">=")) {
+					if (currValue < Double.parseDouble(npbo.getValue())) {
+						currentPar.setIsViolated(true);
+					} else {
+						currentPar.setIsViolated(false);
+					}
+				}//TODO implement missing checkoperators
+				currParams.add(currentPar);
 			}
-			currParams.add(currentPar);
+
 		}
 		return currParams;
 	}
