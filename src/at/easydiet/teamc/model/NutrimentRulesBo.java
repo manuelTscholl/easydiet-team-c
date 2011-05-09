@@ -24,8 +24,12 @@ public class NutrimentRulesBo {
 
 	public void addParameter(ParameterDefinitionBo parameterdefintion,
 			CheckOperatorBo checkOperatorBo, double value) {
-		_parameters.put(parameterdefintion.getName(), new NutrimentRuleBo(
-				parameterdefintion, checkOperatorBo,value));
+		if (!_parameters.containsKey(parameterdefintion.getName())) {
+			_parameters.put(parameterdefintion.getName(), new NutrimentRuleBo(
+					parameterdefintion, checkOperatorBo, value));
+		}else{
+			//TODO what to do if already added? call changeParameter or throw error message?
+		}
 	}
 
 	public void changeParameter(NutrimentParameterRuleData nprv, double value) {
@@ -55,7 +59,7 @@ public class NutrimentRulesBo {
 					} else {
 						currentPar.setIsViolated(false);
 					}
-				}//TODO implement missing checkoperators
+				}// TODO implement missing checkoperators
 				currParams.add(currentPar);
 			}
 

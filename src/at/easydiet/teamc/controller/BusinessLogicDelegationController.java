@@ -384,6 +384,7 @@ public class BusinessLogicDelegationController
 
     public void addParameter(ParameterDefinitionData pd, CheckOperatorData cod, double value)
     {
+    	//TODO should return a ValidatedRecipeBO
         _createRecipeController.addParameter(pd, cod, value);
     }
 
