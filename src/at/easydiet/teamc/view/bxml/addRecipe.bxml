@@ -11,7 +11,7 @@
 		<Separator heading="Generelle Informationen" />
 		<BoxPane bxml:id="generalInformationBoxPane">
 			<Label text="Rezeptname:" />
-			<TextInput bxml:id="nameTextInput" strictValidation="true"
+			<TextInput bxml:id="nameTextInput"
 				textKey="recipeName">
 				<validator>
 					<util:RecipeNameValidator />
@@ -79,7 +79,7 @@
 									</checkOperator>
 
 									<value>
-										<TextInput strictValidation="true" textKey="value">
+										<TextInput textKey="value">
 											<validator>
 													<util:DoubleValidator />
 												</validator>
@@ -187,7 +187,7 @@
 									<cellEditors>
 
 										<quantity>
-											<TextInput strictValidation="true" textKey="quantity">
+											<TextInput textKey="quantity">
 												<validator>
 													<util:DoubleValidator />
 												</validator>
@@ -261,7 +261,7 @@
 			<TablePane.Row height="-1">
 				<Label text="Zubereitungszeit: " />
 				<TextInput bxml:id="preparationTimeTextInput" textSize="3"
-					strictValidation="true" textKey="preparationTime">
+					 textKey="preparationTime">
 					<validator>
 						<util:DoubleValidator />
 					</validator>

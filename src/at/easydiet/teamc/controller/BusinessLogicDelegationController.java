@@ -55,7 +55,6 @@ public class BusinessLogicDelegationController {
 	private final SearchPatientController _searchPatientController;
 	private final SearchParameterController _searchParameterController;
 	private Thread _patientSearchThread;
-	private DietryPlanController _dietryPlanController;
 	private LoginController _loginController;
 	private CreateRecipeController _createRecipeController;
 
@@ -68,9 +67,6 @@ public class BusinessLogicDelegationController {
 	private BusinessLogicDelegationController() {
 		_searchPatientController = SearchPatientController.getInstance();
 		_searchParameterController = SearchParameterController.getInstance();
-
-		// TODO ONLY FOR TESTING!!!!
-		_dietryPlanController = DietryPlanController.getInstance();
 	}
 
 	/**
@@ -202,10 +198,10 @@ public class BusinessLogicDelegationController {
 			List<Double> parameterMinValues) throws NoPatientException,
 			NoDateException, TimeIntersectionException,
 			NoDietTreatmentException {
-		_dietryPlanController = DietryPlanController.getInstance();
+
 		try {
-			_dietryPlanController.newDietryPlan(startDate, endDate, params,
-					parameterMaxValues, parameterMinValues,
+			DietryPlanController.getInstance().newDietryPlan(startDate,
+					endDate, params, parameterMaxValues, parameterMinValues,
 					this._activePatient, getActualUser());
 		} catch (NoPatientException e) {
 			LOGGER.debug(e);
@@ -218,7 +214,7 @@ public class BusinessLogicDelegationController {
 		}
 
 		// return the DietryPlanData
-		return _dietryPlanController.getDietryPlan();
+		return DietryPlanController.getInstance().getDietryPlan();
 	}
 
 	/**
@@ -227,7 +223,7 @@ public class BusinessLogicDelegationController {
 	 * @return
 	 */
 	public Set<MealCodeData> getAllMealCodes() {
-		return _dietryPlanController.getAllMealCodes();
+		return DietryPlanController.getInstance().getAllMealCodes();
 	}
 
 	/**
@@ -238,7 +234,7 @@ public class BusinessLogicDelegationController {
 	 * @return
 	 */
 	public void addMealCode(MealCodeData mcd, int day) {
-		_dietryPlanController.addMealCode(mcd, day);
+		DietryPlanController.getInstance().addMealCode(mcd, day);
 	}
 
 	/**
@@ -247,7 +243,7 @@ public class BusinessLogicDelegationController {
 	 * @return Index of the MealLine
 	 */
 	public int addMealLine() {
-		return _dietryPlanController.addMealLine();
+		return DietryPlanController.getInstance().addMealLine();
 	}
 
 	/**
@@ -256,7 +252,7 @@ public class BusinessLogicDelegationController {
 	 * @return Main Categories of Recipes
 	 */
 	public List<RecipeData> getRecipeMainCategories() {
-		return _dietryPlanController.getRecipeMainCategories();
+		return DietryPlanController.getInstance().getRecipeMainCategories();
 	}
 
 	/**
@@ -267,7 +263,8 @@ public class BusinessLogicDelegationController {
 	 *         parameters
 	 */
 	public Set<CheckedRecipeVo> searchRecipe(String mainCategory, String search) {
-		return _dietryPlanController.searchRecipe(mainCategory, search);
+		return DietryPlanController.getInstance().searchRecipe(mainCategory,
+				search);
 	}
 
 	/**
@@ -282,8 +279,8 @@ public class BusinessLogicDelegationController {
 	 */
 	public MealData addRecipetoMeal(RecipeData rd, int day, float quantity,
 			int mealLineID, MealCodeData mealCode) {
-		return _dietryPlanController.addRecipeToMeal(rd, day, quantity,
-				mealLineID, mealCode);
+		return DietryPlanController.getInstance().addRecipeToMeal(rd, day,
+				quantity, mealLineID, mealCode);
 	}
 
 	/**
@@ -292,7 +289,7 @@ public class BusinessLogicDelegationController {
 	 * @return
 	 */
 	public void saveDietryPlan() {
-		_dietryPlanController.saveDietryPlan();
+		DietryPlanController.getInstance().saveDietryPlan();
 	}
 
 	/**
@@ -301,7 +298,7 @@ public class BusinessLogicDelegationController {
 	 * @return
 	 */
 	public DietryPlanData getDietryPlan() {
-		return _dietryPlanController.getDietryPlan();
+		return DietryPlanController.getInstance().getDietryPlan();
 	}
 
 	public List<RecipeData> recipeSearch(String mainCategory, String search) {

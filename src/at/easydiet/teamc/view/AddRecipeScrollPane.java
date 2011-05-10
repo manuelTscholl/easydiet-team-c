@@ -86,10 +86,8 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 		// TODO todo for add recipe gui
 		/*
-		 * Länge für Rezeptname überprüfen, Rezeptname erlaubte Zeichen
-		 * validieren, Überprüfen ob Rezeptname bereits vergeben ist,
-		 * Parameterwerte validieren, Menge validieren, Zubereitungszeit
-		 * validieren
+		 * Überprüfen ob Rezeptname bereits vergeben ist, Parameterwerte
+		 * validieren, Menge validieren
 		 */
 		System.out.println(map);
 
@@ -297,6 +295,17 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						_parameterTableView.setParameterData(param, index);
 						_parameterTableView.setCheckOperator(checkoperator,
 								index);
+
+						// set listbox default value
+						_parameterListButton.setSelectedIndex(0);
+						_checkOperatorListButton.setSelectedIndex(0);
+
+						// add parameter
+						double value = _parameterTableView.getValue(index);
+						addParameter(param, checkoperator, value, index);
+
+						// FIXME 2 gleiche parameter können nicht hinzugefügt
+						// werden!!
 					}
 				});
 
@@ -340,24 +349,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						CheckOperatorData operator = (CheckOperatorData) _checkOperatorListButton
 								.getSelectedItem();
 						double value = _parameterTableView.getValue(index);
-
-						ValidatedRecipeVo validated = GUIController
-								.getInstance().addParameter(parameter,
-										operator, value, index);
-
-						for (NutrimentParameterRuleData n : validated
-								.getNutrimentParameterRulesData()) {
-							System.out.println(n.getName());
-							_parameterTableView.setParameterData(
-									n.getParameterDefinitionData(), n.getRow());
-							_parameterTableView.setCheckOperator(
-									n.getCheckOperator(), n.getRow());
-							// TODO add value
-							// FIXME wenn neuer parameter hinzugefügt wird, wird
-							// der default wert zwar gesetzt, aber im rowEditor
-							// wird die vorherige Zeile angezeigt
-						}
-
+						addParameter(parameter, operator, value, index);
 					}
 
 					@Override
@@ -365,6 +357,28 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						// not neccessary in this context
 					}
 				});
+	}
+
+	/**
+	 * Add a parameter
+	 * 
+	 * @param parameter
+	 * @param operator
+	 * @param value
+	 * @param row
+	 */
+	private void addParameter(ParameterDefinitionData parameter,
+			CheckOperatorData operator, double value, int row) {
+		ValidatedRecipeVo validated = GUIController.getInstance().addParameter(
+				parameter, operator, value, row);
+
+		for (NutrimentParameterRuleData n : validated
+				.getNutrimentParameterRulesData()) {
+			_parameterTableView.setParameterData(
+					n.getParameterDefinitionData(), n.getRow());
+			_parameterTableView.setCheckOperator(n.getCheckOperator(),
+					n.getRow());
+		}
 	}
 
 	/**
@@ -443,7 +457,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 					@Override
 					public void buttonPressed(Button arg0) {
-						// TODO Auto-generated method stub
+						// not neccessary in this context
 					}
 				});
 

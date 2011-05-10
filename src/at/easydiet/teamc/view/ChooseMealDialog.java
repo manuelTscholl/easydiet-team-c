@@ -6,15 +6,10 @@
  */
 package at.easydiet.teamc.view;
 
-import at.easydiet.teamc.controller.GUIController;
-import at.easydiet.teamc.model.data.CheckedRecipeVo;
-import at.easydiet.teamc.model.data.MealCodeData;
-import at.easydiet.teamc.model.data.RecipeData;
-import at.easydiet.teamc.view.util.QuantityListener;
 import java.io.IOException;
 import java.net.URL;
-import org.apache.pivot.beans.BXMLSerializer;
 
+import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.List;
@@ -39,319 +34,373 @@ import org.apache.pivot.wtk.TreeView;
 import org.apache.pivot.wtk.TreeViewBranchListener;
 import org.apache.pivot.wtk.content.TreeBranch;
 
+import at.easydiet.teamc.controller.GUIController;
+import at.easydiet.teamc.model.data.CheckedRecipeVo;
+import at.easydiet.teamc.model.data.MealCodeData;
+import at.easydiet.teamc.model.data.RecipeData;
+import at.easydiet.teamc.view.util.QuantityListener;
+
 /**
  * Represents the ChooseMealDialog.bxml
+ * 
  * @author Michael
  */
-public class ChooseMealDialog extends Dialog implements Bindable, QuantityListener {
+public class ChooseMealDialog extends Dialog implements Bindable,
+		QuantityListener {
 
-    // class variables
-    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ChooseMealDialog.class);
-    // instance variables
-    private PushButton _chooseMealButton;
-    private ScrollPane _recipeScrollPane;
-    private TablePane _recipeTablePane;
-    private TextInput _searchTextInput;
-    private PushButton _searchButton;
-    private ListButton _mealChooserListButton;
-    private PushButton _addRecipeButton;
-    private PushButton _removeRecipeButton;
-    private PushButton _addAlternativeButton;
-    private PushButton _finishButton;
-    private TreeView _recipeTreeView;
-    private Accordion _chosenRecipeAccordion;
-    private ScrollPane _chosenRecipeScrollPane;
-    private List<MealCodeData> _mealCodes;
-    private int _day;
-    private List<MealLineBoxPane> _mealLines;
-    private RecipeData _actualRecipeData;
-    private MealLineBoxPane _actualMealLineBoxPane;
-    private ChooseMealDialog _chooseMealDialog;
-    private MealCodeData _actualMealCode;
+	// class variables
+	public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
+			.getLogger(ChooseMealDialog.class);
+	// instance variables
+	private PushButton _chooseMealButton;
+	private ScrollPane _recipeScrollPane;
+	private TablePane _recipeTablePane;
+	private TextInput _searchTextInput;
+	private PushButton _searchButton;
+	private ListButton _mealChooserListButton;
+	private PushButton _addRecipeButton;
+	private PushButton _removeRecipeButton;
+	private PushButton _addAlternativeButton;
+	private PushButton _finishButton;
+	private TreeView _recipeTreeView;
+	private Accordion _chosenRecipeAccordion;
+	private ScrollPane _chosenRecipeScrollPane;
+	private List<MealCodeData> _mealCodes;
+	private int _day;
+	private List<MealLineBoxPane> _mealLines;
+	private RecipeData _actualRecipeData;
+	private MealLineBoxPane _actualMealLineBoxPane;
+	private ChooseMealDialog _chooseMealDialog;
+	private MealCodeData _actualMealCode;
 
-    public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
-        _mealLines = new ArrayList<MealLineBoxPane>();
-        _chooseMealDialog = this;
+	@Override
+	public void initialize(Map<String, Object> namespace, URL location,
+			Resources resources) {
+		_mealLines = new ArrayList<MealLineBoxPane>();
+		_chooseMealDialog = this;
 
-        // get GUI components
-        _chooseMealButton = (PushButton) namespace.get("chooseMealButton");
-        _recipeScrollPane = (ScrollPane) namespace.get("recipeScrollPane");
-        _recipeTablePane = (TablePane) namespace.get("recipeTablePane");
-        _searchTextInput = (TextInput) namespace.get("recipeSearchTextInput");
-        _searchButton = (PushButton) namespace.get("searchButton");
-        _mealChooserListButton = (ListButton) namespace.get("mealChooserListButton");
-        _addRecipeButton = (PushButton) namespace.get("addRecipeButton");
-        _removeRecipeButton = (PushButton) namespace.get("removeRecipeButton");
-        _addAlternativeButton = (PushButton) namespace.get("addAlternativeButton");
-        _finishButton = (PushButton) namespace.get("finishButton");
-        _recipeTreeView = (TreeView) namespace.get("recipeTreeView");
-        _chosenRecipeScrollPane = (ScrollPane) namespace.get("chosenRecipeScrollPane");
-        _chosenRecipeAccordion = (Accordion) namespace.get("chosenMealAccordion");
+		// get GUI components
+		_chooseMealButton = (PushButton) namespace.get("chooseMealButton");
+		_recipeScrollPane = (ScrollPane) namespace.get("recipeScrollPane");
+		_recipeTablePane = (TablePane) namespace.get("recipeTablePane");
+		_searchTextInput = (TextInput) namespace.get("recipeSearchTextInput");
+		_searchButton = (PushButton) namespace.get("searchButton");
+		_mealChooserListButton = (ListButton) namespace
+				.get("mealChooserListButton");
+		_addRecipeButton = (PushButton) namespace.get("addRecipeButton");
+		_removeRecipeButton = (PushButton) namespace.get("removeRecipeButton");
+		_addAlternativeButton = (PushButton) namespace
+				.get("addAlternativeButton");
+		_finishButton = (PushButton) namespace.get("finishButton");
+		_recipeTreeView = (TreeView) namespace.get("recipeTreeView");
+		_chosenRecipeScrollPane = (ScrollPane) namespace
+				.get("chosenRecipeScrollPane");
+		_chosenRecipeAccordion = (Accordion) namespace
+				.get("chosenMealAccordion");
 
-        // get meal codes
-        _mealCodes = GUIController.getInstance().getAllMealCodes();
-        _mealChooserListButton.setListData(_mealCodes);
-        _mealChooserListButton.setSelectedIndex(0);
+		// get meal codes
+		_mealCodes = GUIController.getInstance().getAllMealCodes();
+		_mealChooserListButton.setListData(_mealCodes);
+		_mealChooserListButton.setSelectedIndex(0);
 
-        initRecipeMainCategories();
+		initRecipeMainCategories();
 
-        // add button listeners
-        _chooseMealButton.getButtonPressListeners().add(new ButtonPressListener() {
+		// add button listeners
+		_chooseMealButton.getButtonPressListeners().add(
+				new ButtonPressListener() {
 
-            public void buttonPressed(Button button) {
+					@Override
+					public void buttonPressed(Button button) {
 
-                // get and add mealCode Object
-                _actualMealCode = (MealCodeData) _mealChooserListButton.getSelectedItem();
-                GUIController.getInstance().addMealCode(_actualMealCode, _day);
+						// get and add mealCode Object
+						_actualMealCode = (MealCodeData) _mealChooserListButton
+								.getSelectedItem();
+						GUIController.getInstance().addMealCode(
+								_actualMealCode, _day);
 
-                // activate context
-                _recipeScrollPane.setVisible(true);
-                _chosenRecipeScrollPane.setVisible(true);
-                _addAlternativeButton.setEnabled(true);
-                _finishButton.setEnabled(true);
-                _addRecipeButton.setEnabled(true);
-                _removeRecipeButton.setEnabled(true);
+						// activate context
+						_recipeScrollPane.setVisible(true);
+						_chosenRecipeScrollPane.setVisible(true);
+						_addAlternativeButton.setEnabled(true);
+						_finishButton.setEnabled(true);
+						_addRecipeButton.setEnabled(true);
+						_removeRecipeButton.setEnabled(true);
 
-                // add first meal
-                addMealLine();
-            }
-        });
-        _finishButton.getButtonPressListeners().add(new ButtonPressListener() {
+						// add first meal
+						addMealLine();
+					}
+				});
+		_finishButton.getButtonPressListeners().add(new ButtonPressListener() {
 
-            public void buttonPressed(Button button) {
-                GUIController.getInstance().saveDietryPlan();         
-                close();
-            }
-        });
-        getComponentKeyListeners().add(new ComponentKeyListener() {
+			@Override
+			public void buttonPressed(Button button) {
+				GUIController.getInstance().saveDietryPlan();
+				close();
+			}
+		});
+		getComponentKeyListeners().add(new ComponentKeyListener() {
 
-            public boolean keyTyped(Component component, char character) {
-                return true;
-            }
+			@Override
+			public boolean keyTyped(Component component, char character) {
+				return true;
+			}
 
-            public boolean keyPressed(Component component, int keyCode, KeyLocation keyLocation) {
-                final int enterKey = 10;
-                
-                // check if enter button is pressed
-                if(keyCode == 10){
-                    _finishButton.press();
-                }
-                return true;
-            }
+			@Override
+			public boolean keyPressed(Component component, int keyCode,
+					KeyLocation keyLocation) {
+				final int enterKey = 10;
 
-            public boolean keyReleased(Component component, int keyCode, KeyLocation keyLocation) {
-                return true;
-            }
-        });
+				// check if enter button is pressed
+				if (keyCode == 10) {
+					_finishButton.press();
+				}
+				return true;
+			}
 
-        // listener for additional ingredients
-        _addAlternativeButton.getButtonPressListeners().add(new ButtonPressListener() {
+			@Override
+			public boolean keyReleased(Component component, int keyCode,
+					KeyLocation keyLocation) {
+				return true;
+			}
+		});
 
-            public void buttonPressed(Button button) {
-                addMealLine();
-            }
-        });
+		// listener for additional ingredients
+		_addAlternativeButton.getButtonPressListeners().add(
+				new ButtonPressListener() {
 
-        // add listener for add recipe button
-        _addRecipeButton.getButtonPressListeners().add(new ButtonPressListener() {
+					@Override
+					public void buttonPressed(Button button) {
+						addMealLine();
+					}
+				});
 
-            public void buttonPressed(Button button) {
+		// add listener for add recipe button
+		_addRecipeButton.getButtonPressListeners().add(
+				new ButtonPressListener() {
 
-                // check if a node is selected and not a branch
-                if (_recipeTreeView.getSelectedNode() instanceof RecipeTreeNode) {
+					@Override
+					public void buttonPressed(Button button) {
 
-                    // get selected recipe
-                    _actualRecipeData = ((RecipeTreeNode) _recipeTreeView.getSelectedNode()).getRecipeData();
-                    _actualMealLineBoxPane = (MealLineBoxPane) _chosenRecipeAccordion.getSelectedPanel();
-                    _actualMealLineBoxPane.addRecipe(_actualRecipeData);
+						// check if a node is selected and not a branch
+						if (_recipeTreeView.getSelectedNode() instanceof RecipeTreeNode) {
 
-                    // load dialog for creating a new dietplan
-                    BXMLSerializer bxml = new BXMLSerializer();
-                    QuantityDialog quantityDialog;
-                 
-                    try {
-                        quantityDialog = (QuantityDialog) bxml.readObject(ChooseMealDialog.class,
-                                "bxml/quantityPopup.bxml");
-                        quantityDialog.open(getWindow());
-                        quantityDialog.addQuantityListener(_chooseMealDialog);
-                    } catch (IOException ex) {
-                        LOGGER.error(ex);
-                    } catch (SerializationException ex) {
-                        LOGGER.error(ex);
-                    }
+							// get selected recipe
+							_actualRecipeData = ((RecipeTreeNode) _recipeTreeView
+									.getSelectedNode()).getRecipeData();
+							_actualMealLineBoxPane = (MealLineBoxPane) _chosenRecipeAccordion
+									.getSelectedPanel();
+							_actualMealLineBoxPane.addRecipe(_actualRecipeData);
 
-                }
-            }
-        });
+							// load dialog for creating a new dietplan
+							BXMLSerializer bxml = new BXMLSerializer();
+							QuantityDialog quantityDialog;
 
-        // add listener for removing recipes
-        _removeRecipeButton.getButtonPressListeners().add(new ButtonPressListener() {
+							try {
+								quantityDialog = (QuantityDialog) bxml
+										.readObject(ChooseMealDialog.class,
+												"bxml/quantityPopup.bxml");
+								quantityDialog.open(getWindow());
+								quantityDialog
+										.addQuantityListener(_chooseMealDialog);
+							} catch (IOException ex) {
+								LOGGER.error(ex);
+							} catch (SerializationException ex) {
+								LOGGER.error(ex);
+							}
 
-            public void buttonPressed(Button button) {
+						}
+					}
+				});
 
-                int selected = _chosenRecipeAccordion.getSelectedIndex();
-                MealLineBoxPane m = _mealLines.get(selected);
-                RecipeData r = m.getSelectedRecipe();
-                m.removeRecipe(r);
-            }
-        });
+		// add listener for removing recipes
+		_removeRecipeButton.getButtonPressListeners().add(
+				new ButtonPressListener() {
 
-        // listener for searching
-        _searchButton.getButtonPressListeners().add(new ButtonPressListener() {
+					@Override
+					public void buttonPressed(Button button) {
 
-            public void buttonPressed(Button button) {
+						int selected = _chosenRecipeAccordion
+								.getSelectedIndex();
+						MealLineBoxPane m = _mealLines.get(selected);
+						RecipeData r = m.getSelectedRecipe();
+						m.removeRecipe(r);
+					}
+				});
 
-                // get search string
-                String search = _searchTextInput.getText();
+		// listener for searching
+		_searchButton.getButtonPressListeners().add(new ButtonPressListener() {
 
-                if (!search.equals("")) {
-                    Set<CheckedRecipeVo> checkedRecipes =
-                            GUIController.getInstance().searchRecipe(null, search);
+			@Override
+			public void buttonPressed(Button button) {
 
-                    // clean tree view
-                    _recipeTreeView.getTreeData().remove(0, _recipeTreeView.getTreeData().getLength());
+				// get search string
+				String search = _searchTextInput.getText();
 
-                    // add search results
-                    TreeBranch tree = new TreeBranch();
-                    for (CheckedRecipeVo c : checkedRecipes) {
-                        RecipeTreeNode node = new RecipeTreeNode(c);
-                        tree.add(node);
-                    }
+				if (!search.equals("")) {
+					Set<CheckedRecipeVo> checkedRecipes = GUIController
+							.getInstance().searchRecipe(null, search);
 
-                    _recipeTreeView.setTreeData(tree);
+					// clean tree view
+					_recipeTreeView.getTreeData().remove(0,
+							_recipeTreeView.getTreeData().getLength());
 
-                }
-            }
-        });
-    }
+					// add search results
+					TreeBranch tree = new TreeBranch();
+					for (CheckedRecipeVo c : checkedRecipes) {
+						RecipeTreeNode node = new RecipeTreeNode(c);
+						tree.add(node);
+					}
 
-    /**
-     * Add day for which this meal is for
-     * @param day 
-     */
-    public void setDay(int day) {
-        _day = day;
-    }
+					_recipeTreeView.setTreeData(tree);
 
-    private void initRecipeMainCategories() {
+				}
+			}
+		});
+	}
 
-        // get recipe main categories
-        List<RecipeData> categories = GUIController.getInstance().getRecipeMainCategories();
+	/**
+	 * Add day for which this meal is for
+	 * 
+	 * @param day
+	 */
+	public void setDay(int day) {
+		_day = day;
+	}
 
-        TreeBranch startBranch = new TreeBranch();
-        for (RecipeData r : categories) {
+	private void initRecipeMainCategories() {
 
-            // create main categories
-            if (r.getBlsCode().length() == 1) {
-                RecipeTreeBranch recipe = new RecipeTreeBranch(r, true);
-                startBranch.add(recipe);
-            }
-        }
+		// get recipe main categories
+		List<RecipeData> categories = GUIController.getInstance()
+				.getRecipeMainCategories();
 
-        _recipeTreeView.setTreeData(startBranch);
-        addSubToMainCategory(categories);
+		TreeBranch startBranch = new TreeBranch();
+		for (RecipeData r : categories) {
 
-        // style tree view
-        _recipeTreeView.getStyles().put("spacing", "1");
+			// create main categories
+			if (r.getBlsCode().length() == 1) {
+				RecipeTreeBranch recipe = new RecipeTreeBranch(r, true);
+				startBranch.add(recipe);
+			}
+		}
 
-        // add listener for opening main categories
-        _recipeTreeView.getTreeViewBranchListeners().add(new TreeViewBranchListener() {
+		_recipeTreeView.setTreeData(startBranch);
+		addSubToMainCategory(categories);
 
-            public void branchExpanded(TreeView treeView, Path path) {
+		// style tree view
+		_recipeTreeView.getStyles().put("spacing", "1");
 
-                // get main category branch
-                RecipeTreeBranch branch = ((RecipeTreeBranch) treeView.getTreeData().get(path.toArray()[0]));
+		// add listener for opening main categories
+		_recipeTreeView.getTreeViewBranchListeners().add(
+				new TreeViewBranchListener() {
 
-                // get sub category
-                if (path.getLength() > 1) { //TODO schöner machen :P
-                    RecipeTreeBranch sub = (RecipeTreeBranch) branch.get(path.toArray()[1]);
+					@Override
+					public void branchExpanded(TreeView treeView, Path path) {
 
-                    String blsSearch = sub.getRecipeData().getBlsCode();
-                    Set<CheckedRecipeVo> checkedRecipes =
-                            GUIController.getInstance().searchRecipe(blsSearch, null);
+						// get main category branch
+						RecipeTreeBranch branch = ((RecipeTreeBranch) treeView
+								.getTreeData().get(path.toArray()[0]));
 
-                    // check if already loaded
-                    if (sub.getLength() <= 0) {
+						// get sub category
+						if (path.getLength() > 1) {
+							RecipeTreeBranch sub = (RecipeTreeBranch) branch
+									.get(path.toArray()[1]);
 
-                        // add recipes
-                        for (CheckedRecipeVo c : checkedRecipes) {
-                            RecipeTreeNode r = new RecipeTreeNode(c);
-                            sub.add(r);
-                        }
-                    }
-                }
+							String blsSearch = sub.getRecipeData().getBlsCode();
+							Set<CheckedRecipeVo> checkedRecipes = GUIController
+									.getInstance()
+									.searchRecipe(blsSearch, null);
 
-            }
+							// check if already loaded
+							if (sub.getLength() <= 0) {
 
-            public void branchCollapsed(TreeView treeView, Path path) {
-                // nothing to do here
-            }
-        });
+								// add recipes
+								for (CheckedRecipeVo c : checkedRecipes) {
+									RecipeTreeNode r = new RecipeTreeNode(c);
+									sub.add(r);
+								}
+							}
+						}
 
-    }
+					}
 
-    /**
-     * Add sub categories to the corresponding main categories
-     * @param recipes Recipes to insert
-     */
-    private void addSubToMainCategory(List<RecipeData> recipes) {
-        final int mainCategoryLength = 1;
-        final int subCategoryLength = 2;
+					@Override
+					public void branchCollapsed(TreeView treeView, Path path) {
+						// nothing to do here
+					}
+				});
 
-        for (RecipeData c : recipes) {
+	}
 
-            // get bls code
-            String blsCode = c.getBlsCode();
+	/**
+	 * Add sub categories to the corresponding main categories
+	 * 
+	 * @param recipes Recipes to insert
+	 */
+	private void addSubToMainCategory(List<RecipeData> recipes) {
+		final int mainCategoryLength = 1;
+		final int subCategoryLength = 2;
 
-            // filter main categories
-            if (blsCode.length() > mainCategoryLength) {
-                RecipeTreeBranch recipeBranch = getBranchByBLSCode(blsCode.substring(0, 1));
-                RecipeTreeBranch r = new RecipeTreeBranch(c, false);
-                recipeBranch.add(r);
-            }
-        }
-    }
+		for (RecipeData c : recipes) {
 
-    /**
-     * Get a recipe tree branch by his bls code
-     * @param blsCode
-     * @return 
-     */
-    private RecipeTreeBranch getBranchByBLSCode(String blsCode) {
-        for (RecipeTreeBranch t : (List<RecipeTreeBranch>) _recipeTreeView.getTreeData()) {
-            if (t.getRecipeData().getBlsCode().contains(blsCode)) {
-                return t;
-            }
-        }
+			// get bls code
+			String blsCode = c.getBlsCode();
 
-        return null;
-    }
+			// filter main categories
+			if (blsCode.length() > mainCategoryLength) {
+				RecipeTreeBranch recipeBranch = getBranchByBLSCode(blsCode
+						.substring(0, 1));
+				RecipeTreeBranch r = new RecipeTreeBranch(c, false);
+				recipeBranch.add(r);
+			}
+		}
+	}
 
-    /**
-     * Add a new meal line
-     */
-    private void addMealLine() {
-        MealLineBoxPane m = new MealLineBoxPane();
-        Accordion.setHeaderData(m, "Bestandteil " + (_mealLines.getLength() + 1));
-        _chosenRecipeAccordion.getPanels().add(m);
-        _mealLines.add(m);
+	/**
+	 * Get a recipe tree branch by his bls code
+	 * 
+	 * @param blsCode
+	 * @return
+	 */
+	private RecipeTreeBranch getBranchByBLSCode(String blsCode) {
+		for (RecipeTreeBranch t : (List<RecipeTreeBranch>) _recipeTreeView
+				.getTreeData()) {
+			if (t.getRecipeData().getBlsCode().contains(blsCode)) {
+				return t;
+			}
+		}
 
-        _chosenRecipeAccordion.setSelectedIndex(_mealLines.getLength() - 1);
+		return null;
+	}
 
-        m.setMealLineIndex(GUIController.getInstance().addMealLine());
-    }
+	/**
+	 * Add a new meal line
+	 */
+	private void addMealLine() {
+		MealLineBoxPane m = new MealLineBoxPane();
+		Accordion.setHeaderData(m, "Bestandteil "
+				+ (_mealLines.getLength() + 1));
+		_chosenRecipeAccordion.getPanels().add(m);
+		_mealLines.add(m);
 
-    /**
-     * Update quantity
-     * @param quantity 
-     */
-    public void updateQuantity(float quantity) {
+		_chosenRecipeAccordion.setSelectedIndex(_mealLines.getLength() - 1);
 
-        // add recipe
-        GUIController.getInstance().addRecipeToMeal(_actualRecipeData, _day, quantity
-                , _actualMealLineBoxPane.getMealLineIndex(), _actualMealCode);
+		m.setMealLineIndex(GUIController.getInstance().addMealLine());
+	}
 
-        // reload recipe list
-        initRecipeMainCategories();
-    }
+	/**
+	 * Update quantity
+	 * 
+	 * @param quantity
+	 */
+	@Override
+	public void updateQuantity(float quantity) {
+
+		// add recipe
+		GUIController.getInstance().addRecipeToMeal(_actualRecipeData, _day,
+				quantity, _actualMealLineBoxPane.getMealLineIndex(),
+				_actualMealCode);
+
+		// reload recipe list
+		initRecipeMainCategories();
+	}
 }
