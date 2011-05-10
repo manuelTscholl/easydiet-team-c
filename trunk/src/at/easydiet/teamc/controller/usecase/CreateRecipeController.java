@@ -31,7 +31,10 @@ public class CreateRecipeController {
 
 	private NutrimentRulesBo _currentRules;
 
-	public void create() {
+	/**
+	 * Constructor
+	 */
+	public CreateRecipeController() {
 
 		_currentRecipe = new RecipeBo(new Recipe());
 		_currentRules = new NutrimentRulesBo();

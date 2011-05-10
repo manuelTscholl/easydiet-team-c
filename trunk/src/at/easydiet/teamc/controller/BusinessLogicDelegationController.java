@@ -323,7 +323,6 @@ public class BusinessLogicDelegationController {
 	 */
 	public void createNewRecipe() {
 		_createRecipeController = new CreateRecipeController();
-		_createRecipeController.create();
 	}
 
 	public ValidatedRecipeVo addParameter(ParameterDefinitionData pd,

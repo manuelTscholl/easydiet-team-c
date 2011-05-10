@@ -32,9 +32,11 @@ import org.apache.pivot.wtk.TreeViewBranchListener;
 
 import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.CheckOperatorData;
+import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import at.easydiet.teamc.model.data.RecipeData;
+import at.easydiet.teamc.model.data.ValidatedRecipeVo;
 
 /**
  * This class represents the scrollpane for creating a new recipe
@@ -335,10 +337,20 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 					public void rowUpdated(TableView arg0, int index) {
 						ParameterDefinitionData parameter = (ParameterDefinitionData) _parameterListButton
 								.getSelectedItem();
-						_parameterTableView.setParameterData(parameter, index);
-
 						CheckOperatorData operator = (CheckOperatorData) _checkOperatorListButton
 								.getSelectedItem();
+						double value = _parameterTableView.getValue(index);
+
+						ValidatedRecipeVo validated = GUIController
+								.getInstance().addParameter(parameter,
+										operator, value);
+
+						// TODO validatedrecipevo verwenden
+						for (NutrimentParameterRuleData n : validated
+								.getNutrimentParameterRulesData()) {
+							System.out.println(n.getName());
+						}
+						_parameterTableView.setParameterData(parameter, index);
 						_parameterTableView.setCheckOperator(operator, index);
 
 					}

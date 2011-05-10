@@ -88,4 +88,15 @@ public class ParameterTableView extends TableView {
 	public List<HashMap<String, Object>> getTableData() {
 		return (List<HashMap<String, Object>>) super.getTableData();
 	}
+
+	/**
+	 * Get the value from a specific row
+	 * 
+	 * @param row
+	 * @return
+	 */
+	public double getValue(int row) {
+		HashMap<String, Object> map = _tableData.get(row);
+		return Double.parseDouble(map.get("value").toString());
+	}
 }
