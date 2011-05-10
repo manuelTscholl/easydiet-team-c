@@ -13,7 +13,14 @@ package at.easydiet.teamc.model.data;
 public interface NutrimentParameterRuleData {
 
 	public double getValue();
-        public boolean IsViolated();
-        public String getName();
-        public CheckOperatorData getCheckOperator();
+
+	public boolean IsViolated();
+
+	public String getName();
+
+	public CheckOperatorData getCheckOperator();
+
+	public int getRow();
+
+	public ParameterDefinitionData getParameterDefinitionData();
 }

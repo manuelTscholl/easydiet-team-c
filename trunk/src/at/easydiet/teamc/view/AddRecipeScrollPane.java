@@ -343,15 +343,20 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 						ValidatedRecipeVo validated = GUIController
 								.getInstance().addParameter(parameter,
-										operator, value);
+										operator, value, index);
 
-						// TODO validatedrecipevo verwenden
 						for (NutrimentParameterRuleData n : validated
 								.getNutrimentParameterRulesData()) {
 							System.out.println(n.getName());
+							_parameterTableView.setParameterData(
+									n.getParameterDefinitionData(), n.getRow());
+							_parameterTableView.setCheckOperator(
+									n.getCheckOperator(), n.getRow());
+							// TODO add value
+							// FIXME wenn neuer parameter hinzugefügt wird, wird
+							// der default wert zwar gesetzt, aber im rowEditor
+							// wird die vorherige Zeile angezeigt
 						}
-						_parameterTableView.setParameterData(parameter, index);
-						_parameterTableView.setCheckOperator(operator, index);
 
 					}
 

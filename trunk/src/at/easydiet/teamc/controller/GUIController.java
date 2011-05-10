@@ -473,11 +473,13 @@ public class GUIController implements PatientListener {
 	 * @param pd
 	 * @param cod
 	 * @param value
+	 * @param row
 	 * @return
 	 */
 	public ValidatedRecipeVo addParameter(ParameterDefinitionData pd,
-			CheckOperatorData cod, double value) {
-		return _businessLogicDelegationController.addParameter(pd, cod, value);
+			CheckOperatorData cod, double value, int row) {
+		return _businessLogicDelegationController.addParameter(pd, cod, value,
+				row);
 	}
 
 }

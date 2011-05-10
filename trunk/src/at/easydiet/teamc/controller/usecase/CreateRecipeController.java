@@ -42,9 +42,9 @@ public class CreateRecipeController {
 	}
 
 	public ValidatedRecipeVo addParameter(ParameterDefinitionData pdd,
-			CheckOperatorData cod, double value) {
+			CheckOperatorData cod, double value, int row) {
 		_currentRules.addParameter((ParameterDefinitionBo) pdd,
-				(CheckOperatorBo) cod, value);
+				(CheckOperatorBo) cod, value, row);
 		return checkRecipe();
 	}
 
