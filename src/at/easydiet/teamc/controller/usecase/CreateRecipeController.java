@@ -38,10 +38,11 @@ public class CreateRecipeController {
 
 	}
 
-	public void addParameter(ParameterDefinitionData pdd,
+	public ValidatedRecipeVo addParameter(ParameterDefinitionData pdd,
 			CheckOperatorData cod, double value) {
 		_currentRules.addParameter((ParameterDefinitionBo) pdd,
 				(CheckOperatorBo) cod, value);
+		return checkRecipe();
 	}
 
 	public CheckedRecipeVo addRecipeIngredient(RecipeData d, float amount) {
@@ -53,10 +54,10 @@ public class CreateRecipeController {
 		List<NutrimentParameterRuleData> nutrimentParams = new ArrayList<NutrimentParameterRuleData>();
 		for (NutrimentRuleBo nrbo : this._currentRules
 				.checkRecipe(this._currentRecipe)) {
-			nutrimentParams.add((NutrimentParameterRuleData) nrbo);
+			nutrimentParams.add(nrbo);
 		}
 		ValidatedRecipeVo validatedRecipe = new ValidatedRecipeVo(
-				(RecipeData) this._currentRecipe, nutrimentParams);
+				this._currentRecipe, nutrimentParams);
 		return validatedRecipe;
 	}
 
