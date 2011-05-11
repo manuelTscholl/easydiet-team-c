@@ -11,6 +11,7 @@ import java.util.List;
 
 import at.easydiet.dao.HibernateUtil;
 import at.easydiet.model.Recipe;
+import at.easydiet.teamc.exception.NutrimentRuleException;
 import at.easydiet.teamc.model.CheckOperatorBo;
 import at.easydiet.teamc.model.NutrimentRuleBo;
 import at.easydiet.teamc.model.NutrimentRulesBo;
@@ -43,7 +44,7 @@ public class CreateRecipeController {
 
 	public ValidatedRecipeVo addParameter(ParameterDefinitionData pdd,
 			CheckOperatorData cod, double value,
-			ParameterDefinitionUnitData pdud) {
+			ParameterDefinitionUnitData pdud) throws NutrimentRuleException{
 		_currentRules.addParameter((ParameterDefinitionBo) pdd,
 				(CheckOperatorBo) cod, value, (ParameterDefinitionUnitBo) pdud);
 		return checkRecipe();
