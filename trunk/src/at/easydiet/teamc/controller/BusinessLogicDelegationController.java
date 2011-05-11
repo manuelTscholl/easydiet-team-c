@@ -32,6 +32,7 @@ import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.MealData;
 import at.easydiet.teamc.model.data.NutrimentParameterData;
+import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import at.easydiet.teamc.model.data.PatientData;
@@ -355,15 +356,15 @@ public class BusinessLogicDelegationController {
 				.getInstance().getAllParameterDefinitionUnit());
 	}
 
-	public void changeParameter(NutrimentParameterData ndr,
+	public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr,
 			CheckOperatorData checkOperator, double value) {
 
-		// TODO
+		return _createRecipeController.changeParameter(ndr, checkOperator, value);
 	}
 
-	public void changeRecipeIngredient(float amount, RecipeData rd) {
+	public ValidatedRecipeVo changeRecipeIngredient(float amount, RecipeData rd, ParameterDefinitionUnitData pdu) {
 
-		// TODO
+		return _createRecipeController.changeRecipeIngredient(amount, rd, pdu);
 	}
 
 }
