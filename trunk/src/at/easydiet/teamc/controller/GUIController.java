@@ -492,9 +492,10 @@ public class GUIController implements PatientListener {
 	 * @param row
 	 */
 	public void changeParameter(NutrimentParameterRuleData param,
-			CheckOperatorData check, double value, int row) {
+			CheckOperatorData check, double value,
+			ParameterDefinitionUnitData pdud) {
 		_businessLogicDelegationController.changeParameter(param, check, value,
-				row);
+				pdud);
 	}
 
 }

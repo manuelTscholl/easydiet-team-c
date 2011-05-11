@@ -358,8 +358,8 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						double value = _parameterTableView.getValue(index);
 						ParameterDefinitionUnitData unit = (ParameterDefinitionUnitData) _paramUnitListButton
 								.getSelectedItem();
-						GUIController.getInstance().changeParameter(null,
-								operator, value, index);
+						GUIController.getInstance().changeParameter(parameter,
+								operator, value, unit);
 						changeParameter(parameter, unit, operator, value);
 					}
 
