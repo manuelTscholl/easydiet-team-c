@@ -119,7 +119,7 @@ public class ParameterDefinitionBo implements java.io.Serializable, Saveable,
 	@Override
 	public List<ParameterDefinitionUnitData> getUnits() {
 		List<ParameterDefinitionUnitData> param = new ArrayList<ParameterDefinitionUnitData>();
-		for (ParameterDefinitionUnit p : _ParameterDefinition.getUnits()) {
+		for (ParameterDefinitionUnitBo p : this.getUnit()) {
 			param.add((ParameterDefinitionUnitData) p);
 		}
 
