@@ -14,7 +14,7 @@ public class NutrimentRuleException extends Exception {
     private String _errorMessage;
 
     public NutrimentRuleException(String errormessage) {
-
+        _errorMessage=errormessage;
     }
 
     @Override
