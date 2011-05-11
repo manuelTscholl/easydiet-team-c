@@ -21,12 +21,13 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 	private double _value;
 	private boolean _isViolated;
 	private int _row;
-	private ParameterDefinitionUnitBo _parameterdef;
+	private ParameterDefinitionUnitBo _unit;
 
 	public NutrimentRuleBo(ParameterDefinitionBo parameterdefinition,
-			CheckOperatorBo checkOperator) {
+			CheckOperatorBo checkOperator, ParameterDefinitionUnitBo pdub) {
 		this._parameterDefintionBo = parameterdefinition;
 		this._checkOperatorBo = checkOperator;
+                this._unit=pdub;
 		this._value = 0;
 	}
 
@@ -37,7 +38,7 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 		this._checkOperatorBo = checkOperator;
 		this._value = val;
 
-		_parameterdef = pdubo;
+		_unit = pdubo;
 	}
 
 	@Override
@@ -129,19 +130,17 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 
 	@Override
 	public ParameterDefinitionUnitData getUnit()
-			throws ParameterWithoutUnitException {
-		if (this._parameterDefintionBo.getUnits().size() > 0) {
-			return this._parameterDefintionBo.getUnits().get(0);
-		}
-		throw new ParameterWithoutUnitException();
+			{
+		return this._unit;
+		
 	}
 
 	public ParameterDefinitionUnitBo getParameterdefinition() {
-		return _parameterdef;
+		return _unit;
 	}
 
-	public void setParameterdefinition(ParameterDefinitionUnitBo parameterdef) {
-		_parameterdef = parameterdef;
+	public void setParameterdefinitionUnit(ParameterDefinitionUnitBo parameterdef) {
+		_unit = parameterdef;
 	}
 
 	@Override

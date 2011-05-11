@@ -69,7 +69,7 @@ public class NutrimentRulesBo {
 			currRule.setCheckOperatorBo(checkOpBo);
 			currRule.setParameterDefintionBo(nrbo.getParameterDefintionBo());
 			currRule.setValue(value);
-			currRule.setParameterdefinition(pdu);
+			currRule.setParameterdefinitionUnit(pdu);
 
                         currMap.put(nrbo.getCheckOperatorBo().getName(), currRule);
 		} else {
