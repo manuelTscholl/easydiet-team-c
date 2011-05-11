@@ -31,7 +31,6 @@ import at.easydiet.teamc.model.data.DietParameterData;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.MealData;
-import at.easydiet.teamc.model.data.NutrimentParameterData;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
@@ -359,10 +358,12 @@ public class BusinessLogicDelegationController {
 	public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr,
 			CheckOperatorData checkOperator, double value) {
 
-		return _createRecipeController.changeParameter(ndr, checkOperator, value);
+		return _createRecipeController.changeParameter(ndr, checkOperator,
+				value);
 	}
 
-	public ValidatedRecipeVo changeRecipeIngredient(float amount, RecipeData rd, ParameterDefinitionUnitData pdu) {
+	public ValidatedRecipeVo changeRecipeIngredient(float amount,
+			RecipeData rd, ParameterDefinitionUnitData pdu) {
 
 		return _createRecipeController.changeRecipeIngredient(amount, rd, pdu);
 	}
