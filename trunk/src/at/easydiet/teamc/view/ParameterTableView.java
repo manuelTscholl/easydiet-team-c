@@ -40,9 +40,16 @@ public class ParameterTableView extends TableView {
 		final String unitString = "unit";
 		final String operatorString = "checkOperator";
 
-		// check if already set
-		if (map.containsKey(paramString)) {
-			map.remove(paramString);
+		// check if row exists
+		if (map != null) {
+
+			// check if already set
+			if (map.get(paramString) == p) {
+				map.remove(paramString);
+			}
+		} else {
+			map = new HashMap<String, Object>();
+			_tableData.add(map);
 		}
 
 		map.put(paramString, p);
@@ -100,5 +107,16 @@ public class ParameterTableView extends TableView {
 	public double getValue(int row) {
 		HashMap<String, Object> map = _tableData.get(row);
 		return Double.parseDouble(map.get("value").toString());
+	}
+
+	/**
+	 * Get a parameter by his row
+	 * 
+	 * @param row
+	 * @return
+	 */
+	public NutrimentParameterRuleData getParameter(int row) {
+		HashMap<String, Object> map = _tableData.get(row);
+		return (NutrimentParameterRuleData) map.get("parameter");
 	}
 }
