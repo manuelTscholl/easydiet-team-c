@@ -95,7 +95,8 @@ public class CreateRecipeController {
 	}
 
 	public ValidatedRecipeVo removeParameter(NutrimentParameterRuleData param) {
-		_currentRules.removeParameter(param);
+		_currentRules.removeParameter((NutrimentRuleBo) param);
+                return checkRecipe();
 	}
 
 	public ValidatedRecipeVo removeRecipe(RecipeData rd) {

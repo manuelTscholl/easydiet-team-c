@@ -6,6 +6,7 @@
  */
 package at.easydiet.teamc.model;
 
+import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,6 +70,9 @@ public class NutrimentRulesBo {
                         currMap.remove(nrbo.getCheckOperatorBo().getName());
 
                         if(validate(temprule)){
+                            nrbo.setCheckOperatorBo(checkOpBo);
+                            nrbo.setValue(value);
+                            nrbo.setParameterdefinitionUnit(pdu);
                             currMap.put(nrbo.getCheckOperatorBo().getName(), temprule);
                         }else{
                             currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
@@ -165,5 +169,17 @@ public class NutrimentRulesBo {
             }
         }
         return true;
+    }
+
+    public void removeParameter(NutrimentRuleBo param) {
+        if(_parameters.containsKey(param.getName())){
+            HashMap<String, NutrimentRuleBo> currMap = _parameters.get(param.getName());
+            if(currMap.containsKey(param.getCheckOperatorBo().getName())){
+                currMap.remove(param.getCheckOperatorBo().getName());
+            }
+            if(currMap.size()<=0){
+                _parameters.remove(param.getParameterDefintionBo().getName());
+            }
+        }
     }
 }
