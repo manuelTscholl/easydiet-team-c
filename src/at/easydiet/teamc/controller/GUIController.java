@@ -478,9 +478,9 @@ public class GUIController implements PatientListener {
 	 */
 	public ValidatedRecipeVo addParameter(ParameterDefinitionData pd,
 			ParameterDefinitionUnitData unit, CheckOperatorData cod,
-			double value, int row) {
+			double value) {
 		return _businessLogicDelegationController.addParameter(pd, cod, value,
-				row, unit);
+				unit);
 	}
 
 	/**
