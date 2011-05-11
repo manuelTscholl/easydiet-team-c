@@ -62,16 +62,19 @@ public class NutrimentRulesBo {
 				.get(nrbo.getName());
 
 		NutrimentRuleBo currRule = currMap.get(nrbo.getCheckOperatorBo().getName());
+                NutrimentRuleBo temprule=new NutrimentRuleBo(nrbo.getParameterDefintionBo(), checkOpBo, value, pdu);
 
 		if (currRule != null) {
-                        currMap.remove(nrbo.getCheckOperatorBo().getName());
-                        //change Rule
-			currRule.setCheckOperatorBo(checkOpBo);
-			currRule.setParameterDefintionBo(nrbo.getParameterDefintionBo());
-			currRule.setValue(value);
-			currRule.setParameterdefinitionUnit(pdu);
 
-                        currMap.put(nrbo.getCheckOperatorBo().getName(), currRule);
+                        currMap.remove(nrbo.getCheckOperatorBo().getName());
+
+                        if(validate(temprule)){
+                            currMap.put(nrbo.getCheckOperatorBo().getName(), temprule);
+                        }else{
+                            currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
+                        }
+
+
 		} else {
 			//TODO 
 		}
@@ -153,4 +156,14 @@ public class NutrimentRulesBo {
 		}
 
 	}
+
+    private boolean validate(NutrimentRuleBo currRule) {
+        if(_parameters.containsKey(currRule.getName())){
+            HashMap<String, NutrimentRuleBo> currMap = _parameters.get(currRule.getName());
+            if(currMap.containsKey(currRule.getCheckOperatorBo().getName())){
+                return false;
+            }
+        }
+        return true;
+    }
 }
