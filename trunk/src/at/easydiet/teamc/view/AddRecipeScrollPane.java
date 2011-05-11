@@ -37,6 +37,7 @@ import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.model.data.ValidatedRecipeVo;
+import at.easydiet.teamc.util.CollectionConverter;
 
 /**
  * This class represents the scrollpane for creating a new recipe
@@ -55,6 +56,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	private PushButton _addParameterButton;
 	private PushButton _removeParameterButton;
 	private ListButton _checkOperatorListButton;
+	private ListButton _paramUnitListButton;
 	private ParameterTableView _parameterTableView;
 	private ListButton _parameterListButton;
 	private TextInput _recipeSearchTextInput;
@@ -97,6 +99,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 		_checkOperatorListButton = (ListButton) map
 				.get("checkOperatorListButton");
 		_removeParameterButton = (PushButton) map.get("removeParameterButton");
+		_paramUnitListButton = (ListButton) map.get("paramUnitListButton");
 		_parameterTableView = (ParameterTableView) map
 				.get("parameterTableView");
 		_parameterListButton = (ListButton) map.get("parameterListButton");
@@ -300,12 +303,19 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						_parameterListButton.setSelectedIndex(0);
 						_checkOperatorListButton.setSelectedIndex(0);
 
+						// set unit listbox for this parameter
+						List<ParameterDefinitionUnitData> paramUnit = (List<ParameterDefinitionUnitData>) CollectionConverter
+								.convertToPivotList(((ParameterDefinitionData) _parameterListButton
+										.getSelectedItem()).getUnits());
+						_paramUnitListButton.setListData(paramUnit);
+						_paramUnitListButton.setSelectedIndex(0);
+
+						ParameterDefinitionUnitData unit = (ParameterDefinitionUnitData) _paramUnitListButton
+								.getSelectedItem();
+
 						// add parameter
 						double value = _parameterTableView.getValue(index);
-						addParameter(param, checkoperator, value, index);
-
-						// FIXME 2 gleiche parameter können nicht hinzugefügt
-						// werden!!
+						addParameter(param, unit, checkoperator, value, index);
 					}
 				});
 
@@ -349,7 +359,9 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						CheckOperatorData operator = (CheckOperatorData) _checkOperatorListButton
 								.getSelectedItem();
 						double value = _parameterTableView.getValue(index);
-						addParameter(parameter, operator, value, index);
+						ParameterDefinitionUnitData unit = (ParameterDefinitionUnitData) _paramUnitListButton
+								.getSelectedItem();
+						addParameter(parameter, unit, operator, value, index);
 					}
 
 					@Override
@@ -368,7 +380,8 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	 * @param row
 	 */
 	private void addParameter(ParameterDefinitionData parameter,
-			CheckOperatorData operator, double value, int row) {
+			ParameterDefinitionUnitData unit, CheckOperatorData operator,
+			double value, int row) {
 		ValidatedRecipeVo validated = GUIController.getInstance().addParameter(
 				parameter, operator, value, row);
 

@@ -11,8 +11,7 @@
 		<Separator heading="Generelle Informationen" />
 		<BoxPane bxml:id="generalInformationBoxPane">
 			<Label text="Rezeptname:" />
-			<TextInput bxml:id="nameTextInput"
-				textKey="recipeName">
+			<TextInput bxml:id="nameTextInput" textKey="recipeName">
 				<validator>
 					<util:RecipeNameValidator />
 				</validator>
@@ -48,19 +47,19 @@
 				<ScrollPane horizontalScrollBarPolicy="fill">
 					<easyDiet:ParameterTableView bxml:id="parameterTableView"
 						xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk"
-						styles="{backgroundColor:'#EBEDEF'}" minimumWidth="480"
-						maximumWidth="480">
+						styles="{backgroundColor:'#EBEDEF'}" minimumWidth="490"
+						maximumWidth="490">
 						<columns>
 							<TableView.Column name="parameter" headerData="Parameter"
-								width="150" />
-							<TableView.Column name="checkOperator" headerData="Operator"
-								width="60" />
+								width="200" />
+							<TableView.Column name="unit" headerData="Einheit"
+								width="80" />
+							<TableView.Column name="checkOperator"
+								headerData="Operator" width="60" />
 							<TableView.Column name="value" headerData="Wert"
 								width="60" />
 							<TableView.Column name="actualGram" headerData="Aktuell auf 100g"
 								width="100" />
-							<TableView.Column name="actualPortion"
-								headerData="Aktuell auf Portion" width="110" />
 						</columns>
 
 						<rowEditor>
@@ -73,6 +72,11 @@
 										</ListButton>
 									</parameter>
 
+									<unit>
+										<ListButton bxml:id="paramUnitListButton">
+										</ListButton>
+									</unit>
+
 									<checkOperator>
 										<ListButton bxml:id="checkOperatorListButton">
 										</ListButton>
@@ -81,8 +85,8 @@
 									<value>
 										<TextInput textKey="value">
 											<validator>
-													<util:DoubleValidator />
-												</validator>
+												<util:DoubleValidator />
+											</validator>
 										</TextInput>
 									</value>
 								</cellEditors>
@@ -261,7 +265,7 @@
 			<TablePane.Row height="-1">
 				<Label text="Zubereitungszeit: " />
 				<TextInput bxml:id="preparationTimeTextInput" textSize="3"
-					 textKey="preparationTime">
+					textKey="preparationTime">
 					<validator>
 						<util:DoubleValidator />
 					</validator>
