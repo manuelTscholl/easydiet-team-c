@@ -291,13 +291,10 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						// set default values
 						int index = _parameterTableView.getTableData()
 								.getLength() - 1;
-						NutrimentParameterRuleData param = (NutrimentParameterRuleData) _parameterListButton
+						ParameterDefinitionData param = (ParameterDefinitionData) _parameterListButton
 								.getListData().get(0);
 						CheckOperatorData checkoperator = (CheckOperatorData) _checkOperatorListButton
 								.getListData().get(0);
-						_parameterTableView.setParameterData(param, index);
-						_parameterTableView.setCheckOperator(checkoperator,
-								index);
 
 						// set listbox default value
 						_parameterListButton.setSelectedIndex(0);
@@ -315,7 +312,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 						// add parameter
 						double value = _parameterTableView.getValue(index);
-						addParameter(param, unit, checkoperator, value, index);
+						addParameter(param, unit, checkoperator, value);
 					}
 				});
 
@@ -363,7 +360,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 								.getSelectedItem();
 						GUIController.getInstance().changeParameter(null,
 								operator, value, index);
-						addParameter(parameter, unit, operator, value, index);
+						changeParameter(parameter, unit, operator, value);
 					}
 
 					@Override
@@ -381,26 +378,30 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	 * @param value
 	 * @param row
 	 */
-	private void addParameter(NutrimentParameterRuleData parameter,
+	private void addParameter(ParameterDefinitionData parameter,
 			ParameterDefinitionUnitData unit, CheckOperatorData operator,
-			double value, int row) {
+			double value) {
 		ValidatedRecipeVo validated = GUIController.getInstance().addParameter(
-				parameter.getParameterDefinitionData(), unit, operator, value,
-				row);
+				parameter, unit, operator, value);
 
 		for (NutrimentParameterRuleData n : validated
 				.getNutrimentParameterRulesData()) {
-			_parameterTableView.setParameterData(n, n.getRow());
-			_parameterTableView.setCheckOperator(n.getCheckOperator(),
-					n.getRow());
-			_parameterTableView.setValue(n.getValue(), n.getRow());
-
-			try {
-				_parameterTableView.setUnit(n.getUnit(), row);
-			} catch (Exception e) {
-				// TODO implement exception handling
-			}
+			_parameterTableView.setParameterData(n);
 		}
+	}
+
+	/**
+	 * Change a parameter
+	 * 
+	 * @param parameter
+	 * @param unit
+	 * @param operator
+	 * @param value
+	 */
+	private void changeParameter(NutrimentParameterRuleData parameter,
+			ParameterDefinitionUnitData unit, CheckOperatorData operator,
+			double value) {
+
 	}
 
 	/**

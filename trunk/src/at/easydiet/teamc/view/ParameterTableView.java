@@ -11,9 +11,8 @@ import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.wtk.TableView;
 
-import at.easydiet.teamc.model.data.CheckOperatorData;
+import at.easydiet.teamc.exception.ParameterWithoutUnitException;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
-import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 
 /**
  * 
@@ -35,9 +34,11 @@ public class ParameterTableView extends TableView {
 	 * 
 	 * @param param
 	 */
-	public void setParameterData(NutrimentParameterRuleData p, int index) {
-		HashMap<String, Object> map = _tableData.get(index);
+	public void setParameterData(NutrimentParameterRuleData p) {
+		HashMap<String, Object> map = getRowByNutrimentParameter(p);
 		final String paramString = "parameter";
+		final String unitString = "unit";
+		final String operatorString = "checkOperator";
 
 		// check if already set
 		if (map.containsKey(paramString)) {
@@ -45,24 +46,24 @@ public class ParameterTableView extends TableView {
 		}
 
 		map.put(paramString, p);
+		try {
+			map.put(unitString, p.getUnit());
+		} catch (ParameterWithoutUnitException e) {
+			// TODO exception handling
+		}
+		map.put(operatorString, p.getCheckOperator());
+
 	}
 
-	/**
-	 * Set a unit in a specific row
-	 * 
-	 * @param p
-	 * @param index
-	 */
-	public void setCheckOperator(CheckOperatorData p, int index) {
-		HashMap<String, Object> map = _tableData.get(index);
-		final String s = "checkOperator";
-
-		// check if already set
-		if (map.containsKey(s)) {
-			map.remove(s);
+	private HashMap<String, Object> getRowByNutrimentParameter(
+			NutrimentParameterRuleData n) {
+		for (HashMap<String, Object> map : _tableData) {
+			if (map.get("parameter") == n) {
+				return map;
+			}
 		}
 
-		map.put(s, p);
+		return null;
 	}
 
 	/**
@@ -99,27 +100,5 @@ public class ParameterTableView extends TableView {
 	public double getValue(int row) {
 		HashMap<String, Object> map = _tableData.get(row);
 		return Double.parseDouble(map.get("value").toString());
-	}
-
-	/**
-	 * Set the value of a specific row
-	 * 
-	 * @param value
-	 * @param row
-	 */
-	public void setValue(double value, int row) {
-		HashMap<String, Object> map = _tableData.get(row);
-		map.put("value", value);
-	}
-
-	/**
-	 * Set the parameter unit
-	 * 
-	 * @param unit
-	 * @param row
-	 */
-	public void setUnit(ParameterDefinitionUnitData unit, int row) {
-		HashMap<String, Object> map = _tableData.get(row);
-		map.put("unit", unit);
 	}
 }

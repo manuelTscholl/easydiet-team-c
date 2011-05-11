@@ -323,7 +323,7 @@ public class BusinessLogicDelegationController {
 	}
 
 	public ValidatedRecipeVo addParameter(ParameterDefinitionData pd,
-			CheckOperatorData cod, double value, int row,
+			CheckOperatorData cod, double value,
 			ParameterDefinitionUnitData pdud) {
 		return _createRecipeController.addParameter(pd, cod, value, row, pdud);
 	}
@@ -360,7 +360,7 @@ public class BusinessLogicDelegationController {
 			CheckOperatorData checkOperator, double value, int row) {
 
 		return _createRecipeController.changeParameter(ndr, checkOperator,
-				value, row);
+				value);
 	}
 
 	public ValidatedRecipeVo changeRecipeIngredient(float amount,
@@ -369,10 +369,11 @@ public class BusinessLogicDelegationController {
 		return _createRecipeController.changeRecipeIngredient(amount, rd, pdu);
 	}
 
-        public void saveRecipe(String recipeName, String preparation, String description,
-                String benefits, double prepartionTime, int difficulty) {
+	public void saveRecipe(String recipeName, String preparation,
+			String description, String benefits, double prepartionTime,
+			int difficulty) {
 
-                _createRecipeController.save();
-        }
+		_createRecipeController.save();
+	}
 
 }
