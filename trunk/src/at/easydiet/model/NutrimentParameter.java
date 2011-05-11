@@ -1,5 +1,7 @@
 package at.easydiet.model;
 
+import at.easydiet.teamc.model.ParameterDefinitionUnitBo;
+
 
 /**
  * Represents a NutrimentParameter
