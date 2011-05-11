@@ -12,36 +12,55 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import at.easydiet.teamc.exception.ParameterAddingException;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 
 public class NutrimentRulesBo {
 
 	private Map<String, NutrimentRuleBo> _parameters;
+	private Map<String, NutrimentRuleBo> _alreadyAddedParams;
 
 	public NutrimentRulesBo() {
 		_parameters = new HashMap<String, NutrimentRuleBo>();
+		_alreadyAddedParams = new HashMap<String, NutrimentRuleBo>();
 	}
 
 	public void addParameter(ParameterDefinitionBo parameterdefintion,
-			CheckOperatorBo checkOperatorBo, double value, int row) {
+			CheckOperatorBo checkOperatorBo, double value, int row,ParameterDefinitionUnitBo pdu)
+			throws ParameterAddingException {
 		if (!_parameters.containsKey(parameterdefintion.getName())) {
 			_parameters.put(parameterdefintion.getName(), new NutrimentRuleBo(
-					parameterdefintion, checkOperatorBo, value, row));
+					parameterdefintion, checkOperatorBo, value, row,pdu));
 		} else {
-			// TODO what to do if already added? call changeParameter or throw
-			// error message?
+			// parameter already added..check if checkoperator is the same
+			NutrimentRuleBo toCheck = _parameters.get(parameterdefintion
+					.getName());
+			if (checkOperatorBo.getName().equals(
+					toCheck.getCheckOperatorBo().getName())) {
+				throw new ParameterAddingException();
+			}else if(_alreadyAddedParams.containsKey(parameterdefintion.getName())){
+				throw new ParameterAddingException();
+			}else {
+				//add parameter to the list which keeps already defined
+				_alreadyAddedParams.put(parameterdefintion.getName(),
+						new NutrimentRuleBo(parameterdefintion,
+								checkOperatorBo, value, row,pdu));
+			}
 		}
 	}
 
-	public void changeParameter(NutrimentParameterRuleData nprv, double value) {
-		// TODO setParameter Value
+	public void changeParameter(NutrimentParameterRuleData nprv, double value,CheckOperatorBo checkOpBo,int row,ParameterDefinitionUnitBo pdu) {
+		NutrimentRuleBo nrbo=(NutrimentRuleBo)nprv;
+		//search for the object in the two hashmaps
+		
 	}
 
 	public List<NutrimentRuleBo> checkRecipe(RecipeBo recipe) {
 		List<NutrimentRuleBo> currParams = new ArrayList<NutrimentRuleBo>();
 		Set<NutrimentParameterBo> paramsOfRecipe = recipe
 				.getNutrimentParameters();
-		// if there are no parameters availible of the recipe, add them without
+		
+		// if there are no parameters availible, add them without
 		// comparing
 		if (recipe.getNutrimentParameters().size() == 0) {
 			for (NutrimentRuleBo rb : this._parameters.values()) {
@@ -49,55 +68,67 @@ public class NutrimentRulesBo {
 			}
 			return currParams;
 		}
-
+		
 		for (NutrimentParameterBo npbo : recipe.getNutrimentParameters()) {
-			NutrimentRuleBo currentPar = _parameters.get(npbo
+			
+			NutrimentRuleBo currentParam = _parameters.get(npbo
 					.getParameterDefinition().getName());
-			if (currentPar != null) {
-				double currValue = currentPar.getValue();
-				if (currentPar.getCheckOperator().equals("<=")) {
-					if (currValue > Double.parseDouble(npbo.getValue())) {
-						currentPar.setIsViolated(true);
-
-					} else {
-						currentPar.setIsViolated(false);
-					}
-				} else if (currentPar.getCheckOperator().equals("!=")) {
-					if (currValue == Double.parseDouble(npbo.getValue())) {
-						currentPar.setIsViolated(true);
-					} else {
-						currentPar.setIsViolated(false);
-					}
-				} else if (currentPar.getCheckOperator().equals(">=")) {
-					if (currValue < Double.parseDouble(npbo.getValue())) {
-						currentPar.setIsViolated(true);
-					} else {
-						currentPar.setIsViolated(false);
-					}
-				} else if (currentPar.getCheckOperator().equals("=")) {
-					if (currValue != Double.parseDouble(npbo.getValue())) {
-						currentPar.setIsViolated(true);
-					} else {
-						currentPar.setIsViolated(false);
-					}
-				} else if (currentPar.getCheckOperator().equals(">")) {
-					if (currValue <= Double.parseDouble(npbo.getValue())) {
-						currentPar.setIsViolated(true);
-					} else {
-						currentPar.setIsViolated(false);
-					}
-				} else if (currentPar.getCheckOperator().equals("<")) {
-					if (currValue >= Double.parseDouble(npbo.getValue())) {
-						currentPar.setIsViolated(true);
-					} else {
-						currentPar.setIsViolated(false);
-					}
-				}
-
-			}// TODO implement missing checkoperators
-			currParams.add(currentPar);
+			//try to get a parameter which is already added
+			NutrimentRuleBo alreadyAddedParam=_alreadyAddedParams.get(npbo
+			.getParameterDefinition().getName());	
+			
+			if (currentParam != null) {
+				this.doCheck(currentParam,npbo);	
+				currParams.add(currentParam);
+			}
+			if(alreadyAddedParam != null){
+				this.doCheck(alreadyAddedParam, npbo);
+				currParams.add(alreadyAddedParam);
+			}
 		}
 
 		return currParams;
+	}
+
+	private void doCheck(NutrimentRuleBo currentParam, NutrimentParameterBo npbo) {
+		double currValue = currentParam.getValue();
+		if (currentParam.getCheckOperator().equals("<=")) {
+			if (currValue > Double.parseDouble(npbo.getValue())) {
+				currentParam.setIsViolated(true);
+			} else {
+				currentParam.setIsViolated(false);
+			}
+		} else if (currentParam.getCheckOperator().equals("!=")) {
+			if (currValue == Double.parseDouble(npbo.getValue())) {
+				currentParam.setIsViolated(true);
+			} else {
+				currentParam.setIsViolated(false);
+			}
+		} else if (currentParam.getCheckOperator().equals(">=")) {
+			if (currValue < Double.parseDouble(npbo.getValue())) {
+				currentParam.setIsViolated(true);
+			} else {
+				currentParam.setIsViolated(false);
+			}
+		} else if (currentParam.getCheckOperator().equals("=")) {
+			if (currValue != Double.parseDouble(npbo.getValue())) {
+				currentParam.setIsViolated(true);
+			} else {
+				currentParam.setIsViolated(false);
+			}
+		} else if (currentParam.getCheckOperator().equals(">")) {
+			if (currValue <= Double.parseDouble(npbo.getValue())) {
+				currentParam.setIsViolated(true);
+			} else {
+				currentParam.setIsViolated(false);
+			}
+		} else if (currentParam.getCheckOperator().equals("<")) {
+			if (currValue >= Double.parseDouble(npbo.getValue())) {
+				currentParam.setIsViolated(true);
+			} else {
+				currentParam.setIsViolated(false);
+			}
+		}
+		
 	}
 }
