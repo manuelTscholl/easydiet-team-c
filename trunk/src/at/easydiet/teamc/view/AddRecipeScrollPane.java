@@ -401,7 +401,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	private void changeParameter(NutrimentParameterRuleData parameter,
 			ParameterDefinitionUnitData unit, CheckOperatorData operator,
 			double value) {
-
+		_parameterTableView.setParameterData(parameter);
 	}
 
 	/**
