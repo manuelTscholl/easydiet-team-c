@@ -61,7 +61,7 @@ public class CreateRecipeController {
 
 	public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr,
 			CheckOperatorData checkOperator, double value,
-			ParameterDefinitionUnitData pdud) {
+			ParameterDefinitionUnitData pdud) throws NutrimentRuleException {
 
 		_currentRules.changeParameter((NutrimentRuleBo) ndr,
 				(CheckOperatorBo) checkOperator, value,

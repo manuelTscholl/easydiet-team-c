@@ -51,7 +51,7 @@ public class NutrimentRulesBo {
 	}
 
 	public void changeParameter(NutrimentRuleBo nrbo,
-			CheckOperatorBo checkOpBo, double value, ParameterDefinitionUnitBo pdu) {
+			CheckOperatorBo checkOpBo, double value, ParameterDefinitionUnitBo pdu) throws NutrimentRuleException{
 
 		HashMap<String, NutrimentRuleBo> currMap = _parameters
 				.get(nrbo.getName());
@@ -70,6 +70,7 @@ public class NutrimentRulesBo {
                             currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
                         }else{
                             currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
+                            throw new NutrimentRuleException("Parameterchanges not valid!");
                         }
 
 
