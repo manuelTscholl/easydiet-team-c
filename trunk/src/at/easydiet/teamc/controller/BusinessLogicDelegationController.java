@@ -378,4 +378,14 @@ public class BusinessLogicDelegationController {
 		_createRecipeController.save();
 	}
 
+	/**
+	 * Remove a parameter
+	 * 
+	 * @param param
+	 * @return
+	 */
+	public ValidatedRecipeVo removeParameter(NutrimentParameterRuleData param) {
+		return _createRecipeController.removeParameter(param);
+	}
+
 }

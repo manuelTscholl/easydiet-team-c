@@ -322,6 +322,10 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 					@Override
 					public void buttonPressed(Button arg0) {
+						NutrimentParameterRuleData param = _parameterTableView
+								.getParameter(_parameterTableView
+										.getSelectedIndex());
+						GUIController.getInstance().removeParameter(param);
 						_parameterTableView.removeParameter(_parameterTableView
 								.getSelectedIndex());
 

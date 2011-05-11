@@ -518,4 +518,14 @@ public class GUIController implements PatientListener {
 				amount);
 	}
 
+	/**
+	 * Remove a parameter
+	 * 
+	 * @param param
+	 * @return
+	 */
+	public ValidatedRecipeVo removeParameter(NutrimentParameterRuleData param) {
+		return _businessLogicDelegationController.removeParameter(param);
+	}
+
 }
