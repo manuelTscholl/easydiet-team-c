@@ -323,8 +323,9 @@ public class BusinessLogicDelegationController {
 	}
 
 	public ValidatedRecipeVo addParameter(ParameterDefinitionData pd,
-			CheckOperatorData cod, double value, int row,ParameterDefinitionUnitData pdud) {
-		return _createRecipeController.addParameter(pd, cod, value, row,pdud);
+			CheckOperatorData cod, double value, int row,
+			ParameterDefinitionUnitData pdud) {
+		return _createRecipeController.addParameter(pd, cod, value, row, pdud);
 	}
 
 	public ValidatedRecipeVo addRecipeIngredient(RecipeData d, float amount) {
@@ -356,10 +357,10 @@ public class BusinessLogicDelegationController {
 	}
 
 	public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr,
-			CheckOperatorData checkOperator, double value) {
+			CheckOperatorData checkOperator, double value, int row) {
 
 		return _createRecipeController.changeParameter(ndr, checkOperator,
-				value);
+				value, row);
 	}
 
 	public ValidatedRecipeVo changeRecipeIngredient(float amount,

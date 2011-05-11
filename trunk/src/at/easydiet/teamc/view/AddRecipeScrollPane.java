@@ -291,7 +291,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						// set default values
 						int index = _parameterTableView.getTableData()
 								.getLength() - 1;
-						ParameterDefinitionData param = (ParameterDefinitionData) _parameterListButton
+						NutrimentParameterRuleData param = (NutrimentParameterRuleData) _parameterListButton
 								.getListData().get(0);
 						CheckOperatorData checkoperator = (CheckOperatorData) _checkOperatorListButton
 								.getListData().get(0);
@@ -354,13 +354,15 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 					@Override
 					public void rowUpdated(TableView arg0, int index) {
-						ParameterDefinitionData parameter = (ParameterDefinitionData) _parameterListButton
+						NutrimentParameterRuleData parameter = (NutrimentParameterRuleData) _parameterListButton
 								.getSelectedItem();
 						CheckOperatorData operator = (CheckOperatorData) _checkOperatorListButton
 								.getSelectedItem();
 						double value = _parameterTableView.getValue(index);
 						ParameterDefinitionUnitData unit = (ParameterDefinitionUnitData) _paramUnitListButton
 								.getSelectedItem();
+						GUIController.getInstance().changeParameter(null,
+								operator, value, index);
 						addParameter(parameter, unit, operator, value, index);
 					}
 
@@ -379,19 +381,25 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	 * @param value
 	 * @param row
 	 */
-	private void addParameter(ParameterDefinitionData parameter,
+	private void addParameter(NutrimentParameterRuleData parameter,
 			ParameterDefinitionUnitData unit, CheckOperatorData operator,
 			double value, int row) {
 		ValidatedRecipeVo validated = GUIController.getInstance().addParameter(
-				parameter, unit, operator, value, row);
+				parameter.getParameterDefinitionData(), unit, operator, value,
+				row);
 
 		for (NutrimentParameterRuleData n : validated
 				.getNutrimentParameterRulesData()) {
-			_parameterTableView.setParameterData(
-					n.getParameterDefinitionData(), n.getRow());
+			_parameterTableView.setParameterData(n, n.getRow());
 			_parameterTableView.setCheckOperator(n.getCheckOperator(),
 					n.getRow());
 			_parameterTableView.setValue(n.getValue(), n.getRow());
+
+			try {
+				_parameterTableView.setUnit(n.getUnit(), row);
+			} catch (Exception e) {
+				// TODO implement exception handling
+			}
 		}
 	}
 
