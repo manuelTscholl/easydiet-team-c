@@ -15,6 +15,7 @@ import at.easydiet.teamc.model.CheckOperatorBo;
 import at.easydiet.teamc.model.NutrimentRuleBo;
 import at.easydiet.teamc.model.NutrimentRulesBo;
 import at.easydiet.teamc.model.ParameterDefinitionBo;
+import at.easydiet.teamc.model.ParameterDefinitionUnitBo;
 import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.data.CheckOperatorData;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
@@ -42,9 +43,9 @@ public class CreateRecipeController {
     }
 
     public ValidatedRecipeVo addParameter(ParameterDefinitionData pdd,
-            CheckOperatorData cod, double value, int row) {
+            CheckOperatorData cod, double value, int row,ParameterDefinitionUnitData pdud) {
         _currentRules.addParameter((ParameterDefinitionBo) pdd,
-                (CheckOperatorBo) cod, value, row);
+                (CheckOperatorBo) cod, value, row,(ParameterDefinitionUnitBo)pdud);
         return checkRecipe();
     }
 

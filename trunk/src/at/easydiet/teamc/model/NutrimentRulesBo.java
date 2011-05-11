@@ -26,11 +26,12 @@ public class NutrimentRulesBo {
 	}
 
 	public void addParameter(ParameterDefinitionBo parameterdefintion,
-			CheckOperatorBo checkOperatorBo, double value, int row,ParameterDefinitionUnitBo pdu)
-			throws ParameterAddingException {
+			CheckOperatorBo checkOperatorBo, double value, int row,
+			ParameterDefinitionUnitBo pdu) {
+		try{
 		if (!_parameters.containsKey(parameterdefintion.getName())) {
 			_parameters.put(parameterdefintion.getName(), new NutrimentRuleBo(
-					parameterdefintion, checkOperatorBo, value, row,pdu));
+					parameterdefintion, checkOperatorBo, value, row, pdu));
 		} else {
 			// parameter already added..check if checkoperator is the same
 			NutrimentRuleBo toCheck = _parameters.get(parameterdefintion
@@ -38,28 +39,34 @@ public class NutrimentRulesBo {
 			if (checkOperatorBo.getName().equals(
 					toCheck.getCheckOperatorBo().getName())) {
 				throw new ParameterAddingException();
-			}else if(_alreadyAddedParams.containsKey(parameterdefintion.getName())){
+			} else if (_alreadyAddedParams.containsKey(parameterdefintion
+					.getName())) {
 				throw new ParameterAddingException();
-			}else {
-				//add parameter to the list which keeps already defined
+			} else {
+				// add parameter to the list which keeps already defined
 				_alreadyAddedParams.put(parameterdefintion.getName(),
 						new NutrimentRuleBo(parameterdefintion,
-								checkOperatorBo, value, row,pdu));
+								checkOperatorBo, value, row, pdu));
 			}
 		}
+		}catch(Exception ex){
+			//bla
+		}
+		
 	}
 
-	public void changeParameter(NutrimentParameterRuleData nprv, double value,CheckOperatorBo checkOpBo,int row,ParameterDefinitionUnitBo pdu) {
-		NutrimentRuleBo nrbo=(NutrimentRuleBo)nprv;
-		//search for the object in the two hashmaps
-		
+	public void changeParameter(NutrimentParameterRuleData nprv, double value,
+			CheckOperatorBo checkOpBo, int row, ParameterDefinitionUnitBo pdu) {
+		NutrimentRuleBo nrbo = (NutrimentRuleBo) nprv;
+		// search for the object in the two hashmaps
+
 	}
 
 	public List<NutrimentRuleBo> checkRecipe(RecipeBo recipe) {
 		List<NutrimentRuleBo> currParams = new ArrayList<NutrimentRuleBo>();
 		Set<NutrimentParameterBo> paramsOfRecipe = recipe
 				.getNutrimentParameters();
-		
+
 		// if there are no parameters availible, add them without
 		// comparing
 		if (recipe.getNutrimentParameters().size() == 0) {
@@ -68,20 +75,20 @@ public class NutrimentRulesBo {
 			}
 			return currParams;
 		}
-		
+
 		for (NutrimentParameterBo npbo : recipe.getNutrimentParameters()) {
-			
+
 			NutrimentRuleBo currentParam = _parameters.get(npbo
 					.getParameterDefinition().getName());
-			//try to get a parameter which is already added
-			NutrimentRuleBo alreadyAddedParam=_alreadyAddedParams.get(npbo
-			.getParameterDefinition().getName());	
-			
+			// try to get a parameter which is already added
+			NutrimentRuleBo alreadyAddedParam = _alreadyAddedParams.get(npbo
+					.getParameterDefinition().getName());
+
 			if (currentParam != null) {
-				this.doCheck(currentParam,npbo);	
+				this.doCheck(currentParam, npbo);
 				currParams.add(currentParam);
 			}
-			if(alreadyAddedParam != null){
+			if (alreadyAddedParam != null) {
 				this.doCheck(alreadyAddedParam, npbo);
 				currParams.add(alreadyAddedParam);
 			}
@@ -129,6 +136,6 @@ public class NutrimentRulesBo {
 				currentParam.setIsViolated(false);
 			}
 		}
-		
+
 	}
 }
