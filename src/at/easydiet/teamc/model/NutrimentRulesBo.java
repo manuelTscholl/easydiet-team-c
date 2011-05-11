@@ -6,7 +6,7 @@
  */
 package at.easydiet.teamc.model;
 
-import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
+import at.easydiet.teamc.exception.NutrimentRuleException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +26,7 @@ public class NutrimentRulesBo {
 
 	public void addParameter(ParameterDefinitionBo parameterdefintion,
 			CheckOperatorBo checkOperatorBo, double value,
-			ParameterDefinitionUnitBo pdu) {
+			ParameterDefinitionUnitBo pdu) throws NutrimentRuleException {
 		// if the parameter has not been added yet
 		if (!_parameters.containsKey(parameterdefintion.getName())) {
 			_parameters.put(parameterdefintion.getName(),
@@ -42,13 +42,7 @@ public class NutrimentRulesBo {
 					.get(parameterdefintion.getName());
 			// check if checkoperator already contained
 			if (currMap.containsKey(checkOperatorBo.getName())) {
-				try {
-					throw new Exception(
-							"Parameter already added with this parameter");
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				throw new NutrimentRuleException("Parameter already exists!");
 			} else {
 				currMap.put(checkOperatorBo.getName(), new NutrimentRuleBo(
 						parameterdefintion, checkOperatorBo, value, pdu));
@@ -73,7 +67,7 @@ public class NutrimentRulesBo {
                             nrbo.setCheckOperatorBo(checkOpBo);
                             nrbo.setValue(value);
                             nrbo.setParameterdefinitionUnit(pdu);
-                            currMap.put(nrbo.getCheckOperatorBo().getName(), temprule);
+                            currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
                         }else{
                             currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
                         }

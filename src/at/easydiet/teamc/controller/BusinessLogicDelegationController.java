@@ -20,6 +20,7 @@ import at.easydiet.teamc.controller.usecase.SearchRecipeController;
 import at.easydiet.teamc.exception.NoDateException;
 import at.easydiet.teamc.exception.NoDietTreatmentException;
 import at.easydiet.teamc.exception.NoPatientException;
+import at.easydiet.teamc.exception.NutrimentRuleException;
 import at.easydiet.teamc.exception.TimeIntersectionException;
 import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.PatientBo;
@@ -324,7 +325,7 @@ public class BusinessLogicDelegationController {
 
 	public ValidatedRecipeVo addParameter(ParameterDefinitionData pd,
 			CheckOperatorData cod, double value,
-			ParameterDefinitionUnitData pdud) {
+			ParameterDefinitionUnitData pdud) throws NutrimentRuleException{
 		return _createRecipeController.addParameter(pd, cod, value, pdud);
 	}
 

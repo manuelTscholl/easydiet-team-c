@@ -25,6 +25,7 @@ import at.easydiet.teamc.exception.GeneratingDietryPlanException;
 import at.easydiet.teamc.exception.NoDateException;
 import at.easydiet.teamc.exception.NoDietTreatmentException;
 import at.easydiet.teamc.exception.NoPatientException;
+import at.easydiet.teamc.exception.NutrimentRuleException;
 import at.easydiet.teamc.exception.TimeIntersectionException;
 import at.easydiet.teamc.model.data.CheckOperatorData;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
@@ -478,7 +479,7 @@ public class GUIController implements PatientListener {
 	 */
 	public ValidatedRecipeVo addParameter(ParameterDefinitionData pd,
 			ParameterDefinitionUnitData unit, CheckOperatorData cod,
-			double value) {
+			double value) throws NutrimentRuleException{
 		return _businessLogicDelegationController.addParameter(pd, cod, value,
 				unit);
 	}
