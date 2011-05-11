@@ -64,7 +64,7 @@ public class NutrimentRulesBo {
 		HashMap<String, NutrimentRuleBo> currMap = _parameters
 				.get(nrbo.getName());
 
-		NutrimentRuleBo currRule = currMap.get(checkOpBo);
+		NutrimentRuleBo currRule = currMap.get(checkOpBo.getName());
 
 		if (currRule != null) {
 			currRule.setCheckOperatorBo(checkOpBo);
@@ -72,9 +72,7 @@ public class NutrimentRulesBo {
 			currRule.setValue(value);
 			currRule.setParameterdefinition(pdu);
 		} else {
-			currRule = new NutrimentRuleBo(nrbo.getParameterDefintionBo(),
-					checkOpBo, value, pdu);
-			currMap.put(checkOpBo.getName(), currRule);
+			//TODO 
 		}
 
 	}
