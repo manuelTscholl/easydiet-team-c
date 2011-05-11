@@ -1,129 +1,117 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<easyDiet:ChooseMealDialog bxml:id="chooseMealDialog" title="Mahlzeit auswählen" modal="true"
-    xmlns:bxml="http://pivot.apache.org/bxml"
-    xmlns:easyDiet="at.easydiet.teamc.view"
-    xmlns:content="org.apache.pivot.wtk.content"
-    xmlns="org.apache.pivot.wtk"  styles="{backgroundColor:'#EBEDEF'}">
-    <TablePane preferredWidth="550" preferredHeight="400" styles="{verticalSpacing:10, horizontalSpacing:10}">
-        <columns>
-            <TablePane.Column width="1*"/>
-            <TablePane.Column width="20"/>
-            <TablePane.Column width="1*"/>
-        </columns>
-<TablePane styles="{verticalSpacing:1, showHorizontalGridLines:true,
-    horizontalSpacing:1, showVerticalGridLines:true}"
-    xmlns:bxml="http://pivot.apache.org/bxml"
-    xmlns="org.apache.pivot.wtk">
-    <columns>
-        <TablePane.Column width="-1"/>
-        <TablePane.Column width="50"/>
-        <TablePane.Column width="-1"/>
-        <TablePane.Column width="1*"/>
-        <TablePane.Column width="2*"/>
-    </columns>
+<easyDiet:ChooseMealDialog bxml:id="chooseMealDialog"
+	title="Mahlzeit auswählen" modal="true" xmlns:bxml="http://pivot.apache.org/bxml"
+	xmlns:easyDiet="at.easydiet.teamc.view" xmlns:content="org.apache.pivot.wtk.content"
+	xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
 
-    <TablePane.Row height="-1">
-        <TablePane.Filler/>
-        <Label text="50" styles="{horizontalAlignment:'center'}"/>
-        <Label text="-1" styles="{horizontalAlignment:'center'}"/>
-        <Label text="1*" styles="{horizontalAlignment:'center'}"/>
-        <Label text="2*" styles="{horizontalAlignment:'center'}"/>
-    </TablePane.Row>
-        <!-- Meal chooser -->
-        <TablePane.Row height="-1">
-            <ListButton bxml:id="mealChooserListButton"
-                xmlns:bxml="http://pivot.apache.org/bxml"
-                xmlns="org.apache.pivot.wtk"/>
-            <TablePane.Filler/>
-            <PushButton bxml:id="chooseMealButton">
-                <content:ButtonData text="Auswählen" />
-            </PushButton>
-        </TablePane.Row>
-        <!-- END Meal chooser -->
+		<TablePane
+			styles="{verticalSpacing:1, showHorizontalGridLines:false,
+    horizontalSpacing:1, showVerticalGridLines:false}"
+			xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk">
+			<columns>
+				<TablePane.Column width="-1" />
+				<TablePane.Column width="50" />
+				<TablePane.Column width="-1" />
+				<TablePane.Column width="1*" />
+				<TablePane.Column width="2*" />
+			</columns>
 
-        <!-- Recipe chooser -->
-        <TablePane.Row height="-1">
+			<!-- Meal chooser -->
+			<TablePane.Row height="-1">
+				<ListButton bxml:id="mealChooserListButton" xmlns:bxml="http://pivot.apache.org/bxml"
+					xmlns="org.apache.pivot.wtk" />
+				<TablePane.Filler />
+				<PushButton bxml:id="chooseMealButton">
+					<content:ButtonData text="Auswählen" />
+				</PushButton>
+			</TablePane.Row>
+			<!-- END Meal chooser -->
 
-            <!-- Recipes -->
-            <Border title="Rezepte" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
-                xmlns:bxml="http://pivot.apache.org/bxml"
-                xmlns="org.apache.pivot.wtk">
-                <ScrollPane visible="false" xmlns:bxml="http://pivot.apache.org/bxml"
-                            bxml:id="recipeScrollPane"
-                            xmlns:explorer="org.apache.pivot.tutorials.explorer"
-                            xmlns="org.apache.pivot.wtk" horizontalScrollBarPolicy="auto"
-                             verticalScrollBarPolicy="auto" styles="{backgroundColor:'#EBEDEF'}">
-                    <TablePane styles="{verticalSpacing:10, showHorizontalGridLines:false,
+			<!-- Recipe chooser -->
+			<TablePane.Row height="-1">
+
+				<!-- Recipes -->
+				<Border title="Rezepte" styles="{padding:2, backgroundColor:'#EBEDEF'}"
+					preferredHeight="330" xmlns:bxml="http://pivot.apache.org/bxml"
+					xmlns="org.apache.pivot.wtk">
+					<ScrollPane visible="false" xmlns:bxml="http://pivot.apache.org/bxml"
+						bxml:id="recipeScrollPane" xmlns:explorer="org.apache.pivot.tutorials.explorer"
+						xmlns="org.apache.pivot.wtk" horizontalScrollBarPolicy="auto"
+						verticalScrollBarPolicy="auto" styles="{backgroundColor:'#EBEDEF'}">
+						<TablePane
+							styles="{verticalSpacing:10, showHorizontalGridLines:false,
                         horizontalSpacing:1, showVerticalGridLines:false}"
-                        bxml:id="recipeTablePane"
-                        xmlns:bxml="http://pivot.apache.org/bxml"
-                        xmlns="org.apache.pivot.wtk">
-                        <columns>
-                            <TablePane.Column width="-1"/>
-                        </columns>
-                        <TablePane.Row height="-1">
-                            <BoxPane>
-                                <TextInput textSize="16" bxml:id="recipeSearchTextInput"
-                            xmlns:bxml="http://pivot.apache.org/bxml"
-                            xmlns="org.apache.pivot.wtk"/>
-                                <PushButton bxml:id="searchButton">
-                                    <content:ButtonData text="Suche"/>
-                                </PushButton>
-                            </BoxPane>
-                        </TablePane.Row>
-                        <TablePane.Row height="-1">
-                            <TreeView bxml:id="recipeTreeView"
-                                xmlns:bxml="http://pivot.apache.org/bxml"
-                                xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}"/>
-                        </TablePane.Row>
-                    </TablePane>
-                </ScrollPane>
-            </Border>
-            <!-- END Recipes -->
+							bxml:id="recipeTablePane" xmlns:bxml="http://pivot.apache.org/bxml"
+							xmlns="org.apache.pivot.wtk">
+							<columns>
+								<TablePane.Column width="-1" />
+							</columns>
+							<TablePane.Row height="-1">
+								<BoxPane>
+									<TextInput textSize="16" bxml:id="recipeSearchTextInput"
+										xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk" />
+									<PushButton bxml:id="searchButton">
+										<content:ButtonData text="Suche" />
+									</PushButton>
+								</BoxPane>
+							</TablePane.Row>
+							<TablePane.Row height="-1">
+								<TreeView bxml:id="recipeTreeView" xmlns:bxml="http://pivot.apache.org/bxml"
+									xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}" />
+							</TablePane.Row>
+						</TablePane>
+					</ScrollPane>
+				</Border>
+				<!-- END Recipes -->
 
-            <!-- add and remove buttons -->
-            <BoxPane styles="{horizontalAlignment:'center', verticalAlignment:'center'}" orientation="vertical">
-                <PushButton bxml:id="addRecipeButton" styles="{toolbar:true}" enabled="false">
-                    <content:ButtonData icon="@navigation.png" />
-                </PushButton>
-                <PushButton bxml:id="removeRecipeButton" styles="{toolbar:true}" enabled="false">
-                    <content:ButtonData icon="@navigation-180.png" />
-                </PushButton>
-            </BoxPane>
-            <!-- END add and remove buttons -->
+				<!-- add and remove buttons -->
+				<BoxPane
+					styles="{horizontalAlignment:'center', verticalAlignment:'center'}"
+					orientation="vertical">
+					<PushButton bxml:id="addRecipeButton" styles="{toolbar:true}"
+						enabled="false">
+						<content:ButtonData icon="@navigation.png" />
+					</PushButton>
+					<PushButton bxml:id="removeRecipeButton" styles="{toolbar:true}"
+						enabled="false">
+						<content:ButtonData icon="@navigation-180.png" />
+					</PushButton>
+				</BoxPane>
+				<!-- END add and remove buttons -->
 
-            <!-- Added Meals -->
-            <Border title="Fertige Mahlzeit" styles="{padding:2, backgroundColor:'#EBEDEF'}" preferredHeight="330"
-                xmlns:bxml="http://pivot.apache.org/bxml"
-                xmlns="org.apache.pivot.wtk">
-                <ScrollPane visible="false" xmlns:bxml="http://pivot.apache.org/bxml"
-                            bxml:id="chosenRecipeScrollPane"
-                            xmlns:explorer="org.apache.pivot.tutorials.explorer"
-                            xmlns="org.apache.pivot.wtk" horizontalScrollBarPolicy="auto"
-                             verticalScrollBarPolicy="auto" styles="{backgroundColor:'#EBEDEF'}">
-                    <Accordion preferredWidth="245" bxml:id="chosenMealAccordion"
-                    xmlns:bxml="http://pivot.apache.org/bxml"
-                    xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
+				<!-- Added Meals -->
+				<Border title="Fertige Mahlzeit" styles="{padding:2, backgroundColor:'#EBEDEF'}"
+					preferredHeight="330" xmlns:bxml="http://pivot.apache.org/bxml"
+					xmlns="org.apache.pivot.wtk">
+					<ScrollPane visible="false" xmlns:bxml="http://pivot.apache.org/bxml"
+						bxml:id="chosenRecipeScrollPane" xmlns:explorer="org.apache.pivot.tutorials.explorer"
+						xmlns="org.apache.pivot.wtk" horizontalScrollBarPolicy="auto"
+						verticalScrollBarPolicy="auto" styles="{backgroundColor:'#EBEDEF'}">
+						<Accordion preferredWidth="245" bxml:id="chosenMealAccordion"
+							xmlns:bxml="http://pivot.apache.org/bxml" xmlns="org.apache.pivot.wtk"
+							styles="{backgroundColor:'#EBEDEF'}">
 
-                    </Accordion>
-                </ScrollPane>
-            </Border>
-            <!-- END Added Meals -->
+						</Accordion>
+					</ScrollPane>
+				</Border>
+				<!-- END Added Meals -->
 
-        </TablePane.Row>
-        <!-- END Recipe chooser -->
+			</TablePane.Row>
+			<!-- END Recipe chooser -->
 
-        <!-- Buttons -->
-        <TablePane.Row height="-1">
-            <TablePane.Filler/>
-            <TablePane.Filler/>
-            <BoxPane styles="{horizontalAlignment:'Right'}">
-                <PushButton bxml:id="addAlternativeButton" buttonData="Bestandteil hinzufügen" enabled="false"/>
-                <PushButton bxml:id="finishButton" buttonData="Speichern" enabled="false"/>
-            </BoxPane>
-        </TablePane.Row>
-        <!-- END Buttons -->
+			<!-- Buttons -->
+			<TablePane.Row height="-1">
+				<TablePane.Filler />
+				<TablePane.Filler />
+				<BoxPane styles="{horizontalAlignment:'Right'}">
+					<PushButton bxml:id="addAlternativeButton" buttonData="Bestandteil hinzufügen"
+						enabled="false" />
+					<PushButton bxml:id="finishButton" buttonData="Speichern"
+						enabled="false" />
+				</BoxPane>
+			</TablePane.Row>
+			<!-- END Buttons -->
 
-    </TablePane>
+		</TablePane>
 </easyDiet:ChooseMealDialog>
