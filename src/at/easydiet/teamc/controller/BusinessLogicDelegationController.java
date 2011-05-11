@@ -368,4 +368,10 @@ public class BusinessLogicDelegationController {
 		return _createRecipeController.changeRecipeIngredient(amount, rd, pdu);
 	}
 
+        public void saveRecipe(String recipeName, String preparation, String description,
+                String benefits, double prepartionTime, int difficulty) {
+
+                _createRecipeController.save();
+        }
+
 }
