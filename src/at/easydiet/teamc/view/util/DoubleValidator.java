@@ -19,7 +19,7 @@ import org.apache.pivot.wtk.validation.Validator;
  */
 public class DoubleValidator implements Validator {
 
-	protected static final DecimalFormat FORMAT = new DecimalFormat("0.0");
+	protected static final DecimalFormat FORMAT = new DecimalFormat("0.00");
 	static {
 		FORMAT.setParseBigDecimal(true);
 	}
@@ -30,6 +30,7 @@ public class DoubleValidator implements Validator {
 
 		// check for valid input
 		if (text.length() > 0) {
+
 			ParsePosition parsePosition = new ParsePosition(0);
 			BigDecimal numericAmount = (BigDecimal) FORMAT.parse(text,
 					parsePosition);
