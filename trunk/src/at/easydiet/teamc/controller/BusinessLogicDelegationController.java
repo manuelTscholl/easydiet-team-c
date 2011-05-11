@@ -388,4 +388,9 @@ public class BusinessLogicDelegationController {
 		return _createRecipeController.removeParameter(param);
 	}
 
+        public ValidatedRecipeVo removeRecipe(RecipeData rd) {
+
+            return _createRecipeController.removeRecipe(rd);
+        }
+
 }
