@@ -494,9 +494,9 @@ public class GUIController implements PatientListener {
 	 */
 	public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData param,
 			CheckOperatorData check, double value,
-			ParameterDefinitionUnitData pdud) throws NutrimentRuleException{
+			ParameterDefinitionUnitData pdud, ParameterDefinitionData pdd) throws NutrimentRuleException{
 		return _businessLogicDelegationController.changeParameter(param, check,
-				value, pdud);
+				value, pdud, pdd);
 	}
 
 	/**

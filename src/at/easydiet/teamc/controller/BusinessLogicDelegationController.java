@@ -360,10 +360,10 @@ public class BusinessLogicDelegationController {
 
 	public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr,
 			CheckOperatorData checkOperator, double value,
-			ParameterDefinitionUnitData pdud) throws NutrimentRuleException {
+			ParameterDefinitionUnitData pdud, ParameterDefinitionData pdd) throws NutrimentRuleException {
 
 		return _createRecipeController.changeParameter(ndr, checkOperator,
-				value, pdud);
+				value, pdud, pdd);
 	}
 
 	public ValidatedRecipeVo changeRecipeIngredient(float amount,
