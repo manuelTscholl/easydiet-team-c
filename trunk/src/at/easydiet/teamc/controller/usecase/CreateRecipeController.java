@@ -85,4 +85,13 @@ public class CreateRecipeController {
         _currentRecipe.save();
         HibernateUtil.currentSession().getTransaction().commit();
     }
+
+	public ValidatedRecipeVo removeParameter(NutrimentParameterRuleData param) {
+		_currentRules.removeParameter(param);
+	}
+
+	public ValidatedRecipeVo removeRecipe(RecipeData rd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
