@@ -31,12 +31,12 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 	}
 
 	public NutrimentRuleBo(ParameterDefinitionBo parameterdefinition,
-			CheckOperatorBo checkOperator, double val, int row,
+			CheckOperatorBo checkOperator, double val,
 			ParameterDefinitionUnitBo pdubo) {
 		this._parameterDefintionBo = parameterdefinition;
 		this._checkOperatorBo = checkOperator;
 		this._value = val;
-		this._row = row;
+		
 		_parameterdef = pdubo;
 	}
 

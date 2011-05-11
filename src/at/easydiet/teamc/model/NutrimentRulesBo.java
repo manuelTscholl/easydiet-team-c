@@ -17,48 +17,53 @@ import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 
 public class NutrimentRulesBo {
 
-	private Map<String, NutrimentRuleBo> _parameters;
+	private Map<String, HashMap<CheckOperatorBo, NutrimentRuleBo>> _parameters;
 	private Map<String, NutrimentRuleBo> _alreadyAddedParams;
 
 	public NutrimentRulesBo() {
-		_parameters = new HashMap<String, NutrimentRuleBo>();
+		_parameters = new HashMap<String, HashMap<CheckOperatorBo, NutrimentRuleBo>>();
 		_alreadyAddedParams = new HashMap<String, NutrimentRuleBo>();
 	}
 
 	public void addParameter(ParameterDefinitionBo parameterdefintion,
-			CheckOperatorBo checkOperatorBo, double value, int row,
+			CheckOperatorBo checkOperatorBo, double value,
 			ParameterDefinitionUnitBo pdu) {
-		try{
+
 		if (!_parameters.containsKey(parameterdefintion.getName())) {
-			_parameters.put(parameterdefintion.getName(), new NutrimentRuleBo(
-					parameterdefintion, checkOperatorBo, value, row, pdu));
+			_parameters.put(parameterdefintion.getName(),
+					new HashMap<CheckOperatorBo, NutrimentRuleBo>());
+			HashMap<CheckOperatorBo, NutrimentRuleBo> sdf = _parameters
+					.get(parameterdefintion.getName());
+			sdf.put(checkOperatorBo, new NutrimentRuleBo(parameterdefintion,
+					checkOperatorBo, value, pdu));
+
 		} else {
-			// parameter already added..check if checkoperator is the same
-			NutrimentRuleBo toCheck = _parameters.get(parameterdefintion
-					.getName());
-			if (checkOperatorBo.getName().equals(
-					toCheck.getCheckOperatorBo().getName())) {
-				throw new ParameterAddingException();
-			} else if (_alreadyAddedParams.containsKey(parameterdefintion
-					.getName())) {
-				throw new ParameterAddingException();
-			} else {
-				// add parameter to the list which keeps already defined
-				_alreadyAddedParams.put(parameterdefintion.getName(),
-						new NutrimentRuleBo(parameterdefintion,
-								checkOperatorBo, value, row, pdu));
-			}
+			HashMap<CheckOperatorBo, NutrimentRuleBo> sdf = _parameters
+					.get(parameterdefintion.getName());
+			sdf.put(checkOperatorBo, new NutrimentRuleBo(parameterdefintion,
+					checkOperatorBo, value, pdu));
 		}
-		}catch(Exception ex){
-			//bla
-		}
-		
 	}
 
 	public void changeParameter(NutrimentParameterRuleData nprv, double value,
-			CheckOperatorBo checkOpBo, int row, ParameterDefinitionUnitBo pdu) {
+			CheckOperatorBo checkOpBo, ParameterDefinitionUnitBo pdu) {
 		NutrimentRuleBo nrbo = (NutrimentRuleBo) nprv;
-		// search for the object in the two hashmaps
+
+		HashMap<CheckOperatorBo, NutrimentRuleBo> currMap = _parameters
+				.get(nrbo.getName());
+
+		NutrimentRuleBo currRule = currMap.get(checkOpBo);
+
+		if (currRule != null) {
+			currRule.setCheckOperatorBo(checkOpBo);
+			currRule.setParameterDefintionBo(nrbo.getParameterDefintionBo());
+			currRule.setValue(value);
+			currRule.setParameterdefinition(pdu);
+		} else {
+			currRule = new NutrimentRuleBo(nrbo.getParameterDefintionBo(),
+					checkOpBo, value, pdu);
+			currMap.put(checkOpBo, currRule);
+		}
 
 	}
 
@@ -70,27 +75,22 @@ public class NutrimentRulesBo {
 		// if there are no parameters availible, add them without
 		// comparing
 		if (recipe.getNutrimentParameters().size() == 0) {
-			for (NutrimentRuleBo rb : this._parameters.values()) {
-				currParams.add(rb);
+			for (HashMap<CheckOperatorBo, NutrimentRuleBo> rb : this._parameters
+					.values()) {
+				for (NutrimentRuleBo nrbo : rb.values()) {
+					currParams.add(nrbo);
+				}
 			}
 			return currParams;
 		}
-
 		for (NutrimentParameterBo npbo : recipe.getNutrimentParameters()) {
-
-			NutrimentRuleBo currentParam = _parameters.get(npbo
-					.getParameterDefinition().getName());
-			// try to get a parameter which is already added
-			NutrimentRuleBo alreadyAddedParam = _alreadyAddedParams.get(npbo
-					.getParameterDefinition().getName());
-
-			if (currentParam != null) {
-				this.doCheck(currentParam, npbo);
-				currParams.add(currentParam);
-			}
-			if (alreadyAddedParam != null) {
-				this.doCheck(alreadyAddedParam, npbo);
-				currParams.add(alreadyAddedParam);
+			for (HashMap<CheckOperatorBo, NutrimentRuleBo> rb : this._parameters
+					.values()) {
+				for (NutrimentRuleBo nrbo : rb.values()) {
+					// check if parameter is valid
+					doCheck(nrbo, npbo);
+					currParams.add(nrbo);
+				}
 			}
 		}
 
