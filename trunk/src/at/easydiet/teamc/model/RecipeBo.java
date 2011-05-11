@@ -5,6 +5,7 @@ package at.easydiet.teamc.model;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DietParameterUnitController;
 import at.easydiet.teamc.model.data.NutrimentParameterData;
+import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import java.sql.Clob;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -343,6 +344,15 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData
         this.getRecipeIngredientsBo().add(recipeIngredientBo);
         recipeBo.getRecipeIngredientsBo().add(recipeIngredientBo);
         this.calcParameters();
+    }
+
+    public void changeRecipeIngredient(float amount, RecipeBo rb, ParameterDefinitionUnitBo pdu) {
+        for(RecipeIngredientBo rib: this.getRecipeIngredientsBo()){
+            if(rb.equals(rib.getIngredient())){
+                rib.setAmount(amount);
+                //rib.setUnit(pdu);
+            }
+        }
     }
 
     
