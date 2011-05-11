@@ -20,6 +20,7 @@ import at.easydiet.teamc.model.data.CheckOperatorData;
 import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
+import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.model.data.ValidatedRecipeVo;
 
@@ -54,6 +55,25 @@ public class CreateRecipeController {
         return this.checkRecipe();
     }
 
+<<<<<<< .mine
+        public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr, CheckOperatorData checkOperator, double value) {
+
+            //TODO
+            return null;
+        }
+
+        public ValidatedRecipeVo changeRecipeIngredient(float amount, RecipeData rd, ParameterDefinitionUnitData pdu) {
+
+            //TODO
+            return null;
+        }
+
+	public void save() {
+		HibernateUtil.currentSession().beginTransaction();
+		_currentRecipe.save();
+		HibernateUtil.currentSession().getTransaction().commit();
+	}
+=======
     private ValidatedRecipeVo checkRecipe() {
         List<NutrimentParameterRuleData> nutrimentParams = new ArrayList<NutrimentParameterRuleData>();
         for (NutrimentRuleBo nrbo : this._currentRules.checkRecipe(this._currentRecipe)) {
@@ -63,6 +83,7 @@ public class CreateRecipeController {
                 this._currentRecipe, nutrimentParams);
         return validatedRecipe;
     }
+>>>>>>> .r456
 
     public void save() {
         HibernateUtil.currentSession().beginTransaction();
