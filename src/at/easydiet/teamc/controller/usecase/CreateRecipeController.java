@@ -25,49 +25,48 @@ import at.easydiet.teamc.model.data.ValidatedRecipeVo;
 
 public class CreateRecipeController {
 
-	// the recipe, which will be created and edited by this instance of the
-	// controller
-	private RecipeBo _currentRecipe;
+    // the recipe, which will be created and edited by this instance of the
+    // controller
+    private RecipeBo _currentRecipe;
+    private NutrimentRulesBo _currentRules;
 
-	private NutrimentRulesBo _currentRules;
+    /**
+     * Constructor
+     */
+    public CreateRecipeController() {
 
-	/**
-	 * Constructor
-	 */
-	public CreateRecipeController() {
+        _currentRecipe = new RecipeBo(new Recipe());
+        _currentRules = new NutrimentRulesBo();
 
-		_currentRecipe = new RecipeBo(new Recipe());
-		_currentRules = new NutrimentRulesBo();
+    }
 
-	}
+    public ValidatedRecipeVo addParameter(ParameterDefinitionData pdd,
+            CheckOperatorData cod, double value, int row) {
+        _currentRules.addParameter((ParameterDefinitionBo) pdd,
+                (CheckOperatorBo) cod, value, row);
+        return checkRecipe();
+    }
 
-	public ValidatedRecipeVo addParameter(ParameterDefinitionData pdd,
-			CheckOperatorData cod, double value, int row) {
-		_currentRules.addParameter((ParameterDefinitionBo) pdd,
-				(CheckOperatorBo) cod, value, row);
-		return checkRecipe();
-	}
+    public ValidatedRecipeVo addRecipeIngredient(RecipeData d, float amount) {
 
-	public CheckedRecipeVo addRecipeIngredient(RecipeData d, float amount) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        _currentRecipe.addRecipeIngredient((RecipeBo) d, amount);
 
-	public ValidatedRecipeVo checkRecipe() {
-		List<NutrimentParameterRuleData> nutrimentParams = new ArrayList<NutrimentParameterRuleData>();
-		for (NutrimentRuleBo nrbo : this._currentRules
-				.checkRecipe(this._currentRecipe)) {
-			nutrimentParams.add(nrbo);
-		}
-		ValidatedRecipeVo validatedRecipe = new ValidatedRecipeVo(
-				this._currentRecipe, nutrimentParams);
-		return validatedRecipe;
-	}
+        return this.checkRecipe();
+    }
 
-	public void save() {
-		HibernateUtil.currentSession().beginTransaction();
-		_currentRecipe.save();
-		HibernateUtil.currentSession().getTransaction().commit();
-	}
+    private ValidatedRecipeVo checkRecipe() {
+        List<NutrimentParameterRuleData> nutrimentParams = new ArrayList<NutrimentParameterRuleData>();
+        for (NutrimentRuleBo nrbo : this._currentRules.checkRecipe(this._currentRecipe)) {
+            nutrimentParams.add((NutrimentParameterRuleData) nrbo);
+        }
+        ValidatedRecipeVo validatedRecipe = new ValidatedRecipeVo(
+                this._currentRecipe, nutrimentParams);
+        return validatedRecipe;
+    }
 
+    public void save() {
+        HibernateUtil.currentSession().beginTransaction();
+        _currentRecipe.save();
+        HibernateUtil.currentSession().getTransaction().commit();
+    }
 }
