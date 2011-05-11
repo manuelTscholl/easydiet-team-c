@@ -14,8 +14,12 @@ import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.collections.Sequence.Tree.Path;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.Action;
 import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.Button;
+import org.apache.pivot.wtk.Button.DataRenderer;
+import org.apache.pivot.wtk.ButtonGroup;
+import org.apache.pivot.wtk.ButtonListener;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ComponentKeyListener;
@@ -147,7 +151,6 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 		// set default
 		_parameterListButton.setSelectedIndex(0);
-		_addParameterButton.press();
 
 		_recipesMainCategories = GUIController.getInstance()
 				.getRecipeMainCategories();
@@ -341,19 +344,19 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 					@Override
 					public void rowsSorted(TableView arg0) {
-						// not neccessary in this context
+						// not necessary in this context
 
 					}
 
 					@Override
 					public void rowsRemoved(TableView arg0, int arg1, int arg2) {
-						// not neccessary in this context
+						// not necessary in this context
 
 					}
 
 					@Override
 					public void rowsCleared(TableView arg0) {
-						// not neccessary in this context
+						// not necessary in this context
 
 					}
 
@@ -392,9 +395,55 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 					@Override
 					public void rowInserted(TableView arg0, int arg1) {
-						// not neccessary in this context
+						// not necessary in this context
 					}
 				});
+
+		_parameterListButton.getButtonListeners().add(new ButtonListener() {
+
+			@Override
+			public void triStateChanged(Button arg0) {
+				// not necessary in this context
+
+			}
+
+			@Override
+			public void toggleButtonChanged(Button arg0) {
+				// not necessary in this context
+
+			}
+
+			@Override
+			public void dataRendererChanged(Button arg0, DataRenderer arg1) {
+				// / not necessary in this context
+
+			}
+
+			@Override
+			public void buttonGroupChanged(Button arg0, ButtonGroup arg1) {
+				// not necessary in this context
+
+			}
+
+			@Override
+			public void buttonDataChanged(Button arg0, Object arg1) {
+
+				// parameter has so changed therefore it is necessary to change
+				// the parameter units
+				ParameterDefinitionData parameter = (ParameterDefinitionData) _parameterListButton
+						.getSelectedItem();
+				List<ParameterDefinitionUnitData> units = (List<ParameterDefinitionUnitData>) CollectionConverter
+						.convertToPivotList(parameter.getUnits());
+				_parameterListButton.clear();
+				_paramUnitListButton.setListData(units);
+
+			}
+
+			@Override
+			public void actionChanged(Button arg0, Action arg1) {
+				// not necessary in this context
+			}
+		});
 	}
 
 	/**
@@ -420,11 +469,10 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 		} catch (NutrimentRuleException e) {
 
 			// change selected parameter and retry
-			System.out.println(_parameterListButton.getSelectedIndex());
-			int nextIndex = _parameterListButton.getSelectedIndex() + 1;
-			_parameterListButton.setSelectedIndex(nextIndex);
+			int index = _parameterListButton.getSelectedIndex() + 1;
+			_parameterListButton.setSelectedIndex(index);
 			ParameterDefinitionData newParameter = (ParameterDefinitionData) _parameterListButton
-					.getSelectedItem();
+					.getListData().get(index);
 			try {
 				addParameter(newParameter, newParameter.getUnitData(),
 						operator, value);
