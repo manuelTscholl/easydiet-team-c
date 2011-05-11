@@ -17,6 +17,7 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable, Reci
     
     private RecipeBo _recipe;
     private RecipeIngredient _RecipeIngredient;
+    private ParameterDefinitionUnitBo _UnitBo;
 
     /**
      * Initializes a new instance of the {@link RecipeIngredient} class.
@@ -38,6 +39,17 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable, Reci
     public RecipeIngredientBo(float amount, RecipeBo ingredientBo, RecipeBo recipeBo)
     {
         this(new RecipeIngredient(amount, ingredientBo.getRecipe(), recipeBo.getRecipe()));
+    }
+
+    public RecipeIngredientBo(float amount, RecipeBo ingredientBo, RecipeBo recipeBo, ParameterDefinitionUnitBo pdub)
+    {
+        this(new RecipeIngredient(amount, ingredientBo.getRecipe(), recipeBo.getRecipe()));
+        if(pdub!=null){
+            _UnitBo=pdub;
+        }else{
+            //_UnitBo=this._recipe.get
+        }
+        
     }
    
     /**       
@@ -117,6 +129,10 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable, Reci
 
     public RecipeData getRecipeData() {
         return (RecipeData) this._recipe;
+    }
+
+    public void setUnit(ParameterDefinitionUnitBo pdub){
+        this._UnitBo=pdub;
     }
 
 }
