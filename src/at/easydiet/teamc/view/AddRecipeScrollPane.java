@@ -351,8 +351,8 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 					@Override
 					public void rowUpdated(TableView arg0, int index) {
-						NutrimentParameterRuleData parameter = (NutrimentParameterRuleData) _parameterListButton
-								.getSelectedItem();
+						NutrimentParameterRuleData parameter = _parameterTableView
+								.getParameter(index);
 						CheckOperatorData operator = (CheckOperatorData) _checkOperatorListButton
 								.getSelectedItem();
 						double value = _parameterTableView.getValue(index);
