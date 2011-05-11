@@ -28,20 +28,32 @@ public class NutrimentRulesBo {
 	public void addParameter(ParameterDefinitionBo parameterdefintion,
 			CheckOperatorBo checkOperatorBo, double value,
 			ParameterDefinitionUnitBo pdu) {
-
+		// if the parameter has not been added yet
 		if (!_parameters.containsKey(parameterdefintion.getName())) {
 			_parameters.put(parameterdefintion.getName(),
 					new HashMap<CheckOperatorBo, NutrimentRuleBo>());
-			HashMap<CheckOperatorBo, NutrimentRuleBo> sdf = _parameters
+			HashMap<CheckOperatorBo, NutrimentRuleBo> currMap = _parameters
 					.get(parameterdefintion.getName());
-			sdf.put(checkOperatorBo, new NutrimentRuleBo(parameterdefintion,
-					checkOperatorBo, value, pdu));
+			currMap.put(checkOperatorBo, new NutrimentRuleBo(
+					parameterdefintion, checkOperatorBo, value, pdu));
 
-		} else {
-			HashMap<CheckOperatorBo, NutrimentRuleBo> sdf = _parameters
+		} else {// parameter already added. put the parameter with a new
+				// checkoperator into the map
+			HashMap<CheckOperatorBo, NutrimentRuleBo> currMap = _parameters
 					.get(parameterdefintion.getName());
-			sdf.put(checkOperatorBo, new NutrimentRuleBo(parameterdefintion,
-					checkOperatorBo, value, pdu));
+			// check if checkoperator already contained
+			if (currMap.containsKey(checkOperatorBo)) {
+				try {
+					throw new Exception(
+							"Parameter already added with this parameter");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				currMap.put(checkOperatorBo, new NutrimentRuleBo(
+						parameterdefintion, checkOperatorBo, value, pdu));
+			}
 		}
 	}
 
@@ -86,11 +98,15 @@ public class NutrimentRulesBo {
 		for (NutrimentParameterBo npbo : recipe.getNutrimentParameters()) {
 			for (HashMap<CheckOperatorBo, NutrimentRuleBo> rb : this._parameters
 					.values()) {
-				for (NutrimentRuleBo nrbo : rb.values()) {
-					// check if parameter is valid
-					doCheck(nrbo, npbo);
-					currParams.add(nrbo);
+				//if the parameter name matches with the parameter in the map
+				if (rb.containsKey(npbo.getParameterDefinition().getName())) {
+					for (NutrimentRuleBo nrbo : rb.values()) {
+						// check if parameter is valid
+						doCheck(nrbo, npbo);
+						currParams.add(nrbo);
+					}
 				}
+
 			}
 		}
 
