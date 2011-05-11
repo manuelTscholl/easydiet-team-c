@@ -423,17 +423,28 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 									.containsRecipeData(((RecipeTreeNode) _recipeTreeView
 											.getSelectedNode()).getRecipeData())) {
 
+								RecipeTreeNode node = (RecipeTreeNode) _recipeTreeView
+										.getSelectedNode();
+								RecipeData rData = node.getRecipeData();
+
 								// get selected recipe
-								_chosenRecipeTableView
-										.addRecipe(((RecipeTreeNode) _recipeTreeView
-												.getSelectedNode())
-												.getRecipeData());
+								_chosenRecipeTableView.addRecipe(rData);
 
 								int index = _chosenRecipeTableView
 										.getTableData().getLength() - 1;
-								ParameterDefinitionUnitData selected = (ParameterDefinitionUnitData) _unitListButton
+								ParameterDefinitionUnitData unit = (ParameterDefinitionUnitData) _unitListButton
 										.getSelectedItem();
-								_chosenRecipeTableView.setUnit(selected, index);
+								_chosenRecipeTableView.setUnit(unit, index);
+
+								ValidatedRecipeVo validated = GUIController
+										.getInstance().addRecipeIngredient(
+												rData, unit, node.getAmount());
+
+								// update parameters
+								for (NutrimentParameterRuleData n : validated
+										.getNutrimentParameterRulesData()) {
+									_parameterTableView.setParameterData(n);
+								}
 							}
 						}
 					}
