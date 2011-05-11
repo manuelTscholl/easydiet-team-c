@@ -12,7 +12,8 @@ import org.apache.pivot.collections.List;
 import org.apache.pivot.wtk.TableView;
 
 import at.easydiet.teamc.model.data.CheckOperatorData;
-import at.easydiet.teamc.model.data.ParameterDefinitionData;
+import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
+import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 
 /**
  * 
@@ -21,7 +22,7 @@ import at.easydiet.teamc.model.data.ParameterDefinitionData;
 public class ParameterTableView extends TableView {
 
 	// instance variables
-	private List<ParameterDefinitionData> _parameterCache;
+	private List<NutrimentParameterRuleData> _parameterCache;
 	private List<HashMap<String, Object>> _tableData;
 
 	{
@@ -34,7 +35,7 @@ public class ParameterTableView extends TableView {
 	 * 
 	 * @param param
 	 */
-	public void setParameterData(ParameterDefinitionData p, int index) {
+	public void setParameterData(NutrimentParameterRuleData p, int index) {
 		HashMap<String, Object> map = _tableData.get(index);
 		final String paramString = "parameter";
 
@@ -109,5 +110,16 @@ public class ParameterTableView extends TableView {
 	public void setValue(double value, int row) {
 		HashMap<String, Object> map = _tableData.get(row);
 		map.put("value", value);
+	}
+
+	/**
+	 * Set the parameter unit
+	 * 
+	 * @param unit
+	 * @param row
+	 */
+	public void setUnit(ParameterDefinitionUnitData unit, int row) {
+		HashMap<String, Object> map = _tableData.get(row);
+		map.put("unit", unit);
 	}
 }

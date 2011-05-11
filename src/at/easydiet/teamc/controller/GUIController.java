@@ -32,6 +32,7 @@ import at.easydiet.teamc.model.data.DietParameterData;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.MealData;
+import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import at.easydiet.teamc.model.data.PatientData;
@@ -480,6 +481,20 @@ public class GUIController implements PatientListener {
 			double value, int row) {
 		return _businessLogicDelegationController.addParameter(pd, cod, value,
 				row, unit);
+	}
+
+	/**
+	 * Change a parameter
+	 * 
+	 * @param param
+	 * @param check
+	 * @param value
+	 * @param row
+	 */
+	public void changeParameter(NutrimentParameterRuleData param,
+			CheckOperatorData check, double value, int row) {
+		_businessLogicDelegationController.changeParameter(param, check, value,
+				row);
 	}
 
 }
