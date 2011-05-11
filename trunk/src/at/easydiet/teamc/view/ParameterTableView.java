@@ -65,7 +65,7 @@ public class ParameterTableView extends TableView {
 	private HashMap<String, Object> getRowByNutrimentParameter(
 			NutrimentParameterRuleData n) {
 		for (HashMap<String, Object> map : _tableData) {
-			if (map.get("parameter") == n) {
+			if (map.get("parameter") == n || map.get("parameter") == null) {
 				return map;
 			}
 		}
