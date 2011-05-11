@@ -55,7 +55,7 @@ public class CreateRecipeController {
         return this.checkRecipe();
     }
 
-<<<<<<< .mine
+
         public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr, CheckOperatorData checkOperator, double value) {
 
             //TODO
@@ -68,12 +68,6 @@ public class CreateRecipeController {
             return null;
         }
 
-	public void save() {
-		HibernateUtil.currentSession().beginTransaction();
-		_currentRecipe.save();
-		HibernateUtil.currentSession().getTransaction().commit();
-	}
-=======
     private ValidatedRecipeVo checkRecipe() {
         List<NutrimentParameterRuleData> nutrimentParams = new ArrayList<NutrimentParameterRuleData>();
         for (NutrimentRuleBo nrbo : this._currentRules.checkRecipe(this._currentRecipe)) {
@@ -83,7 +77,6 @@ public class CreateRecipeController {
                 this._currentRecipe, nutrimentParams);
         return validatedRecipe;
     }
->>>>>>> .r456
 
     public void save() {
         HibernateUtil.currentSession().beginTransaction();
