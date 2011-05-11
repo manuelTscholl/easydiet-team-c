@@ -147,4 +147,11 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 		_parameterdef = parameterdef;
 	}
 
+    @Override
+    public String toString() {
+        return this._parameterDefintionBo.getName();
+    }
+
+
+
 }
