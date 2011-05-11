@@ -5,9 +5,11 @@
 
 package at.easydiet.teamc.model;
 
+import at.easydiet.teamc.exception.ParameterWithoutUnitException;
 import at.easydiet.teamc.model.data.CheckOperatorData;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
+import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 
 /**
  * 
@@ -121,5 +123,12 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 	public ParameterDefinitionData getParameterDefinitionData() {
 		return _parameterDefintionBo;
 	}
+
+        public ParameterDefinitionUnitData getUnit() throws ParameterWithoutUnitException{
+            if(this._parameterDefintionBo.getUnits().size()>0){
+                return this._parameterDefintionBo.getUnits().get(0);
+            }
+            throw new ParameterWithoutUnitException();
+        }
 
 }

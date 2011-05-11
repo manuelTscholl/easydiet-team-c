@@ -14,4 +14,6 @@ public interface ParameterDefinitionData {
 
 	List<ParameterDefinitionUnitData> getUnits();
 
+        ParameterDefinitionUnitData getUnit();
+
 }
