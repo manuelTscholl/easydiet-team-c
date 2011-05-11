@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import at.easydiet.teamc.exception.ParameterAddingException;
-import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 
 public class NutrimentRulesBo {
 
@@ -57,9 +55,8 @@ public class NutrimentRulesBo {
 		}
 	}
 
-	public void changeParameter(NutrimentParameterRuleData nprv, double value,
-			CheckOperatorBo checkOpBo, ParameterDefinitionUnitBo pdu) {
-		NutrimentRuleBo nrbo = (NutrimentRuleBo) nprv;
+	public void changeParameter(NutrimentRuleBo nrbo,
+			CheckOperatorBo checkOpBo, double value, ParameterDefinitionUnitBo pdu) {
 
 		HashMap<String, NutrimentRuleBo> currMap = _parameters
 				.get(nrbo.getName());

@@ -338,7 +338,7 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData
         }
     }
 
-    public void addRecipeIngredient(RecipeBo recipeBo, float amount)
+    public void addRecipeIngredient(RecipeBo recipeBo, float amount, ParameterDefinitionUnitBo pdub)
     {
         RecipeIngredientBo recipeIngredientBo=new RecipeIngredientBo(amount, null, recipeBo);
         this.getRecipeIngredientsBo().add(recipeIngredientBo);
@@ -351,6 +351,7 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData
             if(rb.equals(rib.getIngredient())){
                 rib.setAmount(amount);
                 //rib.setUnit(pdu);
+                break;
             }
         }
     }
