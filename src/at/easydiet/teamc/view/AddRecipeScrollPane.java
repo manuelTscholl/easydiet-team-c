@@ -14,6 +14,7 @@ import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.collections.Sequence.Tree.Path;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
@@ -21,6 +22,7 @@ import org.apache.pivot.wtk.ComponentKeyListener;
 import org.apache.pivot.wtk.ComponentMouseButtonListener;
 import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtk.ListButton;
+import org.apache.pivot.wtk.MessageType;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TableView;
@@ -31,6 +33,7 @@ import org.apache.pivot.wtk.TreeView;
 import org.apache.pivot.wtk.TreeViewBranchListener;
 
 import at.easydiet.teamc.controller.GUIController;
+import at.easydiet.teamc.exception.NutrimentRuleException;
 import at.easydiet.teamc.model.data.CheckOperatorData;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
@@ -362,14 +365,21 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						double value = _parameterTableView.getValue(index);
 						ParameterDefinitionUnitData unit = (ParameterDefinitionUnitData) _paramUnitListButton
 								.getSelectedItem();
-						ValidatedRecipeVo validated = GUIController
-								.getInstance().changeParameter(parameter,
-										operator, value, unit);
 
-						for (NutrimentParameterRuleData n : validated
-								.getNutrimentParameterRulesData()) {
-							changeParameter(n, n.getUnit(),
-									n.getCheckOperator(), n.getValue());
+						ValidatedRecipeVo validated;
+						try {
+							validated = GUIController.getInstance()
+									.changeParameter(parameter, operator,
+											value, unit);
+
+							for (NutrimentParameterRuleData n : validated
+									.getNutrimentParameterRulesData()) {
+								changeParameter(n, n.getUnit(),
+										n.getCheckOperator(), n.getValue());
+							}
+						} catch (NutrimentRuleException e) {
+							Alert.alert(MessageType.ERROR, e.getMessage(),
+									getWindow());
 						}
 					}
 
@@ -391,12 +401,17 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	private void addParameter(ParameterDefinitionData parameter,
 			ParameterDefinitionUnitData unit, CheckOperatorData operator,
 			double value) {
-		ValidatedRecipeVo validated = GUIController.getInstance().addParameter(
-				parameter, unit, operator, value);
+		ValidatedRecipeVo validated;
+		try {
+			validated = GUIController.getInstance().addParameter(parameter,
+					unit, operator, value);
 
-		for (NutrimentParameterRuleData n : validated
-				.getNutrimentParameterRulesData()) {
-			_parameterTableView.setParameterData(n);
+			for (NutrimentParameterRuleData n : validated
+					.getNutrimentParameterRulesData()) {
+				_parameterTableView.setParameterData(n);
+			}
+		} catch (NutrimentRuleException e) {
+			Alert.alert(MessageType.ERROR, e.getMessage(), getWindow());
 		}
 	}
 
