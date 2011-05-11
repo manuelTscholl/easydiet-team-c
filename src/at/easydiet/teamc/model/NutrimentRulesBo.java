@@ -17,11 +17,11 @@ import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 
 public class NutrimentRulesBo {
 
-	private Map<String, HashMap<CheckOperatorBo, NutrimentRuleBo>> _parameters;
+	private Map<String, HashMap<String, NutrimentRuleBo>> _parameters;
 	private Map<String, NutrimentRuleBo> _alreadyAddedParams;
 
 	public NutrimentRulesBo() {
-		_parameters = new HashMap<String, HashMap<CheckOperatorBo, NutrimentRuleBo>>();
+		_parameters = new HashMap<String, HashMap<String, NutrimentRuleBo>>();
 		_alreadyAddedParams = new HashMap<String, NutrimentRuleBo>();
 	}
 
@@ -31,15 +31,15 @@ public class NutrimentRulesBo {
 		// if the parameter has not been added yet
 		if (!_parameters.containsKey(parameterdefintion.getName())) {
 			_parameters.put(parameterdefintion.getName(),
-					new HashMap<CheckOperatorBo, NutrimentRuleBo>());
-			HashMap<CheckOperatorBo, NutrimentRuleBo> currMap = _parameters
+					new HashMap<String, NutrimentRuleBo>());
+			HashMap<String, NutrimentRuleBo> currMap = _parameters
 					.get(parameterdefintion.getName());
-			currMap.put(checkOperatorBo, new NutrimentRuleBo(
+			currMap.put(checkOperatorBo.getName(), new NutrimentRuleBo(
 					parameterdefintion, checkOperatorBo, value, pdu));
 
 		} else {// parameter already added. put the parameter with a new
 				// checkoperator into the map
-			HashMap<CheckOperatorBo, NutrimentRuleBo> currMap = _parameters
+			HashMap<String, NutrimentRuleBo> currMap = _parameters
 					.get(parameterdefintion.getName());
 			// check if checkoperator already contained
 			if (currMap.containsKey(checkOperatorBo)) {
@@ -51,7 +51,7 @@ public class NutrimentRulesBo {
 					e.printStackTrace();
 				}
 			} else {
-				currMap.put(checkOperatorBo, new NutrimentRuleBo(
+				currMap.put(checkOperatorBo.getName(), new NutrimentRuleBo(
 						parameterdefintion, checkOperatorBo, value, pdu));
 			}
 		}
@@ -61,7 +61,7 @@ public class NutrimentRulesBo {
 			CheckOperatorBo checkOpBo, ParameterDefinitionUnitBo pdu) {
 		NutrimentRuleBo nrbo = (NutrimentRuleBo) nprv;
 
-		HashMap<CheckOperatorBo, NutrimentRuleBo> currMap = _parameters
+		HashMap<String, NutrimentRuleBo> currMap = _parameters
 				.get(nrbo.getName());
 
 		NutrimentRuleBo currRule = currMap.get(checkOpBo);
@@ -74,7 +74,7 @@ public class NutrimentRulesBo {
 		} else {
 			currRule = new NutrimentRuleBo(nrbo.getParameterDefintionBo(),
 					checkOpBo, value, pdu);
-			currMap.put(checkOpBo, currRule);
+			currMap.put(checkOpBo.getName(), currRule);
 		}
 
 	}
@@ -87,7 +87,7 @@ public class NutrimentRulesBo {
 		// if there are no parameters availible, add them without
 		// comparing
 		if (recipe.getNutrimentParameters().size() == 0) {
-			for (HashMap<CheckOperatorBo, NutrimentRuleBo> rb : this._parameters
+			for (HashMap<String, NutrimentRuleBo> rb : this._parameters
 					.values()) {
 				for (NutrimentRuleBo nrbo : rb.values()) {
 					currParams.add(nrbo);
@@ -96,7 +96,7 @@ public class NutrimentRulesBo {
 			return currParams;
 		}
 		for (NutrimentParameterBo npbo : recipe.getNutrimentParameters()) {
-			for (HashMap<CheckOperatorBo, NutrimentRuleBo> rb : this._parameters
+			for (HashMap<String, NutrimentRuleBo> rb : this._parameters
 					.values()) {
 				//if the parameter name matches with the parameter in the map
 				if (rb.containsKey(npbo.getParameterDefinition().getName())) {
