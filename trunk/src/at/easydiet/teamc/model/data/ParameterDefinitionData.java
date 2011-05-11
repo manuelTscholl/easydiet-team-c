@@ -6,6 +6,7 @@
  */
 package at.easydiet.teamc.model.data;
 
+import at.easydiet.teamc.exception.ParameterWithoutUnitException;
 import java.util.List;
 
 public interface ParameterDefinitionData {
@@ -14,6 +15,6 @@ public interface ParameterDefinitionData {
 
 	List<ParameterDefinitionUnitData> getUnits();
 
-        ParameterDefinitionUnitData getUnit();
+        ParameterDefinitionUnitData getUnitData() throws ParameterWithoutUnitException;
 
 }
