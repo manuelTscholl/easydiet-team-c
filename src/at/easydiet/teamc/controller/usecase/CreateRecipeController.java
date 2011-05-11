@@ -43,9 +43,9 @@ public class CreateRecipeController {
     }
 
     public ValidatedRecipeVo addParameter(ParameterDefinitionData pdd,
-            CheckOperatorData cod, double value, int row,ParameterDefinitionUnitData pdud) {
+            CheckOperatorData cod, double value, ParameterDefinitionUnitData pdud) {
         _currentRules.addParameter((ParameterDefinitionBo) pdd,
-                (CheckOperatorBo) cod, value, row,(ParameterDefinitionUnitBo)pdud);
+                (CheckOperatorBo) cod, value, (ParameterDefinitionUnitBo)pdud);
         return checkRecipe();
     }
 
@@ -57,7 +57,7 @@ public class CreateRecipeController {
     }
 
 
-        public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr, CheckOperatorData checkOperator, double value, int row) {
+        public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr, CheckOperatorData checkOperator, double value, ParameterDefinitionUnitData pdud) {
 
             //TODO
             return null;
