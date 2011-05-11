@@ -337,9 +337,12 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData
         }
     }
 
-    public void addRecipeIngredient(RecipeData d)
+    public void addRecipeIngredient(RecipeBo recipeBo, float amount)
     {
-        d.getRecipeIngredientsData().add((RecipeIngredientData) d);
+        RecipeIngredientBo recipeIngredientBo=new RecipeIngredientBo(amount, null, recipeBo);
+        this.getRecipeIngredientsBo().add(recipeIngredientBo);
+        recipeBo.getRecipeIngredientsBo().add(recipeIngredientBo);
+        this.calcParameters();
     }
 
     
