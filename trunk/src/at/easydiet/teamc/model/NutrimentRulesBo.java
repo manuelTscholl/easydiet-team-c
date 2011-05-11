@@ -55,6 +55,8 @@ public class NutrimentRulesBo {
         NutrimentRuleBo currRule = currMap.get(nrbo.getCheckOperatorBo().getName());
         NutrimentRuleBo temprule = new NutrimentRuleBo(pdb, checkOpBo, value, pdu);
 
+        ParameterDefinitionBo oldpdb=(ParameterDefinitionBo) nrbo.getParameterDefinitionData();
+
         if (currRule != null) {
 
             
@@ -65,7 +67,7 @@ public class NutrimentRulesBo {
                     nrbo.setValue(value);
                     nrbo.setParameterdefinitionUnit(pdu);
                     nrbo.setParameterDefintionBo(pdb);
-                    if (currRule.getParameterDefintionBo().getName().equalsIgnoreCase(temprule.getParameterDefintionBo().getName())){
+                    if (currRule.getParameterDefintionBo().getName().equalsIgnoreCase(oldpdb.getName())){
                     currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
                     }else{
                         if(_parameters.containsKey(nrbo.getParameterDefintionBo().getName())){
