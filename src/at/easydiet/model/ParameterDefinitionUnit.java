@@ -1,12 +1,10 @@
 package at.easydiet.model;
 
-import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 
 /**
  * Represents a ParameterDefinitionUnit
  */
-public class ParameterDefinitionUnit implements java.io.Serializable,
-		ParameterDefinitionUnitData {
+public class ParameterDefinitionUnit implements java.io.Serializable {
 
 	/**
 	 * A unique serialization id.

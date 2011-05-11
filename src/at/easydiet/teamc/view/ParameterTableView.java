@@ -99,4 +99,15 @@ public class ParameterTableView extends TableView {
 		HashMap<String, Object> map = _tableData.get(row);
 		return Double.parseDouble(map.get("value").toString());
 	}
+
+	/**
+	 * Set the value of a specific row
+	 * 
+	 * @param value
+	 * @param row
+	 */
+	public void setValue(double value, int row) {
+		HashMap<String, Object> map = _tableData.get(row);
+		map.put("value", value);
+	}
 }

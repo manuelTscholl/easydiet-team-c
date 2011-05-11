@@ -383,7 +383,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 			ParameterDefinitionUnitData unit, CheckOperatorData operator,
 			double value, int row) {
 		ValidatedRecipeVo validated = GUIController.getInstance().addParameter(
-				parameter, operator, value, row);
+				parameter, unit, operator, value, row);
 
 		for (NutrimentParameterRuleData n : validated
 				.getNutrimentParameterRulesData()) {
@@ -391,6 +391,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 					n.getParameterDefinitionData(), n.getRow());
 			_parameterTableView.setCheckOperator(n.getCheckOperator(),
 					n.getRow());
+			_parameterTableView.setValue(n.getValue(), n.getRow());
 		}
 	}
 
