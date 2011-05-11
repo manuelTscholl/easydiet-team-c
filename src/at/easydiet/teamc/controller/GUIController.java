@@ -498,4 +498,24 @@ public class GUIController implements PatientListener {
 				pdud);
 	}
 
+	/**
+	 * Change a recipe ingredient
+	 * 
+	 * @param rd
+	 * @param unit
+	 * @param amount
+	 * @return
+	 */
+	public ValidatedRecipeVo changeRecipeIngredient(RecipeData rd,
+			ParameterDefinitionUnitData unit, float amount) {
+		return _businessLogicDelegationController.changeRecipeIngredient(
+				amount, rd, unit);
+	}
+
+	public ValidatedRecipeVo addRecipeIngredient(RecipeData rd,
+			ParameterDefinitionUnitData unit, float amount) {
+		return _businessLogicDelegationController.addRecipeIngredient(rd, unit,
+				amount);
+	}
+
 }

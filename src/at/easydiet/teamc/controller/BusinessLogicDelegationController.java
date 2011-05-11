@@ -328,8 +328,9 @@ public class BusinessLogicDelegationController {
 		return _createRecipeController.addParameter(pd, cod, value, pdud);
 	}
 
-	public ValidatedRecipeVo addRecipeIngredient(RecipeData d, float amount) {
-		return _createRecipeController.addRecipeIngredient(d, amount);
+	public ValidatedRecipeVo addRecipeIngredient(RecipeData d,
+			ParameterDefinitionUnitData unit, float amount) {
+		return _createRecipeController.addRecipeIngredient(d, unit, amount);
 	}
 
 	public List<ParameterDefinitionUnitData> getAllParameterDefinitionUnits() {
@@ -357,7 +358,8 @@ public class BusinessLogicDelegationController {
 	}
 
 	public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr,
-			CheckOperatorData checkOperator, double value, ParameterDefinitionUnitData pdud) {
+			CheckOperatorData checkOperator, double value,
+			ParameterDefinitionUnitData pdud) {
 
 		return _createRecipeController.changeParameter(ndr, checkOperator,
 				value, pdud);
