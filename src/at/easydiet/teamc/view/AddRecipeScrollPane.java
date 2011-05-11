@@ -34,6 +34,7 @@ import org.apache.pivot.wtk.TreeViewBranchListener;
 
 import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.exception.NutrimentRuleException;
+import at.easydiet.teamc.exception.ParameterWithoutUnitException;
 import at.easydiet.teamc.model.data.CheckOperatorData;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
@@ -368,9 +369,15 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 						ValidatedRecipeVo validated;
 						try {
-							validated = GUIController.getInstance()
-									.changeParameter(parameter, operator,
-											value, unit);
+							validated = GUIController
+									.getInstance()
+									.changeParameter(
+											parameter,
+											operator,
+											value,
+											unit,
+											(ParameterDefinitionData) _parameterListButton
+													.getSelectedItem());
 
 							for (NutrimentParameterRuleData n : validated
 									.getNutrimentParameterRulesData()) {
@@ -411,7 +418,19 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 				_parameterTableView.setParameterData(n);
 			}
 		} catch (NutrimentRuleException e) {
-			Alert.alert(MessageType.ERROR, e.getMessage(), getWindow());
+
+			// change selected parameter and retry
+			System.out.println(_parameterListButton.getSelectedIndex());
+			int nextIndex = _parameterListButton.getSelectedIndex() + 1;
+			_parameterListButton.setSelectedIndex(nextIndex);
+			ParameterDefinitionData newParameter = (ParameterDefinitionData) _parameterListButton
+					.getSelectedItem();
+			try {
+				addParameter(newParameter, newParameter.getUnitData(),
+						operator, value);
+			} catch (ParameterWithoutUnitException e1) {
+				// TODO Auto-generated catch block
+			}
 		}
 	}
 
