@@ -57,7 +57,7 @@ public class CreateRecipeController {
     }
 
 
-        public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr, CheckOperatorData checkOperator, double value) {
+        public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr, CheckOperatorData checkOperator, double value, int row) {
 
             //TODO
             return null;
