@@ -328,7 +328,7 @@ public class BusinessLogicDelegationController {
 		return _createRecipeController.addParameter(pd, cod, value, row);
 	}
 
-	public CheckedRecipeVo addRecipeIngredient(RecipeData d, float amount) {
+	public ValidatedRecipeVo addRecipeIngredient(RecipeData d, float amount) {
 		return _createRecipeController.addRecipeIngredient(d, amount);
 	}
 
