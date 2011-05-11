@@ -107,7 +107,7 @@
     <property column="Name" name="name" not-null="true" type="string" unique="true"/>
     <property column="CheckPattern" name="checkPattern" type="string"/>
     <!-- No lazy loading, we will need units always -->
-    <set fetch="join" lazy="false" name="units" table="ParameterDefinitionUnits">
+    <set fetch="subselect" lazy="false" name="units" table="ParameterDefinitionUnits">
       <key column="ParameterDefinitionId" not-null="true"/>
       <many-to-many class="ParameterDefinitionUnit" column="ParameterDefinitionUnitId" lazy="false"/>
     </set>
