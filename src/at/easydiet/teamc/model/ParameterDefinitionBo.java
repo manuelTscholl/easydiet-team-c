@@ -9,6 +9,7 @@ import java.util.Set;
 
 import at.easydiet.model.ParameterDefinition;
 import at.easydiet.model.ParameterDefinitionUnit;
+import at.easydiet.teamc.exception.ParameterWithoutUnitException;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 
@@ -124,5 +125,12 @@ public class ParameterDefinitionBo implements java.io.Serializable, Saveable,
 
 		return param;
 	}
+
+    public ParameterDefinitionUnitData getUnitData() throws ParameterWithoutUnitException{
+        if (this.getUnits().size()>0){
+            return this.getUnits().get(0);
+        }
+        throw new ParameterWithoutUnitException();
+    }
 
 }
