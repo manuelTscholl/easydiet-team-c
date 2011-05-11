@@ -36,7 +36,7 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 		this._parameterDefintionBo = parameterdefinition;
 		this._checkOperatorBo = checkOperator;
 		this._value = val;
-		
+
 		_parameterdef = pdubo;
 	}
 
@@ -53,8 +53,7 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 	}
 
 	/**
-	 * @param parameterDefintion
-	 *            the _parameterDefintion to set
+	 * @param parameterDefintion the _parameterDefintion to set
 	 */
 	protected void setParameterDefintionBo(
 			ParameterDefinitionBo parameterDefintion) {
@@ -69,8 +68,7 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 	}
 
 	/**
-	 * @param checkOperatorBo
-	 *            the _checkOperatorBo to set
+	 * @param checkOperatorBo the _checkOperatorBo to set
 	 */
 	public void setCheckOperatorBo(CheckOperatorBo checkOperatorBo) {
 		this._checkOperatorBo = checkOperatorBo;
@@ -85,8 +83,7 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 	}
 
 	/**
-	 * @param value
-	 *            the _value to set
+	 * @param value the _value to set
 	 */
 	public void setValue(double value) {
 		this._value = value;
@@ -98,8 +95,7 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 	}
 
 	/**
-	 * @param isViolated
-	 *            the _isViolated to set
+	 * @param isViolated the _isViolated to set
 	 */
 	protected void setIsViolated(boolean isViolated) {
 		this._isViolated = isViolated;
@@ -131,6 +127,7 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 		return _parameterDefintionBo;
 	}
 
+	@Override
 	public ParameterDefinitionUnitData getUnit()
 			throws ParameterWithoutUnitException {
 		if (this._parameterDefintionBo.getUnits().size() > 0) {
@@ -147,11 +144,8 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 		_parameterdef = parameterdef;
 	}
 
-    @Override
-    public String toString() {
-        return this._parameterDefintionBo.getName();
-    }
-
-
-
+	@Override
+	public String toString() {
+		return getName();
+	}
 }
