@@ -42,7 +42,7 @@ public class NutrimentRulesBo {
 			HashMap<String, NutrimentRuleBo> currMap = _parameters
 					.get(parameterdefintion.getName());
 			// check if checkoperator already contained
-			if (currMap.containsKey(checkOperatorBo)) {
+			if (currMap.containsKey(checkOperatorBo.getName())) {
 				try {
 					throw new Exception(
 							"Parameter already added with this parameter");
