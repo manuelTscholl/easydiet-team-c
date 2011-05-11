@@ -491,11 +491,11 @@ public class GUIController implements PatientListener {
 	 * @param value
 	 * @param row
 	 */
-	public void changeParameter(NutrimentParameterRuleData param,
+	public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData param,
 			CheckOperatorData check, double value,
 			ParameterDefinitionUnitData pdud) {
-		_businessLogicDelegationController.changeParameter(param, check, value,
-				pdud);
+		return _businessLogicDelegationController.changeParameter(param, check,
+				value, pdud);
 	}
 
 	/**

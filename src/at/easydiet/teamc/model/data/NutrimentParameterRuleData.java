@@ -6,7 +6,6 @@
  */
 package at.easydiet.teamc.model.data;
 
-import at.easydiet.teamc.exception.ParameterWithoutUnitException;
 
 /**
  * 
@@ -26,6 +25,5 @@ public interface NutrimentParameterRuleData {
 
 	public ParameterDefinitionData getParameterDefinitionData();
 
-	public ParameterDefinitionUnitData getUnit()
-			throws ParameterWithoutUnitException;
+	public ParameterDefinitionUnitData getUnit();
 }

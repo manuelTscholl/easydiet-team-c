@@ -11,7 +11,6 @@ import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.wtk.TableView;
 
-import at.easydiet.teamc.exception.ParameterWithoutUnitException;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 
 /**
@@ -53,11 +52,7 @@ public class ParameterTableView extends TableView {
 		}
 
 		map.put(paramString, p);
-		try {
-			map.put(unitString, p.getUnit());
-		} catch (ParameterWithoutUnitException e) {
-			// TODO exception handling
-		}
+		map.put(unitString, p.getUnit());
 		map.put(operatorString, p.getCheckOperator());
 
 	}
