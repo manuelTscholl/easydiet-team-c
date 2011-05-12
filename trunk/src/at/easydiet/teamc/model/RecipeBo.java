@@ -40,6 +40,7 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData
     .getLogger(RecipeBo.class);
 
     private Recipe _Recipe;
+    private Map<String,NutrimentParameterBo> _nutrimentPrameters;
 
     private RecipeBo()
     {}
@@ -285,8 +286,7 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData
         
         for (RecipeIngredientBo recipeIngredient : getRecipeIngredientsBo())
         {//all ingredients
-            for (NutrimentParameter parameter : recipeIngredient
-                    .getIngredient().getRecipe().getNutrimentParameters())
+            for (NutrimentParameter parameter : recipeIngredient.getRecipeIngredient().getRecipe().getNutrimentParameters())
             {//for each parameter in the engredient
                 if (summedIngredientParameter.containsKey(parameter
                         .getNutrimentParameterId()))
@@ -340,23 +340,50 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData
 
     public void addRecipeIngredient(RecipeBo recipeBo, float amount, ParameterDefinitionUnitBo pdub)
     {
+        NutrimentParameterBo temp;
+        Set<NutrimentParameterBo> tempset=new HashSet<NutrimentParameterBo>();
+
+         if(_nutrimentPrameters==null){
+            _nutrimentPrameters=new HashMap<String, NutrimentParameterBo>();
+            for(NutrimentParameterBo npb: recipeBo.getNutrimentParameters()){
+                temp=new NutrimentParameterBo(Float.toString(0), npb.getParameterDefinition(), npb.getParameterDefinition().getFirstUnit());
+                _nutrimentPrameters.put(npb.getParameterDefinition().getName(), temp);
+                tempset.add(temp);
+            }
+            this.setNutrimentParameters(tempset);
+        }
+        
         RecipeIngredientBo recipeIngredientBo=new RecipeIngredientBo(amount, null, recipeBo);
-        this.getRecipeIngredientsBo().add(recipeIngredientBo);
-        recipeBo.getRecipeIngredientsBo().add(recipeIngredientBo);
+        this._Recipe.getIngredients().add(recipeIngredientBo.getRecipeIngredient());
         this.calcParameters();
     }
 
     public void changeRecipeIngredient(float amount, RecipeBo rb, ParameterDefinitionUnitBo pdu) {
-        for(RecipeIngredientBo rib: this.getRecipeIngredientsBo()){
-            if(rb.equals(rib.getIngredient())){
-                rib.setAmount(amount);
-                //rib.setUnit(pdu);
-                break;
-            }
+
+        RecipeIngredientBo rib = searchRecipeIngredientBo(rb);
+
+        if(rib!=null){
+            rib.setAmount(amount);
+            rib.setUnit(pdu);
         }
     }
 
+    public void removeRecipeIngredient(RecipeBo recipeBo){
+        RecipeIngredientBo rib = searchRecipeIngredientBo(recipeBo);
+        if(rib!=null){
+            this._Recipe.getIngredients().remove(rib);
+        }
+    }
     
+    private RecipeIngredientBo searchRecipeIngredientBo(RecipeBo recipeBo){
+        for(RecipeIngredientBo rib: this.getRecipeIngredientsBo()){
+            if(recipeBo.getName().equals(rib.getIngredient().getName())){
+                return rib;
+            }
+        }
+        return null;
+    }
+
     private static class ValidationSumValue
     {
         private float                     _sum;
