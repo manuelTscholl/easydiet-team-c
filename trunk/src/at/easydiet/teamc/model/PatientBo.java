@@ -16,6 +16,7 @@ import at.easydiet.model.PatientState;
 import at.easydiet.model.Recipe;
 import at.easydiet.teamc.exception.NoDietTreatmentException;
 import at.easydiet.teamc.model.data.PatientData;
+import at.easydiet.model.Illness;
 import java.util.Calendar;
 
 /**
@@ -42,14 +43,15 @@ public class PatientBo implements java.io.Serializable, Saveable, PatientData {
 	public PatientBo(String insuranceNumber, String forename, String lastname,
 			String title, String street, String zip, String place,
 			String country, Date birthday, GenderBo genderBo) {
-		this(new Patient(insuranceNumber, forename, lastname, title, street,
-				zip, place, country, birthday, genderBo.getGender()));
+//		this(new Patient(insuranceNumber, forename, lastname, title, street,
+//				zip, place, country, birthday, genderBo.getGender()));
+	    ///XXX auskommentiert
 	}
 
 	public PatientBo(String insuranceNumber, String forename, String lastname,
 			String title, String street, String zip, String place,
 			String country, Date birthday, String job, String religion,
-			Set<String> illnesses, String regime, Clob notice,
+			Set<Illness> illnesses, Clob regime, Clob notice,
 			GenderBo genderBo, Set<FamilyAnamnesisBo> familyanamnesisBo,
 			Set<PatientStateBo> patientstatesBo,
 			Set<LaborReportBo> laborReportsBo,
@@ -82,7 +84,8 @@ public class PatientBo implements java.io.Serializable, Saveable, PatientData {
 		}
 
 		for (RecipeBo recipeBo : disfavorsBo) {
-			this._Patient.getDisfavors().add(recipeBo.getRecipe());
+//			this._Patient.getDisfavors().add(recipeBo.getRecipe());
+		    //XXX auskommentiert
 		}
 	}
 
@@ -186,19 +189,19 @@ public class PatientBo implements java.io.Serializable, Saveable, PatientData {
 		this.getPatient().setReligion(religion);
 	}
 
-	public Set<String> getIllnesses() {
+	public Set<Illness> getIllnesses() {
 		return this.getPatient().getIllnesses();
 	}
 
-	public void setIllnesses(Set<String> illnesses) {
+	public void setIllnesses(Set<Illness> illnesses) {
 		this.getPatient().setIllnesses(illnesses);
 	}
 
-	public String getRegime() {
+	public Clob getRegime() {
 		return this.getPatient().getRegime();
 	}
 
-	public void setRegime(String regime) {
+	public void setRegime(Clob regime) {
 		this.getPatient().setRegime(regime);
 	}
 
@@ -284,18 +287,23 @@ public class PatientBo implements java.io.Serializable, Saveable, PatientData {
 	}
 
 	public Set<RecipeBo> getDisfavors() {
-		Set<RecipeBo> temp = new HashSet<RecipeBo>(this._Patient.getDisfavors()
-				.size());
-		for (Recipe recipe : this._Patient.getDisfavors()) {
-			temp.add(new RecipeBo(recipe));
-		}
-		return temp;
+//		Set<RecipeBo> temp = new HashSet<RecipeBo>(this._Patient.getDisfavors()
+//				.size());
+//		for (Recipe recipe : this._Patient.getDisfavors()) {
+//			temp.add(new RecipeBo(recipe));
+//		}
+//		return temp;
+	    
+	    //XXX not implemented
+	    
+	    return null;
 	}
 
 	public void setDisfavors(Set<RecipeBo> disfavorsBo) {
-		for (RecipeBo recipeBo : disfavorsBo) {
-			this._Patient.getDisfavors().add(recipeBo.getRecipe());
-		}
+//		for (RecipeBo recipeBo : disfavorsBo) {
+//			this._Patient.getDisfavors().add(recipeBo.getRecipe());
+//		}
+	    //XXX not implemented
 	}
 
 	/**

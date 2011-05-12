@@ -39,7 +39,8 @@ public class LaborReportBo  implements java.io.Serializable, Saveable {
        this._LaborReport.setNotice(notice);
 
         for (DietParameterBo dietParameterBo : dietParametersBo) {
-            this._LaborReport.getDietParameters().add(dietParameterBo.getDietParameter());
+            //this._LaborReport.getDietParameters().add(dietParameterBo.getDietParameter());
+            //XXX großer fehler
         }
        
     }
@@ -73,17 +74,20 @@ public class LaborReportBo  implements java.io.Serializable, Saveable {
         this.getLaborReport().setCreator(creatorBo.getSystemUser());
         this._creator = creatorBo;
     }
-    public Set<DietParameterBo> getDietParameters() {
-        Set<DietParameterBo> temp = new HashSet<DietParameterBo>(this._LaborReport.getDietParameters().size());
-        for (DietParameter dietParameter : this._LaborReport.getDietParameters()) {
-            temp.add(new DietParameterBo(dietParameter));
-        }
-        return temp;
-    }
+    
+    //XXX großer fehler
+//    public Set<DietParameterBo> getDietParameters() {
+//        Set<DietParameterBo> temp = new HashSet<DietParameterBo>(this._LaborReport.getDietParameters().size());
+//        for (DietParameter dietParameter : this._LaborReport.getDietParameters()) {
+//            temp.add(new DietParameterBo(dietParameter));
+//        }
+//        return temp;
+//    }
     
     public void setDietParameters(Set<DietParameterBo> dietParametersBo) {
          for (DietParameterBo dietParameterBo : dietParametersBo) {
-            this._LaborReport.getDietParameters().add(dietParameterBo.getDietParameter());
+            //this._LaborReport.getDietParameters().add(dietParameterBo.getDietParameter());
+             //XXX großer fehler
         }
     }
 

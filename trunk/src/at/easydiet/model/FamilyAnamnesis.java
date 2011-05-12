@@ -9,13 +9,11 @@ import java.util.Set;
 public class FamilyAnamnesis  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -3173217157674917806L;
-    private long _familyAnamnesisId;
+	private static final long serialVersionUID = -3173217157674917806L;
+	
+	private long _familyAnamnesisId;
     private String _person;
-    private Set<String> _illnesses = new HashSet<String>(0);
+    private Set<Illness> _illnesses = new HashSet<Illness>(0);
 
     /**
      * Initializes a new instance of the {@link FamilyAnamnesis} class.
@@ -39,7 +37,7 @@ public class FamilyAnamnesis  implements java.io.Serializable
      * @param person the person to set for this instance
      * @param illnesses the illnesses to set for this instance
      */
-    public FamilyAnamnesis(String person, Set<String> illnesses) 
+    public FamilyAnamnesis(String person, Set<Illness> illnesses) 
     {
        _person = person;
        _illnesses = illnesses;
@@ -85,7 +83,7 @@ public class FamilyAnamnesis  implements java.io.Serializable
      * Gets the illnesses of this instance. 
      * @return the illnesses currently set for this instance.
      */
-    public Set<String> getIllnesses() 
+    public Set<Illness> getIllnesses() 
     {
         return _illnesses;
     }
@@ -94,7 +92,7 @@ public class FamilyAnamnesis  implements java.io.Serializable
      * Sets the illnesses of this instance. 
      * @param illnesses the new illnesses of this instance.
      */    
-    public void setIllnesses(Set<String> illnesses) 
+    public void setIllnesses(Set<Illness> illnesses) 
     {
         _illnesses = illnesses;
     }
@@ -107,8 +105,12 @@ public class FamilyAnamnesis  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
+
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
+        builder.append("familyAnamnesisId").append("='").append(getFamilyAnamnesisId()).append("' ");			
+        builder.append("person").append("='").append(getPerson()).append("' ");			
+        builder.append("illnesses").append("='").append(getIllnesses()).append("' ");			
         builder.append("]");
       
         return builder.toString();

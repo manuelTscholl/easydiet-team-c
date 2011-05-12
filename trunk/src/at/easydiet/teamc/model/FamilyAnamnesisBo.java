@@ -4,6 +4,7 @@ package at.easydiet.teamc.model;
 import java.util.Set;
 
 import at.easydiet.model.FamilyAnamnesis;
+import at.easydiet.model.Illness;
 
 
 
@@ -29,7 +30,7 @@ public class FamilyAnamnesisBo  implements java.io.Serializable, Saveable {
         this(new FamilyAnamnesis(person));
     }
 
-    public FamilyAnamnesisBo(String person, Set<String> illnesses) {
+    public FamilyAnamnesisBo(String person, Set<Illness> illnesses) {
         this(person);
        this._FamilyAnamnesis.setIllnesses(illnesses);
     }
@@ -48,11 +49,11 @@ public class FamilyAnamnesisBo  implements java.io.Serializable, Saveable {
     public void setPerson(String person) {
         this.getFamilyAnamnesis().setPerson(person);
     }
-    public Set<String> getIllnesses() {
+    public Set<Illness> getIllnesses() {
         return this.getFamilyAnamnesis().getIllnesses();
     }
     
-    public void setIllnesses(Set<String> illnesses) {
+    public void setIllnesses(Set<Illness> illnesses) {
         this.getFamilyAnamnesis().setIllnesses(illnesses);
     }
 
