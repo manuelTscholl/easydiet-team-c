@@ -62,6 +62,13 @@ public class ParameterDefinitionBo implements java.io.Serializable, Saveable,
 		this.getParameterDefinition().setName(name);
 	}
 
+        public ParameterDefinitionUnitBo getFirstUnit(){
+            if(getUnit().size()>0){
+                return getUnit().toArray(new ParameterDefinitionUnitBo[getUnit().size()])[0];
+            }
+            return null;
+        }
+
 	public Set<ParameterDefinitionUnitBo> getUnit() {
 		Set<ParameterDefinitionUnitBo> temp = new HashSet<ParameterDefinitionUnitBo>(
 				this._ParameterDefinition.getUnits().size());
