@@ -390,7 +390,7 @@ public class BusinessLogicDelegationController {
 	}
 
         /*
-         * Remove a parameter
+         * Remove a Recipe
          *
          * @param param
          * @return
