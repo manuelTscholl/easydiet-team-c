@@ -11,7 +11,7 @@
 		<Separator heading="Generelle Informationen" />
 		<BoxPane bxml:id="generalInformationBoxPane">
 			<Label text="Rezeptname:" />
-			<TextInput bxml:id="nameTextInput" textKey="recipeName">
+			<TextInput bxml:id="nameTextInput" text="Mein neues Rezept" textKey="recipeName">
 				<validator>
 					<util:RecipeNameValidator />
 				</validator>
@@ -265,7 +265,7 @@
 			<TablePane.Row height="-1">
 				<Label text="Zubereitungszeit: " />
 				<TextInput bxml:id="preparationTimeTextInput" textSize="3"
-					textKey="preparationTime">
+					textKey="preparationTime" text="1">
 					<validator>
 						<util:DoubleValidator />
 					</validator>
@@ -285,7 +285,6 @@
 		<!-- Buttons -->
 		<Separator />
 		<BoxPane bxml:id="buttonsBoxPane" styles="{horizontalAlignment:'right'}">
-			<PushButton bxml:id="clearButton" buttonData="Zurücksetzen" />
 			<PushButton bxml:id="saveButton" buttonData="Speichern" />
 		</BoxPane>
 	</BoxPane>
