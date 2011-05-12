@@ -24,6 +24,11 @@ public class DietParameter extends at.easydiet.model.DietParameterTemplate imple
 
     /**
      * Initializes a new instance of the {@link DietParameter} class.
+     *
+     * @param checkOperator the check operator
+     * @param parameterDefinitionUnit the parameter definition unit
+     * @param dietParameterType the diet parameter type
+     * @param parameterDefinition the parameter definition
      */
     public DietParameter(CheckOperator checkOperator, ParameterDefinitionUnit parameterDefinitionUnit, DietParameterType dietParameterType, ParameterDefinition parameterDefinition) 
     {
@@ -32,12 +37,20 @@ public class DietParameter extends at.easydiet.model.DietParameterTemplate imple
 
     /**
      * Initializes a new instance of the {@link DietParameter} class.
+     *
+     * @param checkOperator the check operator
+     * @param duration the duration
+     * @param value the value
+     * @param parameterDefinitionUnit the parameter definition unit
+     * @param dietParameterType the diet parameter type
+     * @param parameterDefinition the parameter definition
      * @param start the start to set for this instance
      */
     public DietParameter(CheckOperator checkOperator, int duration, String value, ParameterDefinitionUnit parameterDefinitionUnit, DietParameterType dietParameterType, ParameterDefinition parameterDefinition, Date start) 
     {
         super(checkOperator, duration, value, parameterDefinitionUnit, dietParameterType, parameterDefinition);        
-       _start = start;
+        this.setStart(start);
+        this.setDuration(duration);
     }
    
     /**       

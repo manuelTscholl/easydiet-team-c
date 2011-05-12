@@ -5,11 +5,13 @@ package at.easydiet.teamc.model;
 import at.easydiet.teamc.model.data.RecipeData;
 import java.sql.Clob;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import at.easydiet.model.MealLine;
 import at.easydiet.model.ParameterDefinitionUnit;
 import at.easydiet.teamc.model.data.MealLineData;
+import at.easydiet.dao.DAOFactory;
 
 
 
@@ -29,14 +31,14 @@ public class MealLineBo  implements java.io.Serializable, Saveable, MealLineData
 
     public MealLineBo(MealLine mealLine) {
         this._MealLine = mealLine;
-        _MealLine.setUnitDefaultValue();
+        setUnitDefaultValue();
         this._recipe=new RecipeBo(mealLine.getRecipe());
     }
 
 	
     public MealLineBo(float quantity, RecipeBo recipeBo, ParameterDefinitionUnitBo parameterDefinitionUnitBo,MealLineBo parentbo,MealBo mealBo) {
         this(new MealLine(quantity, recipeBo.getRecipe(), parameterDefinitionUnitBo.getParameterDefinitionUnit(), parentbo.getMealLine(), mealBo.getMeal()));
-        _MealLine.setUnitDefaultValue();
+        setUnitDefaultValue();
     }
     public MealLineBo(float quantity, Clob info, Set<MealLineBo> mealLinesBo, RecipeBo recipeBo, ParameterDefinitionUnitBo parameterDefinitionUnitBo, MealLineBo parentBo, MealBo mealBo) {
         this(quantity, recipeBo, parameterDefinitionUnitBo, parentBo, mealBo);
@@ -44,7 +46,7 @@ public class MealLineBo  implements java.io.Serializable, Saveable, MealLineData
         for (MealLineBo mealLineBo : mealLinesBo) {
             this._MealLine.getAlternatives().add(mealLineBo.getMealLine());
         }
-        _MealLine.setUnitDefaultValue();
+        setUnitDefaultValue();
     }
    
     public long getMealLineId() {
@@ -130,7 +132,27 @@ public class MealLineBo  implements java.io.Serializable, Saveable, MealLineData
     public RecipeData getRecipeData() {
         return (RecipeData) this.getRecipe();
     }
+    
+    
 
+    /**
+    *
+    */
+   public void setUnitDefaultValue()
+   {//FIX quick and dirty
+       
+       if(_MealLine.getUnit()!=null)return;
+       List<ParameterDefinitionUnit> definitions = DAOFactory.getInstance().getParameterDefinitionUnitDAO().findAll();
+       if(definitions!=null)
+           for (ParameterDefinitionUnit parameterDefinitionUnit : definitions)
+           {
+               if(parameterDefinitionUnit.getName().equals("mg/100g")){
+               _MealLine.setUnit(parameterDefinitionUnit);
+               return;
+               
+               }
+           }
+   }
 
 
 

@@ -10,23 +10,21 @@ import java.util.Set;
  */
 public class PatientState  implements java.io.Serializable
 {
-
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = 8479616084835494226L;
-    private long _patientStateId;
+	private static final long serialVersionUID = -8596807076914792722L;
+	
+	private long _patientStateId;
     private Date _date;
     private Clob _anamnesis;
-    private Integer _weight;
+    private int _weight;
     private float _weightPercentile;
-    private Integer _height;
+    private int _height;
     private float _heightPercentile;
     private int _compliance;
     private int _motivation;
     private PatientStateType _type;
     private SystemUser _creator;
     private Set<LaborReport> _laborReports = new HashSet<LaborReport>(0);
+    private Set<DietTreatment> _dietTreatments = new HashSet<DietTreatment>(0);
     private Patient _patient;
 
     /**
@@ -65,9 +63,10 @@ public class PatientState  implements java.io.Serializable
      * @param type the type to set for this instance
      * @param creator the creator to set for this instance
      * @param laborReports the laborReports to set for this instance
+     * @param dietTreatments the dietTreatments to set for this instance
      * @param patient the patient to set for this instance
      */
-    public PatientState(Date date, Clob anamnesis, Integer weight, float weightPercentile, Integer height, float heightPercentile, int compliance, int motivation, PatientStateType type, SystemUser creator, Set<LaborReport> laborReports, Patient patient) 
+    public PatientState(Date date, Clob anamnesis, int weight, float weightPercentile, int height, float heightPercentile, int compliance, int motivation, PatientStateType type, SystemUser creator, Set<LaborReport> laborReports, Set<DietTreatment> dietTreatments, Patient patient) 
     {
        _date = date;
        _anamnesis = anamnesis;
@@ -80,6 +79,7 @@ public class PatientState  implements java.io.Serializable
        _type = type;
        _creator = creator;
        _laborReports = laborReports;
+       _dietTreatments = dietTreatments;
        _patient = patient;
     }
    
@@ -141,7 +141,7 @@ public class PatientState  implements java.io.Serializable
      * Gets the weight of this instance. 
      * @return the weight currently set for this instance.
      */
-    public Integer getWeight() 
+    public int getWeight() 
     {
         return _weight;
     }
@@ -150,7 +150,7 @@ public class PatientState  implements java.io.Serializable
      * Sets the weight of this instance. 
      * @param weight the new weight of this instance.
      */    
-    public void setWeight(Integer weight) 
+    public void setWeight(int weight) 
     {
         _weight = weight;
     }
@@ -177,7 +177,7 @@ public class PatientState  implements java.io.Serializable
      * Gets the height of this instance. 
      * @return the height currently set for this instance.
      */
-    public Integer getHeight() 
+    public int getHeight() 
     {
         return _height;
     }
@@ -186,7 +186,7 @@ public class PatientState  implements java.io.Serializable
      * Sets the height of this instance. 
      * @param height the new height of this instance.
      */    
-    public void setHeight(Integer height) 
+    public void setHeight(int height) 
     {
         _height = height;
     }
@@ -300,6 +300,24 @@ public class PatientState  implements java.io.Serializable
     }
     
     /**       
+     * Gets the dietTreatments of this instance. 
+     * @return the dietTreatments currently set for this instance.
+     */
+    public Set<DietTreatment> getDietTreatments() 
+    {
+        return _dietTreatments;
+    }
+    
+    /**       
+     * Sets the dietTreatments of this instance. 
+     * @param dietTreatments the new dietTreatments of this instance.
+     */    
+    public void setDietTreatments(Set<DietTreatment> dietTreatments) 
+    {
+        _dietTreatments = dietTreatments;
+    }
+    
+    /**       
      * Gets the patient of this instance. 
      * @return the patient currently set for this instance.
      */
@@ -325,8 +343,23 @@ public class PatientState  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
+
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
+        builder.append("patientStateId").append("='").append(getPatientStateId()).append("' ");			
+        builder.append("date").append("='").append(getDate()).append("' ");			
+        builder.append("anamnesis").append("='").append(getAnamnesis()).append("' ");			
+        builder.append("weight").append("='").append(getWeight()).append("' ");			
+        builder.append("weightPercentile").append("='").append(getWeightPercentile()).append("' ");			
+        builder.append("height").append("='").append(getHeight()).append("' ");			
+        builder.append("heightPercentile").append("='").append(getHeightPercentile()).append("' ");			
+        builder.append("compliance").append("='").append(getCompliance()).append("' ");			
+        builder.append("motivation").append("='").append(getMotivation()).append("' ");			
+        builder.append("type").append("='").append(getType()).append("' ");			
+        builder.append("creator").append("='").append(getCreator()).append("' ");			
+        builder.append("laborReports").append("='").append(getLaborReports()).append("' ");			
+        builder.append("dietTreatments").append("='").append(getDietTreatments()).append("' ");			
+        builder.append("patient").append("='").append(getPatient()).append("' ");			
         builder.append("]");
       
         return builder.toString();

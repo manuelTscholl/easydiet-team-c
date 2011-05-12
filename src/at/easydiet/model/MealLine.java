@@ -4,11 +4,6 @@ import java.sql.Clob;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Hibernate;
-
-import at.easydiet.dao.DAOFactory;
-import at.easydiet.dao.HibernateUtil;
-
 /**
  * Represents a MealLine
  */
@@ -38,7 +33,7 @@ public class MealLine  implements java.io.Serializable
 
     /**
      * Initializes a new instance of the {@link MealLine} class.
-     * @param quantity the quantity to  for this instance
+     * @param quantity the quantity to set for this instance
      * @param recipe the recipe to set for this instance
      * @param unit the unit to set for this instance
      * @param parent the parent to set for this instance
@@ -72,25 +67,6 @@ public class MealLine  implements java.io.Serializable
        _unit = unit;
        _parent = parent;
        _meal = meal;
-    }
-    
-    
-    /**
-     *
-     */
-    public void setUnitDefaultValue()
-    {//FIX quick and dirty
-        if(_unit!=null)return;
-        List<ParameterDefinitionUnit> definitions = DAOFactory.getInstance().getParameterDefinitionUnitDAO().findAll();
-        if(definitions!=null)
-            for (ParameterDefinitionUnit parameterDefinitionUnit : definitions)
-            {
-                if(parameterDefinitionUnit.getName().equals("mg/100g")){
-                _unit=parameterDefinitionUnit;
-                return;
-                
-                }
-            }
     }
     
     /**       
