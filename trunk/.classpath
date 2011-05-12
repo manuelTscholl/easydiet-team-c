@@ -29,5 +29,6 @@
 	<classpathentry kind="lib" path="lib/jaxen-1.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/EasyHibernate.jar"/>
 	<classpathentry kind="lib" path="lib/antlr-2.7.6.jar"/>
+	<classpathentry kind="src" path="/WebservicesDynamicWebsite"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
