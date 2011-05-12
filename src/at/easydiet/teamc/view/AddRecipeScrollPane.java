@@ -80,7 +80,6 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	private TextArea _benefitsTextArea;
 	private TextInput _preparationTimeTextInput;
 	private ListButton _difficultyListButton;
-	private PushButton _clearPushButton;
 	private PushButton _savePushButton;
 
 	// instance variables | datas
@@ -126,7 +125,6 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 		_preparationTimeTextInput = (TextInput) map
 				.get("preparationTimeTextInput");
 		_difficultyListButton = (ListButton) map.get("difficultyListButton");
-		_clearPushButton = (PushButton) map.get("clearButton");
 		_savePushButton = (PushButton) map.get("saveButton");
 
 		// set and cache data
@@ -157,15 +155,6 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 									.getInstance().recipeSearch(null,
 											_recipeSearchTextInput.getText()));
 						}
-					}
-				});
-
-		_clearPushButton.getButtonPressListeners().add(
-				new ButtonPressListener() {
-
-					@Override
-					public void buttonPressed(Button arg0) {
-						// not neccessary in this context
 					}
 				});
 
