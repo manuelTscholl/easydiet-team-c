@@ -24,6 +24,7 @@ import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ComponentKeyListener;
 import org.apache.pivot.wtk.ComponentMouseButtonListener;
+import org.apache.pivot.wtk.ComponentStateListener;
 import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.MessageType;
@@ -141,145 +142,81 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	}
 
 	/**
-	 * Initialize data lists
+	 * Add button listeners for functional buttons
 	 */
-	private void initDataLists() {
+	private void addFunctionButtonListerners() {
+		_searchRecipeButton.getButtonPressListeners().add(
+				new ButtonPressListener() {
 
-		// set data for parameter list
-		_parameterListButton.setListData(GUIController.getInstance()
-				.getAllParameterDefinitions());
+					@Override
+					public void buttonPressed(Button arg0) {
 
-		// set default
-		_parameterListButton.setSelectedIndex(0);
+						// check for existing search string
+						if (!_recipeSearchTextInput.getText().isEmpty()) {
+							_recipeTreeView.setSearchedRecipes(GUIController
+									.getInstance().recipeSearch(null,
+											_recipeSearchTextInput.getText()));
+						}
+					}
+				});
 
-		_recipesMainCategories = GUIController.getInstance()
-				.getRecipeMainCategories();
+		_clearPushButton.getButtonPressListeners().add(
+				new ButtonPressListener() {
 
-		// units
-		_units = GUIController.getInstance().getAllParameterDefinitionUnits();
-		_unitListButton.setListData(_units);
+					@Override
+					public void buttonPressed(Button arg0) {
+						// not neccessary in this context
+					}
+				});
 
-		// set default
-		_unitListButton.setSelectedIndex(0);
+		_savePushButton.getButtonPressListeners().add(
+				new ButtonPressListener() {
 
-		// checkoperator
-		_checkOperators = GUIController.getInstance().getAllCheckoperators();
-		_checkOperatorListButton.setListData(_checkOperators);
+					@Override
+					public void buttonPressed(Button arg0) {
 
-		// set default
-		_checkOperatorListButton.setSelectedIndex(0);
+						// validate textareas
+						if (validateTextInputs() && validateTextAreas()) {
+							GUIController.getInstance().saveRecipe();
+						}
+					}
+				});
 	}
 
 	/**
-	 * Add listeners for recipe components
+	 * Add a parameter
+	 * 
+	 * @param parameter
+	 * @param operator
+	 * @param value
+	 * @param row
 	 */
-	private void addRecipeListeners() {
-		_recipeSearchTextInput.getComponentKeyListeners().add(
-				new ComponentKeyListener() {
+	private void addParameter(ParameterDefinitionData parameter,
+			ParameterDefinitionUnitData unit, CheckOperatorData operator,
+			double value) {
+		ValidatedRecipeVo validated;
+		try {
+			validated = GUIController.getInstance().addParameter(parameter,
+					unit, operator, value);
 
-					@Override
-					public boolean keyTyped(Component arg0, char arg1) {
-						if (_recipeSearchTextInput.getText().isEmpty()) {
-							_recipeTreeView.clearSearchResult();
-						}
-						return true;
-					}
+			for (NutrimentParameterRuleData n : validated
+					.getNutrimentParameterRulesData()) {
+				_parameterTableView.setParameterData(n);
+			}
+		} catch (NutrimentRuleException e) {
 
-					@Override
-					public boolean keyReleased(Component arg0, int arg1,
-							KeyLocation arg2) {
-						// not neccessary in this context
-						return false;
-					}
-
-					@Override
-					public boolean keyPressed(Component arg0, int arg1,
-							KeyLocation arg2) {
-						// not neccessary in this context
-						return false;
-					}
-				});
-
-		// add listener for opening tree branch
-		_recipeTreeView.getTreeViewBranchListeners().add(
-				new TreeViewBranchListener() {
-
-					@Override
-					public void branchExpanded(TreeView treeView, Path path) {
-
-						if (!_recipeTreeView.isSearchMode()) {
-							final int mainCat = 0;
-							final int subCat = 1;
-
-							// check if subcategory is opened
-							if (path.getLength() > 1) {
-
-								// get main category branch
-								RecipeTreeBranch mainCategoryBranch = ((RecipeTreeBranch) treeView
-										.getTreeData().get(
-												path.toArray()[mainCat]));
-
-								RecipeTreeBranch subCategoryBranch = (RecipeTreeBranch) mainCategoryBranch
-										.get(path.toArray()[subCat]);
-
-								// check if tree branch is already in cache
-								if (!_recipeTreeView
-										.cacheContains(subCategoryBranch)) {
-
-									// get recipes for subCategoryBranch
-									String blsSearch = subCategoryBranch
-											.getRecipeData().getBlsCode();
-									List<RecipeData> recipes = GUIController
-											.getInstance().recipeSearch(
-													blsSearch, null);
-
-									_recipeTreeView.addRecipesToOpenedBranch(
-											subCategoryBranch, recipes);
-								}
-							}
-						}
-					}
-
-					@Override
-					public void branchCollapsed(TreeView arg0, Path arg1) {
-						// not neccessary in this context
-					}
-				});
-
-		_chosenRecipeTableView.getTableViewRowListeners().add(
-				new TableViewRowListener() {
-
-					@Override
-					public void rowsSorted(TableView arg0) {
-						// not neccessary in this context
-
-					}
-
-					@Override
-					public void rowsRemoved(TableView arg0, int arg1, int arg2) {
-						// not neccessary in this context
-
-					}
-
-					@Override
-					public void rowsCleared(TableView arg0) {
-						// not neccessary in this context
-
-					}
-
-					@Override
-					public void rowUpdated(TableView arg0, int index) {
-						ParameterDefinitionUnitData selected = (ParameterDefinitionUnitData) _unitListButton
-								.getSelectedItem();
-						_chosenRecipeTableView.setUnit(selected, index);
-
-					}
-
-					@Override
-					public void rowInserted(TableView arg0, int arg1) {
-						// not neccessary in this context
-					}
-				});
+			// change selected parameter and retry
+			int index = _parameterListButton.getSelectedIndex() + 1;
+			_parameterListButton.setSelectedIndex(index);
+			ParameterDefinitionData newParameter = (ParameterDefinitionData) _parameterListButton
+					.getListData().get(index);
+			try {
+				addParameter(newParameter, newParameter.getUnitData(),
+						operator, value);
+			} catch (ParameterWithoutUnitException e1) {
+				addParameter(newParameter, null, operator, value);
+			}
+		}
 	}
 
 	/**
@@ -343,7 +280,12 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 				new TableViewRowListener() {
 
 					@Override
-					public void rowsSorted(TableView arg0) {
+					public void rowInserted(TableView arg0, int arg1) {
+						// not necessary in this context
+					}
+
+					@Override
+					public void rowsCleared(TableView arg0) {
 						// not necessary in this context
 
 					}
@@ -355,7 +297,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 					}
 
 					@Override
-					public void rowsCleared(TableView arg0) {
+					public void rowsSorted(TableView arg0) {
 						// not necessary in this context
 
 					}
@@ -392,37 +334,13 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 									getWindow());
 						}
 					}
-
-					@Override
-					public void rowInserted(TableView arg0, int arg1) {
-						// not necessary in this context
-					}
 				});
 
 		_parameterListButton.getButtonListeners().add(new ButtonListener() {
 
 			@Override
-			public void triStateChanged(Button arg0) {
+			public void actionChanged(Button arg0, Action arg1) {
 				// not necessary in this context
-
-			}
-
-			@Override
-			public void toggleButtonChanged(Button arg0) {
-				// not necessary in this context
-
-			}
-
-			@Override
-			public void dataRendererChanged(Button arg0, DataRenderer arg1) {
-				// / not necessary in this context
-
-			}
-
-			@Override
-			public void buttonGroupChanged(Button arg0, ButtonGroup arg1) {
-				// not necessary in this context
-
 			}
 
 			@Override
@@ -434,66 +352,69 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						.getSelectedItem();
 				List<ParameterDefinitionUnitData> units = (List<ParameterDefinitionUnitData>) CollectionConverter
 						.convertToPivotList(parameter.getUnits());
-				_parameterListButton.clear();
+
+				// remove old entries
+				_paramUnitListButton.clear();
+				_paramUnitListButton.setButtonData(null);
+
+				// set new data
 				_paramUnitListButton.setListData(units);
+
+				if (!units.isEmpty()) {
+					_paramUnitListButton.setSelectedIndex(0);
+				}
+			}
+
+			@Override
+			public void buttonGroupChanged(Button arg0, ButtonGroup arg1) {
+				// not necessary in this context
 
 			}
 
 			@Override
-			public void actionChanged(Button arg0, Action arg1) {
+			public void dataRendererChanged(Button arg0, DataRenderer arg1) {
+				// / not necessary in this context
+
+			}
+
+			@Override
+			public void toggleButtonChanged(Button arg0) {
 				// not necessary in this context
+
+			}
+
+			@Override
+			public void triStateChanged(Button arg0) {
+				// not necessary in this context
+
 			}
 		});
-	}
 
-	/**
-	 * Add a parameter
-	 * 
-	 * @param parameter
-	 * @param operator
-	 * @param value
-	 * @param row
-	 */
-	private void addParameter(ParameterDefinitionData parameter,
-			ParameterDefinitionUnitData unit, CheckOperatorData operator,
-			double value) {
-		ValidatedRecipeVo validated;
-		try {
-			validated = GUIController.getInstance().addParameter(parameter,
-					unit, operator, value);
+		_parameterTableView.getComponentStateListeners().add(
+				new ComponentStateListener() {
 
-			for (NutrimentParameterRuleData n : validated
-					.getNutrimentParameterRulesData()) {
-				_parameterTableView.setParameterData(n);
-			}
-		} catch (NutrimentRuleException e) {
+					@Override
+					public void enabledChanged(Component arg0) {
+						// not necessary in this context
 
-			// change selected parameter and retry
-			int index = _parameterListButton.getSelectedIndex() + 1;
-			_parameterListButton.setSelectedIndex(index);
-			ParameterDefinitionData newParameter = (ParameterDefinitionData) _parameterListButton
-					.getListData().get(index);
-			try {
-				addParameter(newParameter, newParameter.getUnitData(),
-						operator, value);
-			} catch (ParameterWithoutUnitException e1) {
-				// TODO Auto-generated catch block
-			}
-		}
-	}
+					}
 
-	/**
-	 * Change a parameter
-	 * 
-	 * @param parameter
-	 * @param unit
-	 * @param operator
-	 * @param value
-	 */
-	private void changeParameter(NutrimentParameterRuleData parameter,
-			ParameterDefinitionUnitData unit, CheckOperatorData operator,
-			double value) {
-		_parameterTableView.setParameterData(parameter);
+					@Override
+					public void focusedChanged(Component arg0, Component arg1) {
+
+						// check if editor mode is active
+						if (_parameterTableView.getRowEditor().isEditing()) {
+
+							// set list data
+							NutrimentParameterRuleData param = _parameterTableView
+									.getParameter(_parameterTableView
+											.getSelectedIndex());
+							_parameterListButton.setSelectedItem(param
+									.getParameterDefinitionData());
+						}
+
+					}
+				});
 	}
 
 	/**
@@ -560,43 +481,113 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	}
 
 	/**
-	 * Add button listeners for functional buttons
+	 * Add listeners for recipe components
 	 */
-	private void addFunctionButtonListerners() {
-		_searchRecipeButton.getButtonPressListeners().add(
-				new ButtonPressListener() {
+	private void addRecipeListeners() {
+		_recipeSearchTextInput.getComponentKeyListeners().add(
+				new ComponentKeyListener() {
 
 					@Override
-					public void buttonPressed(Button arg0) {
+					public boolean keyPressed(Component arg0, int arg1,
+							KeyLocation arg2) {
+						// not neccessary in this context
+						return false;
+					}
 
-						// check for existing search string
-						if (!_recipeSearchTextInput.getText().isEmpty()) {
-							_recipeTreeView.setSearchedRecipes(GUIController
-									.getInstance().recipeSearch(null,
-											_recipeSearchTextInput.getText()));
+					@Override
+					public boolean keyReleased(Component arg0, int arg1,
+							KeyLocation arg2) {
+						// not neccessary in this context
+						return false;
+					}
+
+					@Override
+					public boolean keyTyped(Component arg0, char arg1) {
+						if (_recipeSearchTextInput.getText().isEmpty()) {
+							_recipeTreeView.clearSearchResult();
 						}
+						return true;
 					}
 				});
 
-		_clearPushButton.getButtonPressListeners().add(
-				new ButtonPressListener() {
+		// add listener for opening tree branch
+		_recipeTreeView.getTreeViewBranchListeners().add(
+				new TreeViewBranchListener() {
 
 					@Override
-					public void buttonPressed(Button arg0) {
+					public void branchCollapsed(TreeView arg0, Path arg1) {
 						// not neccessary in this context
 					}
-				});
-
-		_savePushButton.getButtonPressListeners().add(
-				new ButtonPressListener() {
 
 					@Override
-					public void buttonPressed(Button arg0) {
+					public void branchExpanded(TreeView treeView, Path path) {
 
-						// validate textareas
-						if (validateTextInputs() && validateTextAreas()) {
-							GUIController.getInstance().saveRecipe();
+						if (!_recipeTreeView.isSearchMode()) {
+							final int mainCat = 0;
+							final int subCat = 1;
+
+							// check if subcategory is opened
+							if (path.getLength() > 1) {
+
+								// get main category branch
+								RecipeTreeBranch mainCategoryBranch = ((RecipeTreeBranch) treeView
+										.getTreeData().get(
+												path.toArray()[mainCat]));
+
+								RecipeTreeBranch subCategoryBranch = (RecipeTreeBranch) mainCategoryBranch
+										.get(path.toArray()[subCat]);
+
+								// check if tree branch is already in cache
+								if (!_recipeTreeView
+										.cacheContains(subCategoryBranch)) {
+
+									// get recipes for subCategoryBranch
+									String blsSearch = subCategoryBranch
+											.getRecipeData().getBlsCode();
+									List<RecipeData> recipes = GUIController
+											.getInstance().recipeSearch(
+													blsSearch, null);
+
+									_recipeTreeView.addRecipesToOpenedBranch(
+											subCategoryBranch, recipes);
+								}
+							}
 						}
+					}
+				});
+
+		_chosenRecipeTableView.getTableViewRowListeners().add(
+				new TableViewRowListener() {
+
+					@Override
+					public void rowInserted(TableView arg0, int arg1) {
+						// not neccessary in this context
+					}
+
+					@Override
+					public void rowsCleared(TableView arg0) {
+						// not neccessary in this context
+
+					}
+
+					@Override
+					public void rowsRemoved(TableView arg0, int arg1, int arg2) {
+						// not neccessary in this context
+
+					}
+
+					@Override
+					public void rowsSorted(TableView arg0) {
+						// not neccessary in this context
+
+					}
+
+					@Override
+					public void rowUpdated(TableView arg0, int index) {
+						ParameterDefinitionUnitData selected = (ParameterDefinitionUnitData) _unitListButton
+								.getSelectedItem();
+						_chosenRecipeTableView.setUnit(selected, index);
+
 					}
 				});
 	}
@@ -611,9 +602,11 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 				new ComponentMouseButtonListener() {
 
 					@Override
-					public boolean mouseUp(Component arg0,
+					public boolean mouseClick(Component arg0,
 							org.apache.pivot.wtk.Mouse.Button arg1, int arg2,
-							int arg3) {
+							int arg3, int arg4) {
+						_preparationTextArea.getStyles().put("backgroundColor",
+								"#FFFFFF");
 						return true;
 					}
 
@@ -625,11 +618,9 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 					}
 
 					@Override
-					public boolean mouseClick(Component arg0,
+					public boolean mouseUp(Component arg0,
 							org.apache.pivot.wtk.Mouse.Button arg1, int arg2,
-							int arg3, int arg4) {
-						_preparationTextArea.getStyles().put("backgroundColor",
-								"#FFFFFF");
+							int arg3) {
 						return true;
 					}
 				});
@@ -639,9 +630,11 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 				new ComponentMouseButtonListener() {
 
 					@Override
-					public boolean mouseUp(Component arg0,
+					public boolean mouseClick(Component arg0,
 							org.apache.pivot.wtk.Mouse.Button arg1, int arg2,
-							int arg3) {
+							int arg3, int arg4) {
+						_benefitsTextArea.getStyles().put("backgroundColor",
+								"#FFFFFF");
 						return true;
 					}
 
@@ -653,14 +646,56 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 					}
 
 					@Override
-					public boolean mouseClick(Component arg0,
+					public boolean mouseUp(Component arg0,
 							org.apache.pivot.wtk.Mouse.Button arg1, int arg2,
-							int arg3, int arg4) {
-						_benefitsTextArea.getStyles().put("backgroundColor",
-								"#FFFFFF");
+							int arg3) {
 						return true;
 					}
 				});
+	}
+
+	/**
+	 * Change a parameter
+	 * 
+	 * @param parameter
+	 * @param unit
+	 * @param operator
+	 * @param value
+	 */
+	private void changeParameter(NutrimentParameterRuleData parameter,
+			ParameterDefinitionUnitData unit, CheckOperatorData operator,
+			double value) {
+		_parameterTableView.setParameterData(parameter);
+	}
+
+	/**
+	 * Initialize data lists
+	 */
+	private void initDataLists() {
+
+		// set data for parameter list
+		_parameterListButton.setListData(GUIController.getInstance()
+				.getAllParameterDefinitions());
+
+		// set default
+		_parameterListButton.setSelectedIndex(0);
+
+		_recipesMainCategories = GUIController.getInstance()
+				.getRecipeMainCategories();
+
+		// units
+		_units = GUIController.getInstance().getAllParameterDefinitionUnits();
+		_unitListButton.setListData(_units);
+
+		// set default
+		_unitListButton.setSelectedIndex(0);
+
+		// checkoperator
+		_checkOperators = GUIController.getInstance().getAllCheckoperators();
+		_checkOperatorListButton.setListData(_checkOperators);
+
+		// set default
+		_checkOperatorListButton.setSelectedIndex(0);
 	}
 
 	/**
