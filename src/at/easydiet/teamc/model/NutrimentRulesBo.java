@@ -7,6 +7,8 @@
 package at.easydiet.teamc.model;
 
 import at.easydiet.teamc.exception.NutrimentRuleException;
+import at.easydiet.teamc.exception.ParameterAddingException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +50,7 @@ public class NutrimentRulesBo {
 		}
 	}
 
-	private void parameterCheck(NutrimentRuleBo currRule) {
+	private void parameterCheck(NutrimentRuleBo currRule) throws NutrimentRuleException {
 		// check if values and checkoperator are legal
 		HashMap<String, NutrimentRuleBo> currParams = _parameters.get(currRule
 				.getParameterDefintionBo().getName());
@@ -61,11 +63,11 @@ public class NutrimentRulesBo {
 					if (currRule.getCheckOperatorBo().getName().equals("=")
 							&& nrb.getCheckOperatorBo().getName().equals("!=")) {
 						currRule.setIsViolated(true);
-						break;
+						throw new NutrimentRuleException("Operators are not valid");
 					} else if (currRule.getCheckOperatorBo().getName().equals("!=")
 							&& nrb.getCheckOperatorBo().getName().equals("=")) {
 						currRule.setIsViolated(true);
-						break;
+						throw new NutrimentRuleException("Operators are not valid");						
 					} else if (currRule.getCheckOperatorBo().getName().equals(">")
 							&& nrb.getCheckOperatorBo().getName().equals("<")) {
 						// TODO set currRule to != ?
@@ -79,26 +81,26 @@ public class NutrimentRulesBo {
 						if (currRule.getValue() > nrb.getValue()
 								|| currRule.getValue() >= nrb.getValue()) {
 							currRule.setIsViolated(true);
-							break;
+							throw new NutrimentRuleException("Operators are not valid");
 						}
 					} else if (currRule.getCheckOperatorBo().getName().equals("<")
 							&& nrb.getCheckOperatorBo().getName().equals(">")) {
 						if (currRule.getValue() < nrb.getValue()) {
 							currRule.setIsViolated(true);
-							break;
+							throw new NutrimentRuleException("Operators are not valid");
 						}
 					} else if (currRule.getCheckOperatorBo().getName().equals("<=")
 							&& nrb.getCheckOperatorBo().getName().equals(">=")) {
 						if (currRule.getValue() <= nrb.getValue()) {
 							currRule.setIsViolated(true);
-							break;
+							throw new NutrimentRuleException("Operators are not valid");
 						}
 						currRule.setIsViolated(true);
 					} else if (currRule.getCheckOperatorBo().getName().equals(">=")
 							&& nrb.getCheckOperatorBo().getName().equals("<=")) {
 						if (currRule.getValue() >= nrb.getValue()) {
 							currRule.setIsViolated(true);
-							break;
+							throw new NutrimentRuleException("Operators are not valid");
 						}
 
 					}
@@ -128,6 +130,11 @@ public class NutrimentRulesBo {
 			currMap.remove(nrbo.getCheckOperatorBo().getName());
 
 			if (validate(temprule)) {
+				if(temprule.IsViolated()){
+					nrbo.setIsViolated(true);
+				}else{
+					nrbo.setIsViolated(false);
+				}
 				nrbo.setCheckOperatorBo(checkOpBo);
 				nrbo.setValue(value);
 				nrbo.setParameterdefinitionUnit(pdu);
@@ -239,7 +246,7 @@ public class NutrimentRulesBo {
 
 	}
 
-	private boolean validate(NutrimentRuleBo currRule) {
+	private boolean validate(NutrimentRuleBo currRule) throws NutrimentRuleException {
 		if (_parameters.containsKey(currRule.getName())) {
 			HashMap<String, NutrimentRuleBo> currMap = _parameters.get(currRule
 					.getName());
