@@ -32,6 +32,11 @@ public class DoubleValidator implements Validator {
 			return false;
 		}
 
+		String regex = "[0-9]{0,}";
+		if (!text.matches(regex)) {
+			return false;
+		}
+
 		// check for valid input
 		if (text.length() > 0) {
 

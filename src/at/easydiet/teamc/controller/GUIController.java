@@ -427,13 +427,6 @@ public class GUIController implements PatientListener {
 						.recipeSearch(mainCategory, search));
 	}
 
-	/**
-	 * Save the recipe
-	 */
-	public void saveRecipe() {
-		// TODO implement save recipe
-	}
-
 	public org.apache.pivot.collections.List<ParameterDefinitionUnitData> getAllParameterDefinitionUnits() {
 		return (List<ParameterDefinitionUnitData>) CollectionConverter
 				.convertToPivotList(_businessLogicDelegationController
@@ -479,7 +472,7 @@ public class GUIController implements PatientListener {
 	 */
 	public ValidatedRecipeVo addParameter(ParameterDefinitionData pd,
 			ParameterDefinitionUnitData unit, CheckOperatorData cod,
-			double value) throws NutrimentRuleException{
+			double value) throws NutrimentRuleException {
 		return _businessLogicDelegationController.addParameter(pd, cod, value,
 				unit);
 	}
@@ -494,7 +487,8 @@ public class GUIController implements PatientListener {
 	 */
 	public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData param,
 			CheckOperatorData check, double value,
-			ParameterDefinitionUnitData pdud, ParameterDefinitionData pdd) throws NutrimentRuleException{
+			ParameterDefinitionUnitData pdud, ParameterDefinitionData pdd)
+			throws NutrimentRuleException {
 		return _businessLogicDelegationController.changeParameter(param, check,
 				value, pdud, pdd);
 	}
@@ -527,6 +521,23 @@ public class GUIController implements PatientListener {
 	 */
 	public ValidatedRecipeVo removeParameter(NutrimentParameterRuleData param) {
 		return _businessLogicDelegationController.removeParameter(param);
+	}
+
+	/**
+	 * Save the recipe
+	 * 
+	 * @param recipeName
+	 * @param preparation
+	 * @param description
+	 * @param benefits
+	 * @param prepartionTime
+	 * @param difficulty
+	 */
+	public void saveRecipe(String recipeName, String preparation,
+			String description, String benefits, double prepartionTime,
+			int difficulty) {
+		_businessLogicDelegationController.saveRecipe(recipeName, preparation,
+				description, benefits, prepartionTime, difficulty);
 	}
 
 }

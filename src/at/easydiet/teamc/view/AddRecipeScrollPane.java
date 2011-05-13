@@ -96,8 +96,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 		// TODO todo for add recipe gui
 		/*
-		 * Überprüfen ob Rezeptname bereits vergeben ist, Parameterwerte
-		 * validieren
+		 * Überprüfen ob Rezeptname bereits vergeben ist
 		 */
 
 		// get GUI components
@@ -163,9 +162,20 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 					@Override
 					public void buttonPressed(Button arg0) {
 
-						// validate textareas
+						// validate inputs
 						if (validateTextInputs() && validateTextAreas()) {
-							GUIController.getInstance().saveRecipe();
+							GUIController
+									.getInstance()
+									.saveRecipe(
+											_recipeNameTextInput.getText(),
+											_preparationTextArea.getText(),
+											_descriptionTextArea.getText(),
+											_benefitsTextArea.getText(),
+											Double.parseDouble(_preparationTimeTextInput
+													.getText()),
+											Integer.parseInt(_difficultyListButton
+													.getSelectedItem()
+													.toString()));
 						}
 					}
 				});
