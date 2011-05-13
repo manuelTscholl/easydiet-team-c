@@ -199,7 +199,11 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 			for (NutrimentParameterRuleData n : validated
 					.getNutrimentParameterRulesData()) {
-				_parameterTableView.setParameterData(n);
+				float totalAmount = validated
+						.getRecipe()
+						.getNutrimentParameterData(
+								n.getParameterDefinitionData()).getAmount();
+				_parameterTableView.setParameterData(n, totalAmount);
 			}
 		} catch (NutrimentRuleException e) {
 
@@ -324,8 +328,14 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 							for (NutrimentParameterRuleData n : validated
 									.getNutrimentParameterRulesData()) {
+								float totalAmount = validated
+										.getRecipe()
+										.getNutrimentParameterData(
+												n.getParameterDefinitionData())
+										.getAmount();
 								changeParameter(n, n.getUnit(),
-										n.getCheckOperator(), n.getValue());
+										n.getCheckOperator(), n.getValue(),
+										totalAmount);
 							}
 						} catch (NutrimentRuleException e) {
 							Alert.alert(MessageType.ERROR, e.getMessage(),
@@ -472,7 +482,13 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 								// update parameters
 								for (NutrimentParameterRuleData n : validated
 										.getNutrimentParameterRulesData()) {
-									_parameterTableView.setParameterData(n);
+									float totalAmount = validated
+											.getRecipe()
+											.getNutrimentParameterData(
+													n.getParameterDefinitionData())
+											.getAmount();
+									_parameterTableView.setParameterData(n,
+											totalAmount);
 								}
 							}
 						}
@@ -706,8 +722,8 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	 */
 	private void changeParameter(NutrimentParameterRuleData parameter,
 			ParameterDefinitionUnitData unit, CheckOperatorData operator,
-			double value) {
-		_parameterTableView.setParameterData(parameter);
+			double value, float amount) {
+		_parameterTableView.setParameterData(parameter, amount);
 	}
 
 	/**

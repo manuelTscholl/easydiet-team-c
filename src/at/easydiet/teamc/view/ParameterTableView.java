@@ -32,8 +32,9 @@ public class ParameterTableView extends TableView {
 	 * Set a parameter in specific row
 	 * 
 	 * @param param
+	 * @param totalAmount
 	 */
-	public void setParameterData(NutrimentParameterRuleData p) {
+	public void setParameterData(NutrimentParameterRuleData p, float totalAmount) {
 		HashMap<String, Object> map = getRowByNutrimentParameter(p);
 		final String paramString = "parameter";
 		final String unitString = "unit";
@@ -55,7 +56,7 @@ public class ParameterTableView extends TableView {
 		map.put(paramString, p);
 		map.put(unitString, p.getUnit());
 		map.put(operatorString, p.getCheckOperator());
-		map.put(actualGram, p.getActualOnGram());
+		map.put(actualGram, totalAmount);
 
 	}
 
