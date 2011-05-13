@@ -524,6 +524,16 @@ public class GUIController implements PatientListener {
 	}
 
 	/**
+	 * Remove a recipes
+	 * 
+	 * @param remove
+	 * @return
+	 */
+	public ValidatedRecipeVo removeRecipe(RecipeData remove) {
+		return _businessLogicDelegationController.removeRecipe(remove);
+	}
+
+	/**
 	 * Save the recipe
 	 * 
 	 * @param recipeName
