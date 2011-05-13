@@ -507,6 +507,21 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 								.get(_chosenRecipeTableView.getSelectedIndex())
 								.get("recipe");
 
+						ValidatedRecipeVo validated = GUIController
+								.getInstance().removeRecipe(remove);
+
+						// update parameters
+						for (NutrimentParameterRuleData n : validated
+								.getNutrimentParameterRulesData()) {
+							float totalAmount = validated
+									.getRecipe()
+									.getNutrimentParameterData(
+											n.getParameterDefinitionData())
+									.getAmount();
+							_parameterTableView
+									.setParameterData(n, totalAmount);
+						}
+
 						_chosenRecipeTableView.removeRecipe(remove);
 					}
 				});
