@@ -41,17 +41,6 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
     public RecipeBo(Recipe recipe) {
         this._Recipe = recipe;
 
-        //initializing hashmap nutrimentparametersbo
-
-        if (_nutrimentParametersMap == null) {
-            _nutrimentParametersMap = new HashMap<Long, NutrimentParameterBo>();
-            for (NutrimentParameter np : _Recipe.getNutrimentParameters()) {
-
-                _nutrimentParametersMap.put(np.getParameterDefinition().getParameterDefinitionId(), new NutrimentParameterBo(np));
-
-            }
-
-        }
     }
 
     public RecipeBo(Recipe recipe, String name, int difficulty) {
@@ -353,6 +342,16 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
      * @return the _nutrimentPrameters
      */
     protected Map<Long, NutrimentParameterBo> getNutrimentParametersMap() {
+                
+      if (_nutrimentParametersMap == null) {
+      _nutrimentParametersMap = new HashMap<Long, NutrimentParameterBo>();
+      for (NutrimentParameter np : _Recipe.getNutrimentParameters()) {
+
+          _nutrimentParametersMap.put(np.getParameterDefinition().getParameterDefinitionId(), new NutrimentParameterBo(np));
+
+      }
+
+  }
         return _nutrimentParametersMap;
     }
 

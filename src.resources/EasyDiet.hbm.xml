@@ -169,7 +169,7 @@
 		<property name="checkPattern" column="CheckPattern" type="string" />	
         
         <!-- No lazy loading, we will need units always -->
-        <set name="units" table="ParameterDefinitionUnits">
+        <set name="units" table="ParameterDefinitionUnits" lazy="false" fetch="subselect">
 			<key column="ParameterDefinitionId" not-null="true" />
 			<many-to-many class="ParameterDefinitionUnit" column="ParameterDefinitionUnitId" />
 		</set>        
@@ -389,7 +389,7 @@
 			<one-to-many class="RecipeIngredient" />
 		</set>
 
-		<set name="nutrimentParameters">
+		<set name="nutrimentParameters" lazy="false" fetch="subselect">
 			<key column="RecipeId" not-null="true" />
 			<one-to-many class="NutrimentParameter" />
 		</set>
