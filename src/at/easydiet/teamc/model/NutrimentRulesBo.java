@@ -71,10 +71,10 @@ public class NutrimentRulesBo {
 					} else if (currRule.getCheckOperatorBo().getName().equals(">")
 							&& nrb.getCheckOperatorBo().getName().equals("<")) {
 						currRule.setIsViolated(true);
-                                                throw new NutrimentRuleException("Operators are not valid");
+						throw new NutrimentRuleException("Operators are not valid");
 					} else if (currRule.getCheckOperatorBo().getName().equals("<")
 							&& nrb.getCheckOperatorBo().getName().equals(">")) {
-						// TODO set currRule to != ?
+						throw new NutrimentRuleException("Operators are not valid");
 					}
 				} else { // value is not the same
 					if (currRule.getCheckOperatorBo().getName().equals(">")
@@ -166,7 +166,8 @@ public class NutrimentRulesBo {
 			}
 
 		} else {
-			// TODO
+			//parameter which should be changed is not in the map -->
+			addParameter(nrbo.getParameterDefintionBo(), checkOpBo, value, pdu);
 		}
 
 	}
