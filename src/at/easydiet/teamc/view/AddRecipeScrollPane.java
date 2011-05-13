@@ -351,6 +351,18 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 				if (!units.isEmpty()) {
 					_paramUnitListButton.setSelectedIndex(0);
 				}
+
+				// parameter is already set
+				NutrimentParameterRuleData param = _parameterTableView
+						.getParameter(_parameterTableView.getSelectedIndex());
+				if (param != null) {
+					for (ParameterDefinitionUnitData p : (List<ParameterDefinitionUnitData>) _paramUnitListButton
+							.getListData()) {
+						if (p.getName() == param.getUnit().getName()) {
+							_paramUnitListButton.setSelectedItem(p);
+						}
+					}
+				}
 			}
 
 			@Override
@@ -401,8 +413,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 									.getParameterDefinitionData());
 							_checkOperatorListButton.setSelectedItem(param
 									.getCheckOperator());
-							_paramUnitListButton.setSelectedItem(param
-									.getUnit());
+
 						}
 
 					}

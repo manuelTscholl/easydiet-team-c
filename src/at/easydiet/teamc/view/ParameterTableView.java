@@ -113,6 +113,12 @@ public class ParameterTableView extends TableView {
 	 * @return
 	 */
 	public NutrimentParameterRuleData getParameter(int row) {
+
+		// check if row exists
+		if (row == -1 || row >= _tableData.getLength()) {
+			return null;
+		}
+
 		HashMap<String, Object> map = _tableData.get(row);
 		return (NutrimentParameterRuleData) map.get("parameter");
 	}
