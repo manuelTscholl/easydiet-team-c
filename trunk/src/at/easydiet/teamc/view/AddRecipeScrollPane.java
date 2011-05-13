@@ -633,6 +633,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 					public void rowUpdated(TableView arg0, int index) {
 						ParameterDefinitionUnitData selected = (ParameterDefinitionUnitData) _unitListButton
 								.getSelectedItem();
+                                                _chosenRecipeTableView.setUnit(selected, index);
 						ValidatedRecipeVo validated = GUIController
 								.getInstance()
 								.changeRecipeIngredient(
@@ -653,7 +654,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 									.setParameterData(n, totalAmount);
 						}
 
-						_chosenRecipeTableView.setUnit(selected, index);
+						
 
 					}
 				});
