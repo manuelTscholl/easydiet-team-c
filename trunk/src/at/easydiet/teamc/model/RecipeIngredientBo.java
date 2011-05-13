@@ -29,6 +29,7 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable, Reci
 
     public RecipeIngredientBo(RecipeIngredient recipeIngredient){
         this._RecipeIngredient=recipeIngredient;
+        this._recipe=new RecipeBo(_RecipeIngredient.getRecipe());
     }
 
     /**
@@ -41,8 +42,10 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable, Reci
         RecipeIngredient temp;
         if(ingredientBo!=null){
             temp = new RecipeIngredient(amount, ingredientBo.getRecipe(), recipeBo.getRecipe());
+            this._recipe=recipeBo;
         }else{
             temp = new RecipeIngredient(amount, null, recipeBo.getRecipe());
+            this._recipe=recipeBo;
         }
         this._RecipeIngredient=temp;
     }
@@ -98,7 +101,7 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable, Reci
      */
     public RecipeBo getIngredient()
     {
-        return this._recipe;
+        return this.getRecipe();
     }
     
     /**       
@@ -132,11 +135,18 @@ public class RecipeIngredientBo  implements java.io.Serializable, Saveable, Reci
     }
 
     public RecipeData getRecipeData() {
-        return (RecipeData) this._recipe;
+        return (RecipeData) this.getRecipe();
     }
 
     public void setUnit(ParameterDefinitionUnitBo pdub){
         this._UnitBo=pdub;
+    }
+
+    /**
+     * @return the _recipe
+     */
+    public RecipeBo getRecipe() {
+        return _recipe;
     }
 
 }
