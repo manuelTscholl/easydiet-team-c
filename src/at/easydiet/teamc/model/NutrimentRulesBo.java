@@ -70,7 +70,8 @@ public class NutrimentRulesBo {
 						throw new NutrimentRuleException("Operators are not valid");						
 					} else if (currRule.getCheckOperatorBo().getName().equals(">")
 							&& nrb.getCheckOperatorBo().getName().equals("<")) {
-						// TODO set currRule to != ?
+						currRule.setIsViolated(true);
+                                                throw new NutrimentRuleException("Operators are not valid");
 					} else if (currRule.getCheckOperatorBo().getName().equals("<")
 							&& nrb.getCheckOperatorBo().getName().equals(">")) {
 						// TODO set currRule to != ?
