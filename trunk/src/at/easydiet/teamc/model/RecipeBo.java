@@ -255,9 +255,15 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
 
                     float sumValue;
                     try {//converting the type and then sum it
+
+                        //TODO deciding addidtiv or multiplicative calculation if condition
+
                         sumValue = DietParameterUnitController.getInstance().convert(source, target,
-                                Float.parseFloat(parameter.getValue()));
+                                Float.parseFloat(parameter.getValue())*(recipeIngredient.getIngredientAmount()/recipeIngredient.getRecipe().getTotalAmount()));
                         sum.setSum(sum.getSum() + sumValue);
+                        
+                            
+                        
                     } catch (NumberFormatException e) {
                         LOGGER.debug(e);
                     } catch (OperationNotSupportedException e) {
