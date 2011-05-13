@@ -97,9 +97,8 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 		// TODO todo for add recipe gui
 		/*
 		 * Überprüfen ob Rezeptname bereits vergeben ist, Parameterwerte
-		 * validieren, Menge validieren
+		 * validieren
 		 */
-		System.out.println(map);
 
 		// get GUI components
 		_recipeNameTextInput = (TextInput) map.get("nameTextInput");
@@ -400,6 +399,10 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 											.getSelectedIndex());
 							_parameterListButton.setSelectedItem(param
 									.getParameterDefinitionData());
+							_checkOperatorListButton.setSelectedItem(param
+									.getCheckOperator());
+							_paramUnitListButton.setSelectedItem(param
+									.getUnit());
 						}
 
 					}

@@ -6,7 +6,6 @@
  */
 package at.easydiet.teamc.model.data;
 
-
 /**
  * 
  * @author Michael
@@ -26,4 +25,6 @@ public interface NutrimentParameterRuleData {
 	public ParameterDefinitionData getParameterDefinitionData();
 
 	public ParameterDefinitionUnitData getUnit();
+
+	public double getActualOnGram();
 }

@@ -38,6 +38,7 @@ public class ParameterTableView extends TableView {
 		final String paramString = "parameter";
 		final String unitString = "unit";
 		final String operatorString = "checkOperator";
+		final String actualGram = "actualGram";
 
 		// check if row exists
 		if (map != null) {
@@ -54,6 +55,7 @@ public class ParameterTableView extends TableView {
 		map.put(paramString, p);
 		map.put(unitString, p.getUnit());
 		map.put(operatorString, p.getCheckOperator());
+		map.put(actualGram, p.getActualOnGram());
 
 	}
 

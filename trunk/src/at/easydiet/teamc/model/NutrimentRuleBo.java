@@ -5,7 +5,6 @@
 
 package at.easydiet.teamc.model;
 
-import at.easydiet.teamc.exception.ParameterWithoutUnitException;
 import at.easydiet.teamc.model.data.CheckOperatorData;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
@@ -27,7 +26,7 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 			CheckOperatorBo checkOperator, ParameterDefinitionUnitBo pdub) {
 		this._parameterDefintionBo = parameterdefinition;
 		this._checkOperatorBo = checkOperator;
-                this._unit=pdub;
+		this._unit = pdub;
 		this._value = 0;
 	}
 
@@ -129,22 +128,34 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
 	}
 
 	@Override
-	public ParameterDefinitionUnitData getUnit()
-			{
+	public ParameterDefinitionUnitData getUnit() {
 		return this._unit;
-		
+
 	}
 
 	public ParameterDefinitionUnitBo getParameterdefinition() {
 		return _unit;
 	}
 
-	public void setParameterdefinitionUnit(ParameterDefinitionUnitBo parameterdef) {
+	public void setParameterdefinitionUnit(
+			ParameterDefinitionUnitBo parameterdef) {
 		_unit = parameterdef;
 	}
 
 	@Override
 	public String toString() {
 		return getName();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * at.easydiet.teamc.model.data.NutrimentParameterRuleData#getActualOnGram()
+	 */
+	@Override
+	public double getActualOnGram() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
