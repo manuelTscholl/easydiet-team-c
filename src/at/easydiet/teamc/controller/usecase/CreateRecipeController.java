@@ -72,7 +72,7 @@ public class CreateRecipeController {
 	public ValidatedRecipeVo changeRecipeIngredient(float amount,
 			RecipeData rd, ParameterDefinitionUnitData pdu) {
 
-		_currentRecipe.changeRecipeIngredient(amount, _currentRecipe,
+		_currentRecipe.changeRecipeIngredient(amount, (RecipeBo) rd,
 				(ParameterDefinitionUnitBo) pdu);
 
 		return checkRecipe();
