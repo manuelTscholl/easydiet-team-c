@@ -42,17 +42,13 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
         this._Recipe = recipe;
 
         //initializing hashmap nutrimentparametersbo
-        NutrimentParameterBo tempnpb;
-        ParameterDefinitionBo temppdb;
-        
 
         if (_nutrimentParametersMap == null) {
             _nutrimentParametersMap = new HashMap<Long, NutrimentParameterBo>();
             for (NutrimentParameter np : _Recipe.getNutrimentParameters()) {
-                temppdb = new ParameterDefinitionBo(np.getParameterDefinition());
-                tempnpb = new NutrimentParameterBo(Float.toString(0), temppdb, temppdb.getFirstUnit());
-                _nutrimentParametersMap.put(np.getParameterDefinition().getParameterDefinitionId(), tempnpb);
-                
+
+                _nutrimentParametersMap.put(np.getParameterDefinition().getParameterDefinitionId(), new NutrimentParameterBo(np));
+
             }
 
         }
@@ -250,8 +246,9 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
 
         for (RecipeIngredientBo recipeIngredient : getRecipeIngredientsBo()) {//all ingredients
             for (NutrimentParameter parameter : recipeIngredient.getRecipeIngredient().getRecipe().getNutrimentParameters()) {//for each parameter in the ingredient
-                if (summedIngredientParameter.containsKey(parameter.getNutrimentParameterId())) {//if parameter already exists
-                    ValidationSumValue sum = summedIngredientParameter.get(parameter.getNutrimentParameterId());
+                long currParameterdefid = parameter.getParameterDefinition().getParameterDefinitionId();
+                if (summedIngredientParameter.containsKey(currParameterdefid)) {//if parameter already exists
+                    ValidationSumValue sum = summedIngredientParameter.get(currParameterdefid);
                     ParameterDefinitionUnitBo target = sum.getUnitBo();
                     ParameterDefinitionUnitBo source = new ParameterDefinitionUnitBo(
                             parameter.getUnit());
@@ -272,8 +269,8 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
                             new ParameterDefinitionUnitBo(parameter.getUnit()));
                     validSum.setSum(Float.parseFloat(parameter.getValue()));
                     summedIngredientParameter.put(
-                            parameter.getNutrimentParameterId(), validSum);
-                    idParameterMapping.put(parameter.getNutrimentParameterId(), parameter);
+                            parameter.getParameterDefinition().getParameterDefinitionId(), validSum);
+                    idParameterMapping.put(parameter.getParameterDefinition().getParameterDefinitionId(), getNutrimentParametersMap().get(currParameterdefid).getNutrimentParameter());
                 }
 
             }
@@ -287,16 +284,16 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
             tempValue.setValue(String.valueOf(item.getValue().getSum()));
         }
 
-        float parametervalue;
-        NutrimentParameterBo tempnpb;
-        for(NutrimentParameterBo npb: this.getNutrimentParameters()){
-            parametervalue=0;
-            for(RecipeIngredientBo recipeIngredientBo: getRecipeIngredientsBo()){
-                tempnpb=recipeIngredientBo.getRecipe().getNutrimentParametersMap().get(npb.getParameterDefinition().getParameterDefinitionId());
-                parametervalue=parametervalue+Float.parseFloat(tempnpb.getValue());
-            }
-            this.getNutrimentParametersMap().get(npb.getParameterDefinition().getParameterDefinitionId()).setValue(Float.toString(parametervalue));
-        }
+//        float parametervalue;
+//        NutrimentParameterBo tempnpb;
+//        for(NutrimentParameterBo npb: this.getNutrimentParameters()){
+//            parametervalue=0;
+//            for(RecipeIngredientBo recipeIngredientBo: getRecipeIngredientsBo()){
+//                tempnpb=recipeIngredientBo.getRecipe().getNutrimentParametersMap().get(npb.getParameterDefinition().getParameterDefinitionId());
+//                parametervalue=parametervalue+Float.parseFloat(tempnpb.getValue());
+//            }
+//            this.getNutrimentParametersMap().get(npb.getParameterDefinition().getParameterDefinitionId()).setValue(Float.toString(parametervalue));
+//        }
 
     }
 
