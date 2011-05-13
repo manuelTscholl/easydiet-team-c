@@ -56,6 +56,8 @@ public class CreateRecipeController {
 		_currentRecipe.addRecipeIngredient((RecipeBo) d, amount,
 				(ParameterDefinitionUnitBo) unit);
 
+                _currentRecipe.calcParameters();
+
 		return this.checkRecipe();
 	}
 
@@ -74,6 +76,8 @@ public class CreateRecipeController {
 
 		_currentRecipe.changeRecipeIngredient(amount, (RecipeBo) rd,
 				(ParameterDefinitionUnitBo) pdu);
+
+                _currentRecipe.calcParameters();
 
 		return checkRecipe();
 	}
@@ -108,6 +112,7 @@ public class CreateRecipeController {
          */
 	public ValidatedRecipeVo removeRecipeIngredient(RecipeData rd) {
                 _currentRecipe.removeRecipeIngredient((RecipeBo) rd);
+                _currentRecipe.calcParameters();
 		return checkRecipe();
 	}
 
