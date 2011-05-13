@@ -4,6 +4,7 @@ package at.easydiet.teamc.model;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DietParameterUnitController;
 import at.easydiet.teamc.model.data.NutrimentParameterData;
+import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import java.sql.Clob;
 import java.util.HashMap;
@@ -353,6 +354,11 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
 
   }
         return _nutrimentParametersMap;
+    }
+
+    public NutrimentParameterData getNutrimentParameterData(ParameterDefinitionData pdd) {
+        ParameterDefinitionBo pdb=(ParameterDefinitionBo)pdd;
+        return (NutrimentParameterData) _nutrimentParametersMap.get(pdb.getParameterDefinitionId());
     }
 
     private static class ValidationSumValue {
