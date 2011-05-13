@@ -7,6 +7,7 @@ package at.easydiet.teamc.model.data;
 
 import java.sql.Clob;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -53,6 +54,12 @@ public interface RecipeData {
      * @return
      */
     public List<NutrimentParameterData> getNutrimentParametersData();
+
+    /**
+     * Map to NutrimentParameterData
+     * @return
+     */
+    public NutrimentParameterData getNutrimentParameterData(ParameterDefinitionData pdd);
 
     /**
      * Total amount of the recipe.

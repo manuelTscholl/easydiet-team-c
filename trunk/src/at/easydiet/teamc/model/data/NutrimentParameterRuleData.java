@@ -25,6 +25,4 @@ public interface NutrimentParameterRuleData {
 	public ParameterDefinitionData getParameterDefinitionData();
 
 	public ParameterDefinitionUnitData getUnit();
-
-	public double getActualOnGram();
 }

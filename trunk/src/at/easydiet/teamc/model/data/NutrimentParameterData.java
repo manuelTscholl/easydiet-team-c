@@ -6,8 +6,14 @@
  */
 package at.easydiet.teamc.model.data;
 
+import at.easydiet.teamc.exception.ParameterWithoutUnitException;
+
 public interface NutrimentParameterData {
 
     public String getName();
-    
+
+    public float getAmount();
+
+    public ParameterDefinitionUnitData getUnit() throws ParameterWithoutUnitException;
+
 }

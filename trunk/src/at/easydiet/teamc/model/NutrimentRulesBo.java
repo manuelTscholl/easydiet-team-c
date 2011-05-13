@@ -17,259 +17,243 @@ import java.util.Set;
 
 public class NutrimentRulesBo {
 
-	private Map<String, HashMap<String, NutrimentRuleBo>> _parameters;
+    private Map<String, HashMap<String, NutrimentRuleBo>> _parameters;
 
-	public NutrimentRulesBo() {
-		_parameters = new HashMap<String, HashMap<String, NutrimentRuleBo>>();
-	}
+    public NutrimentRulesBo() {
+        _parameters = new HashMap<String, HashMap<String, NutrimentRuleBo>>();
+    }
 
-	public void addParameter(ParameterDefinitionBo parameterdefintion,
-			CheckOperatorBo checkOperatorBo, double value,
-			ParameterDefinitionUnitBo pdu) throws NutrimentRuleException {
-		// if the parameter has not been added yet
-		if (!_parameters.containsKey(parameterdefintion.getName())) {
-			_parameters.put(parameterdefintion.getName(),
-					new HashMap<String, NutrimentRuleBo>());
-			HashMap<String, NutrimentRuleBo> currMap = _parameters
-					.get(parameterdefintion.getName());
-			currMap.put(checkOperatorBo.getName(), new NutrimentRuleBo(
-					parameterdefintion, checkOperatorBo, value, pdu));
+    public void addParameter(ParameterDefinitionBo parameterdefintion,
+            CheckOperatorBo checkOperatorBo, double value,
+            ParameterDefinitionUnitBo pdu) throws NutrimentRuleException {
+        // if the parameter has not been added yet
+        if (!_parameters.containsKey(parameterdefintion.getName())) {
+            _parameters.put(parameterdefintion.getName(),
+                    new HashMap<String, NutrimentRuleBo>());
+            HashMap<String, NutrimentRuleBo> currMap = _parameters.get(parameterdefintion.getName());
+            currMap.put(checkOperatorBo.getName(), new NutrimentRuleBo(
+                    parameterdefintion, checkOperatorBo, value, pdu));
 
-		} else {// parameter already added. put the parameter with a new
-			// checkoperator into the map
-			HashMap<String, NutrimentRuleBo> currMap = _parameters
-					.get(parameterdefintion.getName());
-			// check if checkoperator already contained
-			if (currMap.containsKey(checkOperatorBo.getName())) {
-				throw new NutrimentRuleException(
-						"Parameter already exists with that checkOperator!");
-			} else {
-				currMap.put(checkOperatorBo.getName(), new NutrimentRuleBo(
-						parameterdefintion, checkOperatorBo, value, pdu));
-			}
-		}
-	}
+        } else {// parameter already added. put the parameter with a new
+            // checkoperator into the map
+            HashMap<String, NutrimentRuleBo> currMap = _parameters.get(parameterdefintion.getName());
+            // check if checkoperator already contained
+            if (currMap.containsKey(checkOperatorBo.getName())) {
+                throw new NutrimentRuleException(
+                        "Parameter already exists with that checkOperator!");
+            } else {
+                currMap.put(checkOperatorBo.getName(), new NutrimentRuleBo(
+                        parameterdefintion, checkOperatorBo, value, pdu));
+            }
+        }
+    }
 
-	private void parameterCheck(NutrimentRuleBo currRule) throws NutrimentRuleException {
-		// check if values and checkoperator are legal
-		HashMap<String, NutrimentRuleBo> currParams = _parameters.get(currRule
-				.getParameterDefintionBo().getName());
-		
-		for (NutrimentRuleBo nrb:currParams.values()) {
-			
-			if (nrb != null) {
-				// if the value is equal
-				if (currRule.getValue() == nrb.getValue()) {
-					if (currRule.getCheckOperatorBo().getName().equals("=")
-							&& nrb.getCheckOperatorBo().getName().equals("!=")) {
-						currRule.setIsViolated(true);
-						throw new NutrimentRuleException("Operators are not valid");
-					} else if (currRule.getCheckOperatorBo().getName().equals("!=")
-							&& nrb.getCheckOperatorBo().getName().equals("=")) {
-						currRule.setIsViolated(true);
-						throw new NutrimentRuleException("Operators are not valid");						
-					} else if (currRule.getCheckOperatorBo().getName().equals(">")
-							&& nrb.getCheckOperatorBo().getName().equals("<")) {
-						currRule.setIsViolated(true);
-						throw new NutrimentRuleException("Operators are not valid");
-					} else if (currRule.getCheckOperatorBo().getName().equals("<")
-							&& nrb.getCheckOperatorBo().getName().equals(">")) {
-						throw new NutrimentRuleException("Operators are not valid");
-					}
-				} else { // value is not the same
-					if (currRule.getCheckOperatorBo().getName().equals(">")
-							&& nrb.getCheckOperatorBo().getName().equals("<")) {
-						if (currRule.getValue() > nrb.getValue()
-								|| currRule.getValue() >= nrb.getValue()) {
-							currRule.setIsViolated(true);
-							throw new NutrimentRuleException("Operators are not valid");
-						}
-					} else if (currRule.getCheckOperatorBo().getName().equals("<")
-							&& nrb.getCheckOperatorBo().getName().equals(">")) {
-						if (currRule.getValue() < nrb.getValue()) {
-							currRule.setIsViolated(true);
-							throw new NutrimentRuleException("Operators are not valid");
-						}
-					} else if (currRule.getCheckOperatorBo().getName().equals("<=")
-							&& nrb.getCheckOperatorBo().getName().equals(">=")) {
-						if (currRule.getValue() <= nrb.getValue()) {
-							currRule.setIsViolated(true);
-							throw new NutrimentRuleException("Operators are not valid");
-						}
-						currRule.setIsViolated(true);
-					} else if (currRule.getCheckOperatorBo().getName().equals(">=")
-							&& nrb.getCheckOperatorBo().getName().equals("<=")) {
-						if (currRule.getValue() >= nrb.getValue()) {
-							currRule.setIsViolated(true);
-							throw new NutrimentRuleException("Operators are not valid");
-						}
+    private void parameterCheck(NutrimentRuleBo currRule) throws NutrimentRuleException {
+        // check if values and checkoperator are legal
+        HashMap<String, NutrimentRuleBo> currParams = _parameters.get(currRule.getParameterDefintionBo().getName());
 
-					}
-				}
-			}
-		}
-	}
+        for (NutrimentRuleBo nrb : currParams.values()) {
 
-	public void changeParameter(NutrimentRuleBo nrbo,
-			CheckOperatorBo checkOpBo, double value,
-			ParameterDefinitionUnitBo pdu, ParameterDefinitionBo pdb)
-			throws NutrimentRuleException {
+            if (nrb != null) {
+                // if the value is equal
+                if (currRule.getValue() == nrb.getValue()) {
+                    if (currRule.getCheckOperatorBo().getName().equals("=")
+                            && nrb.getCheckOperatorBo().getName().equals("!=")) {
+                        currRule.setIsViolated(true);
+                        throw new NutrimentRuleException("Operators are not valid");
+                    } else if (currRule.getCheckOperatorBo().getName().equals("!=")
+                            && nrb.getCheckOperatorBo().getName().equals("=")) {
+                        currRule.setIsViolated(true);
+                        throw new NutrimentRuleException("Operators are not valid");
+                    } else if (currRule.getCheckOperatorBo().getName().equals(">")
+                            && nrb.getCheckOperatorBo().getName().equals("<")) {
+                        currRule.setIsViolated(true);
+                        throw new NutrimentRuleException("Operators are not valid");
+                    } else if (currRule.getCheckOperatorBo().getName().equals("<")
+                            && nrb.getCheckOperatorBo().getName().equals(">")) {
+                        throw new NutrimentRuleException("Operators are not valid");
+                    }
+                } else { // value is not the same
+                    if (currRule.getCheckOperatorBo().getName().equals(">")
+                            && nrb.getCheckOperatorBo().getName().equals("<")) {
+                        if (currRule.getValue() > nrb.getValue()
+                                || currRule.getValue() >= nrb.getValue()) {
+                            currRule.setIsViolated(true);
+                            throw new NutrimentRuleException("Operators are not valid");
+                        }
+                    } else if (currRule.getCheckOperatorBo().getName().equals("<")
+                            && nrb.getCheckOperatorBo().getName().equals(">")) {
+                        if (currRule.getValue() < nrb.getValue()) {
+                            currRule.setIsViolated(true);
+                            throw new NutrimentRuleException("Operators are not valid");
+                        }
+                    } else if (currRule.getCheckOperatorBo().getName().equals("<=")
+                            && nrb.getCheckOperatorBo().getName().equals(">=")) {
+                        if (currRule.getValue() <= nrb.getValue()) {
+                            currRule.setIsViolated(true);
+                            throw new NutrimentRuleException("Operators are not valid");
+                        }
+                        currRule.setIsViolated(true);
+                    } else if (currRule.getCheckOperatorBo().getName().equals(">=")
+                            && nrb.getCheckOperatorBo().getName().equals("<=")) {
+                        if (currRule.getValue() >= nrb.getValue()) {
+                            currRule.setIsViolated(true);
+                            throw new NutrimentRuleException("Operators are not valid");
+                        }
 
-		HashMap<String, NutrimentRuleBo> currMap = _parameters.get(nrbo
-				.getName());
+                    }
+                }
+            }
+        }
+    }
 
-		NutrimentRuleBo currRule = currMap.get(nrbo.getCheckOperatorBo()
-				.getName());
-		NutrimentRuleBo temprule = new NutrimentRuleBo(pdb, checkOpBo, value,
-				pdu);
+    public void changeParameter(NutrimentRuleBo nrbo,
+            CheckOperatorBo checkOpBo, double value,
+            ParameterDefinitionUnitBo pdu, ParameterDefinitionBo pdb)
+            throws NutrimentRuleException {
 
-		ParameterDefinitionBo oldpdb = (ParameterDefinitionBo) nrbo
-				.getParameterDefinitionData();
+        HashMap<String, NutrimentRuleBo> currMap = _parameters.get(nrbo.getName());
 
-		if (currRule != null) {
+        NutrimentRuleBo currRule = currMap.get(nrbo.getCheckOperatorBo().getName());
+        NutrimentRuleBo temprule = new NutrimentRuleBo(pdb, checkOpBo, value,
+                pdu);
 
-			currMap.remove(nrbo.getCheckOperatorBo().getName());
+        ParameterDefinitionBo oldpdb = (ParameterDefinitionBo) nrbo.getParameterDefinitionData();
 
-			if (validate(temprule)) {
-				if(temprule.IsViolated()){
-					nrbo.setIsViolated(true);
-				}else{
-					nrbo.setIsViolated(false);
-				}
-				nrbo.setCheckOperatorBo(checkOpBo);
-				nrbo.setValue(value);
-				nrbo.setParameterdefinitionUnit(pdu);
-				nrbo.setParameterDefintionBo(pdb);
-				if (currRule.getParameterDefintionBo().getName()
-						.equalsIgnoreCase(oldpdb.getName())) {
-					currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
+        if (currRule != null) {
 
-				} else {
-					if (_parameters.containsKey(nrbo.getParameterDefintionBo()
-							.getName())) {
-						currMap = _parameters.get(nrbo
-								.getParameterDefintionBo().getName());
-						currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
+            currMap.remove(nrbo.getCheckOperatorBo().getName());
 
-					} else {
-						_parameters.put(nrbo.getParameterDefintionBo()
-								.getName(),
-								new HashMap<String, NutrimentRuleBo>());
-						currMap = _parameters.get(nrbo
-								.getParameterDefintionBo().getName());
-						currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
-					}
-				}
-			} else {
-				currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
-				throw new NutrimentRuleException("Parameterchanges not valid!");
-			}
+            if (validate(temprule)) {
+                if (temprule.IsViolated()) {
+                    nrbo.setIsViolated(true);
+                } else {
+                    nrbo.setIsViolated(false);
+                }
+                nrbo.setCheckOperatorBo(checkOpBo);
+                nrbo.setValue(value);
+                nrbo.setParameterdefinitionUnit(pdu);
+                nrbo.setParameterDefintionBo(pdb);
+                if (currRule.getParameterDefintionBo().getName().equalsIgnoreCase(oldpdb.getName())) {
+                    currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
 
-		} else {
-			//parameter which should be changed is not in the map -->
-			addParameter(nrbo.getParameterDefintionBo(), checkOpBo, value, pdu);
-		}
+                } else {
+                    if (_parameters.containsKey(nrbo.getParameterDefintionBo().getName())) {
+                        currMap = _parameters.get(nrbo.getParameterDefintionBo().getName());
+                        currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
 
-	}
+                    } else {
+                        _parameters.put(nrbo.getParameterDefintionBo().getName(),
+                                new HashMap<String, NutrimentRuleBo>());
+                        currMap = _parameters.get(nrbo.getParameterDefintionBo().getName());
+                        currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
+                    }
+                }
+            } else {
+                currMap.put(nrbo.getCheckOperatorBo().getName(), nrbo);
+                throw new NutrimentRuleException("Parameterchanges not valid!");
+            }
 
-	public List<NutrimentRuleBo> checkRecipe(RecipeBo recipe) {
-		List<NutrimentRuleBo> currParams = new ArrayList<NutrimentRuleBo>();
-		Set<NutrimentParameterBo> paramsOfRecipe = recipe
-				.getNutrimentParameters();
+        } else {
+            //parameter which should be changed is not in the map -->
+            addParameter(nrbo.getParameterDefintionBo(), checkOpBo, value, pdu);
+        }
 
-		// if there are no recipe parameters availible, add them without
-		// comparing
-		if (recipe.getNutrimentParameters().size() == 0) {
-			for (HashMap<String, NutrimentRuleBo> rb : this._parameters
-					.values()) {
-				for (NutrimentRuleBo nrbo : rb.values()) {
-					currParams.add(nrbo);
-				}
-			}
-			return currParams;
-		}
-		for (NutrimentParameterBo npbo : recipe.getNutrimentParameters()) {
-			for (HashMap<String, NutrimentRuleBo> rb : this._parameters
-					.values()) {
-				// if the parameter name matches with the parameter in the map
-				if (rb.containsKey(npbo.getParameterDefinition().getName())) {
-					for (NutrimentRuleBo nrbo : rb.values()) {
-						// check if parameter is valid
-						doCheck(nrbo, npbo);
-						currParams.add(nrbo);
-					}
-				}
+    }
 
-			}
-		}
+    public List<NutrimentRuleBo> checkRecipe(RecipeBo recipe) {
+        List<NutrimentRuleBo> currParams = new ArrayList<NutrimentRuleBo>();
+        Set<NutrimentParameterBo> paramsOfRecipe = recipe.getNutrimentParameters();
 
-		return currParams;
-	}
+        // if there are no recipe parameters availible, add them without
+        // comparing
+        if (recipe.getNutrimentParameters().size() == 0) {
+            for (HashMap<String, NutrimentRuleBo> rb : this._parameters.values()) {
+                for (NutrimentRuleBo nrbo : rb.values()) {
+                    currParams.add(nrbo);
+                }
+            }
+            return currParams;
+        }
+        //TODO don't iterate all recipe.nutrimentparameters but all nutrimentrule.parameters
+        for (NutrimentParameterBo npbo : recipe.getNutrimentParameters()) {
+            if (_parameters.containsKey(npbo.getParameterDefinition().getName())) {
+                HashMap<String, NutrimentRuleBo> currMap = _parameters.get(npbo.getParameterDefinition().getName());
+                for (NutrimentRuleBo nrbo : currMap.values()) {
+                    // check if parameter is valid
+                    doCheck(nrbo, npbo);
+                    currParams.add(nrbo);
+                }
 
-	private void doCheck(NutrimentRuleBo currentParam, NutrimentParameterBo npbo) {
-		double currValue = currentParam.getValue();
-		if (currentParam.getCheckOperator().equals("<=")) {
-			if (currValue > Double.parseDouble(npbo.getValue())) {
-				currentParam.setIsViolated(true);
-			} else {
-				currentParam.setIsViolated(false);
-			}
-		} else if (currentParam.getCheckOperator().equals("!=")) {
-			if (currValue == Double.parseDouble(npbo.getValue())) {
-				currentParam.setIsViolated(true);
-			} else {
-				currentParam.setIsViolated(false);
-			}
-		} else if (currentParam.getCheckOperator().equals(">=")) {
-			if (currValue < Double.parseDouble(npbo.getValue())) {
-				currentParam.setIsViolated(true);
-			} else {
-				currentParam.setIsViolated(false);
-			}
-		} else if (currentParam.getCheckOperator().equals("=")) {
-			if (currValue != Double.parseDouble(npbo.getValue())) {
-				currentParam.setIsViolated(true);
-			} else {
-				currentParam.setIsViolated(false);
-			}
-		} else if (currentParam.getCheckOperator().equals(">")) {
-			if (currValue <= Double.parseDouble(npbo.getValue())) {
-				currentParam.setIsViolated(true);
-			} else {
-				currentParam.setIsViolated(false);
-			}
-		} else if (currentParam.getCheckOperator().equals("<")) {
-			if (currValue >= Double.parseDouble(npbo.getValue())) {
-				currentParam.setIsViolated(true);
-			} else {
-				currentParam.setIsViolated(false);
-			}
-		}
 
-	}
+            }
+        }
 
-	private boolean validate(NutrimentRuleBo currRule) throws NutrimentRuleException {
-		if (_parameters.containsKey(currRule.getName())) {
-			HashMap<String, NutrimentRuleBo> currMap = _parameters.get(currRule
-					.getName());
-			parameterCheck(currRule);
-			if (currMap.containsKey(currRule.getCheckOperatorBo().getName())) {
-				return false;
-			}
-		}
-		return true;
-	}
+        return currParams;
+    }
 
-	public void removeParameter(NutrimentRuleBo param) {
-		if (_parameters.containsKey(param.getName())) {
-			HashMap<String, NutrimentRuleBo> currMap = _parameters.get(param
-					.getName());
-			if (currMap.containsKey(param.getCheckOperatorBo().getName())) {
-				currMap.remove(param.getCheckOperatorBo().getName());
-			}
-			if (currMap.size() <= 0) {
-				_parameters.remove(param.getParameterDefintionBo().getName());
-			}
-		}
-	}
+    private void doCheck(NutrimentRuleBo currentParam, NutrimentParameterBo npbo) {
+        double currValue = currentParam.getValue();
+        if (currentParam.getCheckOperator().equals("<=")) {
+            if (currValue > Double.parseDouble(npbo.getValue())) {
+                currentParam.setIsViolated(true);
+            } else {
+                currentParam.setIsViolated(false);
+            }
+        } else if (currentParam.getCheckOperator().equals("!=")) {
+            if (currValue == Double.parseDouble(npbo.getValue())) {
+                currentParam.setIsViolated(true);
+            } else {
+                currentParam.setIsViolated(false);
+            }
+        } else if (currentParam.getCheckOperator().equals(">=")) {
+            if (currValue < Double.parseDouble(npbo.getValue())) {
+                currentParam.setIsViolated(true);
+            } else {
+                currentParam.setIsViolated(false);
+            }
+        } else if (currentParam.getCheckOperator().equals("=")) {
+            if (currValue != Double.parseDouble(npbo.getValue())) {
+                currentParam.setIsViolated(true);
+            } else {
+                currentParam.setIsViolated(false);
+            }
+        } else if (currentParam.getCheckOperator().equals(">")) {
+            if (currValue <= Double.parseDouble(npbo.getValue())) {
+                currentParam.setIsViolated(true);
+            } else {
+                currentParam.setIsViolated(false);
+            }
+        } else if (currentParam.getCheckOperator().equals("<")) {
+            if (currValue >= Double.parseDouble(npbo.getValue())) {
+                currentParam.setIsViolated(true);
+            } else {
+                currentParam.setIsViolated(false);
+            }
+        }
+
+    }
+
+    private boolean validate(NutrimentRuleBo currRule) throws NutrimentRuleException {
+        if (_parameters.containsKey(currRule.getName())) {
+            HashMap<String, NutrimentRuleBo> currMap = _parameters.get(currRule.getName());
+            parameterCheck(currRule);
+            if (currMap.containsKey(currRule.getCheckOperatorBo().getName())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void removeParameter(NutrimentRuleBo param) {
+        if (_parameters.containsKey(param.getName())) {
+            HashMap<String, NutrimentRuleBo> currMap = _parameters.get(param.getName());
+            if (currMap.containsKey(param.getCheckOperatorBo().getName())) {
+                currMap.remove(param.getCheckOperatorBo().getName());
+            }
+            if (currMap.size() <= 0) {
+                _parameters.remove(param.getParameterDefintionBo().getName());
+            }
+        }
+    }
 }
