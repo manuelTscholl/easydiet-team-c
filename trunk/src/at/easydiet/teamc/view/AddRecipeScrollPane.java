@@ -331,6 +331,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 				// not necessary in this context
 			}
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void buttonDataChanged(Button arg0, Object arg1) {
 
@@ -356,9 +357,11 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 				NutrimentParameterRuleData param = _parameterTableView
 						.getParameter(_parameterTableView.getSelectedIndex());
 				if (param != null) {
+
+					// set parameter unit in dropdown box for this parameter
 					for (ParameterDefinitionUnitData p : (List<ParameterDefinitionUnitData>) _paramUnitListButton
 							.getListData()) {
-						if (p.getName() == param.getUnit().getName()) {
+						if (p.getName().equals(param.getUnit().getName())) {
 							_paramUnitListButton.setSelectedItem(p);
 						}
 					}
@@ -590,6 +593,32 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						ParameterDefinitionUnitData selected = (ParameterDefinitionUnitData) _unitListButton
 								.getSelectedItem();
 						_chosenRecipeTableView.setUnit(selected, index);
+
+					}
+				});
+
+		_chosenRecipeTableView.getComponentStateListeners().add(
+				new ComponentStateListener() {
+
+					@Override
+					public void enabledChanged(Component arg0) {
+						// not necessary in this context
+
+					}
+
+					@Override
+					public void focusedChanged(Component arg0, Component arg1) {
+
+						// check if editor mode is active
+						if (_chosenRecipeTableView.getRowEditor().isEditing()) {
+
+							// set list data
+							ParameterDefinitionUnitData unit = _chosenRecipeTableView
+									.getUnit(_chosenRecipeTableView
+											.getSelectedIndex());
+							_unitListButton.setSelectedItem(unit);
+
+						}
 
 					}
 				});

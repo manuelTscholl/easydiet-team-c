@@ -98,4 +98,26 @@ public class RecipeTableView extends TableView {
 
 		map.put(s, p);
 	}
+
+	/**
+	 * Get a recipe from a specific row
+	 * 
+	 * @param row
+	 * @return
+	 */
+	public RecipeData getRecipe(int row) {
+		HashMap<String, Object> map = _recipes.get(row);
+		return (RecipeData) map.get("recipe");
+	}
+
+	/**
+	 * Get a unit from a specific row
+	 * 
+	 * @param row
+	 * @return
+	 */
+	public ParameterDefinitionUnitData getUnit(int row) {
+		HashMap<String, Object> map = _recipes.get(row);
+		return (ParameterDefinitionUnitData) map.get("unit");
+	}
 }
