@@ -19,6 +19,7 @@ import at.easydiet.model.NutrimentParameter;
 import at.easydiet.model.ParameterDefinitionUnit;
 import at.easydiet.model.Recipe;
 import at.easydiet.model.RecipeIngredient;
+import at.easydiet.teamc.controller.usecase.SearchParameterController;
 import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.model.data.RecipeIngredientData;
 import java.util.ArrayList;
@@ -346,9 +347,11 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
                 
       if (_nutrimentParametersMap == null) {
       _nutrimentParametersMap = new HashMap<Long, NutrimentParameterBo>();
-      for (NutrimentParameter np : _Recipe.getNutrimentParameters()) {
+      ParameterDefinitionBo temppdb;
+      for (ParameterDefinitionData pdd : SearchParameterController.getInstance().getAllParameterDefinitions()) {
+          temppdb=(ParameterDefinitionBo)pdd;
 
-          _nutrimentParametersMap.put(np.getParameterDefinition().getParameterDefinitionId(), new NutrimentParameterBo(np));
+          _nutrimentParametersMap.put(temppdb.getParameterDefinition().getParameterDefinitionId(), new NutrimentParameterBo(Float.toString(0), temppdb, temppdb.getFirstUnit()));
 
       }
 
@@ -358,7 +361,7 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
 
     public NutrimentParameterData getNutrimentParameterData(ParameterDefinitionData pdd) {
         ParameterDefinitionBo pdb=(ParameterDefinitionBo)pdd;
-        return (NutrimentParameterData) _nutrimentParametersMap.get(pdb.getParameterDefinitionId());
+        return (NutrimentParameterData) getNutrimentParametersMap().get(pdb.getParameterDefinitionId());
     }
 
     private static class ValidationSumValue {
