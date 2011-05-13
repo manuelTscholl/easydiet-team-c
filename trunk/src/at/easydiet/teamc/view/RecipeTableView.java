@@ -120,4 +120,15 @@ public class RecipeTableView extends TableView {
 		HashMap<String, Object> map = _recipes.get(row);
 		return (ParameterDefinitionUnitData) map.get("unit");
 	}
+
+	/**
+	 * Get the quanity from a specific row
+	 * 
+	 * @param row
+	 * @return
+	 */
+	public float getQuantity(int row) {
+		HashMap<String, Object> map = _recipes.get(row);
+		return Float.parseFloat(map.get("quantity").toString());
+	}
 }
