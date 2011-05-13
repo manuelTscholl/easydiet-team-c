@@ -52,47 +52,50 @@ public class NutrimentRulesBo {
 		// check if values and checkoperator are legal
 		HashMap<String, NutrimentRuleBo> currParams = _parameters.get(currRule
 				.getParameterDefintionBo().getName());
-		for (int i = 0; i < currParams.size(); i++) {
-			NutrimentRuleBo nrb = currParams.get(i);
+		
+		for (NutrimentRuleBo nrb:currParams.values()) {
+			
 			if (nrb != null) {
 				// if the value is equal
 				if (currRule.getValue() == nrb.getValue()) {
-					if (currRule.getCheckOperatorBo().equals("=")
-							&& nrb.getCheckOperatorBo().equals("!=")) {
+					if (currRule.getCheckOperatorBo().getName().equals("=")
+							&& nrb.getCheckOperatorBo().getName().equals("!=")) {
 						currRule.setIsViolated(true);
-					} else if (currRule.getCheckOperatorBo().equals("!=")
-							&& nrb.getCheckOperatorBo().equals("=")) {
+						break;
+					} else if (currRule.getCheckOperatorBo().getName().equals("!=")
+							&& nrb.getCheckOperatorBo().getName().equals("=")) {
 						currRule.setIsViolated(true);
-					} else if (currRule.getCheckOperatorBo().equals(">")
-							&& nrb.getCheckOperatorBo().equals("<")) {
+						break;
+					} else if (currRule.getCheckOperatorBo().getName().equals(">")
+							&& nrb.getCheckOperatorBo().getName().equals("<")) {
 						// TODO set currRule to != ?
-					} else if (currRule.getCheckOperatorBo().equals("<")
-							&& nrb.getCheckOperatorBo().equals(">")) {
+					} else if (currRule.getCheckOperatorBo().getName().equals("<")
+							&& nrb.getCheckOperatorBo().getName().equals(">")) {
 						// TODO set currRule to != ?
 					}
 				} else { // value is not the same
-					if (currRule.getCheckOperatorBo().equals(">")
-							&& nrb.getCheckOperatorBo().equals("<")) {
+					if (currRule.getCheckOperatorBo().getName().equals(">")
+							&& nrb.getCheckOperatorBo().getName().equals("<")) {
 						if (currRule.getValue() > nrb.getValue()
 								|| currRule.getValue() >= nrb.getValue()) {
 							currRule.setIsViolated(true);
 							break;
 						}
-					} else if (currRule.getCheckOperatorBo().equals("<")
-							&& nrb.getCheckOperatorBo().equals(">")) {
+					} else if (currRule.getCheckOperatorBo().getName().equals("<")
+							&& nrb.getCheckOperatorBo().getName().equals(">")) {
 						if (currRule.getValue() < nrb.getValue()) {
 							currRule.setIsViolated(true);
 							break;
 						}
-					} else if (currRule.getCheckOperatorBo().equals("<=")
-							&& nrb.getCheckOperatorBo().equals(">=")) {
+					} else if (currRule.getCheckOperatorBo().getName().equals("<=")
+							&& nrb.getCheckOperatorBo().getName().equals(">=")) {
 						if (currRule.getValue() <= nrb.getValue()) {
 							currRule.setIsViolated(true);
 							break;
 						}
 						currRule.setIsViolated(true);
-					} else if (currRule.getCheckOperatorBo().equals(">=")
-							&& nrb.getCheckOperatorBo().equals("<=")) {
+					} else if (currRule.getCheckOperatorBo().getName().equals(">=")
+							&& nrb.getCheckOperatorBo().getName().equals("<=")) {
 						if (currRule.getValue() >= nrb.getValue()) {
 							currRule.setIsViolated(true);
 							break;
