@@ -89,19 +89,31 @@ public class CreateRecipeController {
 		return validatedRecipe;
 	}
 
-	public void save() {
-		HibernateUtil.currentSession().beginTransaction();
-		_currentRecipe.save();
-		HibernateUtil.currentSession().getTransaction().commit();
-	}
-
+         /*
+         * Remove a parameter
+         *
+         * @param param
+         * @return
+         */
 	public ValidatedRecipeVo removeParameter(NutrimentParameterRuleData param) {
 		_currentRules.removeParameter((NutrimentRuleBo) param);
                 return checkRecipe();
 	}
 
-	public ValidatedRecipeVo removeRecipe(RecipeData rd) {
-		// TODO Auto-generated method stub
-		return null;
+         /*
+         * Remove a Recipe
+         *
+         * @param param
+         * @return
+         */
+	public ValidatedRecipeVo removeRecipeIngredient(RecipeData rd) {
+                _currentRecipe.removeRecipeIngredient((RecipeBo) rd);
+		return checkRecipe();
+	}
+
+        public void save(String recipeName, String preparation, String description, double preaparationTime, int difficulty) {
+		HibernateUtil.currentSession().beginTransaction();
+		_currentRecipe.save();
+		HibernateUtil.currentSession().getTransaction().commit();
 	}
 }

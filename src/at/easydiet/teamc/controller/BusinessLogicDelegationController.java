@@ -372,13 +372,6 @@ public class BusinessLogicDelegationController {
 		return _createRecipeController.changeRecipeIngredient(amount, rd, pdu);
 	}
 
-	public void saveRecipe(String recipeName, String preparation,
-			String description, String benefits, double prepartionTime,
-			int difficulty) {
-
-		_createRecipeController.save();
-	}
-
 	/**
 	 * Remove a parameter
 	 * 
@@ -397,7 +390,14 @@ public class BusinessLogicDelegationController {
          */
         public ValidatedRecipeVo removeRecipe(RecipeData rd) {
 
-            return _createRecipeController.removeRecipe(rd);
+            return _createRecipeController.removeRecipeIngredient(rd);
         }
+
+        public void saveRecipe(String recipeName, String preparation,
+			String description, String benefits, double prepartionTime,
+			int difficulty) {
+
+		_createRecipeController.save(recipeName, preparation, description, prepartionTime, difficulty);
+    }
 
 }
