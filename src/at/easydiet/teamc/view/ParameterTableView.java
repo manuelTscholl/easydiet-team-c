@@ -6,10 +6,14 @@
  */
 package at.easydiet.teamc.view;
 
+import java.net.URL;
+
 import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.collections.List;
+import org.apache.pivot.util.concurrent.TaskExecutionException;
 import org.apache.pivot.wtk.TableView;
+import org.apache.pivot.wtk.media.Image;
 
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 
@@ -38,16 +42,15 @@ public class ParameterTableView extends TableView {
 		HashMap<String, Object> map = getRowByNutrimentParameter(p);
 		final String paramString = "parameter";
 		final String unitString = "unit";
+		final String valueString = "value";
 		final String operatorString = "checkOperator";
 		final String actualGram = "actualGram";
+		final String error = "error";
+		URL errorImage = ParameterTableView.class.getResource("bxml/error.png");
 
 		// check if row exists
 		if (map != null) {
-
-			// check if already set
-			if (map.get(paramString) == p) {
-				map.remove(paramString);
-			}
+			map.clear();
 		} else {
 			map = new HashMap<String, Object>();
 			_tableData.add(map);
@@ -55,9 +58,24 @@ public class ParameterTableView extends TableView {
 
 		map.put(paramString, p);
 		map.put(unitString, p.getUnit());
+		map.put(valueString, p.getValue());
+		map.put(error, errorImage);
 		map.put(operatorString, p.getCheckOperator());
 		map.put(actualGram, totalAmount);
 
+		try {
+
+			Image i = null;
+			if (p.IsViolated()) {
+				i = Image.load(errorImage);
+			}
+			map.put(error, i);
+		} catch (TaskExecutionException e) {
+			// ignore
+		}
+
+		// update view
+		this.repaint();
 	}
 
 	private HashMap<String, Object> getRowByNutrimentParameter(
