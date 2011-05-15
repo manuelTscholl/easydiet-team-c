@@ -11,7 +11,8 @@
 		<Separator heading="Generelle Informationen" />
 		<BoxPane bxml:id="generalInformationBoxPane">
 			<Label text="Rezeptname:" />
-			<TextInput bxml:id="nameTextInput" text="Mein neues Rezept" textKey="recipeName">
+			<TextInput bxml:id="nameTextInput" text="Mein neues Rezept"
+				textKey="recipeName">
 				<validator>
 					<util:RecipeNameValidator />
 				</validator>
@@ -51,15 +52,20 @@
 						maximumWidth="490">
 						<columns>
 							<TableView.Column name="parameter" headerData="Parameter"
-								width="200" />
+								width="180" />
 							<TableView.Column name="unit" headerData="Einheit"
 								width="80" />
 							<TableView.Column name="checkOperator"
-								headerData="Operator" width="60" />
+								headerData="Operator" width="55" />
 							<TableView.Column name="value" headerData="Wert"
 								width="60" />
 							<TableView.Column name="actualGram" headerData="Aktuell auf 100g"
 								width="100" />
+							<TableView.Column name="error" width="25">
+								<cellRenderer>
+									<content:TableViewImageCellRenderer />
+								</cellRenderer>
+							</TableView.Column>
 						</columns>
 
 						<rowEditor>
