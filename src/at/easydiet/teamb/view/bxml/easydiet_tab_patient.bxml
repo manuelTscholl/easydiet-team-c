@@ -1,0 +1,100 @@
+<tabPatient:PatientTab
+xmlns:bxml="http://pivot.apache.org/bxml"
+xmlns:content="org.apache.pivot.wtk.content"
+xmlns:tabPatient="at.easydiet.teamb.view.tab"
+xmlns:component="at.easydiet.teamb.component"
+xmlns="org.apache.pivot.wtk">
+
+	<!--
+	TODO:
+
+	# patientId
+	# insuranceNumber
+	# forename
+	# lastname
+	# title
+	# street
+	# zip
+	# place
+	# country
+	# birthday
+	# job
+	# religion
+	# illnesses
+	# regime
+	# notice
+	# gender
+	? familyanamnesis
+	? patientstate
+	? laborReports
+	treatments
+	# disfavors
+
+	-->
+
+	<Form styles="{fill:true, padding:10}">
+		<Form.Section heading="Informationen zur Person">
+			<BoxPane Form.label="Anrede">
+				<ListButton bxml:id="_genderListButton" selectedItemKey="gender.name" />
+				<component:NullableTextInput bxml:id="_titleTextInput" prompt="Titel" textSize="10" />
+			</BoxPane>
+			<BoxPane Form.label="Name">
+				<component:NullableTextInput bxml:id="_lastNameTextInput" prompt="Nachname" textSize="15"/>
+				<component:NullableTextInput bxml:id="_foreNameTextInput" prompt="Vorname" textSize="15"/>
+			</BoxPane>
+			<BoxPane Form.label="Job">
+				<component:NullableTextInput bxml:id="_jobTextInput" prompt="Job" textSize="31"/>
+			</BoxPane>
+			<BoxPane Form.label="Geburtstag">
+				<CalendarButton bxml:id="_birthdayCalendarButton" />
+			</BoxPane>
+			<BoxPane Form.label="SV-Nr.">
+				<component:NullableTextInput bxml:id="_insuranceNumberTextInput" prompt="nnnnTTMMJJ" textSize="15"/>
+			</BoxPane>
+			<BoxPane Form.label="Familienstand">
+				<ListButton bxml:id="_familyStateListButton" />
+			</BoxPane>
+			<BoxPane Form.label="Religion">
+				<component:NullableTextInput bxml:id="_religionTextInput" prompt="Religion" textSize="31"/>
+			</BoxPane>
+		</Form.Section>
+		<Form.Section heading="Nahrungsmittel-Vorlieben des Patienten">
+			<bxml:include bxml:id="_patientLike" src="/at/easydiet/view/PatientLikeManagementView.bxml" />
+		</Form.Section>
+		<Form.Section heading="Gesundheit">
+			<Border styles="{color:10}" Form.label="Regime">
+				<ScrollPane horizontalScrollBarPolicy="fill" verticalScrollBarPolicy="fill_to_capacity" preferredHeight="100">
+					<component:NullableTextArea bxml:id="_regimeTextArea" />
+				</ScrollPane>
+			</Border>
+			<Border styles="{color:10, padding:5}" Form.label="Krankheiten" bxml:id="_illnessesBorder" />
+			<BoxPane orientation="vertical" styles="{fill:true, verticalAlignment:'top'}" Form.label="Familien Anamnese">
+				<Border styles="{color:'#999999', padding:5}">
+					<Label text="placeholder" preferredHeight="50" styles="{horizontalAlignment:'center', verticalAlignment:'center'}"/>
+				</Border>
+			</BoxPane>
+		</Form.Section>
+		<Form.Section heading="Sonstiges">
+			<BoxPane orientation="vertical" styles="{fill:true}" Form.label="Abneigungen">
+				<Border styles="{color:'#999999', padding:5}">
+					<Label text="placeholder" preferredHeight="50" styles="{horizontalAlignment:'center', verticalAlignment:'center'}"/>
+				</Border>
+			</BoxPane>
+			<Border styles="{color:10}" Form.label="Notizen">
+				<ScrollPane horizontalScrollBarPolicy="fill" verticalScrollBarPolicy="fill_to_capacity" preferredHeight="100">
+					<component:NullableTextArea bxml:id="_noticeTextArea" />
+				</ScrollPane>
+			</Border>
+		</Form.Section>
+		<Form.Section heading="Kontaktinformationen">
+			<BoxPane Form.label="Wohnort" orientation="vertical">
+				<component:NullableTextInput bxml:id="_streetTextInput" prompt="Straße" textSize="31"/>
+				<BoxPane>
+					<component:NullableTextInput bxml:id="_zipTextInput" prompt="Postleitzahl" textSize="6"/>
+					<component:NullableTextInput bxml:id="_placeTextInput" prompt="Ort/Stadt" textSize="24"/>
+				</BoxPane>
+				<component:NullableTextInput bxml:id="_countryTextInput" prompt="Land" textSize="31"/>
+			</BoxPane>
+		</Form.Section>
+	</Form>
+</tabPatient:PatientTab>

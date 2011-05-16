@@ -23,38 +23,54 @@ import at.easydiet.teamc.controller.GUIController;
  * 
  * @author Michael
  */
-public class EasyDietMenuBar extends MenuBar implements Bindable {
+public class EasyDietMenuBar extends MenuBar implements Bindable
+{
 
-	// class variables
-	public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
-			.getLogger(EasyDietMenuBar.class);
-	// instance variables
-	private Menu.Item _addRecipeMenuItem;
+    // class variables
+    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
+                                                               .getLogger(EasyDietMenuBar.class);
+    // instance variables
+    private Menu.Item                           _addRecipeMenuItem;
+    private Menu.Item                           _addPatientMenuItem;
 
-	/**
-	 * First called after creating the GUI
-	 * 
-	 * @param map Contains all UI elements in menu.bxml by id name
-	 * @param url Contains the URL of the menu bxml file
-	 * @param rsrcs
-	 */
-	@Override
-	public void initialize(Map<String, Object> map, URL url, Resources rsrcs) {
+    /**
+     * First called after creating the GUI
+     * 
+     * @param map
+     *            Contains all UI elements in menu.bxml by id name
+     * @param url
+     *            Contains the URL of the menu bxml file
+     * @param rsrcs
+     */
+    @Override
+    public void initialize(Map<String, Object> map, URL url, Resources rsrcs)
+    {
 
-		// get GUI components
-		_addRecipeMenuItem = (Menu.Item) map.get("newRecipeMenuItem");
+        // get GUI components
+        _addRecipeMenuItem = (Menu.Item) map.get("newRecipeMenuItem");
+        _addPatientMenuItem = (Menu.Item) map.get("newPatientMenuItem");
+        // add press listeners
+        _addRecipeMenuItem.getButtonPressListeners().add(
+                new ButtonPressListener()
+                {
+                    @Override
+                    public void buttonPressed(Button arg0)
+                    {
+                        GUIController.getInstance().openAddRecipeDialog();
+                    }
+                });
 
-		// add press listeners
-		_addRecipeMenuItem.getButtonPressListeners().add(
-				new ButtonPressListener() {
+        _addPatientMenuItem.getButtonPressListeners().add(
+                new ButtonPressListener()
+                {
+                    @Override
+                    public void buttonPressed(Button arg0)
+                    {
+                        GUIController.getInstance().openAddPatientDialog();
+                    }
+                });
 
-					@Override
-					public void buttonPressed(Button arg0) {
-						GUIController.getInstance().openAddRecipeDialog();
-					}
-				});
-
-		// register component
-		GUIComponents.put(getName(), this);
-	}
+        // register component
+        GUIComponents.put(getName(), this);
+    }
 }

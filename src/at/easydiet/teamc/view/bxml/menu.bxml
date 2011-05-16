@@ -25,5 +25,17 @@
 			</Menu.Section>
 		</Menu>
 	</MenuBar.Item>
+	
+		<MenuBar.Item bxml:id="patientMenu" buttonData="Patient">
+		<Menu>
+			<Menu.Section>
+				<Menu.Item bxml:id="newPatientMenuItem">
+					<buttonData>
+						<content:MenuItemData bxml:id="addPatient" text="Patient anlegen"/>
+					</buttonData>				
+				</Menu.Item>
+			</Menu.Section>
+		</Menu>
+	</MenuBar.Item>
 </easyDiet:EasyDietMenuBar>
 

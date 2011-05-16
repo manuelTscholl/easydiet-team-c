@@ -388,29 +388,43 @@ public class GUIController implements PatientListener {
 	 */
 	public void openAddRecipeDialog() {
 
-		// load dialog for creating a new recipe
-		BXMLSerializer bxml = new BXMLSerializer();
-		ScrollPane addRecipeScrollPane;
-		Dialog dialog = new Dialog();
-		try {
-			addRecipeScrollPane = (AddRecipeScrollPane) bxml
-					.readObject(getClass().getResource(
-							"../view/bxml/addRecipe.bxml"));
-			dialog.setContent(addRecipeScrollPane);
-			dialog.open(_easyDietWindow);
+	    openBmxDialog("../view/bxml/addRecipe.bxml", "Neues Rezept erstellen");
+        _businessLogicDelegationController.createNewRecipe();
+	}
+	
+	/**
+	 * Open dialog for adding new patients
+	 */
+	public void openAddPatientDialog()
+	{
+	    openBmxDialog("../../teamb/view/bxml/easydiet_tab_patient.bxml", "test");
+	}
+	
+	private void openBmxDialog(String resource, String title)
+	{
+	       // load dialog for creating a new recipe
+        BXMLSerializer bxml = new BXMLSerializer();
+        ScrollPane addRecipeScrollPane;
+        Dialog dialog = new Dialog();
+        try {
+            addRecipeScrollPane = (AddRecipeScrollPane) bxml
+                    .readObject(getClass().getResource(
+                            resource));
+            dialog.setContent(addRecipeScrollPane);
+            dialog.open(_easyDietWindow);
 
-			// TODO height is for testing only
-			// set window height
-			dialog.setPreferredHeight(dialog.getWindow().getPreferredHeight() - 150);
+            // TODO height is for testing only
+            // set window height
+            dialog.setPreferredHeight(dialog.getWindow().getPreferredHeight() - 150);
 
-			// set dialog title
-			dialog.setTitle("Neues Rezept erstellen");
-			_businessLogicDelegationController.createNewRecipe();
-		} catch (IOException ex) {
-			LOGGER.error(ex);
-		} catch (SerializationException ex) {
-			LOGGER.error(ex);
-		}
+            // set dialog title
+            dialog.setTitle(title);
+ 
+        } catch (IOException ex) {
+            LOGGER.error(ex);
+        } catch (SerializationException ex) {
+            LOGGER.error(ex);
+        }
 	}
 
 	/**
