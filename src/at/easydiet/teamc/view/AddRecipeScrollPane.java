@@ -738,6 +738,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 								.getRecipe(_chosenRecipeTableView.getRowAt(y));
 						tooltip.append(r.getName()).append("\n\n");
 
+						// show parameters
 						for (NutrimentParameterData n : r
 								.getNutrimentParametersData()) {
 							if (_parameterTableView.containsParameter(n)) {
