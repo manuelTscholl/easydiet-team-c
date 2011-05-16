@@ -39,7 +39,6 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
 
 	public RecipeBo(Recipe recipe) {
 		this._Recipe = recipe;
-
 	}
 
 	public RecipeBo(Recipe recipe, String name, int difficulty) {
@@ -394,6 +393,16 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
 			this._Recipe.getIngredients().remove(rib);
 		}
 	}
+    
+    public ParameterDefinitionUnitBo getUnit()
+    {
+        return new ParameterDefinitionUnitBo(_Recipe.getUnit());
+    }
+    
+    public void setUnit(ParameterDefinitionUnit unit){
+        
+        _Recipe.setUnit(unit);
+    }
 
 	private RecipeIngredientBo searchRecipeIngredientBo(RecipeBo recipeBo) {
 		for (RecipeIngredientBo rib : this.getRecipeIngredientsBo()) {

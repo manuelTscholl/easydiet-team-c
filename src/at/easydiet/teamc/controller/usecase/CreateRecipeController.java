@@ -9,6 +9,9 @@ package at.easydiet.teamc.controller.usecase;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.PrePersist;
+
+import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.HibernateUtil;
 import at.easydiet.model.Recipe;
 import at.easydiet.teamc.exception.NutrimentRuleException;
@@ -24,101 +27,128 @@ import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.model.data.ValidatedRecipeVo;
+import at.easydiet.teamc.util.ClobConverter;
 
-public class CreateRecipeController {
+public class CreateRecipeController
+{
 
-	// the recipe, which will be created and edited by this instance of the
-	// controller
-	private RecipeBo _currentRecipe;
-	private NutrimentRulesBo _currentRules;
+    // the recipe, which will be created and edited by this instance of the
+    // controller
+    private RecipeBo         _currentRecipe;
+    private NutrimentRulesBo _currentRules;
 
-	/**
-	 * Constructor
-	 */
-	public CreateRecipeController() {
+    /**
+     * Constructor
+     */
+    public CreateRecipeController()
+    {
+        _currentRecipe = new RecipeBo(new Recipe());
+        _currentRules = new NutrimentRulesBo();
+    }
 
-		_currentRecipe = new RecipeBo(new Recipe());
-		_currentRules = new NutrimentRulesBo();
+    public ValidatedRecipeVo addParameter(ParameterDefinitionData pdd,
+            CheckOperatorData cod, double value,
+            ParameterDefinitionUnitData pdud) throws NutrimentRuleException
+    {
+        _currentRules.addParameter((ParameterDefinitionBo) pdd,
+                (CheckOperatorBo) cod, value, (ParameterDefinitionUnitBo) pdud);
+        return checkRecipe();
+    }
 
-	}
+    public ValidatedRecipeVo addRecipeIngredient(RecipeData d,
+            ParameterDefinitionUnitData unit, float amount)
+    {
 
-	public ValidatedRecipeVo addParameter(ParameterDefinitionData pdd,
-			CheckOperatorData cod, double value,
-			ParameterDefinitionUnitData pdud) throws NutrimentRuleException{
-		_currentRules.addParameter((ParameterDefinitionBo) pdd,
-				(CheckOperatorBo) cod, value, (ParameterDefinitionUnitBo) pdud);
-		return checkRecipe();
-	}
+        _currentRecipe.addRecipeIngredient((RecipeBo) d, amount,
+                (ParameterDefinitionUnitBo) unit);
 
-	public ValidatedRecipeVo addRecipeIngredient(RecipeData d,
-			ParameterDefinitionUnitData unit, float amount) {
+        _currentRecipe.calcParameters();
 
-		_currentRecipe.addRecipeIngredient((RecipeBo) d, amount,
-				(ParameterDefinitionUnitBo) unit);
+        return this.checkRecipe();
+    }
 
-                _currentRecipe.calcParameters();
+    public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr,
+            CheckOperatorData checkOperator, double value,
+            ParameterDefinitionUnitData pdud, ParameterDefinitionData pdd)
+            throws NutrimentRuleException
+    {
 
-		return this.checkRecipe();
-	}
+        _currentRules.changeParameter((NutrimentRuleBo) ndr,
+                (CheckOperatorBo) checkOperator, value,
+                (ParameterDefinitionUnitBo) pdud, (ParameterDefinitionBo) pdd);
+        return checkRecipe();
+    }
 
-	public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr,
-			CheckOperatorData checkOperator, double value,
-			ParameterDefinitionUnitData pdud, ParameterDefinitionData pdd) throws NutrimentRuleException {
+    public ValidatedRecipeVo changeRecipeIngredient(float amount,
+            RecipeData rd, ParameterDefinitionUnitData pdu)
+    {
 
-		_currentRules.changeParameter((NutrimentRuleBo) ndr,
-				(CheckOperatorBo) checkOperator, value,
-				(ParameterDefinitionUnitBo) pdud, (ParameterDefinitionBo) pdd);
-		return checkRecipe();
-	}
+        _currentRecipe.changeRecipeIngredient(amount, (RecipeBo) rd,
+                (ParameterDefinitionUnitBo) pdu);
 
-	public ValidatedRecipeVo changeRecipeIngredient(float amount,
-			RecipeData rd, ParameterDefinitionUnitData pdu) {
+        _currentRecipe.calcParameters();
 
-		_currentRecipe.changeRecipeIngredient(amount, (RecipeBo) rd,
-				(ParameterDefinitionUnitBo) pdu);
+        return checkRecipe();
+    }
 
-                _currentRecipe.calcParameters();
+    private ValidatedRecipeVo checkRecipe()
+    {
+        List<NutrimentParameterRuleData> nutrimentParams = new ArrayList<NutrimentParameterRuleData>();
+        for (NutrimentRuleBo nrbo : this._currentRules
+                .checkRecipe(this._currentRecipe))
+        {
+            nutrimentParams.add(nrbo);
+        }
+        ValidatedRecipeVo validatedRecipe = new ValidatedRecipeVo(
+                this._currentRecipe, nutrimentParams);
+        return validatedRecipe;
+    }
 
-		return checkRecipe();
-	}
+    /*
+     * Remove a parameter
+     * @param param
+     * @return
+     */
+    public ValidatedRecipeVo removeParameter(NutrimentParameterRuleData param)
+    {
+        _currentRules.removeParameter((NutrimentRuleBo) param);
+        return checkRecipe();
+    }
 
-	private ValidatedRecipeVo checkRecipe() {
-		List<NutrimentParameterRuleData> nutrimentParams = new ArrayList<NutrimentParameterRuleData>();
-		for (NutrimentRuleBo nrbo : this._currentRules
-				.checkRecipe(this._currentRecipe)) {
-			nutrimentParams.add(nrbo);
-		}
-		ValidatedRecipeVo validatedRecipe = new ValidatedRecipeVo(
-				this._currentRecipe, nutrimentParams);
-		return validatedRecipe;
-	}
+    /*
+     * Remove a Recipe
+     * @param param
+     * @return
+     */
+    public ValidatedRecipeVo removeRecipeIngredient(RecipeData rd)
+    {
+        _currentRecipe.removeRecipeIngredient((RecipeBo) rd);
+        _currentRecipe.calcParameters();
+        return checkRecipe();
+    }
 
-         /*
-         * Remove a parameter
-         *
-         * @param param
-         * @return
-         */
-	public ValidatedRecipeVo removeParameter(NutrimentParameterRuleData param) {
-		_currentRules.removeParameter((NutrimentRuleBo) param);
-                return checkRecipe();
-	}
 
-         /*
-         * Remove a Recipe
-         *
-         * @param param
-         * @return
-         */
-	public ValidatedRecipeVo removeRecipeIngredient(RecipeData rd) {
-                _currentRecipe.removeRecipeIngredient((RecipeBo) rd);
-                _currentRecipe.calcParameters();
-		return checkRecipe();
-	}
-
-        public void save(String recipeName, String preparation, String description, double preaparationTime, int difficulty) {
-		HibernateUtil.currentSession().beginTransaction();
-		_currentRecipe.save();
-		HibernateUtil.currentSession().getTransaction().commit();
-	}
+    /**
+     * 
+     * @param recipeName
+     * @param preparation
+     * @param description
+     * @param benefits
+     */
+    public void save(String recipeName, String preparation, String description,String benefits,
+            double preperationTime, int difficulty)
+    {
+        _currentRecipe.setName(recipeName);
+        _currentRecipe.setCookInstructions(ClobConverter.StringToClob(preparation+"\n Zubereitungszeit:"+preperationTime));
+        _currentRecipe.setDescription(ClobConverter.StringToClob(description));
+        _currentRecipe.setDifficulty(difficulty);
+        _currentRecipe.setBlsCode("Z100000");        
+        _currentRecipe.setBenefits(ClobConverter.StringToClob(benefits));        
+//        //default unit
+//        _currentRecipe.setUnit(DAOFactory.getInstance().getParameterDefinitionUnitDAO().findById(6l,false));
+//        
+        HibernateUtil.currentSession().beginTransaction();
+        _currentRecipe.save();
+        HibernateUtil.currentSession().getTransaction().commit();
+    }
 }
