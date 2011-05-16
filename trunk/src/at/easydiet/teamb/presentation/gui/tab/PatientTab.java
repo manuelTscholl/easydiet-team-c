@@ -53,8 +53,6 @@ import at.easydiet.teamb.domain.util.FamilyStatusEnum;
 import at.easydiet.teamb.domain.util.GenderEnum;
 import at.easydiet.teamb.presentation.component.IllnessesBox;
 import at.easydiet.teamb.presentation.exception.NoPatientSelectedException;
-import at.easydiet.teamb.presentation.gui.EasyBar;
-import at.easydiet.teamb.presentation.gui.YesNoAbortSheet;
 import at.easydiet.teamb.presentation.util.Message;
 import at.easydiet.teamb.presentation.util.MessageType;
 import at.easydiet.teamb.view.PatientLikeManagementView;
@@ -323,17 +321,6 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 	public void create() throws ExitNotPermittedException {
 		_useCasePatientHandler = new UseCasePatientHandler();
 
-		try {
-			_windowHandler.changePatient(_useCasePatientHandler.getPatientDataHandler().getPatient());
-		} catch (PatientChangeNotPermittedException ex) {
-			YesNoAbortSheet question = new YesNoAbortSheet(EasyBar.getCurrentInstance(), ex.getExitOptions(), new YesNoAbortSheet.Redo() {
-				@Override
-				public void redo() throws ExitNotPermittedException {
-					create();
-				}
-			});
-			question.open(getWindow());
-		}
 	}
 
 	@Override
@@ -379,8 +366,7 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 
 		updatePatient();
 
-		// including use case of team-a
-		_patientLike.onLoad(_useCasePatientHandler.getPatientDataHandler());
+
 	}
 
 	@Override

@@ -51,7 +51,6 @@ import at.easydiet.teamb.application.handler.exception.ExitNotPermittedException
 import at.easydiet.teamb.application.handler.exception.OperationNotPermittedException;
 import at.easydiet.teamb.presentation.component.MessageBar;
 import at.easydiet.teamb.presentation.exception.NoPatientSelectedException;
-import at.easydiet.teamb.presentation.gui.EasyBar;
 import at.easydiet.teamb.presentation.util.Colors;
 import at.easydiet.teamb.presentation.util.Message;
 import at.easydiet.teamb.presentation.util.MessageType;
@@ -421,9 +420,6 @@ public abstract class AbstractTab extends Border {
 	}
 	
 	public void showInfoBar(String message, MessageType type) {
-		MessageBar messageBar = EasyBar.getCurrentInstance().getMessageBar();
-		messageBar.setMessage(message, type);
-		messageBar.start();
 	}
 
 	/**

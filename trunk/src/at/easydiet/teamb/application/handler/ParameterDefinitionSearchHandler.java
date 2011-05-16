@@ -8,15 +8,15 @@
  * Created:	24.04.2011
  */
 
-package at.easydiet.application.handler;
+package at.easydiet.teamb.application.handler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import at.easydiet.application.viewobject.ParameterDefinitionViewable;
-import at.easydiet.domain.object.ParameterDefinitionDO;
+import at.easydiet.teamb.application.viewobject.ParameterDefinitionViewable;
+import at.easydiet.teamb.domain.object.ParameterDefinitionDO;
 import at.easydiet.model.ParameterDefinition;
-import at.easydiet.model.dao.ParameterDefinitionDAO;
+import at.easydiet.dao.ParameterDefinitionDAO;
 
 /**
  * The ParameterDefinitionSearchHandler
