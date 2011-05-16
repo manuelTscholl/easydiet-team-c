@@ -160,8 +160,8 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
         }
         Set<NutrimentParameterBo> temp = new HashSet<NutrimentParameterBo>(
                 this._Recipe.getNutrimentParameters().size());
-        for (NutrimentParameter nutrimentParameter : this._Recipe.getNutrimentParameters()) {
-            temp.add(new NutrimentParameterBo(nutrimentParameter));
+        for (Entry<Long, NutrimentParameterBo> entry : this.getNutrimentParametersMap().entrySet()) {
+            temp.add(entry.getValue());
         }
         return temp;
     }

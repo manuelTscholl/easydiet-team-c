@@ -40,7 +40,7 @@ public class LaborReportBo  implements java.io.Serializable, Saveable {
 
         for (DietParameterBo dietParameterBo : dietParametersBo) {
             //this._LaborReport.getDietParameters().add(dietParameterBo.getDietParameter());
-            //XXX großer fehler
+                //XXX großer fehler
         }
        
     }

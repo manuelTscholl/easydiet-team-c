@@ -22,7 +22,7 @@ import java.util.List;
 public class MealBo implements java.io.Serializable, Saveable, MealData, MealCodeData {
 
 	private Meal _meal;
-        //TODO q&d implementation of statndardparameterdefinitionunit mg/100g
+        //TODO q&d implementation of standardparameterdefinitionunit mg/100g
         private static ParameterDefinitionUnit _unit;
 
 	private MealBo() {
@@ -193,7 +193,6 @@ public class MealBo implements java.io.Serializable, Saveable, MealData, MealCod
 
                 }
             }
-            //TODO exception wenn es keine parameterdefinition units gibt
             return null;
     }
 	
