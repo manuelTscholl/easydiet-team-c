@@ -193,37 +193,37 @@ public class NutrimentRulesBo {
     private void doCheck(NutrimentRuleBo currentParam, NutrimentParameterBo npbo) {
         double currValue = currentParam.getValue();
         if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals("<=")) {
-            if (currValue <= Double.parseDouble(npbo.getValue())) {
+            if (currValue <Double.parseDouble(npbo.getValue())) {
                 currentParam.setIsViolated(true);
             } else {
                 currentParam.setIsViolated(false);
             }
         } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals("!=")) {
-            if (currValue != Double.parseDouble(npbo.getValue())) {
-                currentParam.setIsViolated(true);
-            } else {
-                currentParam.setIsViolated(false);
-            }
-        } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals(">=")) {
-            if (currValue >= Double.parseDouble(npbo.getValue())) {
-                currentParam.setIsViolated(true);
-            } else {
-                currentParam.setIsViolated(false);
-            }
-        } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals("=")) {
             if (currValue == Double.parseDouble(npbo.getValue())) {
                 currentParam.setIsViolated(true);
             } else {
                 currentParam.setIsViolated(false);
             }
-        } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals(">")) {
+        } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals(">=")) {
             if (currValue > Double.parseDouble(npbo.getValue())) {
                 currentParam.setIsViolated(true);
             } else {
                 currentParam.setIsViolated(false);
             }
+        } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals("=")) {
+            if (currValue != Double.parseDouble(npbo.getValue())) {
+                currentParam.setIsViolated(true);
+            } else {
+                currentParam.setIsViolated(false);
+            }
+        } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals(">")) {
+            if (currValue >= Double.parseDouble(npbo.getValue())) {
+                currentParam.setIsViolated(true);
+            } else {
+                currentParam.setIsViolated(false);
+            }
         } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals("<")) {
-            if (currValue < Double.parseDouble(npbo.getValue())) {
+            if (currValue <= Double.parseDouble(npbo.getValue())) {
                 currentParam.setIsViolated(true);
             } else {
                 currentParam.setIsViolated(false);
