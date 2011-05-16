@@ -64,8 +64,8 @@ public class DietPlanParameterCollectionVo {
 		this._currValue = _currValue;
 	}
 
-	public DietPlanParameterCollectionVo() {
-		// TODO Auto-generated constructor stub
+	private DietPlanParameterCollectionVo() {
+		
 	}
 
 	

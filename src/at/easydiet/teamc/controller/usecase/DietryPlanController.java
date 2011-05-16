@@ -291,7 +291,6 @@ public class DietryPlanController extends Event<EventArgs>
                     {
                         for (TimeSpanBo timesb : dpb.getTimeSpans())
                         {
-                            // TODO kick hugos
                             // -1 because duration starts with 1 instead of 0
 
                             tempenddate = new Date(

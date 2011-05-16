@@ -400,7 +400,6 @@ public class DietPlanBo implements java.io.Serializable, Saveable, DietryPlanDat
         	}
         }
 
-        //TODO q&d solution
         for(String name:parameters.keySet()){
             paramsToReturn.add(new DietPlanParameterCollectionVo(name, parameters.get(name).getMin(), parameters.get(name).getMax(), parameters.get(name).getCurrent()));
         }
