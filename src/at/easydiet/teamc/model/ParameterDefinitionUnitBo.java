@@ -124,5 +124,24 @@ public class ParameterDefinitionUnitBo implements java.io.Serializable,
 	public String toString() {
 		return getName();
 	}
-        
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.equals((ParameterDefinitionUnitBo) obj);
+    }
+    
+    public boolean equals(ParameterDefinitionUnitBo parameterDefinitionUnitBo){
+        if(this.getParameterDefinitionUnitId()==parameterDefinitionUnitBo.getParameterDefinitionUnitId()){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) this.getParameterDefinitionUnitId();
+    }
+
+
+
 }
