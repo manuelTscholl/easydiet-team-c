@@ -24,10 +24,12 @@ import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ComponentKeyListener;
 import org.apache.pivot.wtk.ComponentMouseButtonListener;
+import org.apache.pivot.wtk.ComponentMouseListener;
 import org.apache.pivot.wtk.ComponentStateListener;
 import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.MessageType;
+import org.apache.pivot.wtk.Prompt;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TableView;
@@ -163,7 +165,8 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 					public void buttonPressed(Button arg0) {
 
 						// validate inputs
-						if (validateTextInputs() && validateTextAreas()) {
+						if (validateTextInputs() && validateTextAreas()
+								&& validateParameters()) {
 							GUIController
 									.getInstance()
 									.saveRecipe(
@@ -176,6 +179,17 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 											Integer.parseInt(_difficultyListButton
 													.getSelectedItem()
 													.toString()));
+
+							Prompt success = new Prompt(MessageType.INFO,
+									"Das Rezept wurde erfolgreich gespeichert",
+									null);
+							success.open(getWindow());
+						} else {
+							Prompt error = new Prompt(
+									MessageType.WARNING,
+									"Das Rezept konnte nicht gespeichert werden",
+									null);
+							error.open(getWindow());
 						}
 					}
 				});
@@ -219,6 +233,21 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 				addParameter(newParameter, null, operator, value);
 			}
 		}
+	}
+
+	/**
+	 * Check if all parameters are not violated
+	 * 
+	 * @return
+	 */
+	private boolean validateParameters() {
+		for (int i = 0; i < _parameterTableView.getTableData().getLength(); i++) {
+			if (_parameterTableView.getParameter(i).IsViolated()) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -686,6 +715,41 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 						}
 
+					}
+				});
+
+		_chosenRecipeTableView.getComponentMouseListeners().add(
+				new ComponentMouseListener() {
+
+					@Override
+					public void mouseOver(Component arg0) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void mouseOut(Component arg0) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public boolean mouseMove(Component arg0, int x, int y) {
+						StringBuilder tooltip = new StringBuilder();
+
+						RecipeData r = _chosenRecipeTableView
+								.getRecipe(_chosenRecipeTableView.getRowAt(y));
+						tooltip.append(r.getName()).append("\n");
+
+						// TODO implement
+						// for (NutrimentParameterData n : r
+						// .getNutrimentParametersData()) {
+						// tooltip.append(n.getName() + ": " + n.getAmount()
+						// + "\n");
+						// }
+						_chosenRecipeTableView.setTooltipText(tooltip
+								.toString());
+						return false;
 					}
 				});
 	}
