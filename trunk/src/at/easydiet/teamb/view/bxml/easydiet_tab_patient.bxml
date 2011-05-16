@@ -1,8 +1,8 @@
 <tabPatient:PatientTab
 xmlns:bxml="http://pivot.apache.org/bxml"
 xmlns:content="org.apache.pivot.wtk.content"
-xmlns:tabPatient="at.easydiet.teamb.view.tab"
-xmlns:component="at.easydiet.teamb.component"
+xmlns:tabPatient="at.easydiet.teamb.presentation.gui.tab"
+xmlns:component="at.easydiet.teamb.presentation.component"
 xmlns="org.apache.pivot.wtk">
 
 	<!--
@@ -57,9 +57,6 @@ xmlns="org.apache.pivot.wtk">
 			<BoxPane Form.label="Religion">
 				<component:NullableTextInput bxml:id="_religionTextInput" prompt="Religion" textSize="31"/>
 			</BoxPane>
-		</Form.Section>
-		<Form.Section heading="Nahrungsmittel-Vorlieben des Patienten">
-			<bxml:include bxml:id="_patientLike" src="/at/easydiet/view/PatientLikeManagementView.bxml" />
 		</Form.Section>
 		<Form.Section heading="Gesundheit">
 			<Border styles="{color:10}" Form.label="Regime">
