@@ -27,6 +27,7 @@ public class RecipeTableView extends TableView {
 	{
 		_recipes = new ArrayList<HashMap<String, Object>>();
 		setTableData(_recipes);
+		setTooltipDelay(500);
 	}
 
 	/**

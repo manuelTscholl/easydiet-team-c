@@ -32,7 +32,7 @@ public class DoubleValidator implements Validator {
 			return false;
 		}
 
-		String regex = "[0-9]{0,}";
+		String regex = "[0-9]{0,}.[0-9]{0,3}";
 		if (!text.matches(regex)) {
 			return false;
 		}
