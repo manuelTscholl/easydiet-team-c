@@ -43,7 +43,7 @@ public class DietParameterUnitController
         g.put("g", 1f);
         g.put("mg", 1 / 1000f);
         g.put("myg", (1 / 1000f) / 1000f); // micro
-        // g.put("m?g", ((1/1000f)/1000f)/1000f); ???
+        g.put("m?g", ((1/1000f)/1000f)/1000f); // ???
 
         // converters for mg
         Map<String, Float> mg = new HashMap<String, Float>();
@@ -52,7 +52,7 @@ public class DietParameterUnitController
         mg.put("g", 1000f);
         mg.put("mg", 1f);
         mg.put("myg", 1 / 1000f); // micro
-        // mg.put("m?g", (1/1000f)/1000f); ???
+        mg.put("m?g", (1/1000f)/1000f); // ???
 
         // converters for myg
         Map<String, Float> myg = new HashMap<String, Float>();
@@ -61,21 +61,21 @@ public class DietParameterUnitController
         myg.put("g", 1000f * 1000f);
         myg.put("mg", 1000f);
         myg.put("myg", 1f); // micro
-        // g.put("m?g", (1/1000f)); ???
+        myg.put("m?g", (1/1000f)); // ???
 
         // converters for mg/100g
         Map<String, Float> mg100g = new HashMap<String, Float>();
         _fixedConversions.put("mg/100g", myg);
         mg100g.put("mg/100g", 1f);
         mg100g.put("myg/100g", 1/1000f); 
-        // mg100g.put("m?g/100g", (1/1000f)/1000f); 
+        mg100g.put("m?g/100g", (1/1000f)/1000f); 
         
         // converters for mg/100g
         Map<String, Float> my100g = new HashMap<String, Float>();
         _fixedConversions.put("myg/100g", myg);
         my100g.put("mg/100g", 1000f);
         my100g.put("myg/100g", 1f); 
-        // mg100g.put("m?g/100g", (1/1000f)/1000f); 
+        mg100g.put("m?g/100g", (1/1000f)/1000f); 
         
         // converters for l
         Map<String, Float> l = new HashMap<String, Float>();
