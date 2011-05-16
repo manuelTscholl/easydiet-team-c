@@ -21,22 +21,25 @@ import org.apache.pivot.collections.ArrayList;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.CalendarDate;
 import org.apache.pivot.util.Resources;
-import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.Border;
 import org.apache.pivot.wtk.Button;
+import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.CalendarButton;
 import org.apache.pivot.wtk.CalendarButtonSelectionListener;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.ListButtonSelectionListener;
 import org.apache.pivot.wtk.ListView;
+import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TextArea;
 import org.apache.pivot.wtk.TextAreaContentListener;
 import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.TextInputContentListener;
 import org.apache.pivot.wtk.content.ListButtonDataRenderer;
 import org.apache.pivot.wtk.content.ListViewItemRenderer;
+import org.hibernate.Transaction;
 
+import at.easydiet.dao.HibernateUtil;
 import at.easydiet.teamb.application.handler.AbstractUseCaseHandler;
 import at.easydiet.teamb.application.handler.UseCasePatientHandler;
 import at.easydiet.teamb.application.handler.WindowHandler;
@@ -44,7 +47,6 @@ import at.easydiet.teamb.application.handler.exception.DatabaseException;
 import at.easydiet.teamb.application.handler.exception.ErrorInFormException;
 import at.easydiet.teamb.application.handler.exception.ExitNotPermittedException;
 import at.easydiet.teamb.application.handler.exception.OperationNotPermittedException;
-import at.easydiet.teamb.application.handler.exception.PatientChangeNotPermittedException;
 import at.easydiet.teamb.application.util.EventListener;
 import at.easydiet.teamb.application.util.ValidatorArgs.PatientDataErrorField;
 import at.easydiet.teamb.application.util.ValidatorArgs.ValidatorArgs;
@@ -60,7 +62,8 @@ import at.easydiet.teamb.view.PatientLikeManagementView;
 /**
  * @author TeamB
  */
-public class PatientTab extends AbstractTab implements Bindable, EventListener<ValidatorArgs<PatientDataErrorField>> {
+public class PatientTab extends AbstractTab implements Bindable,
+		EventListener<ValidatorArgs<PatientDataErrorField>> {
 	private static final Logger LOGGER = Logger.getLogger(PatientTab.class);
 
 	@BXML
@@ -97,6 +100,8 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 	private Border _illnessesBorder = null;
 	@BXML
 	private PatientLikeManagementView _patientLike = null;
+	@BXML
+	private PushButton _save = null;
 
 	private UseCasePatientHandler _useCasePatientHandler;
 
@@ -109,24 +114,26 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 	 */
 	public PatientTab() {
 		_lastErrors = new LinkedList<Component>();
+		_useCasePatientHandler = new UseCasePatientHandler();
 	}
 
 	@Override
-	public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
+	public void initialize(Map<String, Object> namespace, URL location,
+			Resources resources) {
 		ArrayList<Title> titles = new ArrayList<Title>();
 		for (GenderEnum genderEnum : GenderEnum.values()) {
 			String title;
 
 			switch (genderEnum) {
-				case FEMALE:
-					title = "Frau";
-					break;
-				case MALE:
-					title = "Herr";
-					break;
-				default:
-					title = "";
-					break;
+			case FEMALE:
+				title = "Frau";
+				break;
+			case MALE:
+				title = "Herr";
+				break;
+			default:
+				title = "";
+				break;
 			}
 
 			titles.add(Title.getInstance(genderEnum, title));
@@ -145,81 +152,108 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 		});
 		_genderListButton.setItemRenderer(new ListViewItemRenderer() {
 			@Override
-			public void render(Object item, int index, ListView listView, boolean selected, boolean checked, boolean highlighted, boolean disabled) {
+			public void render(Object item, int index, ListView listView,
+					boolean selected, boolean checked, boolean highlighted,
+					boolean disabled) {
 				if (item instanceof Title) {
 					Title title = (Title) item;
-					super.render(title.getTitle(), index, listView, selected, checked, highlighted, disabled);
+					super.render(title.getTitle(), index, listView, selected,
+							checked, highlighted, disabled);
 				} else {
-					super.render(item, index, listView, selected, checked, highlighted, disabled);
+					super.render(item, index, listView, selected, checked,
+							highlighted, disabled);
 				}
 			}
 		});
-		_genderListButton.getListButtonSelectionListeners().add(new ListButtonSelectionListener.Adapter() {
-			@Override
-			public void selectedItemChanged(ListButton listButton, Object previousSelectedItem) {
-				if (!_updating) {
-					if (listButton.getSelectedItem() instanceof Title) {
-						_useCasePatientHandler.getPatientDataHandler().setGender(((Title) listButton.getSelectedItem()).getGenderEnum());
-					} else {
-						listButton.setSelectedIndex(-1);
-						_useCasePatientHandler.getPatientDataHandler().setGender(null);
+		_genderListButton.getListButtonSelectionListeners().add(
+				new ListButtonSelectionListener.Adapter() {
+					@Override
+					public void selectedItemChanged(ListButton listButton,
+							Object previousSelectedItem) {
+						if (!_updating) {
+							if (listButton.getSelectedItem() instanceof Title) {
+								_useCasePatientHandler.getPatientDataHandler()
+										.setGender(
+												((Title) listButton
+														.getSelectedItem())
+														.getGenderEnum());
+							} else {
+								listButton.setSelectedIndex(-1);
+								_useCasePatientHandler.getPatientDataHandler()
+										.setGender(null);
+							}
+						}
 					}
-				}
-			}
-		});
+				});
 
 		_titleTextInput.getTextInputContentListeners().add(new InputListener() {
 			@Override
 			public void textEdited(TextInput textInput) {
-				_useCasePatientHandler.getPatientDataHandler().setTitle(textInput.getText());
+				_useCasePatientHandler.getPatientDataHandler().setTitle(
+						textInput.getText());
 			}
 		});
 
-		_lastNameTextInput.getTextInputContentListeners().add(new InputListener() {
-			@Override
-			public void textEdited(TextInput textInput) {
-				_useCasePatientHandler.getPatientDataHandler().setLastname(textInput.getText());
-			}
-		});
+		_lastNameTextInput.getTextInputContentListeners().add(
+				new InputListener() {
+					@Override
+					public void textEdited(TextInput textInput) {
+						_useCasePatientHandler.getPatientDataHandler()
+								.setLastname(textInput.getText());
+					}
+				});
 
-		_foreNameTextInput.getTextInputContentListeners().add(new InputListener() {
-			@Override
-			public void textEdited(TextInput textInput) {
-				_useCasePatientHandler.getPatientDataHandler().setForename(textInput.getText());
-			}
-		});
+		_foreNameTextInput.getTextInputContentListeners().add(
+				new InputListener() {
+					@Override
+					public void textEdited(TextInput textInput) {
+						_useCasePatientHandler.getPatientDataHandler()
+								.setForename(textInput.getText());
+					}
+				});
 
 		_jobTextInput.getTextInputContentListeners().add(new InputListener() {
 			@Override
 			public void textEdited(TextInput textInput) {
-				_useCasePatientHandler.getPatientDataHandler().setJob(textInput.getText());
+				_useCasePatientHandler.getPatientDataHandler().setJob(
+						textInput.getText());
 			}
 		});
 
-		_birthdayCalendarButton.getCalendarButtonSelectionListeners().add(new CalendarButtonSelectionListener() {
+		_birthdayCalendarButton.getCalendarButtonSelectionListeners().add(
+				new CalendarButtonSelectionListener() {
 
-			@Override
-			public void selectedDateChanged(CalendarButton calendarButton, CalendarDate previousSelectedDate) {
-				if (!_updating) {
-					_useCasePatientHandler.getPatientDataHandler().setBirthday(calendarButton.getSelectedDate().toCalendar());
-				}
-			}
-		});
+					@Override
+					public void selectedDateChanged(
+							CalendarButton calendarButton,
+							CalendarDate previousSelectedDate) {
+						if (!_updating) {
+							_useCasePatientHandler.getPatientDataHandler()
+									.setBirthday(
+											calendarButton.getSelectedDate()
+													.toCalendar());
+						}
+					}
+				});
 
-		_insuranceNumberTextInput.getTextInputContentListeners().add(new InputListener() {
-			@Override
-			public void textEdited(TextInput textInput) {
-				_useCasePatientHandler.getPatientDataHandler().setInsuranceNumber(textInput.getText());
-			}
-		});
+		_insuranceNumberTextInput.getTextInputContentListeners().add(
+				new InputListener() {
+					@Override
+					public void textEdited(TextInput textInput) {
+						_useCasePatientHandler.getPatientDataHandler()
+								.setInsuranceNumber(textInput.getText());
+					}
+				});
 
-		_familyStateListButton.setListData(new ArrayList<FamilyStatusEnum>(FamilyStatusEnum.values()));
+		_familyStateListButton.setListData(new ArrayList<FamilyStatusEnum>(
+				FamilyStatusEnum.values()));
 		_familyStateListButton.setDataRenderer(new ListButtonDataRenderer() {
 			@Override
 			public void render(Object data, Button button, boolean highlight) {
 				if (data instanceof FamilyStatusEnum) {
 					FamilyStatusEnum familyStatusEnum = (FamilyStatusEnum) data;
-					super.render(familyStatusEnum.getStatus(), button, highlight);
+					super.render(familyStatusEnum.getStatus(), button,
+							highlight);
 				} else {
 					super.render(data, button, highlight);
 				}
@@ -227,87 +261,128 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 		});
 		_familyStateListButton.setItemRenderer(new ListViewItemRenderer() {
 			@Override
-			public void render(Object item, int index, ListView listView, boolean selected, boolean checked, boolean highlighted, boolean disabled) {
+			public void render(Object item, int index, ListView listView,
+					boolean selected, boolean checked, boolean highlighted,
+					boolean disabled) {
 				if (item instanceof FamilyStatusEnum) {
 					FamilyStatusEnum familyStatusEnum = (FamilyStatusEnum) item;
-					super.render(familyStatusEnum.getStatus(), index, listView, selected, checked, highlighted, disabled);
+					super.render(familyStatusEnum.getStatus(), index, listView,
+							selected, checked, highlighted, disabled);
 				} else {
-					super.render(item, index, listView, selected, checked, highlighted, disabled);
+					super.render(item, index, listView, selected, checked,
+							highlighted, disabled);
 				}
 			}
 		});
-		_familyStateListButton.getListButtonSelectionListeners().add(new ListButtonSelectionListener.Adapter() {
-			@Override
-			public void selectedItemChanged(ListButton listButton, Object previousSelectedItem) {
-				if (!_updating) {
-					if (listButton.getSelectedItem() instanceof FamilyStatusEnum) {
-						_useCasePatientHandler.getPatientDataHandler().setFamilyStatus((FamilyStatusEnum) listButton.getSelectedItem());
-					} else {
-						listButton.setSelectedIndex(-1);
-						_useCasePatientHandler.getPatientDataHandler().setFamilyStatus(null);
+		_familyStateListButton.getListButtonSelectionListeners().add(
+				new ListButtonSelectionListener.Adapter() {
+					@Override
+					public void selectedItemChanged(ListButton listButton,
+							Object previousSelectedItem) {
+						if (!_updating) {
+							if (listButton.getSelectedItem() instanceof FamilyStatusEnum) {
+								_useCasePatientHandler.getPatientDataHandler()
+										.setFamilyStatus(
+												(FamilyStatusEnum) listButton
+														.getSelectedItem());
+							} else {
+								listButton.setSelectedIndex(-1);
+								_useCasePatientHandler.getPatientDataHandler()
+										.setFamilyStatus(null);
+							}
+						}
 					}
-				}
-			}
-		});
+				});
 
-		_religionTextInput.getTextInputContentListeners().add(new InputListener() {
-			@Override
-			public void textEdited(TextInput textInput) {
-				_useCasePatientHandler.getPatientDataHandler().setReligion(textInput.getText());
-			}
-		});
-
-		_regimeTextArea.getTextAreaContentListeners().add(new TextAreaContentListener.Adapter() {
-			@Override
-			public void textChanged(TextArea textArea) {
-				if (!_updating) {
-					if (textArea.getCharacterCount() <= 0) {
-						_useCasePatientHandler.getPatientDataHandler().setRegime(null);
-					} else {
-						_useCasePatientHandler.getPatientDataHandler().setRegime(textArea.getText());
+		_religionTextInput.getTextInputContentListeners().add(
+				new InputListener() {
+					@Override
+					public void textEdited(TextInput textInput) {
+						_useCasePatientHandler.getPatientDataHandler()
+								.setReligion(textInput.getText());
 					}
-				}
-			}
-		});
+				});
 
-		_noticeTextArea.getTextAreaContentListeners().add(new TextAreaContentListener.Adapter() {
-			@Override
-			public void textChanged(TextArea textArea) {
-				if (!_updating) {
-					if (textArea.getCharacterCount() <= 0) {
-						_useCasePatientHandler.getPatientDataHandler().setNotice(null);
-					} else {
-						_useCasePatientHandler.getPatientDataHandler().setNotice(textArea.getText());
+		_regimeTextArea.getTextAreaContentListeners().add(
+				new TextAreaContentListener.Adapter() {
+					@Override
+					public void textChanged(TextArea textArea) {
+						if (!_updating) {
+							if (textArea.getCharacterCount() <= 0) {
+								_useCasePatientHandler.getPatientDataHandler()
+										.setRegime(null);
+							} else {
+								_useCasePatientHandler.getPatientDataHandler()
+										.setRegime(textArea.getText());
+							}
+						}
 					}
-				}
-			}
-		});
+				});
 
-		_streetTextInput.getTextInputContentListeners().add(new InputListener() {
-			@Override
-			public void textEdited(TextInput textInput) {
-				_useCasePatientHandler.getPatientDataHandler().setStreet(textInput.getText());
-			}
-		});
+		_noticeTextArea.getTextAreaContentListeners().add(
+				new TextAreaContentListener.Adapter() {
+					@Override
+					public void textChanged(TextArea textArea) {
+						if (!_updating) {
+							if (textArea.getCharacterCount() <= 0) {
+								_useCasePatientHandler.getPatientDataHandler()
+										.setNotice(null);
+							} else {
+								_useCasePatientHandler.getPatientDataHandler()
+										.setNotice(textArea.getText());
+							}
+						}
+					}
+				});
+
+		_streetTextInput.getTextInputContentListeners().add(
+				new InputListener() {
+					@Override
+					public void textEdited(TextInput textInput) {
+						_useCasePatientHandler.getPatientDataHandler()
+								.setStreet(textInput.getText());
+					}
+				});
 
 		_zipTextInput.getTextInputContentListeners().add(new InputListener() {
 			@Override
 			public void textEdited(TextInput textInput) {
-				_useCasePatientHandler.getPatientDataHandler().setZip(textInput.getText());
+				_useCasePatientHandler.getPatientDataHandler().setZip(
+						textInput.getText());
 			}
 		});
 
 		_placeTextInput.getTextInputContentListeners().add(new InputListener() {
 			@Override
 			public void textEdited(TextInput textInput) {
-				_useCasePatientHandler.getPatientDataHandler().setPlace(textInput.getText());
+				_useCasePatientHandler.getPatientDataHandler().setPlace(
+						textInput.getText());
 			}
 		});
 
-		_countryTextInput.getTextInputContentListeners().add(new InputListener() {
+		_countryTextInput.getTextInputContentListeners().add(
+				new InputListener() {
+					@Override
+					public void textEdited(TextInput textInput) {
+						_useCasePatientHandler.getPatientDataHandler()
+								.setCountry(textInput.getText());
+					}
+				});
+
+		_save.getButtonPressListeners().add(new ButtonPressListener() {
+
 			@Override
-			public void textEdited(TextInput textInput) {
-				_useCasePatientHandler.getPatientDataHandler().setCountry(textInput.getText());
+			public void buttonPressed(Button arg0) {
+				try {
+					save();
+					getWindow().close();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ErrorInFormException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}
@@ -325,15 +400,10 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 
 	@Override
 	public void save() throws DatabaseException, ErrorInFormException {
+		Transaction tx = HibernateUtil.currentSession().beginTransaction();
 		_useCasePatientHandler.save();
+		tx.commit();
 		showInfoBar("Erfolgreich gespeichert!", MessageType.Info);
-
-		try {
-			_windowHandler.changePatient(_useCasePatientHandler.getPatientDataHandler().getPatient());
-		} catch (PatientChangeNotPermittedException ex) {
-			LOGGER.error("uncaught PatientChangeNotPermittedException. After saving, chaning patient should be no problem", ex);
-			Alert.alert(org.apache.pivot.wtk.MessageType.ERROR, "Es ist ein unbekannter Fehler aufgetreten", getWindow());
-		}
 
 	}
 
@@ -351,7 +421,8 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 	}
 
 	@Override
-	public void display(WindowHandler windowHandler) throws NoPatientSelectedException {
+	public void display(WindowHandler windowHandler)
+			throws NoPatientSelectedException {
 		super.display(windowHandler);
 
 		if (_windowHandler.getSelectedPatient() == null) {
@@ -359,13 +430,14 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 		}
 
 		if (_useCasePatientHandler == null) {
-			_useCasePatientHandler = new UseCasePatientHandler(_windowHandler.getSelectedPatient());
+			_useCasePatientHandler = new UseCasePatientHandler(
+					_windowHandler.getSelectedPatient());
 		}
 
-		_useCasePatientHandler.getPatientDataHandler().addValidadedListener(this);
+		_useCasePatientHandler.getPatientDataHandler().addValidadedListener(
+				this);
 
 		updatePatient();
-
 
 	}
 
@@ -374,7 +446,8 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 		super.remove();
 
 		if (_useCasePatientHandler != null) {
-			_useCasePatientHandler.getPatientDataHandler().removeValidadedListener(this);
+			_useCasePatientHandler.getPatientDataHandler()
+					.removeValidadedListener(this);
 			_useCasePatientHandler = null;
 		}
 	}
@@ -382,18 +455,23 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 	private void updatePatient() {
 		_updating = true;
 
-		PatientViewable patient = _useCasePatientHandler.getPatientDataHandler().getPatient();
+		PatientViewable patient = _useCasePatientHandler
+				.getPatientDataHandler().getPatient();
 
-		_genderListButton.setSelectedItem(Title.getInstance(patient.getGender()));
+		_genderListButton
+				.setSelectedItem(Title.getInstance(patient.getGender()));
 		_titleTextInput.setText(patient.getTitle());
 		_lastNameTextInput.setText(patient.getLastname());
 		_foreNameTextInput.setText(patient.getForename());
 		_jobTextInput.setText(patient.getJob());
-		GregorianCalendar birthdate = ((patient.getBirthday() == null) ? new GregorianCalendar() : patient.getBirthday());
+		GregorianCalendar birthdate = ((patient.getBirthday() == null) ? new GregorianCalendar()
+				: patient.getBirthday());
 		try {
-			_birthdayCalendarButton.setSelectedDate(new CalendarDate(birthdate));
+			_birthdayCalendarButton
+					.setSelectedDate(new CalendarDate(birthdate));
 		} catch (IndexOutOfBoundsException ex) {
-			// TODO: remove this try-catch-block when stefan did his bug fix for pivot
+			// TODO: remove this try-catch-block when stefan did his bug fix for
+			// pivot
 			LOGGER.warn("got pivot bug", ex);
 		}
 		_insuranceNumberTextInput.setText(patient.getInsuranceNumber());
@@ -401,7 +479,8 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 		_religionTextInput.setText(patient.getReligion());
 		_regimeTextArea.setText(patient.getRegime());
 
-		_illnessesBorder.setContent(new IllnessesBox(this, _useCasePatientHandler.getPatientDataHandler()));
+		_illnessesBorder.setContent(new IllnessesBox(this,
+				_useCasePatientHandler.getPatientDataHandler()));
 
 		_noticeTextArea.setText(patient.getNotice());
 		_streetTextInput.setText(patient.getStreet());
@@ -413,33 +492,35 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 	}
 
 	@Override
-	public void fired(Object sender, ValidatorArgs<PatientDataErrorField> eventObject) {
+	public void fired(Object sender,
+			ValidatorArgs<PatientDataErrorField> eventObject) {
 		LinkedList<Component> newErrors = new LinkedList<Component>();
 
-		for (PatientDataErrorField patientDataErrorField : eventObject.getErrorFields()) {
+		for (PatientDataErrorField patientDataErrorField : eventObject
+				.getErrorFields()) {
 			Component component = null;
 			StringBuilder message = new StringBuilder("Das Feld ");
 
 			switch (patientDataErrorField) {
-				case FORENAME:
-					component = _foreNameTextInput;
-					message.append("Vorname");
-					break;
+			case FORENAME:
+				component = _foreNameTextInput;
+				message.append("Vorname");
+				break;
 
-				case LASTNAME:
-					component = _lastNameTextInput;
-					message.append("Nachname");
-					break;
+			case LASTNAME:
+				component = _lastNameTextInput;
+				message.append("Nachname");
+				break;
 
-				case GENDER:
-					component = _genderListButton;
-					message.append("Geschlechtsspezifische Anrede");
-					break;
+			case GENDER:
+				component = _genderListButton;
+				message.append("Geschlechtsspezifische Anrede");
+				break;
 
-				default:
-					LOGGER.error("unknown patient error field");
-					message.append(patientDataErrorField);
-					break;
+			default:
+				LOGGER.error("unknown patient error field");
+				message.append(patientDataErrorField);
+				break;
 			}
 
 			if (component != null) {
@@ -448,7 +529,8 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 
 				message.append(" darf nicht leer sein");
 
-				putMessage(new Message(MessageType.Error, component, message.toString()));
+				putMessage(new Message(MessageType.Error, component,
+						message.toString()));
 			}
 		}
 
@@ -467,7 +549,8 @@ public class PatientTab extends AbstractTab implements Bindable, EventListener<V
 		_useCasePatientHandler.getPatientDataHandler().addIllness();
 	}
 
-	private abstract class InputListener extends TextInputContentListener.Adapter {
+	private abstract class InputListener extends
+			TextInputContentListener.Adapter {
 		public abstract void textEdited(TextInput textInput);
 
 		@Override
