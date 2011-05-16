@@ -36,6 +36,7 @@ import org.apache.pivot.wtk.TableView;
 import org.apache.pivot.wtk.TableViewRowListener;
 import org.apache.pivot.wtk.TextArea;
 import org.apache.pivot.wtk.TextInput;
+import org.apache.pivot.wtk.Tooltip;
 import org.apache.pivot.wtk.TreeView;
 import org.apache.pivot.wtk.TreeViewBranchListener;
 
@@ -43,6 +44,7 @@ import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.exception.NutrimentRuleException;
 import at.easydiet.teamc.exception.ParameterWithoutUnitException;
 import at.easydiet.teamc.model.data.CheckOperatorData;
+import at.easydiet.teamc.model.data.NutrimentParameterData;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
@@ -95,11 +97,6 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 	@Override
 	public void initialize(Map<String, Object> map, URL url, Resources resources) {
-
-		// TODO todo for add recipe gui
-		/*
-		 * Überprüfen ob Rezeptname bereits vergeben ist
-		 */
 
 		// get GUI components
 		_recipeNameTextInput = (TextInput) map.get("nameTextInput");
@@ -723,32 +720,41 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 
 					@Override
 					public void mouseOver(Component arg0) {
-						// TODO Auto-generated method stub
-
+						// not necessary in this context
 					}
 
 					@Override
 					public void mouseOut(Component arg0) {
-						// TODO Auto-generated method stub
+						// not necessary in this context
 
 					}
 
 					@Override
 					public boolean mouseMove(Component arg0, int x, int y) {
+
 						StringBuilder tooltip = new StringBuilder();
 
 						RecipeData r = _chosenRecipeTableView
 								.getRecipe(_chosenRecipeTableView.getRowAt(y));
-						tooltip.append(r.getName()).append("\n");
+						tooltip.append(r.getName()).append("\n\n");
 
-						// TODO implement
-						// for (NutrimentParameterData n : r
-						// .getNutrimentParametersData()) {
-						// tooltip.append(n.getName() + ": " + n.getAmount()
-						// + "\n");
-						// }
-						_chosenRecipeTableView.setTooltipText(tooltip
-								.toString());
+						for (NutrimentParameterData n : r
+								.getNutrimentParametersData()) {
+							if (_parameterTableView.containsParameter(n)) {
+
+								if (!tooltip.toString().contains(n.getName())) {
+									tooltip.append(n.getName() + ": "
+											+ n.getAmount() + "\n");
+								}
+							}
+						}
+
+						Tooltip t = new Tooltip();
+						TextArea text = new TextArea();
+						text.setText(tooltip.toString());
+						t.setLocation(getWindow().getMouseLocation());
+						t.setContent(text);
+						t.open(getWindow());
 						return false;
 					}
 				});
