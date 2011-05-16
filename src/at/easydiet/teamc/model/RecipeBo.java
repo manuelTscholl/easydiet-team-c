@@ -154,6 +154,10 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
     }
 
     public Set<NutrimentParameterBo> getNutrimentParameters() {
+        //TODO q&d fix für lazy initiating
+        if(_nutrimentParametersMap==null){
+            this.getNutrimentParametersMap();
+        }
         Set<NutrimentParameterBo> temp = new HashSet<NutrimentParameterBo>(
                 this._Recipe.getNutrimentParameters().size());
         for (NutrimentParameter nutrimentParameter : this._Recipe.getNutrimentParameters()) {
@@ -225,7 +229,12 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
 
     @Override
     public List<NutrimentParameterData> getNutrimentParametersData() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<NutrimentParameterData> temp = new ArrayList<NutrimentParameterData>();
+
+        for (NutrimentParameterBo npb : getNutrimentParameters()) {
+            temp.add((NutrimentParameterData)npb);
+        }
+        return temp;
     }
 
     @Override
@@ -387,11 +396,15 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
         if (_nutrimentParametersMap == null) {
             _nutrimentParametersMap = new HashMap<Long, NutrimentParameterBo>();
             ParameterDefinitionBo temppdb;
+            NutrimentParameterBo tempnpb;
+
             for (ParameterDefinitionData pdd : SearchParameterController.getInstance().getAllParameterDefinitions()) {
                 temppdb = (ParameterDefinitionBo) pdd;
 
-                _nutrimentParametersMap.put(temppdb.getParameterDefinition().getParameterDefinitionId(), new NutrimentParameterBo(
-                        Float.toString(0), temppdb, temppdb.getFirstUnit()));
+                tempnpb=new NutrimentParameterBo(Float.toString(0), temppdb, temppdb.getFirstUnit());
+
+                _nutrimentParametersMap.put(temppdb.getParameterDefinition().getParameterDefinitionId(),tempnpb);
+                this._Recipe.getNutrimentParameters().add(tempnpb.getNutrimentParameter());
 
             }
 
