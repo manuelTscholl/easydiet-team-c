@@ -49,7 +49,7 @@ public class NutrimentRulesBo {
     }
 
     private void parameterCheck(NutrimentRuleBo currRule) throws NutrimentRuleException {
-        // check if values and checkoperator are legal
+        // check if values and checkoperators are legal
         HashMap<String, NutrimentRuleBo> currParams = _parameters.get(currRule.getParameterDefintionBo().getName());
 
         for (NutrimentRuleBo nrb : currParams.values()) {
@@ -163,11 +163,11 @@ public class NutrimentRulesBo {
 
     public List<NutrimentRuleBo> checkRecipe(RecipeBo recipe) {
         List<NutrimentRuleBo> currParams = new ArrayList<NutrimentRuleBo>();
-        Set<NutrimentParameterBo> paramsOfRecipe = recipe.getNutrimentParameters();
-
+        //HashMap<Long,NutrimentParameterBo>paramsOfRecipe = (HashMap<Long, NutrimentParameterBo>) recipe.getNutrimentParametersMap();
+        Set<NutrimentParameterBo> paramsOfRecipe=recipe.getNutrimentParameters();
         // if there are no recipe parameters availible, add them without
         // comparing
-        if (recipe.getNutrimentParameters().size() == 0) {
+        if (paramsOfRecipe.size() == 0 || recipe==null) {
             for (HashMap<String, NutrimentRuleBo> rb : this._parameters.values()) {
                 for (NutrimentRuleBo nrbo : rb.values()) {
                     currParams.add(nrbo);
@@ -176,7 +176,7 @@ public class NutrimentRulesBo {
             return currParams;
         }
         //TODO don't iterate all recipe.nutrimentparameters but all nutrimentrule.parameters
-        for (NutrimentParameterBo npbo : recipe.getNutrimentParameters()) {
+        for (NutrimentParameterBo npbo : paramsOfRecipe) {
             if (_parameters.containsKey(npbo.getParameterDefinition().getName())) {
                 HashMap<String, NutrimentRuleBo> currMap = _parameters.get(npbo.getParameterDefinition().getName());
                 for (NutrimentRuleBo nrbo : currMap.values()) {
@@ -184,48 +184,46 @@ public class NutrimentRulesBo {
                     doCheck(nrbo, npbo);
                     currParams.add(nrbo);
                 }
-
-
             }
         }
-
+       
         return currParams;
     }
 
     private void doCheck(NutrimentRuleBo currentParam, NutrimentParameterBo npbo) {
         double currValue = currentParam.getValue();
-        if (currentParam.getCheckOperator().equals("<=")) {
-            if (currValue > Double.parseDouble(npbo.getValue())) {
-                currentParam.setIsViolated(true);
-            } else {
-                currentParam.setIsViolated(false);
-            }
-        } else if (currentParam.getCheckOperator().equals("!=")) {
-            if (currValue == Double.parseDouble(npbo.getValue())) {
-                currentParam.setIsViolated(true);
-            } else {
-                currentParam.setIsViolated(false);
-            }
-        } else if (currentParam.getCheckOperator().equals(">=")) {
-            if (currValue < Double.parseDouble(npbo.getValue())) {
-                currentParam.setIsViolated(true);
-            } else {
-                currentParam.setIsViolated(false);
-            }
-        } else if (currentParam.getCheckOperator().equals("=")) {
-            if (currValue != Double.parseDouble(npbo.getValue())) {
-                currentParam.setIsViolated(true);
-            } else {
-                currentParam.setIsViolated(false);
-            }
-        } else if (currentParam.getCheckOperator().equals(">")) {
+        if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals("<=")) {
             if (currValue <= Double.parseDouble(npbo.getValue())) {
                 currentParam.setIsViolated(true);
             } else {
                 currentParam.setIsViolated(false);
             }
-        } else if (currentParam.getCheckOperator().equals("<")) {
+        } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals("!=")) {
+            if (currValue != Double.parseDouble(npbo.getValue())) {
+                currentParam.setIsViolated(true);
+            } else {
+                currentParam.setIsViolated(false);
+            }
+        } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals(">=")) {
             if (currValue >= Double.parseDouble(npbo.getValue())) {
+                currentParam.setIsViolated(true);
+            } else {
+                currentParam.setIsViolated(false);
+            }
+        } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals("=")) {
+            if (currValue == Double.parseDouble(npbo.getValue())) {
+                currentParam.setIsViolated(true);
+            } else {
+                currentParam.setIsViolated(false);
+            }
+        } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals(">")) {
+            if (currValue > Double.parseDouble(npbo.getValue())) {
+                currentParam.setIsViolated(true);
+            } else {
+                currentParam.setIsViolated(false);
+            }
+        } else if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals("<")) {
+            if (currValue < Double.parseDouble(npbo.getValue())) {
                 currentParam.setIsViolated(true);
             } else {
                 currentParam.setIsViolated(false);
