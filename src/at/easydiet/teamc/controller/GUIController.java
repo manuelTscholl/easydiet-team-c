@@ -411,7 +411,8 @@ public class GUIController implements PatientListener {
 
 			// TODO height is for testing only
 			// set window height
-			dialog.setPreferredHeight(dialog.getWindow().getPreferredHeight() - 150);
+			dialog.setPreferredHeight(dialog.getWindow().getPreferredHeight() - 200);
+			dialog.setPreferredWidth(600);
 
 			// set dialog title
 			dialog.setTitle(title);
