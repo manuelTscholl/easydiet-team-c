@@ -15,6 +15,7 @@ import org.apache.pivot.util.concurrent.TaskExecutionException;
 import org.apache.pivot.wtk.TableView;
 import org.apache.pivot.wtk.media.Image;
 
+import at.easydiet.teamc.model.data.NutrimentParameterData;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 
 /**
@@ -140,5 +141,23 @@ public class ParameterTableView extends TableView {
 
 		HashMap<String, Object> map = _tableData.get(row);
 		return (NutrimentParameterRuleData) map.get("parameter");
+	}
+
+	/**
+	 * Check if the table contains a specific parameter
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public boolean containsParameter(NutrimentParameterData n) {
+		for (HashMap<String, Object> map : _tableData) {
+			NutrimentParameterRuleData rule = (NutrimentParameterRuleData) map
+					.get("parameter");
+			if (n.getName().equals(rule.getName())) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
