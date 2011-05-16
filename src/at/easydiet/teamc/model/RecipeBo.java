@@ -374,7 +374,7 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
     public void removeRecipeIngredient(RecipeBo recipeBo) {
         RecipeIngredientBo rib = searchRecipeIngredientBo(recipeBo);
         if (rib != null) {
-            this._Recipe.getIngredients().remove(rib);
+            this._Recipe.getIngredients().remove(rib.getRecipeIngredient());
         }
     }
 
