@@ -33,14 +33,12 @@ import org.apache.pivot.wtk.VerticalAlignment;
 import org.apache.pivot.wtk.content.ButtonData;
 import org.apache.pivot.wtk.media.Image;
 
-import at.easydiet.teamb.presentation.component.MealBox;
-
 /**
  * The Class AbstractBoxPane.
  */
 public abstract class AbstractSheet extends Sheet {
 
-	protected static final Logger LOGGER = Logger.getLogger(MealBox.class);
+	protected static final Logger LOGGER = Logger.getLogger(AbstractSheet.class);
 
 	protected static final String DEFAULT_SAVE_TEXT = "Anlegen";
 	protected static final String DEFAULT_DISCARD_TEXT = "Verwerfen";

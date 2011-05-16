@@ -41,7 +41,7 @@ import at.easydiet.teamb.presentation.util.Renderer;
  * The Class NewLaborParameterContentBorder.
  */
 public class NewLaborParameterContentBorder extends Border implements Bindable, SuggestionPopupCloseListener {
-	private static Logger LOGGER = Logger.getLogger(NewParameterContentBorder.class);
+	private static Logger LOGGER = Logger.getLogger(NewLaborParameterContentBorder.class);
 
 	private static final int MAX_POPUP_ENTRIES = 10;
 

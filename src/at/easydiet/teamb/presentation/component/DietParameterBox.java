@@ -43,7 +43,6 @@ import at.easydiet.teamb.application.util.ValidatorArgs.ValidatorArgs;
 import at.easydiet.teamb.application.viewobject.DietParameterViewable;
 import at.easydiet.teamb.application.viewobject.ParameterDefinitionUnitViewable;
 import at.easydiet.teamb.domain.util.CheckOperatorEnum;
-import at.easydiet.teamb.presentation.gui.NewDietParameterSheet;
 import at.easydiet.teamb.presentation.util.DietParameterChangedEventArg;
 import at.easydiet.teamb.presentation.util.Parameterizable;
 import at.easydiet.teamb.presentation.util.Renderer;
@@ -90,13 +89,6 @@ public class DietParameterBox extends BoxPane {
 
 			addButton = new LinkButton(new ButtonData("neuen Parameter anlegen"));
 		}
-		addButton.getButtonPressListeners().add(new ButtonPressListener() {
-			@Override
-			public void buttonPressed(Button button) {
-				new NewDietParameterSheet(_parameterizable).open(getWindow());
-			}
-		});
-
 		add(addButton);
 	}
 

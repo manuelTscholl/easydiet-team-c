@@ -46,7 +46,7 @@ public class NewLaborParameterSheet extends AbstractSheet implements EventListen
 
 		_content = null;
 		try {
-			_content = (NewLaborParameterContentBorder) bxmlSerializer.readObject(NewDietParameterSheet.class, "easydiet_popup_new_labor_parameter.bxml");
+			_content = (NewLaborParameterContentBorder) bxmlSerializer.readObject(NewLaborParameterSheet.class, "easydiet_popup_new_labor_parameter.bxml");
 		} catch (IOException ex) {
 			LOGGER.warn("Can not read 'easydiet_popup_popup_new_labor_parameter.bxml'", ex);
 		} catch (SerializationException ex) {

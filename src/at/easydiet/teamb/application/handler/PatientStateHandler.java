@@ -37,6 +37,7 @@ import at.easydiet.dao.DAOFactory;
 /**
  * The Class PatientStateHandler.
  */
+public class PatientStateHandler extends AbstractHandler<PatientStateErrorField> {
 
 	/** The _state. */
 	private IPatientState _state;

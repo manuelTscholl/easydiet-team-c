@@ -32,8 +32,6 @@ import at.easydiet.teamb.application.util.EventListener;
 import at.easydiet.teamb.application.util.PatientChangedEventArg;
 import at.easydiet.teamb.presentation.exception.NoPatientSelectedException;
 import at.easydiet.teamb.presentation.gui.AbstractLazyTab;
-import at.easydiet.teamb.presentation.gui.EasyBar;
-import at.easydiet.teamb.presentation.gui.YesNoAbortSheet;
 import at.easydiet.teamb.util.Initializator;
 
 /**
@@ -72,25 +70,7 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 
 	@Override
 	public void fired(final Object sender, final PatientChangedEventArg eventObject) {
-		if (_tab != null) {
-			try {
-				_windowHandler.changeHandler(getHandler());
-			} catch (ExitNotPermittedException ex) {
-				LOGGER.debug("Changing content failed", ex);
 
-				new YesNoAbortSheet(EasyBar.getCurrentInstance(), ex.getExitOptions(), new YesNoAbortSheet.Redo() {
-
-					@Override
-					public void redo() throws ExitNotPermittedException {
-						fired(sender, eventObject);
-					}
-				});
-			}
-
-			_tab.remove();
-
-			display(_windowHandler);
-		}
 	}
 
 	@Override

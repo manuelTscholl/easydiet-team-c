@@ -145,9 +145,9 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements Bindable,
 		Image iconHighlighted = null;
 
 		try {
-			icon = Image.load(DietPlanTab.class.getResource("/gfx/icon/24x24px/favorite_inactive.png"));
-			iconHover = Image.load(DietPlanTab.class.getResource("/gfx/icon/24x24px/favorite_hover.png"));
-			iconHighlighted = Image.load(DietPlanTab.class.getResource("/gfx/icon/24x24px/favorite.png"));
+			icon = Image.load(PatientStatusCreateTab.class.getResource("/gfx/icon/24x24px/favorite_inactive.png"));
+			iconHover = Image.load(PatientStatusCreateTab.class.getResource("/gfx/icon/24x24px/favorite_hover.png"));
+			iconHighlighted = Image.load(PatientStatusCreateTab.class.getResource("/gfx/icon/24x24px/favorite.png"));
 
 			_motivationRating = new RatingBoxPane(MAX_RATING_ELEMENTS, icon, iconHover, iconHighlighted);
 			_complianceRating = new RatingBoxPane(MAX_RATING_ELEMENTS, icon, iconHover, iconHighlighted);
