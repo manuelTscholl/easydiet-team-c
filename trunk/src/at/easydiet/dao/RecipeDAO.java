@@ -59,6 +59,13 @@ public class RecipeDAO
 
         //the searchresult of hibernate as a List
         List<Recipe> results = getSession().createCriteria(Recipe.class).addOrder(Order.desc("blsCode")).add(recipeExample).addOrder(Order.desc("blsCode")).list();
+        
+        
+        for (int i = 0; i < results.size(); i++)
+        {
+            if(results.get(i).getBlsCode().length()==2)
+                results.remove(results.get(i));
+        }
 
         return results;
 
