@@ -155,7 +155,7 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
 
     public Set<NutrimentParameterBo> getNutrimentParameters() {
         //TODO q&d fix für lazy initiating
-        if(_nutrimentParametersMap==null){
+        if (_nutrimentParametersMap == null) {
             this.getNutrimentParametersMap();
         }
         Set<NutrimentParameterBo> temp = new HashSet<NutrimentParameterBo>(
@@ -232,20 +232,20 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
         List<NutrimentParameterData> temp = new ArrayList<NutrimentParameterData>();
 
         for (NutrimentParameterBo npb : getNutrimentParameters()) {
-            temp.add((NutrimentParameterData)npb);
+            temp.add((NutrimentParameterData) npb);
         }
         return temp;
     }
 
     @Override
     public float getTotalAmount() {
-        if(this._Recipe.getAmount()>0){
-        return this._Recipe.getAmount();
+        if (this._Recipe.getAmount() > 0) {
+            return this._Recipe.getAmount();
         }
         return 0;
     }
 
-    public void setTotalAmount(float amount){
+    public void setTotalAmount(float amount) {
         this._Recipe.setAmount(amount);
     }
 
@@ -262,15 +262,15 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
         //reset and calculate new weight
         this.setTotalAmount(0);
 
-        for(RecipeIngredientBo recipeIngredientBo: this.getRecipeIngredientsBo()){
-            this.setTotalAmount(this.getTotalAmount()+recipeIngredientBo.getIngredientAmount());
+        for (RecipeIngredientBo recipeIngredientBo : this.getRecipeIngredientsBo()) {
+            this.setTotalAmount(this.getTotalAmount() + recipeIngredientBo.getIngredientAmount());
         }
 
         //calculate new parameter values
         for (RecipeIngredientBo recipeIngredient : getRecipeIngredientsBo()) {// all ingredients
 
-            float brtaifactor=(recipeIngredient.getIngredientAmount()/recipeIngredient.getRecipe().getTotalAmount());//baserecipe to as ingredient factor for absolute units
-            float fractionofrecipe=recipeIngredient.getIngredientAmount()/_Recipe.getAmount();//fractionofrecipe needed to get the right fractins of relative units
+            float brtaifactor = (recipeIngredient.getIngredientAmount() / recipeIngredient.getRecipe().getTotalAmount());//baserecipe to as ingredient factor for absolute units
+            float fractionofrecipe = recipeIngredient.getIngredientAmount() / _Recipe.getAmount();//fractionofrecipe needed to get the right fractins of relative units
 
             for (NutrimentParameter parameter : recipeIngredient.getRecipeIngredient().getRecipe().getNutrimentParameters()) {// for
                 // each parameter in the ingredient
@@ -286,10 +286,10 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
 
                         sumValue = DietParameterUnitController.getInstance().convert(source, target, Float.parseFloat(parameter.getValue()));
 
-                        if(target.getName().contains("/")){
-                            sum.setSum(sum.getSum() + (sumValue*fractionofrecipe));
-                        }else{
-                            sum.setSum(sum.getSum() + (sumValue*brtaifactor));
+                        if (target.getName().contains("/")) {
+                            sum.setSum(sum.getSum() + (sumValue * fractionofrecipe));
+                        } else {
+                            sum.setSum(sum.getSum() + (sumValue * brtaifactor));
                         }
 
                     } catch (NumberFormatException e) {
@@ -300,17 +300,17 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
 
                 } else {
 
-                        // if condition /
+                    // if condition /
 
                     ValidationSumValue validSum = new ValidationSumValue(new ParameterDefinitionUnitBo(parameter.getUnit()));
 
                     summedIngredientParameter.put(currParameterdefid, validSum);
-                    if(validSum._unit.getName().contains("/")){
-                        validSum.setSum(Float.parseFloat(parameter.getValue())*fractionofrecipe);
-                    }else{
-                        validSum.setSum(Float.parseFloat(parameter.getValue())*brtaifactor);
+                    if (validSum._unit.getName().contains("/")) {
+                        validSum.setSum(Float.parseFloat(parameter.getValue()) * fractionofrecipe);
+                    } else {
+                        validSum.setSum(Float.parseFloat(parameter.getValue()) * brtaifactor);
                     }
-                    idParameterMapping.put(currParameterdefid,getNutrimentParametersMap().get(currParameterdefid).getNutrimentParameter());
+                    idParameterMapping.put(currParameterdefid, getNutrimentParametersMap().get(currParameterdefid).getNutrimentParameter());
                 }
 
             }
@@ -350,14 +350,13 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
                 recipeIngredientBo.getRecipeIngredient());
         this.calcParameters();
     }
-    
-    public ParameterDefinitionUnitBo getUnit()
-    {
+
+    public ParameterDefinitionUnitBo getUnit() {
         return new ParameterDefinitionUnitBo(_Recipe.getUnit());
     }
-    
-    public void setUnit(ParameterDefinitionUnit unit){
-        
+
+    public void setUnit(ParameterDefinitionUnit unit) {
+
         _Recipe.setUnit(unit);
     }
 
@@ -394,20 +393,31 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
     protected Map<Long, NutrimentParameterBo> getNutrimentParametersMap() {
 
         if (_nutrimentParametersMap == null) {
+
             _nutrimentParametersMap = new HashMap<Long, NutrimentParameterBo>();
-            ParameterDefinitionBo temppdb;
-            NutrimentParameterBo tempnpb;
 
-            for (ParameterDefinitionData pdd : SearchParameterController.getInstance().getAllParameterDefinitions()) {
-                temppdb = (ParameterDefinitionBo) pdd;
+            if (this._Recipe.getNutrimentParameters().size() > 0) {
 
-                tempnpb=new NutrimentParameterBo(Float.toString(0), temppdb, temppdb.getFirstUnit());
+                for (NutrimentParameter nutrimentParameter : this._Recipe.getNutrimentParameters()) {
+                    this._nutrimentParametersMap.put(nutrimentParameter.getParameterDefinition().getParameterDefinitionId(), new NutrimentParameterBo(nutrimentParameter));
+                }
 
-                _nutrimentParametersMap.put(temppdb.getParameterDefinition().getParameterDefinitionId(),tempnpb);
-                this._Recipe.getNutrimentParameters().add(tempnpb.getNutrimentParameter());
+            } else {
+
+                ParameterDefinitionBo temppdb;
+                NutrimentParameterBo tempnpb;
+
+                for (ParameterDefinitionData pdd : SearchParameterController.getInstance().getAllParameterDefinitions()) {
+                    temppdb = (ParameterDefinitionBo) pdd;
+
+                    tempnpb = new NutrimentParameterBo(Float.toString(0), temppdb, temppdb.getFirstUnit());
+
+                    _nutrimentParametersMap.put(temppdb.getParameterDefinition().getParameterDefinitionId(), tempnpb);
+                    this._Recipe.getNutrimentParameters().add(tempnpb.getNutrimentParameter());
+
+                }
 
             }
-
         }
         return _nutrimentParametersMap;
     }
