@@ -135,25 +135,6 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements
 	 */
 	public PatientStatusCreateTab() {
 		_lastErrors = new LinkedList<Component>();
-
-		_save.getButtonPressListeners().add(new ButtonPressListener() {
-
-			@Override
-			public void buttonPressed(Button arg0) {
-				try {
-					save();
-				} catch (DatabaseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ErrorInFormException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (OperationNotPermittedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 
 	public void setPatientState(PatientStateViewable state) {
@@ -435,6 +416,25 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements
 
 		_motivation.insert(_motivationRating, 0);
 		_compliance.insert(_complianceRating, 0);
+
+		_save.getButtonPressListeners().add(new ButtonPressListener() {
+
+			@Override
+			public void buttonPressed(Button arg0) {
+				try {
+					save();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ErrorInFormException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (OperationNotPermittedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	private void updateCalculation() {

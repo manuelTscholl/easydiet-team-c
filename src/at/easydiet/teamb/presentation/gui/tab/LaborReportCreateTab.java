@@ -95,22 +95,6 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable,
 	 */
 	public LaborReportCreateTab() {
 		_lastErrors = new LinkedList<Component>();
-
-		_save.getButtonPressListeners().add(new ButtonPressListener() {
-
-			@Override
-			public void buttonPressed(Button arg0) {
-				try {
-					save();
-				} catch (DatabaseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ErrorInFormException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 
 	public void setLaborReport(LaborReportViewable report) {
@@ -195,6 +179,22 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable,
 					}
 				});
 		_dateTimeContainerBoxPane.add(_dateTimeBoxPane);
+
+		_save.getButtonPressListeners().add(new ButtonPressListener() {
+
+			@Override
+			public void buttonPressed(Button arg0) {
+				try {
+					save();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ErrorInFormException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	@Override
