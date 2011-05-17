@@ -14,10 +14,8 @@ import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.collections.List;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.serialization.SerializationException;
-import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.Dialog;
-import org.apache.pivot.wtk.MessageType;
 import org.apache.pivot.wtk.TextInput;
 
 import at.easydiet.teamc.exception.GeneratingDietryPlanException;
@@ -225,10 +223,17 @@ public class GUIController implements PatientListener {
 	 * @param dpList List of parameters for this plan
 	 * @param parameterMaxValues Max Values for the chosen parameters
 	 * @param parameterMinValues Min Values for the chosen parameters
+	 * @throws NoDietTreatmentException
+	 * @throws TimeIntersectionException
+	 * @throws NoDateException
+	 * @throws NoPatientException
+	 * @throws GeneratingDietryPlanException
 	 */
 	public void newDietryPlan(Date start, Date end,
 			List<DietParameterData> dpList, List<Double> parameterMaxValues,
-			List<Double> parameterMinValues) {
+			List<Double> parameterMinValues) throws NoPatientException,
+			NoDateException, TimeIntersectionException,
+			NoDietTreatmentException, GeneratingDietryPlanException {
 
 		// convert pivot list to java list
 		java.util.List<DietParameterData> list = CollectionConverter
@@ -238,37 +243,13 @@ public class GUIController implements PatientListener {
 		java.util.List<Double> minValueList = CollectionConverter
 				.convertToJavaList(parameterMinValues);
 
-		DietryPlanData plan;
-		try {
-			plan = _businessLogicDelegationController.newDietryPlan(start, end,
-					list, maxValueList, minValueList);
-			if (plan == null) {
-				throw new GeneratingDietryPlanException();
-			}
-			_navTab.drawDietryPlanMenu(plan);
-			_contentTab.drawDietryPlan(plan);
-		} catch (NoPatientException e) {
-			Alert.alert(
-					"Fehler beim Erstellen des Diätplans! Es wurde kein Patient gefunden.",
-					_easyDietWindow);
-		} catch (NoDateException e) {
-			Alert.alert(
-					"Fehler beim Erstellen des Diätplans. Kein Datum vorhanden.",
-					_easyDietWindow);
-		} catch (TimeIntersectionException e) {
-			Alert.alert(
-					"Fehler beim Erstellen des Diätplans. Es existiert bereits ein Plan.",
-					_easyDietWindow);
-		} catch (NoDietTreatmentException e) {
-			Alert.alert(
-					"Fehler beim Erstellen des Diätplans. Dem Patienten ist keine Behandlung zugeordnet.",
-					_easyDietWindow);
-		} catch (GeneratingDietryPlanException e) {
-			Alert.alert(MessageType.ERROR,
-					"Der Diätplan konnte nicht erstellt werden.",
-					_easyDietWindow);
-			LOGGER.error("DietPlan is empty");
+		DietryPlanData plan = _businessLogicDelegationController.newDietryPlan(
+				start, end, list, maxValueList, minValueList);
+		if (plan == null) {
+			throw new GeneratingDietryPlanException();
 		}
+		_navTab.drawDietryPlanMenu(plan);
+		_contentTab.drawDietryPlan(plan);
 
 	}
 
