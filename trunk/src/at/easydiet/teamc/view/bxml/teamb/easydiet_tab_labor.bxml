@@ -1,0 +1,15 @@
+<tabLab:LaborTab
+ xmlns:bxml="http://pivot.apache.org/bxml"
+ xmlns:content="org.apache.pivot.wtk.content"
+ xmlns:tabLab="at.easydiet.presentation.gui.tab"
+ xmlns="org.apache.pivot.wtk">
+
+	<Form styles="{fill:true, padding:10}">
+	    <Form.Section heading="Laborbefunde">
+			<!-- labor reports -->
+			<BoxPane bxml:id="_pane" styles="{padding:10, fill:true}" orientation="vertical" />				
+			<!-- end: labor reports -->
+		</Form.Section>
+	</Form>
+			
+</tabLab:LaborTab>
