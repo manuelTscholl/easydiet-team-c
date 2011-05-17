@@ -1,0 +1,32 @@
+<tabLab:LaborReportCreateTab
+ xmlns:bxml="http://pivot.apache.org/bxml"
+ xmlns:content="org.apache.pivot.wtk.content"
+ xmlns:tabLab="at.easydiet.teamb.presentation.gui.tab"
+ xmlns:component="at.easydiet.teamb.presentation.component"
+ xmlns="org.apache.pivot.wtk">
+    
+    <!-- Labor Report -->
+    <Form bxml:id="_laborReportForm" styles="{fill:true, padding:10}">
+        <Form.Section heading="Laborbefund">
+            <BoxPane styles="{verticalAlignment:'center'}">
+                <Label text="Laborbefundtyp"/>
+                <ListButton bxml:id="_laborReportType"/>
+            </BoxPane>
+            
+            <BoxPane bxml:id="_dateTimeContainerBoxPane" styles="{verticalAlignment:'center'}">
+                <Label text="Erstellt am"/>
+            </BoxPane>
+            
+            <Border bxml:id="_laborParameterBorder" title="Laborparameter" styles="{color:'#cfcfcf', padding:10}">
+            </Border>
+			
+			<Border styles="{color:10}" Form.label="Notizen">
+				<ScrollPane horizontalScrollBarPolicy="fill" verticalScrollBarPolicy="fill_to_capacity" preferredHeight="100">
+					<component:NullableTextArea bxml:id="_noticeTextArea" />
+				</ScrollPane>
+			</Border>
+        </Form.Section>
+    </Form>
+    <!-- end: Labor Report -->
+    
+</tabLab:LaborReportCreateTab>

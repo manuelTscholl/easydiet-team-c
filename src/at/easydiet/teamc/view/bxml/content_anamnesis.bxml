@@ -4,5 +4,8 @@
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:easyDiet="at.easydiet.teamc.view"
     xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
-    
+    <BoxPane orientation="vertical">
+    <bxml:include bxml:id="labor" src="teamb/easydiet_tab_labor_create.bxml"/>
+    <bxml:include bxml:id="patientStatus" src="teamb/easydiet_tab_patientStatus_create.bxml"/>
+    </BoxPane>
 </easyDiet:ContentAnamnesisScrollPane>
