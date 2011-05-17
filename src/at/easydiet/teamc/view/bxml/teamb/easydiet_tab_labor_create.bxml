@@ -25,6 +25,7 @@
 					<component:NullableTextArea bxml:id="_noticeTextArea" />
 				</ScrollPane>
 			</Border>
+			<PushButton bxml:id="_save" buttonData="Speichern"/>
         </Form.Section>
     </Form>
     <!-- end: Labor Report -->
