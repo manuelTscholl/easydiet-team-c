@@ -22,10 +22,12 @@ import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Border;
 import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Button;
+import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.ListButtonSelectionListener;
 import org.apache.pivot.wtk.ListView;
+import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TextArea;
 import org.apache.pivot.wtk.TextAreaContentListener;
 import org.apache.pivot.wtk.content.ListButtonDataRenderer;
@@ -56,9 +58,11 @@ import at.easydiet.teamb.presentation.util.MessageType;
 /**
  * @author TeamB
  */
-public class LaborReportCreateTab extends AbstractLazyTab implements Bindable, EventListener<ValidatorArgs<LaborReportErrorField>> {
+public class LaborReportCreateTab extends AbstractLazyTab implements Bindable,
+		EventListener<ValidatorArgs<LaborReportErrorField>> {
 
-	private static final Logger LOGGER = Logger.getLogger(LaborReportCreateTab.class);
+	private static final Logger LOGGER = Logger
+			.getLogger(LaborReportCreateTab.class);
 
 	@BXML
 	private ListButton _laborReportType = null;
@@ -68,6 +72,8 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable, E
 	private Border _laborParameterBorder = null;
 	@BXML
 	private TextArea _noticeTextArea = null;
+	@BXML
+	private PushButton _save = null;
 
 	private boolean _updating;
 
@@ -89,6 +95,22 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable, E
 	 */
 	public LaborReportCreateTab() {
 		_lastErrors = new LinkedList<Component>();
+
+		_save.getButtonPressListeners().add(new ButtonPressListener() {
+
+			@Override
+			public void buttonPressed(Button arg0) {
+				try {
+					save();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ErrorInFormException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public void setLaborReport(LaborReportViewable report) {
@@ -98,13 +120,15 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable, E
 	}
 
 	@Override
-	public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
+	public void initialize(Map<String, Object> namespace, URL location,
+			Resources resources) {
 		_laborReportType.setDataRenderer(new ListButtonDataRenderer() {
 			@Override
 			public void render(Object data, Button button, boolean highlight) {
 				if (data instanceof LaborReportTypeViewable) {
 					LaborReportTypeViewable laborReportTypeViewable = (LaborReportTypeViewable) data;
-					super.render(laborReportTypeViewable.getName(), button, highlight);
+					super.render(laborReportTypeViewable.getName(), button,
+							highlight);
 				} else {
 					super.render(data, button, highlight);
 				}
@@ -112,54 +136,64 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable, E
 		});
 		_laborReportType.setItemRenderer(new ListViewItemRenderer() {
 			@Override
-			public void render(Object item, int index, ListView listView, boolean selected, boolean checked, boolean highlighted, boolean disabled) {
+			public void render(Object item, int index, ListView listView,
+					boolean selected, boolean checked, boolean highlighted,
+					boolean disabled) {
 				if (item instanceof LaborReportTypeViewable) {
 					LaborReportTypeViewable laborReportTypeViewable = (LaborReportTypeViewable) item;
-					super.render(laborReportTypeViewable.getName(), index, listView, selected, checked, highlighted, disabled);
+					super.render(laborReportTypeViewable.getName(), index,
+							listView, selected, checked, highlighted, disabled);
 				} else {
-					super.render(item, index, listView, selected, checked, highlighted, disabled);
+					super.render(item, index, listView, selected, checked,
+							highlighted, disabled);
 				}
 			}
 		});
-		_laborReportType.getListButtonSelectionListeners().add(new ListButtonSelectionListener.Adapter() {
-			@Override
-			public void selectedItemChanged(ListButton listButton, Object previousSelectedItem) {
-				if (!_updating) {
-					Object item = listButton.getSelectedItem();
-					if (item instanceof LaborReportTypeViewable) {
-						_reportHandler.setLaborReportType((LaborReportTypeViewable) item);
-					} else {
-						LOGGER.warn("expected datatype LaborReportTypeViewable, found " + item.getClass());
+		_laborReportType.getListButtonSelectionListeners().add(
+				new ListButtonSelectionListener.Adapter() {
+					@Override
+					public void selectedItemChanged(ListButton listButton,
+							Object previousSelectedItem) {
+						if (!_updating) {
+							Object item = listButton.getSelectedItem();
+							if (item instanceof LaborReportTypeViewable) {
+								_reportHandler
+										.setLaborReportType((LaborReportTypeViewable) item);
+							} else {
+								LOGGER.warn("expected datatype LaborReportTypeViewable, found "
+										+ item.getClass());
+							}
+						}
 					}
-				}
-			}
-		});
+				});
 
-		_noticeTextArea.getTextAreaContentListeners().add(new TextAreaContentListener.Adapter() {
-			@Override
-			public void textChanged(TextArea textArea) {
-				if (_updating) {
-					return;
-				}
+		_noticeTextArea.getTextAreaContentListeners().add(
+				new TextAreaContentListener.Adapter() {
+					@Override
+					public void textChanged(TextArea textArea) {
+						if (_updating) {
+							return;
+						}
 
-				if (textArea.getCharacterCount() <= 0) {
-					_reportHandler.setNotice(null);
-				} else {
-					_reportHandler.setNotice(textArea.getText());
-				}
-			}
-		});
+						if (textArea.getCharacterCount() <= 0) {
+							_reportHandler.setNotice(null);
+						} else {
+							_reportHandler.setNotice(textArea.getText());
+						}
+					}
+				});
 
 		_dateTimeBoxPane = new DateTimeInput();
-		_dateTimeBoxPane.getDateTimeInputSelectionListeners().add(new DateTimeInputSelectionListener() {
+		_dateTimeBoxPane.getDateTimeInputSelectionListeners().add(
+				new DateTimeInputSelectionListener() {
 
-			@Override
-			public void dateTimeChanged(DateTimeInput dateTimeInput) {
-				if (!_updating) {
-					_reportHandler.setDate(dateTimeInput.getDate());
-				}
-			}
-		});
+					@Override
+					public void dateTimeChanged(DateTimeInput dateTimeInput) {
+						if (!_updating) {
+							_reportHandler.setDate(dateTimeInput.getDate());
+						}
+					}
+				});
 		_dateTimeContainerBoxPane.add(_dateTimeBoxPane);
 	}
 
@@ -181,25 +215,27 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable, E
 	}
 
 	@Override
-	public void fired(Object sender, ValidatorArgs<LaborReportErrorField> eventObject) {
+	public void fired(Object sender,
+			ValidatorArgs<LaborReportErrorField> eventObject) {
 
 		LinkedList<Component> newErrors = new LinkedList<Component>();
-		for (LaborReportErrorField laborReportErrorField : eventObject.getErrorFields()) {
+		for (LaborReportErrorField laborReportErrorField : eventObject
+				.getErrorFields()) {
 			Component component = null;
 			StringBuilder message = new StringBuilder("Das Feld ");
 			switch (laborReportErrorField) {
-				case DATETIME:
-					component = _dateTimeBoxPane;
-					message.append("Datum oder Uhrzeit");
-					break;
-				case NOPARAMETERS:
-					component = _laborParameterBorder;
-					message.append("Labor Parameter");
-					break;
-				default:
-					LOGGER.error("unknown labor report error field");
-					message.append(laborReportErrorField);
-					break;
+			case DATETIME:
+				component = _dateTimeBoxPane;
+				message.append("Datum oder Uhrzeit");
+				break;
+			case NOPARAMETERS:
+				component = _laborParameterBorder;
+				message.append("Labor Parameter");
+				break;
+			default:
+				LOGGER.error("unknown labor report error field");
+				message.append(laborReportErrorField);
+				break;
 			}
 
 			if (component != null) {
@@ -210,7 +246,8 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable, E
 				} else {
 					message.append(" darf nicht leer sein");
 				}
-				putMessage(new Message(MessageType.Error, component, message.toString()));
+				putMessage(new Message(MessageType.Error, component,
+						message.toString()));
 			}
 		}
 
@@ -229,12 +266,14 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable, E
 	}
 
 	@Override
-	public void create() throws ExitNotPermittedException, OperationNotPermittedException {
+	public void create() throws ExitNotPermittedException,
+			OperationNotPermittedException {
 		throw new OperationNotPermittedException();
 	}
 
 	@Override
-	public void display(WindowHandler windowHandler) throws NoPatientSelectedException {
+	public void display(WindowHandler windowHandler)
+			throws NoPatientSelectedException {
 		super.display(windowHandler);
 
 		if (_windowHandler.getSelectedPatient() == null) {
@@ -242,13 +281,16 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable, E
 		}
 
 		if (_useCaseHandler == null) {
-			_useCaseHandler = new UseCaseLaborReportHandler(_windowHandler.getCreator(), _windowHandler.getSelectedPatient());
+			_useCaseHandler = new UseCaseLaborReportHandler(
+					_windowHandler.getCreator(),
+					_windowHandler.getSelectedPatient());
 			_reportHandler = _useCaseHandler.getLaborReportHandler();
 			_laborReport = _reportHandler.getLaborReport();
 		}
 
 		_reportHandler.addValidadedListener(this);
-		_reportHandler.addLaborReportChangedListener((_laborParameterListener = new LaborParameterListener()));
+		_reportHandler
+				.addLaborReportChangedListener((_laborParameterListener = new LaborParameterListener()));
 
 		update();
 	}
@@ -262,7 +304,8 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable, E
 
 		if (_useCaseHandler != null) {
 			_reportHandler.removeValidadedListener(this);
-			_reportHandler.removeLaborReportChangedListener(_laborParameterListener);
+			_reportHandler
+					.removeLaborReportChangedListener(_laborParameterListener);
 			_reportHandler = null;
 			_useCaseHandler = null;
 		}
@@ -273,13 +316,17 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable, E
 	 */
 	public void update() {
 		_updating = true;
-		_laborReportType.setListData(new ArrayList<LaborReportTypeViewable>(_reportHandler.getParameterTypes()));
+		_laborReportType.setListData(new ArrayList<LaborReportTypeViewable>(
+				_reportHandler.getParameterTypes()));
 
 		if (_laborParameterBox != null) {
 			_laborParameterBox.remove();
 		}
-		_laborParameterBorder.setContent((_laborParameterBox = new LaborParameterBox(this, _reportHandler)));
-		_laborReportType.setSelectedItem(_reportHandler.getLaborReport().getType());
+		_laborParameterBorder
+				.setContent((_laborParameterBox = new LaborParameterBox(this,
+						_reportHandler)));
+		_laborReportType.setSelectedItem(_reportHandler.getLaborReport()
+				.getType());
 		_dateTimeBoxPane.setDate(_laborReport.getDate());
 
 		_updating = false;
@@ -290,7 +337,9 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable, E
 		@Override
 		public void fired(Object sender, EventArgs eventObject) {
 			_laborParameterBox.remove();
-			_laborParameterBorder.setContent((_laborParameterBox = new LaborParameterBox(LaborReportCreateTab.this, _reportHandler)));
+			_laborParameterBorder
+					.setContent((_laborParameterBox = new LaborParameterBox(
+							LaborReportCreateTab.this, _reportHandler)));
 		}
 	}
 }
