@@ -6,11 +6,19 @@
  */
 package at.easydiet.teamc.view;
 
+import java.io.IOException;
 import java.net.URL;
 
+import org.apache.pivot.beans.BXML;
+import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
+import org.apache.pivot.serialization.SerializationException;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.Button;
+import org.apache.pivot.wtk.ButtonPressListener;
+import org.apache.pivot.wtk.Dialog;
+import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.ScrollPane;
 
 import at.easydiet.teamc.model.data.PatientData;
@@ -27,6 +35,12 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 	public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
 			.getLogger(ContentAnamnesisScrollPane.class);
 
+	// instance variables
+	@BXML
+	private PushButton _addLaborReportButton;
+	@BXML
+	private PushButton _addPatientStatusButton;
+
 	/**
 	 * First called after creating the GUI
 	 * 
@@ -41,6 +55,53 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 
 		// register component
 		GUIComponents.put(getName(), this);
+
+		// register button listenrs
+		_addLaborReportButton.getButtonPressListeners().add(
+				new ButtonPressListener() {
+
+					@Override
+					public void buttonPressed(Button arg0) {
+						BXMLSerializer bxml = new BXMLSerializer();
+						Dialog dialog;
+						try {
+							dialog = (Dialog) bxml
+									.readObject(
+											ContentAnamnesisScrollPane.class,
+											"bxml/teamb/easydiet_tab_labor_create.bxml");
+							dialog.open(getWindow());
+							dialog.setPreferredHeight(getPreferredHeight() - 80);
+						} catch (IOException ex) {
+							LOGGER.error(ex);
+						} catch (SerializationException ex) {
+							LOGGER.error(ex);
+						}
+
+					}
+				});
+
+		_addPatientStatusButton.getButtonPressListeners().add(
+				new ButtonPressListener() {
+
+					@Override
+					public void buttonPressed(Button arg0) {
+						BXMLSerializer bxml = new BXMLSerializer();
+						Dialog dialog;
+						try {
+							dialog = (Dialog) bxml
+									.readObject(
+											ContentAnamnesisScrollPane.class,
+											"bxml/teamb/easydiet_tab_patientStatus_create.bxml");
+							dialog.open(getWindow());
+							dialog.setPreferredHeight(getPreferredHeight() - 80);
+						} catch (IOException ex) {
+							LOGGER.error(ex);
+						} catch (SerializationException ex) {
+							LOGGER.error(ex);
+						}
+
+					}
+				});
 	}
 
 	/**
