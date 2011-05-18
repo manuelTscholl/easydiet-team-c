@@ -1,0 +1,20 @@
+<newParameter:NewLaborParameterContentBorder title="Neuen Parameter definieren" styles="{padding:10}"
+ xmlns:bxml="http://pivot.apache.org/bxml"
+ xmlns:content="org.apache.pivot.wtk.content"
+ xmlns:newParameter="at.easydiet.teamb.presentation.component.sheet"
+ xmlns="org.apache.pivot.wtk">
+    
+    
+    <BoxPane preferredWidth="320" orientation="vertical" styles="{verticalAlignment:'center'}">
+        <Form>
+            <Form.Section>
+                <TextInput bxml:id="_definition" Form.label="Name"/>
+                <ListButton bxml:id="_checkOperator" Form.label="Vergleichsoperator"/>
+                <BoxPane Form.label="Wert">
+                    <TextInput bxml:id="_value"/>
+                    <ListButton bxml:id="_unit" Form.label="Einheit"/>
+                </BoxPane>
+            </Form.Section>
+        </Form>
+    </BoxPane>
+</newParameter:NewLaborParameterContentBorder>
