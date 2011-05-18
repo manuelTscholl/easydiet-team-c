@@ -1,0 +1,18 @@
+Usecase ausformulieren --> copy
+java doc  --> alle
+source code
+benutzer manual (was läuft was läuft nicht) --> Fritz
+technische dokumentation / design entscheidungen --> BÄÄÄH
+
+Klassendiagramm --> Michi/Ali
+sequenzdiagramm (wo ist die schnittstelle zwüschen teamb) teamc -->(blackbox teamb) -->team c  --> Michi/Ali
+
+
+
+runnable jar
+
+
+
+
+änderung db
+not null irgendwo =D
