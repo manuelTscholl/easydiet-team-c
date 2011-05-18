@@ -2,6 +2,7 @@ package at.easydiet.teamb.application.viewobject;
 
 import java.util.GregorianCalendar;
 
+import at.easydiet.model.Patient;
 import at.easydiet.teamb.domain.util.FamilyStatusEnum;
 import at.easydiet.teamb.domain.util.GenderEnum;
 
@@ -162,4 +163,11 @@ public interface PatientViewable {
 	 * @return the disfavors currently set for this instance.
 	 */
 	public PatientLikeViewable[] getPatientLikes();
+
+    /**
+     * Returns the Patient model of this object
+     * @return
+     */
+    public Patient getModel();
+
 }

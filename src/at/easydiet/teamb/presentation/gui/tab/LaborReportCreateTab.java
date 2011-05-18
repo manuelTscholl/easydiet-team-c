@@ -54,292 +54,365 @@ import at.easydiet.teamb.presentation.exception.NoPatientSelectedException;
 import at.easydiet.teamb.presentation.gui.AbstractLazyTab;
 import at.easydiet.teamb.presentation.util.Message;
 import at.easydiet.teamb.presentation.util.MessageType;
+import at.easydiet.teamc.adapter.PatientAdapter;
+import at.easydiet.teamc.adapter.SystemUserAdapter;
+import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 
 /**
  * @author TeamB
  */
 public class LaborReportCreateTab extends AbstractLazyTab implements Bindable,
-		EventListener<ValidatorArgs<LaborReportErrorField>> {
+        EventListener<ValidatorArgs<LaborReportErrorField>>
+{
 
-	private static final Logger LOGGER = Logger
-			.getLogger(LaborReportCreateTab.class);
+    private static final Logger       LOGGER                    = Logger.getLogger(LaborReportCreateTab.class);
 
-	@BXML
-	private ListButton _laborReportType = null;
-	@BXML
-	private BoxPane _dateTimeContainerBoxPane = null;
-	@BXML
-	private Border _laborParameterBorder = null;
-	@BXML
-	private TextArea _noticeTextArea = null;
-	@BXML
-	private PushButton _save = null;
+    @BXML
+    private ListButton                _laborReportType          = null;
+    @BXML
+    private BoxPane                   _dateTimeContainerBoxPane = null;
+    @BXML
+    private Border                    _laborParameterBorder     = null;
+    @BXML
+    private TextArea                  _noticeTextArea           = null;
+    @BXML
+    private PushButton                _save                     = null;
 
-	private boolean _updating;
+    private boolean                   _updating;
 
-	private DateTimeInput _dateTimeBoxPane = null;
+    private DateTimeInput             _dateTimeBoxPane          = null;
 
-	private UseCaseLaborReportHandler _useCaseHandler = null;
-	private LaborReportHandler _reportHandler = null;
+    private UseCaseLaborReportHandler _useCaseHandler           = null;
+    private LaborReportHandler        _reportHandler            = null;
 
-	private LaborReportViewable _laborReport = null;
+    private LaborReportViewable       _laborReport              = null;
 
-	private LinkedList<Component> _lastErrors;
+    private LinkedList<Component>     _lastErrors;
 
-	private EventListener<EventArgs> _laborParameterListener;
+    private EventListener<EventArgs>  _laborParameterListener;
 
-	private LaborParameterBox _laborParameterBox;
+    private LaborParameterBox         _laborParameterBox;
 
-	/**
-	 * Instantiates a new labor create report tab.
-	 */
-	public LaborReportCreateTab() {
-		_lastErrors = new LinkedList<Component>();
-	}
+    /**
+     * Instantiates a new labor create report tab.
+     */
+    public LaborReportCreateTab()
+    {
+        _lastErrors = new LinkedList<Component>();
+    }
 
-	public void setLaborReport(LaborReportViewable report) {
-		_useCaseHandler = new UseCaseLaborReportHandler(report);
-		_reportHandler = _useCaseHandler.getLaborReportHandler();
-		_laborReport = _reportHandler.getLaborReport();
-	}
+    public void setLaborReport(LaborReportViewable report)
+    {
+        _useCaseHandler = new UseCaseLaborReportHandler(report);
+        _reportHandler = _useCaseHandler.getLaborReportHandler();
+        _laborReport = _reportHandler.getLaborReport();
+    }
 
-	@Override
-	public void initialize(Map<String, Object> namespace, URL location,
-			Resources resources) {
-		_laborReportType.setDataRenderer(new ListButtonDataRenderer() {
-			@Override
-			public void render(Object data, Button button, boolean highlight) {
-				if (data instanceof LaborReportTypeViewable) {
-					LaborReportTypeViewable laborReportTypeViewable = (LaborReportTypeViewable) data;
-					super.render(laborReportTypeViewable.getName(), button,
-							highlight);
-				} else {
-					super.render(data, button, highlight);
-				}
-			}
-		});
-		_laborReportType.setItemRenderer(new ListViewItemRenderer() {
-			@Override
-			public void render(Object item, int index, ListView listView,
-					boolean selected, boolean checked, boolean highlighted,
-					boolean disabled) {
-				if (item instanceof LaborReportTypeViewable) {
-					LaborReportTypeViewable laborReportTypeViewable = (LaborReportTypeViewable) item;
-					super.render(laborReportTypeViewable.getName(), index,
-							listView, selected, checked, highlighted, disabled);
-				} else {
-					super.render(item, index, listView, selected, checked,
-							highlighted, disabled);
-				}
-			}
-		});
-		_laborReportType.getListButtonSelectionListeners().add(
-				new ListButtonSelectionListener.Adapter() {
-					@Override
-					public void selectedItemChanged(ListButton listButton,
-							Object previousSelectedItem) {
-						if (!_updating) {
-							Object item = listButton.getSelectedItem();
-							if (item instanceof LaborReportTypeViewable) {
-								_reportHandler
-										.setLaborReportType((LaborReportTypeViewable) item);
-							} else {
-								LOGGER.warn("expected datatype LaborReportTypeViewable, found "
-										+ item.getClass());
-							}
-						}
-					}
-				});
+    @Override
+    public void initialize(Map<String, Object> namespace, URL location,
+            Resources resources)
+    {
+        _laborReportType.setDataRenderer(new ListButtonDataRenderer()
+        {
+            @Override
+            public void render(Object data, Button button, boolean highlight)
+            {
+                if (data instanceof LaborReportTypeViewable)
+                {
+                    LaborReportTypeViewable laborReportTypeViewable = (LaborReportTypeViewable) data;
+                    super.render(laborReportTypeViewable.getName(), button,
+                            highlight);
+                }
+                else
+                {
+                    super.render(data, button, highlight);
+                }
+            }
+        });
+        _laborReportType.setItemRenderer(new ListViewItemRenderer()
+        {
+            @Override
+            public void render(Object item, int index, ListView listView,
+                    boolean selected, boolean checked, boolean highlighted,
+                    boolean disabled)
+            {
+                if (item instanceof LaborReportTypeViewable)
+                {
+                    LaborReportTypeViewable laborReportTypeViewable = (LaborReportTypeViewable) item;
+                    super.render(laborReportTypeViewable.getName(), index,
+                            listView, selected, checked, highlighted, disabled);
+                }
+                else
+                {
+                    super.render(item, index, listView, selected, checked,
+                            highlighted, disabled);
+                }
+            }
+        });
+        _laborReportType.getListButtonSelectionListeners().add(
+                new ListButtonSelectionListener.Adapter()
+                {
+                    @Override
+                    public void selectedItemChanged(ListButton listButton,
+                            Object previousSelectedItem)
+                    {
+                        if (!_updating)
+                        {
+                            Object item = listButton.getSelectedItem();
+                            if (item instanceof LaborReportTypeViewable)
+                            {
+                                _reportHandler
+                                        .setLaborReportType((LaborReportTypeViewable) item);
+                            }
+                            else
+                            {
+                                LOGGER.warn("expected datatype LaborReportTypeViewable, found "
+                                        + item.getClass());
+                            }
+                        }
+                    }
+                });
 
-		_noticeTextArea.getTextAreaContentListeners().add(
-				new TextAreaContentListener.Adapter() {
-					@Override
-					public void textChanged(TextArea textArea) {
-						if (_updating) {
-							return;
-						}
+        _noticeTextArea.getTextAreaContentListeners().add(
+                new TextAreaContentListener.Adapter()
+                {
+                    @Override
+                    public void textChanged(TextArea textArea)
+                    {
+                        if (_updating)
+                        {
+                            return;
+                        }
 
-						if (textArea.getCharacterCount() <= 0) {
-							_reportHandler.setNotice(null);
-						} else {
-							_reportHandler.setNotice(textArea.getText());
-						}
-					}
-				});
+                        if (textArea.getCharacterCount() <= 0)
+                        {
+                            _reportHandler.setNotice(null);
+                        }
+                        else
+                        {
+                            _reportHandler.setNotice(textArea.getText());
+                        }
+                    }
+                });
 
-		_dateTimeBoxPane = new DateTimeInput();
-		_dateTimeBoxPane.getDateTimeInputSelectionListeners().add(
-				new DateTimeInputSelectionListener() {
+        _dateTimeBoxPane = new DateTimeInput();
+        _dateTimeBoxPane.getDateTimeInputSelectionListeners().add(
+                new DateTimeInputSelectionListener()
+                {
 
-					@Override
-					public void dateTimeChanged(DateTimeInput dateTimeInput) {
-						if (!_updating) {
-							_reportHandler.setDate(dateTimeInput.getDate());
-						}
-					}
-				});
-		_dateTimeContainerBoxPane.add(_dateTimeBoxPane);
+                    @Override
+                    public void dateTimeChanged(DateTimeInput dateTimeInput)
+                    {
+                        if (!_updating)
+                        {
+                            _reportHandler.setDate(dateTimeInput.getDate());
+                        }
+                    }
+                });
+        _dateTimeContainerBoxPane.add(_dateTimeBoxPane);
 
-		_save.getButtonPressListeners().add(new ButtonPressListener() {
+        _save.getButtonPressListeners().add(new ButtonPressListener()
+        {
 
-			@Override
-			public void buttonPressed(Button arg0) {
-				try {
-					save();
-				} catch (DatabaseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ErrorInFormException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+            @Override
+            public void buttonPressed(Button arg0)
+            {
+                try
+                {
+                    save();
+                }
+                catch (DatabaseException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                catch (ErrorInFormException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
 
-	@Override
-	public void save() throws DatabaseException, ErrorInFormException {
-		_useCaseHandler.save();
-		showInfoBar("Erfolgreich gespeichert!", MessageType.Info);
+        _useCaseHandler = new UseCaseLaborReportHandler(
+                new SystemUserAdapter(BusinessLogicDelegationController
+                        .getInstance().getActualUser()), new PatientAdapter(
+                        BusinessLogicDelegationController.getInstance()
+                                .getActivePatient()));
+        _reportHandler = new LaborReportHandler(
+                new SystemUserAdapter(BusinessLogicDelegationController
+                        .getInstance().getActualUser()), new PatientAdapter(
+                        BusinessLogicDelegationController.getInstance()
+                                .getActivePatient()));
+    }
 
-		getLazyTab().display(_windowHandler);
-	}
+    @Override
+    public void save() throws DatabaseException, ErrorInFormException
+    {
+        _useCaseHandler.save();
+        showInfoBar("Erfolgreich gespeichert!", MessageType.Info);
 
-	@Override
-	public void discard() throws OperationNotPermittedException {
-		if (_useCaseHandler != null) {
-			_useCaseHandler.discard();
-		} else {
-			throw new OperationNotPermittedException();
-		}
-	}
+        getLazyTab().display(_windowHandler);
+    }
 
-	@Override
-	public void fired(Object sender,
-			ValidatorArgs<LaborReportErrorField> eventObject) {
+    @Override
+    public void discard() throws OperationNotPermittedException
+    {
+        if (_useCaseHandler != null)
+        {
+            _useCaseHandler.discard();
+        }
+        else
+        {
+            throw new OperationNotPermittedException();
+        }
+    }
 
-		LinkedList<Component> newErrors = new LinkedList<Component>();
-		for (LaborReportErrorField laborReportErrorField : eventObject
-				.getErrorFields()) {
-			Component component = null;
-			StringBuilder message = new StringBuilder("Das Feld ");
-			switch (laborReportErrorField) {
-			case DATETIME:
-				component = _dateTimeBoxPane;
-				message.append("Datum oder Uhrzeit");
-				break;
-			case NOPARAMETERS:
-				component = _laborParameterBorder;
-				message.append("Labor Parameter");
-				break;
-			default:
-				LOGGER.error("unknown labor report error field");
-				message.append(laborReportErrorField);
-				break;
-			}
+    @Override
+    public void fired(Object sender,
+            ValidatorArgs<LaborReportErrorField> eventObject)
+    {
 
-			if (component != null) {
-				_lastErrors.remove(component);
-				newErrors.add(component);
-				if (component == _dateTimeBoxPane) {
-					message.append(" ist nicht gültig");
-				} else {
-					message.append(" darf nicht leer sein");
-				}
-				putMessage(new Message(MessageType.Error, component,
-						message.toString()));
-			}
-		}
+        LinkedList<Component> newErrors = new LinkedList<Component>();
+        for (LaborReportErrorField laborReportErrorField : eventObject
+                .getErrorFields())
+        {
+            Component component = null;
+            StringBuilder message = new StringBuilder("Das Feld ");
+            switch (laborReportErrorField)
+            {
+                case DATETIME:
+                    component = _dateTimeBoxPane;
+                    message.append("Datum oder Uhrzeit");
+                break;
+                case NOPARAMETERS:
+                    component = _laborParameterBorder;
+                    message.append("Labor Parameter");
+                break;
+                default:
+                    LOGGER.error("unknown labor report error field");
+                    message.append(laborReportErrorField);
+                break;
+            }
 
-		// remove old errors for
-		for (Component component : _lastErrors) {
-			removeMessages(component);
-		}
+            if (component != null)
+            {
+                _lastErrors.remove(component);
+                newErrors.add(component);
+                if (component == _dateTimeBoxPane)
+                {
+                    message.append(" ist nicht gültig");
+                }
+                else
+                {
+                    message.append(" darf nicht leer sein");
+                }
+                putMessage(new Message(MessageType.Error, component,
+                        message.toString()));
+            }
+        }
 
-		_lastErrors = newErrors;
+        // remove old errors for
+        for (Component component : _lastErrors)
+        {
+            removeMessages(component);
+        }
 
-	}
+        _lastErrors = newErrors;
 
-	@Override
-	public AbstractUseCaseHandler getHandler() {
-		return _useCaseHandler;
-	}
+    }
 
-	@Override
-	public void create() throws ExitNotPermittedException,
-			OperationNotPermittedException {
-		throw new OperationNotPermittedException();
-	}
+    @Override
+    public AbstractUseCaseHandler getHandler()
+    {
+        return _useCaseHandler;
+    }
 
-	@Override
-	public void display(WindowHandler windowHandler)
-			throws NoPatientSelectedException {
-		super.display(windowHandler);
+    @Override
+    public void create() throws ExitNotPermittedException,
+            OperationNotPermittedException
+    {
+        throw new OperationNotPermittedException();
+    }
 
-		if (_windowHandler.getSelectedPatient() == null) {
-			throw new NoPatientSelectedException();
-		}
+    @Override
+    public void display(WindowHandler windowHandler)
+            throws NoPatientSelectedException
+    {
+        super.display(windowHandler);
 
-		if (_useCaseHandler == null) {
-			_useCaseHandler = new UseCaseLaborReportHandler(
-					_windowHandler.getCreator(),
-					_windowHandler.getSelectedPatient());
-			_reportHandler = _useCaseHandler.getLaborReportHandler();
-			_laborReport = _reportHandler.getLaborReport();
-		}
+        if (_windowHandler.getSelectedPatient() == null)
+        {
+            throw new NoPatientSelectedException();
+        }
 
-		_reportHandler.addValidadedListener(this);
-		_reportHandler
-				.addLaborReportChangedListener((_laborParameterListener = new LaborParameterListener()));
+        if (_useCaseHandler == null)
+        {
+            _useCaseHandler = new UseCaseLaborReportHandler(
+                    _windowHandler.getCreator(),
+                    _windowHandler.getSelectedPatient());
+            _reportHandler = _useCaseHandler.getLaborReportHandler();
+            _laborReport = _reportHandler.getLaborReport();
+        }
 
-		update();
-	}
+        _reportHandler.addValidadedListener(this);
+        _reportHandler
+                .addLaborReportChangedListener((_laborParameterListener = new LaborParameterListener()));
 
-	@Override
-	public void remove() {
-		super.remove();
+        update();
+    }
 
-		_laborParameterBox.remove();
-		_laborParameterBox = null;
+    @Override
+    public void remove()
+    {
+        super.remove();
 
-		if (_useCaseHandler != null) {
-			_reportHandler.removeValidadedListener(this);
-			_reportHandler
-					.removeLaborReportChangedListener(_laborParameterListener);
-			_reportHandler = null;
-			_useCaseHandler = null;
-		}
-	}
+        _laborParameterBox.remove();
+        _laborParameterBox = null;
 
-	/**
-	 * Update.
-	 */
-	public void update() {
-		_updating = true;
-		_laborReportType.setListData(new ArrayList<LaborReportTypeViewable>(
-				_reportHandler.getParameterTypes()));
+        if (_useCaseHandler != null)
+        {
+            _reportHandler.removeValidadedListener(this);
+            _reportHandler
+                    .removeLaborReportChangedListener(_laborParameterListener);
+            _reportHandler = null;
+            _useCaseHandler = null;
+        }
+    }
 
-		if (_laborParameterBox != null) {
-			_laborParameterBox.remove();
-		}
-		_laborParameterBorder
-				.setContent((_laborParameterBox = new LaborParameterBox(this,
-						_reportHandler)));
-		_laborReportType.setSelectedItem(_reportHandler.getLaborReport()
-				.getType());
-		_dateTimeBoxPane.setDate(_laborReport.getDate());
+    /**
+     * Update.
+     */
+    public void update()
+    {
+        _updating = true;
+        _laborReportType.setListData(new ArrayList<LaborReportTypeViewable>(
+                _reportHandler.getParameterTypes()));
 
-		_updating = false;
-	}
+        if (_laborParameterBox != null)
+        {
+            _laborParameterBox.remove();
+        }
+        _laborParameterBorder
+                .setContent((_laborParameterBox = new LaborParameterBox(this,
+                        _reportHandler)));
+        _laborReportType.setSelectedItem(_reportHandler.getLaborReport()
+                .getType());
+        _dateTimeBoxPane.setDate(_laborReport.getDate());
 
-	private class LaborParameterListener implements EventListener<EventArgs> {
+        _updating = false;
+    }
 
-		@Override
-		public void fired(Object sender, EventArgs eventObject) {
-			_laborParameterBox.remove();
-			_laborParameterBorder
-					.setContent((_laborParameterBox = new LaborParameterBox(
-							LaborReportCreateTab.this, _reportHandler)));
-		}
-	}
+    private class LaborParameterListener implements EventListener<EventArgs>
+    {
+
+        @Override
+        public void fired(Object sender, EventArgs eventObject)
+        {
+            _laborParameterBox.remove();
+            _laborParameterBorder
+                    .setContent((_laborParameterBox = new LaborParameterBox(
+                            LaborReportCreateTab.this, _reportHandler)));
+        }
+    }
 }

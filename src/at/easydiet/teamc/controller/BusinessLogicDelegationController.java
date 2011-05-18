@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Set;
 
 import at.easydiet.dao.RecipeDAO;
+import at.easydiet.teamb.application.viewobject.SystemUserViewable;
+import at.easydiet.teamb.domain.object.SystemUserDO;
+import at.easydiet.teamc.adapter.SystemUserAdapter;
 import at.easydiet.teamc.controller.usecase.CreateRecipeController;
 import at.easydiet.teamc.controller.usecase.DietryPlanController;
 import at.easydiet.teamc.controller.usecase.SearchParameterController;
@@ -385,12 +388,26 @@ public class BusinessLogicDelegationController {
 		return _createRecipeController.removeRecipeIngredient(rd);
 	}
 
+	/**
+	 * saves the recipe with the defined parameters
+	 * @param recipeName
+	 * @param preparation
+	 * @param description
+	 * @param benefits
+	 * @param prepartionTime
+	 * @param difficulty
+	 */
 	public void saveRecipe(String recipeName, String preparation,
 			String description, String benefits, double prepartionTime,
 			int difficulty) {
 
 		_createRecipeController.save(recipeName, preparation, description,
 				benefits, prepartionTime, difficulty);
+	}
+	
+	public SystemUserViewable getSystemUser()
+	{
+	    return new SystemUserAdapter(getActualUser());
 	}
 
 }

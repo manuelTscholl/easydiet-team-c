@@ -346,4 +346,14 @@ public class PatientBo implements java.io.Serializable, Saveable, PatientData {
 		throw new NoDietTreatmentException();
 	}
 
+        /**
+         * the model of this bo
+         * @return
+         */
+        public Patient getModel()
+        {
+            //XXX needed because of team B code snippets, violates our design
+            return _Patient;
+        }
+
 }

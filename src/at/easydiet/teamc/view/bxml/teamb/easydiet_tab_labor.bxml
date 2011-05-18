@@ -1,7 +1,7 @@
 <tabLab:LaborTab
  xmlns:bxml="http://pivot.apache.org/bxml"
  xmlns:content="org.apache.pivot.wtk.content"
- xmlns:tabLab="at.easydiet.presentation.gui.tab"
+ xmlns:tabLab="at.easydiet.teamb.presentation.gui.tab"
  xmlns="org.apache.pivot.wtk">
 
 	<Form styles="{fill:true, padding:10}">
