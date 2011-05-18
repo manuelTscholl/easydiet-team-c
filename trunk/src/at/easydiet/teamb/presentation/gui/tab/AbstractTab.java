@@ -11,6 +11,7 @@
 package at.easydiet.teamb.presentation.gui.tab;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -37,14 +38,13 @@ import org.apache.pivot.wtk.TablePane.ColumnSequence;
 import org.apache.pivot.wtk.TablePane.Row;
 import org.apache.pivot.wtk.TablePane.RowSequence;
 import org.apache.pivot.wtk.TableView;
-import org.apache.pivot.wtk.TableViewSelectionListener;
 import org.apache.pivot.wtk.content.ButtonData;
 import org.apache.pivot.wtk.content.TableViewCellRenderer;
 import org.apache.pivot.wtk.content.TableViewImageCellRenderer;
 import org.apache.pivot.wtk.media.Image;
 
 import at.easydiet.teamb.application.handler.AbstractUseCaseHandler;
-import at.easydiet.teamb.application.handler.WindowHandler;
+import at.easydiet.teamb.application.handler.UseCaseManager;
 import at.easydiet.teamb.application.handler.exception.DatabaseException;
 import at.easydiet.teamb.application.handler.exception.ErrorInFormException;
 import at.easydiet.teamb.application.handler.exception.ExitNotPermittedException;
@@ -68,12 +68,13 @@ public abstract class AbstractTab extends Border {
 	private final static int DEFAULT_ERROR_TABLE_HEIGHT = 120;
 
 	private final static String DEFAULT_ERROR_HEADER_STRING = "Achtung! Es haben sich Fehler eingeschlichen.";
-	private final static String DEFAULT_ERROR_HEADER_INFO_STRING = "Für weitere Details bitte hier klicken.";
+	private final static String DEFAULT_INFO_HEADER_STRING = "Es gibt Anmerkungen zur Eingabe";
+	private final static String DEFAULT_DETAILS_HEADER_INFO_STRING = "Für weitere Details bitte hier klicken.";
 
 	private final static String COLUMN_ICON_NAME = "icon";
 	private final static String COLUMN_ERROR_NAME = "error";
 
-	protected WindowHandler _windowHandler;
+	protected UseCaseManager _useCaseManager;
 
 	/**
 	 * scroll pane which contains main content
@@ -94,12 +95,12 @@ public abstract class AbstractTab extends Border {
 	 * table view which contains the errors
 	 */
 	private TableView _errorTableView = null;
-
+	private Label _errorHeaderLabel;
 	private Label _errorHeaderInfoLabel = null;
 
 	private boolean _errorBoxIsOpen = false;
 
-	private TreeMap<MessageType, HashMap<Component, Message>> _messageMap;
+	private TreeMap<MessageType, HashSet<Message>> _messageMap;
 
 	private HashMap<Component, Object> _originColorMap;
 
@@ -107,7 +108,7 @@ public abstract class AbstractTab extends Border {
 	 * Instantiates a new abstract box pane.
 	 */
 	public AbstractTab() {
-		
+
 		// set icon or text as tabData
 		TabPane.setTabData(this, getButtonData());
 
@@ -165,16 +166,16 @@ public abstract class AbstractTab extends Border {
 			LOGGER.warn("Can not load image", ex);
 		}
 
-		Label errorHeaderLabel = new Label(DEFAULT_ERROR_HEADER_STRING);
-		_errorHeaderInfoLabel = new Label(DEFAULT_ERROR_HEADER_INFO_STRING);
+		_errorHeaderLabel = new Label(DEFAULT_ERROR_HEADER_STRING);
+		_errorHeaderInfoLabel = new Label(DEFAULT_DETAILS_HEADER_INFO_STRING);
 
-		errorHeaderLabel.getStyles().put("font", "bold");
+		_errorHeaderLabel.getStyles().put("font", "bold");
 		_errorHeaderInfoLabel.getStyles().put("font", "normal italic");
 		_errorHeaderInfoLabel.getStyles().put("color", "#555555");
 
-		errorHeaderBoxPane.add(errorHeaderLabel);
+		errorHeaderBoxPane.add(_errorHeaderLabel);
 		errorHeaderBoxPane.add(_errorHeaderInfoLabel);
-		errorHeaderLabel.setVisible(true);
+		_errorHeaderLabel.setVisible(true);
 
 		// content part 2
 		_errorTableView = new TableView();
@@ -183,20 +184,23 @@ public abstract class AbstractTab extends Border {
 		_errorTableView.getStyles().put("selectionBackgroundColor", "#ffa800");
 		_errorTableView.getStyles().put("horizontalGridColor", "#ffffff");
 		_errorTableView.getStyles().put("verticalGridColor", "#ffffff");
-		
+
 		_errorTableView.getComponentMouseButtonListeners().add(new ComponentMouseButtonListener.Adapter() {
 			@Override
 			public boolean mouseClick(Component component, Button button, int x, int y, int count) {
 				if (button == Button.LEFT) {
 					Object cellData = JSON.get(_errorTableView.getSelectedRow(), COLUMN_ERROR_NAME);
 					if (cellData instanceof Message) {
-						Component c = ((Message)cellData).getComponent();
-						c.requestFocus();
-						c.scrollAreaToVisible(c.getBounds());
+						Component c = ((Message) cellData).getComponent();
+
+						if (c != null) {
+							c.requestFocus();
+							c.scrollAreaToVisible(c.getBounds());
+						}
 					}
-					
+
 				}
-				
+
 				return false;
 			}
 		});
@@ -213,7 +217,7 @@ public abstract class AbstractTab extends Border {
 
 				Object cellData = JSON.get(row, columnName);
 				if (cellData instanceof Message) {
-					setText(((Message)cellData).getMessageText());
+					setText(((Message) cellData).getMessageText());
 				} else {
 					super.render(row, rowIndex, columnIndex, tableView, columnName, selected, highlighted, disabled);
 				}
@@ -256,7 +260,7 @@ public abstract class AbstractTab extends Border {
 			}
 		});
 
-		_messageMap = new TreeMap<MessageType, HashMap<Component, Message>>();
+		_messageMap = new TreeMap<MessageType, HashSet<Message>>();
 		_originColorMap = new HashMap<Component, Object>();
 
 		refreshMessageBox();
@@ -353,18 +357,23 @@ public abstract class AbstractTab extends Border {
 
 	/**
 	 * Creates the Object which depends on the Tab.
-	 *
-	 * @throws ExitNotPermittedException the exit not permitted exception
-	 * @throws OperationNotPermittedException the operation not permitted exception
+	 * 
+	 * @throws ExitNotPermittedException
+	 *             the exit not permitted exception
+	 * @throws OperationNotPermittedException
+	 *             the operation not permitted exception
 	 */
 	public abstract void create() throws ExitNotPermittedException, OperationNotPermittedException;
 
 	/**
 	 * Save the Object which depends on the Tab.
-	 *
-	 * @throws DatabaseException the database exception
-	 * @throws ErrorInFormException the error in form exception
-	 * @throws OperationNotPermittedException the operation not permitted exception
+	 * 
+	 * @throws DatabaseException
+	 *             the database exception
+	 * @throws ErrorInFormException
+	 *             the error in form exception
+	 * @throws OperationNotPermittedException
+	 *             the operation not permitted exception
 	 */
 	public abstract void save() throws DatabaseException, ErrorInFormException, OperationNotPermittedException;
 
@@ -379,16 +388,16 @@ public abstract class AbstractTab extends Border {
 	/**
 	 * Display the Object which depends on the Tab.
 	 * 
-	 * @param windowHandler
+	 * @param useCaseManager
 	 *            the window handler
 	 * @throws NoPatientSelectedException
 	 *             the no patient selected exception
 	 */
-	public void display(WindowHandler windowHandler) throws NoPatientSelectedException {
+	public void display(UseCaseManager useCaseManager) throws NoPatientSelectedException {
 		LOGGER.debug("displaying " + this);
 
-		if (_windowHandler != windowHandler) {
-			_windowHandler = windowHandler;
+		if (_useCaseManager != useCaseManager) {
+			_useCaseManager = useCaseManager;
 		}
 	}
 
@@ -399,43 +408,47 @@ public abstract class AbstractTab extends Border {
 	 *            the message
 	 */
 	public void putMessage(Message message) {
-		HashMap<Component, Message> messageMap;
+		HashSet<Message> messageSet;
 
 		if (_messageMap.containsKey(message.getMessageType())) {
-			messageMap = _messageMap.get(message.getMessageType());
+			messageSet = _messageMap.get(message.getMessageType());
 		} else {
-			messageMap = new HashMap<Component, Message>();
-			_messageMap.put(message.getMessageType(), messageMap);
+			messageSet = new HashSet<Message>();
+			_messageMap.put(message.getMessageType(), messageSet);
 		}
 
-		messageMap.put(message.getComponent(), message);
+		messageSet.add(message);
 
-		if (!_originColorMap.containsKey(message.getComponent())) {
-			_originColorMap.put(message.getComponent(), message.getComponent().getStyles().get("backgroundColor"));
+		if (message.getComponent() != null) {
+			if (!_originColorMap.containsKey(message.getComponent())) {
+				_originColorMap.put(message.getComponent(), message.getComponent().getStyles().get("backgroundColor"));
+			}
+			message.getComponent().getStyles().put("backgroundColor", Colors.WARNING.getHexCode());
 		}
-
-		message.getComponent().getStyles().put("backgroundColor", Colors.WARNING.getHexCode());
 
 		refreshMessageBox();
 	}
-	
+
 	public void showInfoBar(String message, MessageType type) {
+//		MessageBar messageBar = EasyBar.getCurrentInstance().getMessageBar();
+//		messageBar.setMessage(message, type);
+//		messageBar.start();
 	}
 
 	/**
-	 * Removes all Messages regarding to component
+	 * Removes a Message from the message list
 	 * 
-	 * @param component
-	 *            for which all messages should be removed
+	 * @param message
+	 *            the message that should be removed
 	 */
-	public void removeMessages(Component component) {
-		for (MessageType type : _messageMap.keySet()) {
-			_messageMap.get(type).remove(component);
+	public void removeMessage(Message message) {
+		if (_messageMap.containsKey(message.getMessageType())) {
+			_messageMap.get(message.getMessageType()).remove(message);
 		}
 
-		if (_originColorMap.containsKey(component)) {
-			component.getStyles().put("backgroundColor", _originColorMap.get(component));
-			_originColorMap.remove(component);
+		if (message.getComponent() != null && _originColorMap.containsKey(message.getComponent())) {
+			message.getComponent().getStyles().put("backgroundColor", _originColorMap.get(message.getComponent()));
+			_originColorMap.remove(message.getComponent());
 		}
 
 		refreshMessageBox();
@@ -445,17 +458,49 @@ public abstract class AbstractTab extends Border {
 	 * Refresh message box
 	 */
 	public void refreshMessageBox() {
-		ArrayList<org.apache.pivot.collections.HashMap<String, Message>> messages = new ArrayList<org.apache.pivot.collections.HashMap<String, Message>>();
+		ArrayList<org.apache.pivot.collections.HashMap<String, Object>> messages = new ArrayList<org.apache.pivot.collections.HashMap<String, Object>>();
 
-		for (Entry<MessageType, HashMap<Component, Message>> messageEntries : _messageMap.entrySet()) {
-			for (Entry<Component, Message> messageEntry : messageEntries.getValue().entrySet()) {
-				org.apache.pivot.collections.HashMap<String, Message> entry = new org.apache.pivot.collections.HashMap<String, Message>();
-				entry.put(COLUMN_ERROR_NAME, messageEntry.getValue());
+		String header = DEFAULT_INFO_HEADER_STRING;
+
+		for (Entry<MessageType, HashSet<Message>> messageEntries : _messageMap.entrySet()) {
+			for (Message messageEntry : messageEntries.getValue()) {
+				org.apache.pivot.collections.HashMap<String, Object> entry = new org.apache.pivot.collections.HashMap<String, Object>();
+				entry.put(COLUMN_ERROR_NAME, messageEntry);
+				try {
+					String icon = null;
+
+					switch (messageEntry.getMessageType()) {
+						case Error:
+							icon = "error.png";
+							break;
+						case Info:
+							icon = "info.png";
+							break;
+						case Warning:
+							icon = "warning.png";
+							break;
+						default:
+							LOGGER.error("Unknown messagetype: " + messageEntry.getMessageType());
+							break;
+					}
+
+					if (icon != null) {
+						entry.put(COLUMN_ICON_NAME, Image.load(AbstractTab.class.getResource("/gfx/icon/16x16px/" + icon)));
+					}
+				} catch (TaskExecutionException ex) {
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
+				}
 
 				messages.add(entry);
 			}
+
+			if (messageEntries.getKey() == MessageType.Error && !messageEntries.getValue().isEmpty()) {
+				header = DEFAULT_ERROR_HEADER_STRING;
+			}
 		}
 
+		_errorHeaderLabel.setText(header);
 		_errorTableView.setTableData(messages);
 
 		setErrorBoxVisible(!messages.isEmpty());
@@ -466,6 +511,17 @@ public abstract class AbstractTab extends Border {
 	 */
 	public void remove() {
 		LOGGER.debug("removing " + this + " from display");
-		_windowHandler = null;
+		_useCaseManager = null;
 	}
+
+    /**
+     * @param component
+     */
+    public void removeMessages(Component component)
+    {
+        LOGGER.info("I söt was tua");
+        //XXX wichtig
+        
+        
+    }
 }

@@ -45,8 +45,8 @@ import org.apache.pivot.wtk.media.Image;
 import at.easydiet.teamb.application.handler.AbstractUseCaseHandler;
 import at.easydiet.teamb.application.handler.LaborReportHandler;
 import at.easydiet.teamb.application.handler.PatientStateHandler;
+import at.easydiet.teamb.application.handler.UseCaseManager;
 import at.easydiet.teamb.application.handler.UseCasePatientStateHandler;
-import at.easydiet.teamb.application.handler.WindowHandler;
 import at.easydiet.teamb.application.handler.exception.DatabaseException;
 import at.easydiet.teamb.application.handler.exception.ErrorInFormException;
 import at.easydiet.teamb.application.handler.exception.OperationNotPermittedException;
@@ -488,7 +488,7 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements
 			OperationNotPermittedException {
 		_useCasePatientStateHandler.save();
 		showInfoBar("Erfolgreich gespeichert!", MessageType.Info);
-		getLazyTab().display(_windowHandler);
+		getLazyTab().display(_useCaseManager);
 	}
 
 	@Override
@@ -501,18 +501,18 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements
 	}
 
 	@Override
-	public void display(WindowHandler windowHandler)
+	public void display(UseCaseManager useCaseManager)
 			throws NoPatientSelectedException {
-		super.display(windowHandler);
+		super.display(useCaseManager);
 
-		if (_windowHandler.getSelectedPatient() == null) {
+		if (_useCaseManager.getSelectedPatient() == null) {
 			throw new NoPatientSelectedException();
 		}
 
 		if (_useCasePatientStateHandler == null) {
 			_useCasePatientStateHandler = new UseCasePatientStateHandler(
-					_windowHandler.getCreator(),
-					_windowHandler.getSelectedPatient());
+					_useCaseManager.getCreator(),
+					_useCaseManager.getSelectedPatient());
 		}
 
 		_patientStateHandler = _useCasePatientStateHandler
