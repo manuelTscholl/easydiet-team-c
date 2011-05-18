@@ -16,6 +16,10 @@ import at.easydiet.teamc.model.ParameterDefinitionBo;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.PatientData;
 
+/**
+ * Controller for seraching parameter specific data.
+ * @author Stephan Svoboda
+ */
 public class SearchParameterController {
 
 	// class variables
@@ -51,6 +55,12 @@ public class SearchParameterController {
 		return _searchParameterController;
 	}
 
+        /**
+         * Fetches all ParameterDefintions from database.
+         *
+         * @return List<ParameterDefinitionData> which contains all existing
+         * ParameterDefintions from database.
+         */
 	public List<ParameterDefinitionData> getAllParameterDefinitions() {
 		List<ParameterDefinitionBo> params = DatabaseController.getInstance()
 				.getAllParameterDefinitions();
