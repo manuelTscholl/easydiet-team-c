@@ -1,25 +1,39 @@
-
 package at.easydiet.teamc.model.data;
 
 import java.util.Set;
 
+/**
+ * Checked parameters with the checking result.
+ * 
+ * @author Michael
+ */
 public class ParameterCheckResult {
 
 	private Set<DietParameterData> _dietParameterData;
-	
-	public ParameterCheckResult(){
-		
+
+	/**
+	 * Instantiates a new parameter check result.
+	 */
+	public ParameterCheckResult() {
+
 	}
-	
-	public void addDietParameter(DietParameterData toadd){
+
+	/**
+	 * Adds the diet parameter.
+	 * 
+	 * @param toadd the toadd
+	 */
+	public void addDietParameter(DietParameterData toadd) {
 		_dietParameterData.add(toadd);
 	}
-	
-	
-	public Set<DietParameterData> getCheckResult(){
+
+	/**
+	 * Gets the check result.
+	 * 
+	 * @return the check result
+	 */
+	public Set<DietParameterData> getCheckResult() {
 		return _dietParameterData;
 	}
-	
-	
-    
+
 }
