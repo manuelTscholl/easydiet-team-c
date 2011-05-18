@@ -423,6 +423,7 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements
 			public void buttonPressed(Button arg0) {
 				try {
 					save();
+					getWindow().close();
 				} catch (DatabaseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

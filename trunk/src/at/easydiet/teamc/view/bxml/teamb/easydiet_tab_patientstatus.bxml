@@ -1,7 +1,7 @@
 <tabPatientStatus:PatientStatusTab
  xmlns:bxml="http://pivot.apache.org/bxml"
  xmlns:content="org.apache.pivot.wtk.content"
- xmlns:tabPatientStatus="at.easydiet.presentation.gui.tab"
+ xmlns:tabPatientStatus="at.easydiet.teamb.presentation.gui.tab"
  xmlns="org.apache.pivot.wtk">
  		
 	<Form  styles="{fill:true, padding:10}">

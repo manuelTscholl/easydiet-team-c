@@ -1,95 +1,98 @@
-<tabTreatment:PatientStatusCreateTab
-	xmlns:bxml="http://pivot.apache.org/bxml" xmlns:content="org.apache.pivot.wtk.content"
-	xmlns:tabTreatment="at.easydiet.teamb.presentation.gui.tab"
-	xmlns:component="at.easydiet.teamb.presentation.component" xmlns="org.apache.pivot.wtk">
+<Dialog xmlns:bxml="http://pivot.apache.org/bxml" xmlns:content="org.apache.pivot.wtk.content"
+	xmlns="org.apache.pivot.wtk">
+	<tabTreatment:PatientStatusCreateTab
 
-	<Form styles="{fill:true, padding:10}">
-		<Form.Section heading="Patientstatus anlegen">
-			<ListButton Form.label="Patientenstatus Typ" bxml:id="_patientStateTypeListButton"
-				listData="['typ1', 'typ2', '...']" />
+		xmlns:tabTreatment="at.easydiet.teamb.presentation.gui.tab"
+		xmlns:component="at.easydiet.teamb.presentation.component">
 
-			<BoxPane Form.label="Di&#228;tbehandlungen" styles="{verticalAlignment:'center'}">
-				<ListView bxml:id="_selectDietTreatmentsList" selectMode="none"
-					checkmarksEnabled="true" listData="['Behandlung1', 'Behandlung2']" />
-			</BoxPane>
+		<Form styles="{fill:true, padding:10}">
+			<Form.Section heading="Patientstatus anlegen">
+				<ListButton Form.label="Patientenstatus Typ" bxml:id="_patientStateTypeListButton"
+					listData="['typ1', 'typ2', '...']" />
 
-			<BoxPane bxml:id="_dateTimeContainerBoxPane" Form.label="Erstellt am" />
+				<BoxPane Form.label="Di&#228;tbehandlungen" styles="{verticalAlignment:'center'}">
+					<ListView bxml:id="_selectDietTreatmentsList" selectMode="none"
+						checkmarksEnabled="true" listData="['Behandlung1', 'Behandlung2']" />
+				</BoxPane>
 
-		</Form.Section>
+				<BoxPane bxml:id="_dateTimeContainerBoxPane" Form.label="Erstellt am" />
 
-		<Form.Section heading="Patientenzustand">
-			<BoxPane Form.label="Fakten" styles="{verticalAlignment:'center'}">
-				<TextInput bxml:id="_weightTextInput" prompt="Gewicht"
-					textSize="5" />
-				<TextInput bxml:id="_heightTextInput" prompt="Gr&#246;&#223;e"
-					textSize="5" />
-				<Label bxml:id="_bmi" text="" styles="{color:'#878787'}" />
-				<Label bxml:id="_bmiEvaluationLabel" text="" styles="{color:'#FF0000'}" />
-			</BoxPane>
+			</Form.Section>
 
-			<BoxPane Form.label="Motivation" bxml:id="_motivation"
-				styles="{verticalAlignment:'center'}">
-				<Label bxml:id="_motivationLabel" />
-			</BoxPane>
+			<Form.Section heading="Patientenzustand">
+				<BoxPane Form.label="Fakten" styles="{verticalAlignment:'center'}">
+					<TextInput bxml:id="_weightTextInput" prompt="Gewicht"
+						textSize="5" />
+					<TextInput bxml:id="_heightTextInput" prompt="Gr&#246;&#223;e"
+						textSize="5" />
+					<Label bxml:id="_bmi" text="" styles="{color:'#878787'}" />
+					<Label bxml:id="_bmiEvaluationLabel" text="" styles="{color:'#FF0000'}" />
+				</BoxPane>
 
-			<BoxPane Form.label="Compliance" bxml:id="_compliance"
-				styles="{verticalAlignment:'center'}">
-				<Label bxml:id="_complianceLabel" />
-			</BoxPane>
+				<BoxPane Form.label="Motivation" bxml:id="_motivation"
+					styles="{verticalAlignment:'center'}">
+					<Label bxml:id="_motivationLabel" />
+				</BoxPane>
 
-			<Border styles="{color:10}" Form.label="Zustand / Anamnese">
-				<ScrollPane horizontalScrollBarPolicy="fill"
-					verticalScrollBarPolicy="fill_to_capacity" preferredWidth="500"
-					preferredHeight="100">
-					<component:NullableTextArea bxml:id="_anamnesisTextArea" />
-				</ScrollPane>
-			</Border>
+				<BoxPane Form.label="Compliance" bxml:id="_compliance"
+					styles="{verticalAlignment:'center'}">
+					<Label bxml:id="_complianceLabel" />
+				</BoxPane>
 
-			<TablePane styles="{horizontalSpacing:5}">
-				<columns>
-					<TablePane.Column width="-1" />
-					<TablePane.Column width="1*" />
-				</columns>
+				<Border styles="{color:10}" Form.label="Zustand / Anamnese">
+					<ScrollPane horizontalScrollBarPolicy="fill"
+						verticalScrollBarPolicy="fill_to_capacity" preferredWidth="500"
+						preferredHeight="100">
+						<component:NullableTextArea bxml:id="_anamnesisTextArea" />
+					</ScrollPane>
+				</Border>
 
-				<TablePane.Row height="240">
-					<Border title="Laborbefunde" styles="{color:'#cfcfcf', padding:10}"
-						preferredWidth="140">
-						<ScrollPane horizontalScrollBarPolicy="fill"
-							verticalScrollBarPolicy="fill_to_capacity">
-							<ListView bxml:id="_selectLaborReports"
-								checkmarksEnabled="true"
-								listData="['report1', 'report2', 'report2', 'report2', 'report2', 'report2', 'report2', 'report2', 'report2']" />
-						</ScrollPane>
-					</Border>
+				<TablePane styles="{horizontalSpacing:5}">
+					<columns>
+						<TablePane.Column width="-1" />
+						<TablePane.Column width="1*" />
+					</columns>
 
-					<TablePane>
-						<columns>
-							<TablePane.Column width="1*" />
-						</columns>
+					<TablePane.Row height="240">
+						<Border title="Laborbefunde" styles="{color:'#cfcfcf', padding:10}"
+							preferredWidth="140">
+							<ScrollPane horizontalScrollBarPolicy="fill"
+								verticalScrollBarPolicy="fill_to_capacity">
+								<ListView bxml:id="_selectLaborReports"
+									checkmarksEnabled="true"
+									listData="['report1', 'report2', 'report2', 'report2', 'report2', 'report2', 'report2', 'report2', 'report2']" />
+							</ScrollPane>
+						</Border>
 
-						<TablePane.Row height="-1">
-							<Border title="Notiz" styles="{color:'#cfcfcf', padding:10}">
-								<ScrollPane horizontalScrollBarPolicy="fill"
-									verticalScrollBarPolicy="fill_to_capacity" preferredHeight="50">
-									<component:NullableTextArea bxml:id="_noticeTextArea"
-										enabled="false" />
-								</ScrollPane>
-							</Border>
-						</TablePane.Row>
-						<TablePane.Row height="1*">
-							<Border bxml:id="_laborParameterBorder" title="Laborparameter"
-								styles="{color:'#cfcfcf', padding:10}">
-								<ScrollPane bxml:id="_laborParameterScrollPane"
-									horizontalScrollBarPolicy="fill" verticalScrollBarPolicy="fill_to_capacity">
-									<!-- Labor parameter box goes here -->
-								</ScrollPane>
-							</Border>
-						</TablePane.Row>
-					</TablePane>
-				</TablePane.Row>
-			</TablePane>
-			<PushButton bxml:id="_save" buttonData="Speichern" />
-		</Form.Section>
-	</Form>
+						<TablePane>
+							<columns>
+								<TablePane.Column width="1*" />
+							</columns>
 
-</tabTreatment:PatientStatusCreateTab>
+							<TablePane.Row height="-1">
+								<Border title="Notiz" styles="{color:'#cfcfcf', padding:10}">
+									<ScrollPane horizontalScrollBarPolicy="fill"
+										verticalScrollBarPolicy="fill_to_capacity" preferredHeight="50">
+										<component:NullableTextArea
+											bxml:id="_noticeTextArea" enabled="false" />
+									</ScrollPane>
+								</Border>
+							</TablePane.Row>
+							<TablePane.Row height="1*">
+								<Border bxml:id="_laborParameterBorder" title="Laborparameter"
+									styles="{color:'#cfcfcf', padding:10}">
+									<ScrollPane bxml:id="_laborParameterScrollPane"
+										horizontalScrollBarPolicy="fill" verticalScrollBarPolicy="fill_to_capacity">
+										<!-- Labor parameter box goes here -->
+									</ScrollPane>
+								</Border>
+							</TablePane.Row>
+						</TablePane>
+					</TablePane.Row>
+				</TablePane>
+				<PushButton bxml:id="_save" buttonData="Speichern" />
+			</Form.Section>
+		</Form>
+
+	</tabTreatment:PatientStatusCreateTab>
+</Dialog>
