@@ -144,7 +144,7 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements
 			for (DietPlanParameterCollectionVo p : d) {
 				TablePane.Row tro = new TablePane.Row();
 				Label l = new Label(p.getName() + " " + p.getMinValue() + "/"
-						+ p.getCurrValue() + " " + p.getMaxValue());
+						+ p.getCurrValue() + "/" + p.getMaxValue());
 				tro.add(l);
 				_parameterTable.getRows().add(tro);
 			}
