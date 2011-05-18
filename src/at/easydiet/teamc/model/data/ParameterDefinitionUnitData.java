@@ -7,11 +7,17 @@
 package at.easydiet.teamc.model.data;
 
 /**
+ * Encapsulation of a ParameterDefinitionUnitBo
+ * 
  * @author Manuel
- *
+ * 
  */
-public interface ParameterDefinitionUnitData
-{
+public interface ParameterDefinitionUnitData {
 
-    public String getName();
+	/**
+	 * Get the name of the unit
+	 * 
+	 * @return the name of the unit
+	 */
+	public String getName();
 }
