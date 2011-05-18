@@ -74,6 +74,12 @@ public class ChooseMealDialog extends Dialog implements Bindable,
 	private MealCodeData _actualMealCode;
 
 	@Override
+	/**
+	 * Initialize the GUI components
+	 * @param namespace Contains all components
+	 * @param location to the bxml file
+	 * @param resources
+	 */
 	public void initialize(Map<String, Object> namespace, URL location,
 			Resources resources) {
 		_mealLines = new ArrayList<MealLineBoxPane>();
@@ -261,12 +267,15 @@ public class ChooseMealDialog extends Dialog implements Bindable,
 	/**
 	 * Add day for which this meal is for
 	 * 
-	 * @param day
+	 * @param day of this meal
 	 */
 	public void setDay(int day) {
 		_day = day;
 	}
 
+	/**
+	 * Load and initialzie the recipe main categories
+	 */
 	private void initRecipeMainCategories() {
 
 		// get recipe main categories
@@ -358,8 +367,8 @@ public class ChooseMealDialog extends Dialog implements Bindable,
 	/**
 	 * Get a recipe tree branch by his bls code
 	 * 
-	 * @param blsCode
-	 * @return
+	 * @param blsCode to search for
+	 * @return The tree branch with tis bls code
 	 */
 	private RecipeTreeBranch getBranchByBLSCode(String blsCode) {
 		for (RecipeTreeBranch t : (List<RecipeTreeBranch>) _recipeTreeView
@@ -390,7 +399,7 @@ public class ChooseMealDialog extends Dialog implements Bindable,
 	/**
 	 * Update quantity
 	 * 
-	 * @param quantity
+	 * @param quantity to update
 	 */
 	@Override
 	public void updateQuantity(float quantity) {

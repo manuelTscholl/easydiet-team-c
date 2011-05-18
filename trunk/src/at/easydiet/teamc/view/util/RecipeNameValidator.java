@@ -15,10 +15,13 @@ import org.apache.pivot.wtk.validation.Validator;
  */
 public class RecipeNameValidator implements Validator {
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.pivot.wtk.validation.Validator#isValid(java.lang.String)
+	 */
 	@Override
 	public boolean isValid(String text) {
-
-		// TODO check if name already exists
 
 		if (text.length() > 0) {
 

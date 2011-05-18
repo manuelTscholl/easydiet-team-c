@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package at.easydiet.teamc.exception;
 
 /**
- *
+ * Exception if no diet treatment is available
+ * 
  * @author Stephan Svoboda
  */
-public class NoDietTreatmentException extends Exception{
+public class NoDietTreatmentException extends Exception {
 
 }

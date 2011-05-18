@@ -75,6 +75,14 @@ public class DietPlanDialog extends Dialog implements Bindable {
 	private List<Double> _parameterMaxValues;
 
 	@Override
+	/**
+	 * First called after creating the GUI
+	 * 
+	 * @param namespace Contains all UI elements in content_anamnesis.bxml by id
+	 *            name
+	 * @param location Contains the URL of the content_anamnesis bxml file
+	 * @param rsrcs
+	 */
 	public void initialize(Map<String, Object> namespace, URL location,
 			Resources resources) {
 		_selectedStep = 0;
@@ -223,7 +231,7 @@ public class DietPlanDialog extends Dialog implements Bindable {
 	/**
 	 * Checks if all Parameter have correct min and max values
 	 * 
-	 * @return
+	 * @return true if all parameters have correct min and max values
 	 */
 	private boolean isMinMaxParameterValid(
 			ArrayList<HashMap<String, String>> map) {

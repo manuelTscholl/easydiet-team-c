@@ -15,36 +15,41 @@ import org.apache.pivot.wtk.ScrollPane;
 
 import at.easydiet.teamc.model.data.PatientData;
 
-
-
 /**
  * Represents the application's content anamnesis tab (content_anamnesis.bxml)
+ * 
  * @author Michael
  */
-public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable, PatientDataListener {
+public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
+		PatientDataListener {
 
-    // class variables
-    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ContentAnamnesisScrollPane.class);
+	// class variables
+	public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
+			.getLogger(ContentAnamnesisScrollPane.class);
 
-    /**
-     * First called after creating the GUI
-     * @param namespace Contains all UI elements in content_anamnesis.bxml by id name
-     * @param url Contains the URL of the content_anamnesis bxml file
-     * @param rsrcs
-     */
-    @Override
-    public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
+	/**
+	 * First called after creating the GUI
+	 * 
+	 * @param namespace Contains all UI elements in content_anamnesis.bxml by id
+	 *            name
+	 * @param url Contains the URL of the content_anamnesis bxml file
+	 * @param rsrcs
+	 */
+	@Override
+	public void initialize(Map<String, Object> namespace, URL location,
+			Resources resources) {
 
-        // register component
-        GUIComponents.put(getName(), this);
-    }
+		// register component
+		GUIComponents.put(getName(), this);
+	}
 
-    /**
-     * Update patient data
-     * @param p
-     */
-    @Override
-    public void updatePatientData(PatientData p) {
-        LOGGER.trace("NOT IMPLEMENTED");
-    }
+	/**
+	 * Update patient data
+	 * 
+	 * @param p the new patient data
+	 */
+	@Override
+	public void updatePatientData(PatientData p) {
+		LOGGER.trace("NOT IMPLEMENTED");
+	}
 }

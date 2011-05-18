@@ -224,7 +224,7 @@ public class ContentDietryPlanScrollPane extends ScrollPane implements
 	/**
 	 * Update patient data
 	 * 
-	 * @param p
+	 * @param p the new patient
 	 */
 	@Override
 	public void updatePatientData(PatientData p) {

@@ -7,9 +7,10 @@
 package at.easydiet.teamc.view.util;
 
 /**
- *
+ * Listener for changed quantities
+ * 
  * @author Michael Sieber
  */
 public interface QuantityListener {
-    public void updateQuantity(float quantity);
+	public void updateQuantity(float quantity);
 }

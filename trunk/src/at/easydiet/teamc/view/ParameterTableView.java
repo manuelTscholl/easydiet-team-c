@@ -19,6 +19,7 @@ import at.easydiet.teamc.model.data.NutrimentParameterData;
 import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 
 /**
+ * Represents a table view for parameters
  * 
  * @author Michael
  */
@@ -36,8 +37,8 @@ public class ParameterTableView extends TableView {
 	/**
 	 * Set a parameter in specific row
 	 * 
-	 * @param param
-	 * @param totalAmount
+	 * @param param Parameter to add in the tableview
+	 * @param totalAmount The Parameter amount
 	 */
 	public void setParameterData(NutrimentParameterRuleData p, float totalAmount) {
 		HashMap<String, Object> map = getRowByNutrimentParameter(p);
@@ -79,6 +80,12 @@ public class ParameterTableView extends TableView {
 		this.repaint();
 	}
 
+	/**
+	 * Get a row by the nutriment parameter
+	 * 
+	 * @param n NutrimentParameter for which a row is searched
+	 * @return TableViewRow for the corresponding NutrimentParameter
+	 */
 	private HashMap<String, Object> getRowByNutrimentParameter(
 			NutrimentParameterRuleData n) {
 		for (HashMap<String, Object> map : _tableData) {
@@ -102,13 +109,18 @@ public class ParameterTableView extends TableView {
 	/**
 	 * Remove a specific parameter
 	 * 
-	 * @param p
+	 * @param index Row index of the parameter which has to be removed
 	 */
 	public void removeParameter(int index) {
 		final int count = 1;
 		_tableData.remove(index, count);
 	}
 
+	/**
+	 * Get the data of this tableview
+	 * 
+	 * @return The Table data
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<HashMap<String, Object>> getTableData() {
@@ -118,8 +130,8 @@ public class ParameterTableView extends TableView {
 	/**
 	 * Get the value from a specific row
 	 * 
-	 * @param row
-	 * @return
+	 * @param row from which the value is wanted
+	 * @return Value of the table row
 	 */
 	public double getValue(int row) {
 		HashMap<String, Object> map = _tableData.get(row);
@@ -129,8 +141,8 @@ public class ParameterTableView extends TableView {
 	/**
 	 * Get a parameter by his row
 	 * 
-	 * @param row
-	 * @return
+	 * @param row from which the parameter is wanted
+	 * @return The parameter of this row
 	 */
 	public NutrimentParameterRuleData getParameter(int row) {
 
@@ -146,8 +158,8 @@ public class ParameterTableView extends TableView {
 	/**
 	 * Check if the table contains a specific parameter
 	 * 
-	 * @param n
-	 * @return
+	 * @param n Parmeter to check
+	 * @return true if the tableview contains the entered parameter
 	 */
 	public boolean containsParameter(NutrimentParameterData n) {
 		for (HashMap<String, Object> map : _tableData) {

@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package at.easydiet.teamc.exception;
 
 /**
- *
+ * Exception for intersected timespans
+ * 
  * @author Stephan Svoboda
  */
-public class TimeIntersectionException extends Exception{
+public class TimeIntersectionException extends Exception {
 
 }

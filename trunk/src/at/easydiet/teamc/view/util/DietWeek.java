@@ -43,9 +43,9 @@ public class DietWeek {
 	private int _weekNumber;
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 * 
-	 * @param srcTablePane
+	 * @param srcTablePane the src table pane
 	 * @param week Week number
 	 */
 	public DietWeek(TablePane srcTablePane, int week) {

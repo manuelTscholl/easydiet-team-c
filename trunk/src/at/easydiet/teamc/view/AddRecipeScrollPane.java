@@ -95,6 +95,13 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 		_recipesMainCategories = new ArrayList<RecipeData>();
 	}
 
+	/**
+	 * Initialize all GUI components
+	 * 
+	 * @param map Contains all components
+	 * @param url to the bxml file
+	 * @param resources
+	 */
 	@Override
 	public void initialize(Map<String, Object> map, URL url, Resources resources) {
 
@@ -193,12 +200,12 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	}
 
 	/**
-	 * Add a parameter
+	 * Add parameter
 	 * 
-	 * @param parameter
-	 * @param operator
-	 * @param value
-	 * @param row
+	 * @param parameter to add to the recipe
+	 * @param unit of the parameter
+	 * @param operator for the parameter
+	 * @param value of the parameter
 	 */
 	private void addParameter(ParameterDefinitionData parameter,
 			ParameterDefinitionUnitData unit, CheckOperatorData operator,
@@ -235,7 +242,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	/**
 	 * Check if all parameters are not violated
 	 * 
-	 * @return
+	 * @return true if all parameters are not violated
 	 */
 	private boolean validateParameters() {
 		for (int i = 0; i < _parameterTableView.getTableData().getLength(); i++) {
@@ -826,10 +833,10 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	/**
 	 * Change a parameter
 	 * 
-	 * @param parameter
-	 * @param unit
-	 * @param operator
-	 * @param value
+	 * @param parameter to change
+	 * @param unit the changed unit
+	 * @param operator the changed operator
+	 * @param value the changed valu
 	 */
 	private void changeParameter(NutrimentParameterRuleData parameter,
 			ParameterDefinitionUnitData unit, CheckOperatorData operator,
@@ -870,7 +877,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 	/**
 	 * Validate all textareas
 	 * 
-	 * @return
+	 * @return true if all textareas are valid
 	 */
 	private boolean validateTextAreas() {
 
@@ -891,6 +898,11 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 		return false;
 	}
 
+	/**
+	 * Validate all textinputs
+	 * 
+	 * @return true if all textinputs are valid
+	 */
 	private boolean validateTextInputs() {
 		return _recipeNameTextInput.isTextValid()
 				&& _preparationTimeTextInput.isTextValid();

@@ -6,63 +6,71 @@
  */
 package at.easydiet.teamc.view.util;
 
-import at.easydiet.teamc.controller.GUIController;
-import at.easydiet.teamc.model.data.DietryPlanData;
-import at.easydiet.teamc.view.NavigationTabPane;
-import org.apache.pivot.collections.List;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
-import org.apache.pivot.wtk.LinkButton;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TablePane;
-import org.apache.pivot.wtk.content.ButtonData;
+
+import at.easydiet.teamc.controller.GUIController;
+import at.easydiet.teamc.view.NavigationTabPane;
 
 /**
  * Mode for dietry plan
+ * 
  * @author Michael Sieber
  */
 public class DietryPlanNavigationMode extends NavigationMode {
 
-    /**
-     * Create new DietryPlanNavigationMode
-     * @param navTab 
-     */
-    public DietryPlanNavigationMode(NavigationTabPane navTab) {
-        _navTab = navTab;
-    }
+	/**
+	 * Create new DietryPlanNavigationMode.
+	 * 
+	 * @param navTab the nav tab
+	 */
+	public DietryPlanNavigationMode(NavigationTabPane navTab) {
+		_navTab = navTab;
+	}
 
-    @Override
-    public void draw() {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see at.easydiet.teamc.view.util.NavigationMode#draw()
+	 */
+	@Override
+	public void draw() {
 
-        // clean navigation before entering
-        clean();
+		// clean navigation before entering
+		clean();
 
-        // set start tab
-        _navTab.setSelectedTabByName("editTab");
+		// set start tab
+		_navTab.setSelectedTabByName("editTab");
 
-        // add button for creating a new dietry plan dialog
-        TablePane.Row addDietPlanRow = new TablePane.Row();
-        Button openNewDietPlanDialogButton = new PushButton("Neuen Diätplan erstellen");
-        addDietPlanRow.add(openNewDietPlanDialogButton);
-        _navTab.getEditTablePane().getRows().add(addDietPlanRow);
+		// add button for creating a new dietry plan dialog
+		TablePane.Row addDietPlanRow = new TablePane.Row();
+		Button openNewDietPlanDialogButton = new PushButton(
+				"Neuen Diätplan erstellen");
+		addDietPlanRow.add(openNewDietPlanDialogButton);
+		_navTab.getEditTablePane().getRows().add(addDietPlanRow);
 
-        openNewDietPlanDialogButton.getButtonPressListeners().add(new ButtonPressListener() {
+		openNewDietPlanDialogButton.getButtonPressListeners().add(
+				new ButtonPressListener() {
 
-            public void buttonPressed(Button button) {
-                GUIController.getInstance().createDietryPlan();
-            }
-        });
-        
-        // add all available diet plans
-        //TODO show all dietry plans
-//        List<DietryPlanData> dietPlans = GUIController.getInstance().getAllDietryPlans();
-//        for(DietryPlanData d: dietPlans){
-//            //TODO add dietry plan name
-//            TablePane.Row dpRow = new TablePane.Row();
-//            ButtonData data = new ButtonData();
-//            LinkButton planLink = new LinkButton(data);
-//            dpRow.add(planLink);
-//            _navTab.getEditTablePane().getRows().add(dpRow);
-//        }
-    }
+					@Override
+					public void buttonPressed(Button button) {
+						GUIController.getInstance().createDietryPlan();
+					}
+				});
+
+		// add all available diet plans
+		// TODO show all dietry plans
+		// List<DietryPlanData> dietPlans =
+		// GUIController.getInstance().getAllDietryPlans();
+		// for(DietryPlanData d: dietPlans){
+		// //TODO add dietry plan name
+		// TablePane.Row dpRow = new TablePane.Row();
+		// ButtonData data = new ButtonData();
+		// LinkButton planLink = new LinkButton(data);
+		// dpRow.add(planLink);
+		// _navTab.getEditTablePane().getRows().add(dpRow);
+		// }
+	}
 }
