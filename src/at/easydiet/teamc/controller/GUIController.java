@@ -455,10 +455,10 @@ public class GUIController implements PatientListener {
 	/**
 	 * Add a parameter
 	 * 
-	 * @param pd
-	 * @param cod
-	 * @param value
-	 * @param row
+	 * @param pd to add to the recipe
+	 * @param unit of the parameter
+	 * @param cod for the parameter
+	 * @param value of the parameter
 	 * @return
 	 */
 	public ValidatedRecipeVo addParameter(ParameterDefinitionData pd,
@@ -471,10 +471,10 @@ public class GUIController implements PatientListener {
 	/**
 	 * Change a parameter
 	 * 
-	 * @param param
-	 * @param check
-	 * @param value
-	 * @param row
+	 * @param param to change
+	 * @param unit the changed unit
+	 * @param checkoperator the changed operator
+	 * @param value the changed value
 	 */
 	public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData param,
 			CheckOperatorData check, double value,
@@ -487,10 +487,10 @@ public class GUIController implements PatientListener {
 	/**
 	 * Change a recipe ingredient
 	 * 
-	 * @param rd
-	 * @param unit
-	 * @param amount
-	 * @return
+	 * @param rd to change
+	 * @param unit the changed unit
+	 * @param amount the changed amount
+         *
 	 */
 	public ValidatedRecipeVo changeRecipeIngredient(RecipeData rd,
 			ParameterDefinitionUnitData unit, float amount) {
@@ -498,6 +498,13 @@ public class GUIController implements PatientListener {
 				amount, rd, unit);
 	}
 
+        /*
+         * Add a Recipe Ingredient
+         *
+         * @param rd to add
+         * @param unit the add unit
+         * @param amount of the recipe
+         */
 	public ValidatedRecipeVo addRecipeIngredient(RecipeData rd,
 			ParameterDefinitionUnitData unit, float amount) {
 		return _businessLogicDelegationController.addRecipeIngredient(rd, unit,
@@ -507,7 +514,7 @@ public class GUIController implements PatientListener {
 	/**
 	 * Remove a parameter
 	 * 
-	 * @param param
+	 * @param param to remove
 	 * @return
 	 */
 	public ValidatedRecipeVo removeParameter(NutrimentParameterRuleData param) {
@@ -517,7 +524,7 @@ public class GUIController implements PatientListener {
 	/**
 	 * Remove a recipes
 	 * 
-	 * @param remove
+	 * @param remove to remove
 	 * @return
 	 */
 	public ValidatedRecipeVo removeRecipe(RecipeData remove) {
@@ -527,12 +534,12 @@ public class GUIController implements PatientListener {
 	/**
 	 * Save the recipe
 	 * 
-	 * @param recipeName
-	 * @param preparation
-	 * @param description
-	 * @param benefits
-	 * @param prepartionTime
-	 * @param difficulty
+	 * @param recipeName to save
+	 * @param preparation 
+	 * @param description 
+	 * @param benefits 
+	 * @param prepartionTime 
+	 * @param difficulty 
 	 */
 	public void saveRecipe(String recipeName, String preparation,
 			String description, String benefits, double prepartionTime,

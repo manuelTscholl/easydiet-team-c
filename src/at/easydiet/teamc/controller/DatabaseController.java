@@ -200,7 +200,7 @@ public class DatabaseController
     }
     
     /**
-     * 
+     * Get All Checkoperators
      * @return
      */
     public List<CheckOperatorBo> getAllCheckoperators()
@@ -217,7 +217,7 @@ public class DatabaseController
     }
     
     /**
-     * 
+     * Get All Paramaeter Definition unit
      * @return
      */
     public List<ParameterDefinitionUnitBo> getAllParameterDefinitionUnit()
