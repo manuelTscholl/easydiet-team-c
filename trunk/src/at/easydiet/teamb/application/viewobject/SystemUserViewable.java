@@ -1,5 +1,7 @@
 package at.easydiet.teamb.application.viewobject;
 
+import at.easydiet.model.SystemUser;
+
 /**
  * Represents a SystemUser
  */
@@ -60,6 +62,12 @@ public interface SystemUserViewable {
 	 * @return the job currently set for this instance.
 	 */
 	public String getJob();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public SystemUser getModel();
 
 	/**
 	 * Gets the rights of this instance.

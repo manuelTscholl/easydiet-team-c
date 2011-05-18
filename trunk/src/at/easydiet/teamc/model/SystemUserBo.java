@@ -106,6 +106,16 @@ public class SystemUserBo  implements java.io.Serializable, Saveable {
             this._SystemUser.getRights().add(userRightBo.getUserRight());
         }
     }
+    
+    /**
+     * returns the system user
+     * @return
+     */
+    public SystemUser getModel()
+    {
+        //XXX needed because of team B code snippets, violates our design
+        return getSystemUser();
+    }
 
     /**
      * @return the _SystemUser

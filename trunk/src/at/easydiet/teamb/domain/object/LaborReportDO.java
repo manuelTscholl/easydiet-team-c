@@ -113,8 +113,7 @@ public class LaborReportDO extends AbstractDO<LaborReport> implements ILaborRepo
 	 */
 	@Override
 	public void setCreator(SystemUserViewable creator) {
-		SystemUserDO d = (SystemUserDO) creator;
-		_laborReport.setCreator(d.getModel());
+		_laborReport.setCreator(creator.getModel());
 	}
 
 	/*
@@ -164,8 +163,7 @@ public class LaborReportDO extends AbstractDO<LaborReport> implements ILaborRepo
 	 */
 	@Override
 	public void setPatient(PatientViewable patient) {
-		PatientDO d = (PatientDO) patient;
-		_laborReport.setPatient(d.getModel());
+		_laborReport.setPatient(patient.getModel());
 	}
 
 	@Override
