@@ -27,13 +27,13 @@ import at.easydiet.teamb.domain.object.SystemUserDO;
 import at.easydiet.dao.DAOFactory;
 
 /**
- * The Class WindowHandler.
+ * The Class UseCaseManager.
  */
-public class WindowHandler {
+public class UseCaseManager {
 
-	private static final Logger LOGGER = Logger.getLogger(WindowHandler.class);
+	private static final Logger LOGGER = Logger.getLogger(UseCaseManager.class);
 
-	private static WindowHandler _windowHandler;
+	private static UseCaseManager _useCaseManager;
 
 	private IPatient _patient;
 	private ISystemUser _creator;
@@ -41,7 +41,7 @@ public class WindowHandler {
 
 	private Event<PatientChangedEventArg> _patientChanged;
 
-	private WindowHandler() {
+	private UseCaseManager() {
 		_patientChanged = new Event<PatientChangedEventArg>(this);
 		
 		//TODO as the user management isn't included in timebox1 & 2, this fix is needed
@@ -54,12 +54,12 @@ public class WindowHandler {
 	 *
 	 * @return the window handler
 	 */
-	public static WindowHandler getWindowHandler() {
-		if (_windowHandler == null) {
-			_windowHandler = new WindowHandler();
+	public static UseCaseManager getWindowHandler() {
+		if (_useCaseManager == null) {
+			_useCaseManager = new UseCaseManager();
 		}
 
-		return _windowHandler;
+		return _useCaseManager;
 	}
 
 	/**

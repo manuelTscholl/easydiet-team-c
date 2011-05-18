@@ -26,7 +26,7 @@ import org.apache.pivot.wtk.MessageType;
 
 import at.easydiet.teamb.application.handler.AbstractUseCaseHandler;
 import at.easydiet.teamb.application.handler.LaborReportHandler;
-import at.easydiet.teamb.application.handler.WindowHandler;
+import at.easydiet.teamb.application.handler.UseCaseManager;
 import at.easydiet.teamb.application.handler.exception.DatabaseException;
 import at.easydiet.teamb.application.handler.exception.ErrorInFormException;
 import at.easydiet.teamb.application.handler.exception.ExitNotPermittedException;
@@ -72,7 +72,7 @@ public class LaborTab extends AbstractLazyTab implements Bindable {
 	}
 	
 	private void editStatus(LaborReportViewable report) throws ExitNotPermittedException, OperationNotPermittedException {
-		if (_windowHandler.getSelectedPatient() == null) {
+		if (_useCaseManager.getSelectedPatient() == null) {
 			throw new NoPatientSelectedException();
 		}
 		
@@ -105,10 +105,10 @@ public class LaborTab extends AbstractLazyTab implements Bindable {
 	}
 	
 	@Override
-	public void display(WindowHandler windowHandler) throws NoPatientSelectedException {
-		super.display(windowHandler);
+	public void display(UseCaseManager useCaseManager) throws NoPatientSelectedException {
+		super.display(useCaseManager);
 		
-		if (_windowHandler.getSelectedPatient() == null) {
+		if (_useCaseManager.getSelectedPatient() == null) {
 			throw new NoPatientSelectedException();
 		}
 		
@@ -130,14 +130,17 @@ public class LaborTab extends AbstractLazyTab implements Bindable {
 			
 			@Override
 			public boolean delete(LaborReportViewable report) {
-				LaborReportHandler handler = new LaborReportHandler(report);
-				try {
-					handler.remove();
-					return true;
-				} catch (DatabaseException ex) {
-					LOGGER.error("Cannot remove LaborReport: " + report.toString(),ex);
-				}
-				return false;
+			    
+			    return false;
+			    
+//				LaborReportHandler handler = new LaborReportHandler(report);
+//				try {
+//					//handler.remove();
+//					return true;
+//				} catch (DatabaseException ex) {
+//					LOGGER.error("Cannot remove LaborReport: " + report.toString(),ex);
+//				}
+//				return false;
 			}
 
 			@Override
@@ -146,7 +149,7 @@ public class LaborTab extends AbstractLazyTab implements Bindable {
 			}
 		});
 		
-		LaborReportViewable[] reports = WindowHandler.getWindowHandler().getSelectedPatient().getLaborReports();
+		LaborReportViewable[] reports = UseCaseManager.getWindowHandler().getSelectedPatient().getLaborReports();
 		for(LaborReportViewable report : reports){
 			_list.addViewobject(report);
 		}

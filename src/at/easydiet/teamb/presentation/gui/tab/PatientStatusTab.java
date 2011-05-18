@@ -26,7 +26,7 @@ import org.apache.pivot.wtk.MessageType;
 
 import at.easydiet.teamb.application.handler.AbstractUseCaseHandler;
 import at.easydiet.teamb.application.handler.PatientStateHandler;
-import at.easydiet.teamb.application.handler.WindowHandler;
+import at.easydiet.teamb.application.handler.UseCaseManager;
 import at.easydiet.teamb.application.handler.exception.DatabaseException;
 import at.easydiet.teamb.application.handler.exception.ExitNotPermittedException;
 import at.easydiet.teamb.application.handler.exception.OperationNotPermittedException;
@@ -83,7 +83,7 @@ public class PatientStatusTab extends AbstractLazyTab implements Bindable {
 	}
 	
 	private void editStatus(PatientStateViewable state) throws ExitNotPermittedException, OperationNotPermittedException {
-		if (_windowHandler.getSelectedPatient() == null) {
+		if (_useCaseManager.getSelectedPatient() == null) {
 			throw new NoPatientSelectedException();
 		}
 		
@@ -107,10 +107,10 @@ public class PatientStatusTab extends AbstractLazyTab implements Bindable {
 	}
 	
 	@Override
-	public void display(WindowHandler windowHandler) throws NoPatientSelectedException {
-		super.display(windowHandler);
+	public void display(UseCaseManager useCaseManager) throws NoPatientSelectedException {
+		super.display(useCaseManager);
 		
-		if (_windowHandler.getSelectedPatient() == null) {
+		if (_useCaseManager.getSelectedPatient() == null) {
 			throw new NoPatientSelectedException();
 		}
 		
@@ -149,7 +149,7 @@ public class PatientStatusTab extends AbstractLazyTab implements Bindable {
 			}
 		});
 		
-		PatientStateViewable[] states = _windowHandler.getSelectedPatient().getPatientStates();
+		PatientStateViewable[] states = _useCaseManager.getSelectedPatient().getPatientStates();
 		for(PatientStateViewable state : states){
 			_list.addViewobject(state);
 		}

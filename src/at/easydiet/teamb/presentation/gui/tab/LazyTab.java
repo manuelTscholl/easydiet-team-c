@@ -23,7 +23,7 @@ import org.apache.pivot.wtk.media.Image;
 
 import at.easydiet.teamb.application.handler.AbstractUseCaseHandler;
 import at.easydiet.teamb.application.handler.ProxyUseCaseHandler;
-import at.easydiet.teamb.application.handler.WindowHandler;
+import at.easydiet.teamb.application.handler.UseCaseManager;
 import at.easydiet.teamb.application.handler.exception.DatabaseException;
 import at.easydiet.teamb.application.handler.exception.ErrorInFormException;
 import at.easydiet.teamb.application.handler.exception.ExitNotPermittedException;
@@ -64,13 +64,31 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 	}
 
 	@Override
-	public void display(WindowHandler windowHandler) {
-		changeContent(_initializator.createInstance(), windowHandler);
+	public void display(UseCaseManager useCaseManager) {
+		changeContent(_initializator.createInstance(), useCaseManager);
 	}
 
 	@Override
 	public void fired(final Object sender, final PatientChangedEventArg eventObject) {
+		if (_tab != null) {
+			try {
+				_useCaseManager.changeHandler(getHandler());
+			} catch (ExitNotPermittedException ex) {
+				LOGGER.debug("Changing content failed", ex);
 
+//				new YesNoAbortSheet(EasyBar.getCurrentInstance(), ex.getExitOptions(), new YesNoAbortSheet.Redo() {
+//
+//					@Override
+//					public void redo() throws ExitNotPermittedException {
+//						fired(sender, eventObject);
+//					}
+//				});
+			}
+
+			_tab.remove();
+
+			display(_useCaseManager);
+		}
 	}
 
 	@Override
@@ -84,7 +102,7 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 			try {
 				_tab.create();
 			} catch (NoPatientSelectedException ex) {
-				LOGGER.debug("creating new instacne without a selected patient not possible", ex);
+				LOGGER.debug("creating new instance without a selected patient not possible", ex);
 				Alert.alert(MessageType.WARNING, "Es muss zuerst ein Patient ausgewählt sein!", getWindow());
 			}
 		} else {
@@ -103,7 +121,6 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 	public void discard() throws OperationNotPermittedException {
 		if (_tab != null) {
 			_tab.discard();
-			display(_windowHandler);
 		} else {
 			throw new OperationNotPermittedException();
 		}
@@ -111,8 +128,8 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 
 	@Override
 	public void remove() {
-		if (_windowHandler != null) {
-			_windowHandler.removePatientListener(this);
+		if (_useCaseManager != null) {
+			_useCaseManager.removePatientListener(this);
 		}
 
 		super.remove();
@@ -131,30 +148,43 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 	}
 
 	public void changeContent(AbstractTab tab) {
-		changeContent(tab, _windowHandler);
+		changeContent(tab, _useCaseManager);
 	}
 
-	private void changeContent(AbstractTab tab, WindowHandler windowHandler) {
-		WindowHandler oldWindowHandler = _windowHandler;
+	private void changeContent(final AbstractTab tab, final UseCaseManager useCaseManager) {
+		UseCaseManager oldWindowHandler = _useCaseManager;
 
 		try {
-			super.display(windowHandler);
+			super.display(useCaseManager);
 		} catch (NoPatientSelectedException ex) {
 			LOGGER.fatal("AbstractTab is not in a position to throw a NoPatientSelectedException", ex);
 		}
 
-		if (_windowHandler != oldWindowHandler) {
+		if (_useCaseManager != oldWindowHandler) {
 			if (oldWindowHandler != null) {
 				oldWindowHandler.removePatientListener(this);
 			}
-			_windowHandler.addPatientListener(this);
+			_useCaseManager.addPatientListener(this);
+		}
+		
+		try {
+			useCaseManager.changeHandler(tab.getHandler());
+		} catch (ExitNotPermittedException ex) {
+			LOGGER.debug("got ExitNotPermitedException", ex);
+//			new YesNoAbortSheet(EasyBar.getCurrentInstance(), ex.getExitOptions(), new YesNoAbortSheet.Redo() {
+//				
+//				@Override
+//				public void redo() throws ExitNotPermittedException, OperationNotPermittedException {
+//					changeContent(tab, useCaseManager);
+//				}
+//			});
 		}
 
 		if (_tab != null) {
 			_tab.remove();
 
 			// resist on side effects of AbstractTab.remove()
-			_windowHandler = windowHandler;
+			_useCaseManager = useCaseManager;
 		}
 
 		_tab = tab;
@@ -164,7 +194,7 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 				((AbstractLazyTab) _tab).setLazyTab(this);
 			}
 
-			_tab.display(_windowHandler);
+			_tab.display(_useCaseManager);
 			setContent(_tab);
 			_proxyHandler.setHandler(_tab.getHandler());
 		} catch (NoPatientSelectedException ex) {
@@ -209,5 +239,9 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 			border.setContent(boxPane);
 			setContent(border);
 		}
+	}
+
+	public void display() {
+		display(_useCaseManager);
 	}
 }

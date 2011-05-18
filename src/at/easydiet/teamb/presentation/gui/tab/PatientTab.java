@@ -42,7 +42,7 @@ import org.hibernate.Transaction;
 import at.easydiet.dao.HibernateUtil;
 import at.easydiet.teamb.application.handler.AbstractUseCaseHandler;
 import at.easydiet.teamb.application.handler.UseCasePatientHandler;
-import at.easydiet.teamb.application.handler.WindowHandler;
+import at.easydiet.teamb.application.handler.UseCaseManager;
 import at.easydiet.teamb.application.handler.exception.DatabaseException;
 import at.easydiet.teamb.application.handler.exception.ErrorInFormException;
 import at.easydiet.teamb.application.handler.exception.ExitNotPermittedException;
@@ -413,7 +413,7 @@ public class PatientTab extends AbstractTab implements Bindable,
 			_useCasePatientHandler.discard();
 
 			if (!_useCasePatientHandler.getPatientDataHandler().isInDatabase()) {
-				_windowHandler.changePatient(null);
+				_useCaseManager.changePatient(null);
 			}
 		} else {
 			throw new OperationNotPermittedException();
@@ -421,17 +421,17 @@ public class PatientTab extends AbstractTab implements Bindable,
 	}
 
 	@Override
-	public void display(WindowHandler windowHandler)
+	public void display(UseCaseManager useCaseManager)
 			throws NoPatientSelectedException {
-		super.display(windowHandler);
+		super.display(useCaseManager);
 
-		if (_windowHandler.getSelectedPatient() == null) {
+		if (_useCaseManager.getSelectedPatient() == null) {
 			throw new NoPatientSelectedException();
 		}
 
 		if (_useCasePatientHandler == null) {
 			_useCasePatientHandler = new UseCasePatientHandler(
-					_windowHandler.getSelectedPatient());
+					_useCaseManager.getSelectedPatient());
 		}
 
 		_useCasePatientHandler.getPatientDataHandler().addValidadedListener(

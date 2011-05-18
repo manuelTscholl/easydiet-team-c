@@ -59,7 +59,7 @@ public class DateTimeInput extends BoxPane {
 
 		_date.getCalendarButtonSelectionListeners().add(new CalendarButtonSelectionListener() {
 
-
+			@Override
 			public void selectedDateChanged(CalendarButton calendarButton, CalendarDate previousDate) {
 				callListeners();
 			}
@@ -89,14 +89,14 @@ public class DateTimeInput extends BoxPane {
 		add(_separator);
 		add(_minutes);
 		add(_clockLabel);
-		
+
 		callListeners();
 	}
 
 	private void callListeners() {
-		if (!_updating) {
-			_listeners.dateTimeChanged(this);
-		}
+		// if (!_updating) {
+		_listeners.dateTimeChanged(this);
+		// }
 	}
 
 	/**
@@ -115,26 +115,15 @@ public class DateTimeInput extends BoxPane {
 	 *            which is set.
 	 */
 	public void setDate(GregorianCalendar date) {
-		GregorianCalendar oldDate = getDate();
-		
-		_updating = true;
-
-		if (date != null) {
-			_date.setSelectedDate(new CalendarDate(date));
-			_hours.setText(Integer.toString(date.get(GregorianCalendar.HOUR_OF_DAY)));
-			_minutes.setText(Integer.toString(date.get(GregorianCalendar.MINUTE)));
-		} else {
-			_date.setSelectedDate(new CalendarDate(new GregorianCalendar()));
-			_hours.setText("");
-			_minutes.setText("");
+		if (date == null) {
+			date = new GregorianCalendar();
 		}
 
-		_updating = false;
-		
-		GregorianCalendar newDate = getDate();
-		if (oldDate != newDate && (oldDate == null || !oldDate.equals(newDate))) {
-			callListeners();
-		}
+		_date.setSelectedDate(new CalendarDate(date));
+		_hours.setText(Integer.toString(date.get(GregorianCalendar.HOUR_OF_DAY)));
+		_minutes.setText(Integer.toString(date.get(GregorianCalendar.MINUTE)));
+
+		callListeners();
 	}
 
 	public GregorianCalendar getDate() {
@@ -144,7 +133,7 @@ public class DateTimeInput extends BoxPane {
 			try {
 				int hour = Integer.parseInt(_hours.getText());
 				int minutes = Integer.parseInt(_minutes.getText());
-				if(hour < 0 || hour > 23 || minutes < 0 || minutes >59){
+				if (hour < 0 || hour > 23 || minutes < 0 || minutes > 59) {
 					return null;
 				}
 				date.set(GregorianCalendar.HOUR_OF_DAY, hour);
@@ -166,27 +155,22 @@ public class DateTimeInput extends BoxPane {
 
 		@Override
 		public void textInserted(TextInput textInput, int index, int count) {
-			if (!_updating) {
-				textEdited(textInput);
-			}
+			textEdited(textInput);
 		}
 
 		@Override
 		public void textRemoved(TextInput textInput, int index, int count) {
-			if (!_updating) {
-				textEdited(textInput);
-			}
+			textEdited(textInput);
 		}
 	}
 
 	private static class DateTimeInputSelectionListenerList extends ListenerList<DateTimeInputSelectionListener> implements DateTimeInputSelectionListener {
 
-
+		@Override
 		public void dateTimeChanged(DateTimeInput dateTimeInput) {
 			for (DateTimeInputSelectionListener listener : this) {
 				listener.dateTimeChanged(dateTimeInput);
 			}
 		}
-
 	}
 }

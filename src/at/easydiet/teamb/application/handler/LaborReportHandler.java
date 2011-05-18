@@ -2,12 +2,15 @@ package at.easydiet.teamb.application.handler;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.easydiet.dao.DAOFactory;
+import at.easydiet.model.LaborReport;
 import at.easydiet.teamb.application.handler.exception.DatabaseException;
 import at.easydiet.teamb.application.handler.exception.ErrorInFormException;
 import at.easydiet.teamb.application.util.Event;
@@ -23,9 +26,8 @@ import at.easydiet.teamb.application.viewobject.PatientViewable;
 import at.easydiet.teamb.application.viewobject.SystemUserViewable;
 import at.easydiet.teamb.domain.ILaborParameter;
 import at.easydiet.teamb.domain.ILaborReport;
+import at.easydiet.teamb.domain.IParameterDefinition;
 import at.easydiet.teamb.domain.object.LaborReportDO;
-import at.easydiet.model.LaborReport;
-import at.easydiet.dao.DAOFactory;
 import at.easydiet.teamb.util.StringUtil;
 
 /**
@@ -33,7 +35,7 @@ import at.easydiet.teamb.util.StringUtil;
  * 
  * @author TeamB
  */
-public class LaborReportHandler extends AbstractHandler<LaborReportErrorField> {
+public class LaborReportHandler extends AbstractHandler<LaborReportErrorField>{
 	private static Logger LOGGER = Logger.getLogger(LaborReportHandler.class);
 
 	private ILaborReport _laborreport;
@@ -187,6 +189,7 @@ public class LaborReportHandler extends AbstractHandler<LaborReportErrorField> {
 		_laborreport.removeLaborParameter(handler.getLaborParameter());
 		_handlers.remove(handler);
 		_laborParameterHandlers.remove(handler);
+
 		validate();
 	}
 
@@ -197,6 +200,10 @@ public class LaborReportHandler extends AbstractHandler<LaborReportErrorField> {
 	 */
 	public LaborParameterHandler[] getLaborReportParameters() {
 		return _laborParameterHandlers.toArray(new LaborParameterHandler[0]);
+	}
+
+	public void setUnsaved(boolean unsaved) {
+		_unsaved = unsaved;
 	}
 
 	/**
@@ -213,16 +220,6 @@ public class LaborReportHandler extends AbstractHandler<LaborReportErrorField> {
 		}
 		_laborreport.save();
 		_unsaved = false;
-	}
-
-	/**
-	 * Removes the.
-	 * 
-	 * @throws DatabaseException
-	 *             the database exception
-	 */
-	public void remove() throws DatabaseException {
-		_laborreport.delete();
 	}
 
 	/**
@@ -264,7 +261,20 @@ public class LaborReportHandler extends AbstractHandler<LaborReportErrorField> {
 		if (_laborreport.getLaborParameters().length <= 0) {
 			_errorFields.add(LaborReportErrorField.NOPARAMETERS);
 		}
-
+		
+//		// Searching for duplicated paramaterEntries
+//		HashMap<ParameterDefinitionViewable, LaborParameterHandler> definitionToParameter = new HashMap<ParameterDefinitionViewable, LaborParameterHandler>();
+//		for (LaborParameterHandler laborParameterHandler : _laborParameterHandlers) {
+//			ParameterDefinitionViewable def = laborParameterHandler.getLaborParameter().getParameterDefinition();
+//			if(definitionToParameter.containsKey(def)){
+//				definitionToParameter.get(def).setDuplicateParemeterDefinition(true);
+//				laborParameterHandler.setDuplicateParemeterDefinition(true);
+//			} else {
+//				definitionToParameter.put(def, laborParameterHandler);
+//				laborParameterHandler.setDuplicateParemeterDefinition(false);
+//			}
+//		}
+		
 		_validaded.fireEvent(new ValidatorArgs<LaborReportErrorField>(_errorFields));
 	}
 
@@ -286,4 +296,19 @@ public class LaborReportHandler extends AbstractHandler<LaborReportErrorField> {
 	public void removeLaborReportChangedListener(EventListener<EventArgs> handler) {
 		_laborParameterChanged.removeHandler(handler);
 	}
+
+//	public Excluder getLaborParameterExcluder() {
+//		return this;
+//	}
+
+//	@Override
+//	public boolean exclude(IParameterDefinition parameterDefinition) {
+//		for (LaborParameterViewable laborParameterViewable : _laborreport.getLaborParameters()) {
+//			if (laborParameterViewable.getParameterDefinition().equals(parameterDefinition)) {
+//				return true;
+//			}
+//		}
+//
+//		return false;
+//	}
 }

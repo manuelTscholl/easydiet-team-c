@@ -25,7 +25,7 @@ import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.content.ListButtonDataRenderer;
 import org.apache.pivot.wtk.content.ListViewItemRenderer;
 
-import at.easydiet.teamb.application.handler.WindowHandler;
+import at.easydiet.teamb.application.handler.UseCaseManager;
 import at.easydiet.teamb.application.viewobject.DietTreatmentViewable;
 import at.easydiet.teamb.domain.util.PlanTypeEnum;
 
@@ -98,7 +98,7 @@ public class NewDietPlanContentBorder extends Border implements Bindable {
 	public void reset() {
 		_treatment.setSelectedIndex(-1);
 
-		DietTreatmentViewable[] treatmentsSet = WindowHandler.getWindowHandler().getSelectedPatient().getTreatments();
+		DietTreatmentViewable[] treatmentsSet = UseCaseManager.getWindowHandler().getSelectedPatient().getTreatments();
 		_treatment.setListData(new ArrayList<DietTreatmentViewable>(treatmentsSet, 0, treatmentsSet.length));
 
 		_type.setSelectedIndex(-1);

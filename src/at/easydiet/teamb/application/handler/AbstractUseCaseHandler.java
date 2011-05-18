@@ -26,13 +26,13 @@ import at.easydiet.teamb.application.util.ExitOptions;
 public abstract class AbstractUseCaseHandler {
 	private static Logger LOGGER = Logger.getLogger(AbstractUseCaseHandler.class);
 
-	protected WindowHandler _windowHandler;
+	protected UseCaseManager _useCaseManager;
 
 	/**
 	 * Instantiates a new abstract usecasehandler
 	 */
 	public AbstractUseCaseHandler() {
-		_windowHandler = WindowHandler.getWindowHandler();
+		_useCaseManager = UseCaseManager.getWindowHandler();
 	}
 
 	/**
