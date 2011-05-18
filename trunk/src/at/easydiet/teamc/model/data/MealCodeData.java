@@ -7,8 +7,20 @@
 
 package at.easydiet.teamc.model.data;
 
+/**
+ *
+ * @author Stephan Svoboda
+ */
 public interface MealCodeData {
 
+    /**
+     *
+     * @return
+     */
     String getName();
+    /**
+     *
+     * @return
+     */
     String getCode();
 }

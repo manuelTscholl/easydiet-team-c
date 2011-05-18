@@ -13,9 +13,25 @@ import java.util.Set;
  */
 public interface MealLineData {
 
+    /**
+     *
+     * @return
+     */
     long getMealLineId();
+    /**
+     *
+     * @return
+     */
     float getQuantity();
+    /**
+     *
+     * @return
+     */
     Set<MealLineData> getMealLineData();
+    /**
+     *
+     * @return
+     */
     RecipeData getRecipeData();
 
 }

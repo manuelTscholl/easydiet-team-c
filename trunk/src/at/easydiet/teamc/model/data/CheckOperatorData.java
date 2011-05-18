@@ -7,7 +7,7 @@
 package at.easydiet.teamc.model.data;
 
 /**
- * 
+ * Encapsulation of a CheckOperatorBo
  * @author Michael
  */
 public interface CheckOperatorData {

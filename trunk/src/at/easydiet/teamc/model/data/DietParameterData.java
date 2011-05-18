@@ -1,10 +1,21 @@
 package at.easydiet.teamc.model.data;
 
-
+/**
+ * Encapsulation of a DietParameterBo.
+ * @author Stephan Svoboda
+ */
 public interface DietParameterData {
 	
-	String getParameterName();
-	String getParameterValue();
+    /**
+     *
+     * @return
+     */
+    String getParameterName();
+    /**
+     *
+     * @return
+     */
+    String getParameterValue();
 	
 
 }
