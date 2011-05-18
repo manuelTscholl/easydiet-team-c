@@ -14,12 +14,27 @@ import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
  * @author Stephan Svoboda
  */
 public class NutrimentRuleBo implements NutrimentParameterRuleData {
-
+	/**
+	 * The parameterdefinition which belongs to this Nutriment Rule
+	 */
     private ParameterDefinitionBo _parameterDefintionBo;
+    /**
+     * The checkoperator which belongs to this nutriment rule
+     */
     private CheckOperatorBo _checkOperatorBo;
+    /**
+     * The current value this nutriment rule is holding
+     */
     private double _value;
+    /**
+     * Indicates whether this nutrimentrule is violated or not
+     */
     private boolean _isViolated;
-    private int _row;
+   
+    private int _row; //TODO delete this variable. not needed anymore
+    /**
+     * The unit which this nutriment rule corresponds to
+     */
     private ParameterDefinitionUnitBo _unit;
 
     public NutrimentRuleBo(ParameterDefinitionBo parameterdefinition,
@@ -61,7 +76,7 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
     }
 
     /**
-     * @return the _checkOperatorBo
+     * @return the current checkOperatorBo
      */
     public CheckOperatorBo getCheckOperatorBo() {
         return _checkOperatorBo;
@@ -75,7 +90,7 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
     }
 
     /**
-     * @return the _value
+     * @return the current value
      */
     @Override
     public double getValue() {
@@ -83,6 +98,7 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
     }
 
     /**
+     * Sets the current value for this nutriment rule
      * @param value the _value to set
      */
     public void setValue(double value) {
@@ -95,6 +111,7 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
     }
 
     /**
+     * Sets the indication whether this rule is violated or not
      * @param isViolated the _isViolated to set
      */
     protected void setIsViolated(boolean isViolated) {
@@ -132,11 +149,18 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
         return this._unit;
 
     }
-
+    /**
+     * Gets the current parameterdefinition
+     * @return
+     */
     public ParameterDefinitionUnitBo getParameterdefinition() {
         return _unit;
     }
-
+    
+    /**
+     * Sets the parameterdefinition unit for this nutriment rule
+     * @param parameterdef
+     */
     public void setParameterdefinitionUnit(
             ParameterDefinitionUnitBo parameterdef) {
         _unit = parameterdef;
