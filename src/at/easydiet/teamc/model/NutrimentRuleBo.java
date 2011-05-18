@@ -10,8 +10,8 @@ import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 
 /**
- * 
- * @author Stephan Svoboda
+ * This class represents a specific rule, which is managed and manipulated by the NutrimentRulesBo class.
+ * @author Friedrich Bösch
  */
 public class NutrimentRuleBo implements NutrimentParameterRuleData {
 	/**
@@ -117,7 +117,9 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
     protected void setIsViolated(boolean isViolated) {
         this._isViolated = isViolated;
     }
-
+    /**
+     * Gets the current checkoperator
+     */
     @Override
     public CheckOperatorData getCheckOperator() {
         return this._checkOperatorBo;
@@ -133,17 +135,16 @@ public class NutrimentRuleBo implements NutrimentParameterRuleData {
         return _row;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see at.easydiet.teamc.model.data.NutrimentParameterRuleData#
-     * getParameterDefinitionData()
+    /**
+     * returns an encapsulated Parameterdefinition business object with the parameterdefinition data
      */
     @Override
     public ParameterDefinitionData getParameterDefinitionData() {
         return _parameterDefintionBo;
     }
-
+    /**
+     * 
+     */
     @Override
     public ParameterDefinitionUnitData getUnit() {
         return this._unit;
