@@ -233,17 +233,16 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable,
                 }
             }
         });
+        try
+        {
+            display(_windowHandler);
+        }
+        catch (NoPatientSelectedException e)
+        {
+            LOGGER.debug(e);
+        }
 
-        _useCaseHandler = new UseCaseLaborReportHandler(
-                new SystemUserAdapter(BusinessLogicDelegationController
-                        .getInstance().getActualUser()), new PatientAdapter(
-                        BusinessLogicDelegationController.getInstance()
-                                .getActivePatient()));
-        _reportHandler = new LaborReportHandler(
-                new SystemUserAdapter(BusinessLogicDelegationController
-                        .getInstance().getActualUser()), new PatientAdapter(
-                        BusinessLogicDelegationController.getInstance()
-                                .getActivePatient()));
+
     }
 
     @Override
@@ -341,23 +340,27 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable,
     {
         super.display(windowHandler);
 
-        if (_windowHandler.getSelectedPatient() == null)
-        {
-            throw new NoPatientSelectedException();
-        }
-
         if (_useCaseHandler == null)
         {
             _useCaseHandler = new UseCaseLaborReportHandler(
-                    _windowHandler.getCreator(),
-                    _windowHandler.getSelectedPatient());
-            _reportHandler = _useCaseHandler.getLaborReportHandler();
+                    new SystemUserAdapter(BusinessLogicDelegationController
+                            .getInstance().getActualUser()), new PatientAdapter(
+                            BusinessLogicDelegationController.getInstance()
+                                    .getActivePatient()));
+
+            _reportHandler = new LaborReportHandler(
+                    new SystemUserAdapter(BusinessLogicDelegationController
+                            .getInstance().getActualUser()), new PatientAdapter(
+                            BusinessLogicDelegationController.getInstance()
+                                    .getActivePatient()));
             _laborReport = _reportHandler.getLaborReport();
         }
 
         _reportHandler.addValidadedListener(this);
         _reportHandler
                 .addLaborReportChangedListener((_laborParameterListener = new LaborParameterListener()));
+        
+
 
         update();
     }
