@@ -17,35 +17,67 @@ public class DietPlanParameterCollectionVo {
     // class variables
 	
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
 		return _name;
 	}
 
-	public void setName(String _name) {
+    /**
+     *
+     * @param _name
+     */
+    public void setName(String _name) {
 		this._name = _name;
 	}
 
-	public double getMinValue() {
+        /**
+         *
+         * @return
+         */
+        public double getMinValue() {
 		return _minValue;
 	}
 
-	public void setMinValue(double _minValue) {
+        /**
+         *
+         * @param _minValue
+         */
+        public void setMinValue(double _minValue) {
 		this._minValue = _minValue;
 	}
 
-	public double getMaxValue() {
+        /**
+         *
+         * @return
+         */
+        public double getMaxValue() {
 		return _maxValue;
 	}
 
-	public void setMaxValue(double _maxValue) {
+        /**
+         *
+         * @param _maxValue
+         */
+        public void setMaxValue(double _maxValue) {
 		this._maxValue = _maxValue;
 	}
 
-	public double getCurrValue() {
+        /**
+         * 
+         * @return
+         */
+        public double getCurrValue() {
 		return _currValue;
 	}
 
-	public void setCurrValue(double _currValue) {
+        /**
+         *
+         * @param _currValue
+         */
+        public void setCurrValue(double _currValue) {
 		this._currValue = _currValue;
 	}
 
@@ -55,7 +87,14 @@ public class DietPlanParameterCollectionVo {
 	private double _maxValue;
 	private double _currValue;
 	
-	public DietPlanParameterCollectionVo(String _name, double _minValue,
+        /**
+         *
+         * @param _name
+         * @param _minValue
+         * @param _maxValue
+         * @param _currValue
+         */
+        public DietPlanParameterCollectionVo(String _name, double _minValue,
 			double _maxValue, double _currValue) {
 		
 		this._name = _name;

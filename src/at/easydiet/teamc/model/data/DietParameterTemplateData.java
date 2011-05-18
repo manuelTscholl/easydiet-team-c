@@ -6,11 +6,23 @@
  */
 package at.easydiet.teamc.model.data;
 
+/**
+ *
+ * @author Stephan Svoboda
+ */
 public interface DietParameterTemplateData {
 	
 
 	
-	String getParameterName();
-	String getParameterValue();
+    /**
+     *
+     * @return
+     */
+    String getParameterName();
+        /**
+         *
+         * @return
+         */
+        String getParameterValue();
 
 }

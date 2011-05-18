@@ -12,10 +12,31 @@ import java.util.List;
 import java.util.Set;
 
 
+/**
+ *
+ * @author Stephan Svoboda
+ */
 public interface DietryPlanData {
 
+    /**
+     *
+     * @return
+     */
     int getDuration();
+    /**
+     *
+     * @return
+     */
     MealData getMealData();
+    /**
+     *
+     * @return
+     */
     List<DietPlanParameterCollectionVo> getDietPlanParameterCollectionVo();
+    /**
+     *
+     * @param day
+     * @return
+     */
     Set<MealData> getMealsByDay(int day);
 }

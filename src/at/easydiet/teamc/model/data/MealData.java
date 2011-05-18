@@ -14,8 +14,24 @@ import java.util.Set;
  */
 public interface MealData {
 
+    /**
+     *
+     * @return
+     */
     long getMealId();
+    /**
+     *
+     * @return
+     */
     MealCodeData getMealCodeData();
+    /**
+     *
+     * @return
+     */
     Set<DietParameterData> getDietParameterData();
+    /**
+     *
+     * @return
+     */
     Set<MealLineData> getMealLineData();
 }
