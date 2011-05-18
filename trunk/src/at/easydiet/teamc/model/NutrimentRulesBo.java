@@ -19,7 +19,7 @@ import java.util.Set;
  * This class represents a ruleset of NutrimentRules for creating new recipes
  * with specified goals.
  *
- * @author Stephan Svoboda
+ * @author Friedrich Bösch
  */
 public class NutrimentRulesBo {
 
@@ -68,7 +68,7 @@ public class NutrimentRulesBo {
     }
 
     /**
-     * Checks wether a given NutrimentRule is violated or not and sets this
+     * Checks whether a given NutrimentRule is violated or not and sets this
      * information.
      *
      * @param currRule NutrimentRule to check.
@@ -135,7 +135,7 @@ public class NutrimentRulesBo {
     }
 
     /**
-     * Changes a NutrimentRule and checks wether the changed NutrimentRule would
+     * Changes a NutrimentRule and checks whether the changed NutrimentRule would
      * contradict the other existings NutrimentRules.
      *
      * @param parameterdefintion ParameterDefintion of the changed NutrimentRule.
