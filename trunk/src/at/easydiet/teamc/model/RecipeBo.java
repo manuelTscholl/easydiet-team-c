@@ -267,61 +267,67 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
         }
 
         //calculate new parameter values
-        for (RecipeIngredientBo recipeIngredient : getRecipeIngredientsBo()) {// all ingredients
+        if (this._Recipe.getIngredients().size() > 0) {
+            for (RecipeIngredientBo recipeIngredient : getRecipeIngredientsBo()) {// all ingredients
 
-            float brtaifactor = (recipeIngredient.getIngredientAmount() / recipeIngredient.getRecipe().getTotalAmount());//baserecipe to as ingredient factor for absolute units
-            float fractionofrecipe = recipeIngredient.getIngredientAmount() / _Recipe.getAmount();//fractionofrecipe needed to get the right fractins of relative units
+                float brtaifactor = (recipeIngredient.getIngredientAmount() / recipeIngredient.getRecipe().getTotalAmount());//baserecipe to as ingredient factor for absolute units
+                float fractionofrecipe = recipeIngredient.getIngredientAmount() / _Recipe.getAmount();//fractionofrecipe needed to get the right fractins of relative units
 
-            for (NutrimentParameter parameter : recipeIngredient.getRecipeIngredient().getRecipe().getNutrimentParameters()) {// for
-                // each parameter in the ingredient
-                currParameterdefid = parameter.getParameterDefinition().getParameterDefinitionId();
-                if (summedIngredientParameter.containsKey(currParameterdefid)) {// if parameter already exists
-                    ValidationSumValue sum = summedIngredientParameter.get(currParameterdefid);
-                    ParameterDefinitionUnitBo target = sum.getUnitBo();
-                    ParameterDefinitionUnitBo source = new ParameterDefinitionUnitBo(
-                            parameter.getUnit());
+                for (NutrimentParameter parameter : recipeIngredient.getRecipeIngredient().getRecipe().getNutrimentParameters()) {// for
+                    // each parameter in the ingredient
+                    currParameterdefid = parameter.getParameterDefinition().getParameterDefinitionId();
+                    if (summedIngredientParameter.containsKey(currParameterdefid)) {// if parameter already exists
+                        ValidationSumValue sum = summedIngredientParameter.get(currParameterdefid);
+                        ParameterDefinitionUnitBo target = sum.getUnitBo();
+                        ParameterDefinitionUnitBo source = new ParameterDefinitionUnitBo(
+                                parameter.getUnit());
 
 
-                    try {// converting the type and then sum it
+                        try {// converting the type and then sum it
 
-                        sumValue = DietParameterUnitController.getInstance().convert(source, target, Float.parseFloat(parameter.getValue()));
+                            sumValue = DietParameterUnitController.getInstance().convert(source, target, Float.parseFloat(parameter.getValue()));
 
-                        if (target.getName().contains("/")) {
-                            sum.setSum(sum.getSum() + (sumValue * fractionofrecipe));
-                        } else {
-                            sum.setSum(sum.getSum() + (sumValue * brtaifactor));
+                            if (target.getName().contains("/")) {
+                                sum.setSum(sum.getSum() + (sumValue * fractionofrecipe));
+                            } else {
+                                sum.setSum(sum.getSum() + (sumValue * brtaifactor));
+                            }
+
+                        } catch (NumberFormatException e) {
+                            LOGGER.debug(e);
+                        } catch (OperationNotSupportedException e) {
+                            LOGGER.debug(e);
                         }
 
-                    } catch (NumberFormatException e) {
-                        LOGGER.debug(e);
-                    } catch (OperationNotSupportedException e) {
-                        LOGGER.debug(e);
-                    }
-
-                } else {
-
-                    // if condition /
-
-                    ValidationSumValue validSum = new ValidationSumValue(new ParameterDefinitionUnitBo(parameter.getUnit()));
-
-                    summedIngredientParameter.put(currParameterdefid, validSum);
-                    if (validSum._unit.getName().contains("/")) {
-                        validSum.setSum(Float.parseFloat(parameter.getValue()) * fractionofrecipe);
                     } else {
-                        validSum.setSum(Float.parseFloat(parameter.getValue()) * brtaifactor);
+
+                        // if condition /
+
+                        ValidationSumValue validSum = new ValidationSumValue(new ParameterDefinitionUnitBo(parameter.getUnit()));
+
+                        summedIngredientParameter.put(currParameterdefid, validSum);
+                        if (validSum._unit.getName().contains("/")) {
+                            validSum.setSum(Float.parseFloat(parameter.getValue()) * fractionofrecipe);
+                        } else {
+                            validSum.setSum(Float.parseFloat(parameter.getValue()) * brtaifactor);
+                        }
+                        idParameterMapping.put(currParameterdefid, getNutrimentParametersMap().get(currParameterdefid).getNutrimentParameter());
                     }
-                    idParameterMapping.put(currParameterdefid, getNutrimentParametersMap().get(currParameterdefid).getNutrimentParameter());
+
                 }
-
             }
-        }
 
-        // all recipes with the correct sum and unit will be added to the recipe
-        for (Entry<Long, ValidationSumValue> item : summedIngredientParameter.entrySet()) {
-            NutrimentParameter tempValue = idParameterMapping.get(item.getKey());
+            // all recipes with the correct sum and unit will be added to the recipe
+            for (Entry<Long, ValidationSumValue> item : summedIngredientParameter.entrySet()) {
+                NutrimentParameter tempValue = idParameterMapping.get(item.getKey());
 
-            tempValue.setUnit(item.getValue().getUnit());
-            tempValue.setValue(String.valueOf(item.getValue().getSum()));
+                tempValue.setUnit(item.getValue().getUnit());
+                tempValue.setValue(String.valueOf(item.getValue().getSum()));
+            }
+        }else{
+            for(NutrimentParameterBo npb: getNutrimentParameters()){
+                npb.setValue(Float.toString(0));
+            }
         }
 
     }

@@ -384,12 +384,12 @@
 		<property name="amount" column="Amount" type="float" />
 		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" />
 
-		<set name="ingredients" inverse="true">
+		<set name="ingredients" inverse="true" cascade="all,delete-orphan">
 			<key column="RecipeId" not-null="true" />
 			<one-to-many class="RecipeIngredient" />
 		</set>
 
-		<set name="nutrimentParameters" lazy="false" fetch="subselect">
+		<set name="nutrimentParameters" lazy="false" fetch="subselect" cascade="all,delete-orphan">
 			<key column="RecipeId" not-null="true" />
 			<one-to-many class="NutrimentParameter" />
 		</set>
@@ -417,7 +417,7 @@
 		<property name="value" column="Value" type="string" not-null="true" />
 
 		<many-to-one name="parameterDefinition" column="ParameterDefinitionId" class="ParameterDefinition" not-null="true"/>
-		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" not-null="true"/>
+		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" not-null="false"/>
 	</class>
 
 	<class name="PatientStateType">

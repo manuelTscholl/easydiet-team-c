@@ -15,14 +15,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * This class represents a ruleset of NutrimentRules for creating new recipes
+ * with specified goals.
+ *
+ * @author Stephan Svoboda
+ */
 public class NutrimentRulesBo {
 
     private Map<String, HashMap<String, NutrimentRuleBo>> _parameters;
 
+    /**
+     * Initiates the set.
+     */
     public NutrimentRulesBo() {
         _parameters = new HashMap<String, HashMap<String, NutrimentRuleBo>>();
     }
 
+    /**
+     * Creates a new NutrimentRule and adds it to the set.
+     *
+     * @param parameterdefintion ParameterDefintion of the new NutrimentRule.
+     * @param checkOperatorBo CheckOperator of the new NutrimentRule.
+     * @param value Value of the new NutrimentRule.
+     * @param pdu Unit of the new NutrimentRule.
+     * @throws NutrimentRuleException if the new NutrimentRule contradicts the
+     * existing NutrimentRules of the set.
+     */
     public void addParameter(ParameterDefinitionBo parameterdefintion,
             CheckOperatorBo checkOperatorBo, double value,
             ParameterDefinitionUnitBo pdu) throws NutrimentRuleException {
@@ -48,6 +67,14 @@ public class NutrimentRulesBo {
         }
     }
 
+    /**
+     * Checks wether a given NutrimentRule is violated or not and sets this
+     * information.
+     *
+     * @param currRule NutrimentRule to check.
+     * @throws NutrimentRuleException if the new NutrimentRule contradicts the
+     * existing NutrimentRules of the set.
+     */
     private void parameterCheck(NutrimentRuleBo currRule) throws NutrimentRuleException {
         // check if values and checkoperators are legal
         HashMap<String, NutrimentRuleBo> currParams = _parameters.get(currRule.getParameterDefintionBo().getName());
@@ -107,6 +134,17 @@ public class NutrimentRulesBo {
         }
     }
 
+    /**
+     * Changes a NutrimentRule and checks wether the changed NutrimentRule would
+     * contradict the other existings NutrimentRules.
+     *
+     * @param parameterdefintion ParameterDefintion of the changed NutrimentRule.
+     * @param checkOperatorBo CheckOperator of the changed NutrimentRule.
+     * @param value Value of the changed NutrimentRule.
+     * @param pdu Unit of the changed NutrimentRule.
+     * @throws NutrimentRuleException if the new NutrimentRule contradicts the
+     * existing NutrimentRules of the set.
+     */
     public void changeParameter(NutrimentRuleBo nrbo,
             CheckOperatorBo checkOpBo, double value,
             ParameterDefinitionUnitBo pdu, ParameterDefinitionBo pdb)
@@ -161,6 +199,13 @@ public class NutrimentRulesBo {
 
     }
 
+    /**
+     * Checks a given recipe with all NutrimentRules of this NutrimentRuleSet
+     * and returns them in a List.
+     *
+     * @param recipe Recipe to check.
+     * @return List<NutrimentRuleBo> which contain all checked NutrimentRules
+     */
     public List<NutrimentRuleBo> checkRecipe(RecipeBo recipe) {
         List<NutrimentRuleBo> currParams = new ArrayList<NutrimentRuleBo>();
         //HashMap<Long,NutrimentParameterBo>paramsOfRecipe = (HashMap<Long, NutrimentParameterBo>) recipe.getNutrimentParametersMap();
@@ -190,6 +235,12 @@ public class NutrimentRulesBo {
         return currParams;
     }
 
+    /**
+     * Checks NutrimentRule with a given NutrimentParameter.
+     *
+     * @param currentParam NutrimentRule to check.
+     * @param npbo NutrimentParameter to check.
+     */
     private void doCheck(NutrimentRuleBo currentParam, NutrimentParameterBo npbo) {
         double currValue = currentParam.getValue();
         if (currentParam.getCheckOperatorBo().getCheckoperator().getName().equals("<=")) {
@@ -232,6 +283,14 @@ public class NutrimentRulesBo {
 
     }
 
+    /**
+     * Validates if the NutrimentRule contradticts the existing NutrimentRuleSet.
+     *
+     * @param currRule Rule to validate.
+     * @return true if the rule is valid and not a duplicate.
+     * @throws NutrimentRuleException if the new NutrimentRule contradicts the
+     * existing NutrimentRules of the set.
+     */
     private boolean validate(NutrimentRuleBo currRule) throws NutrimentRuleException {
         if (_parameters.containsKey(currRule.getName())) {
             HashMap<String, NutrimentRuleBo> currMap = _parameters.get(currRule.getName());
@@ -243,6 +302,11 @@ public class NutrimentRulesBo {
         return true;
     }
 
+    /**
+     * Removes a NutrimentParameterRule from the existing NutrimentRuleSet.
+     *
+     * @param param NutrimentRule to remove.
+     */
     public void removeParameter(NutrimentRuleBo param) {
         if (_parameters.containsKey(param.getName())) {
             HashMap<String, NutrimentRuleBo> currMap = _parameters.get(param.getName());

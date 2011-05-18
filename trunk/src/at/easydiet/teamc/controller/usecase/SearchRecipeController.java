@@ -12,6 +12,10 @@ import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.DatabaseController;
 import at.easydiet.teamc.model.RecipeBo;
 
+/**
+ * Controller for searching recipe specific data.
+ * @author Stephan Svoboda
+ */
 public class SearchRecipeController {
 
 	// class Variables

@@ -29,6 +29,13 @@ import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.model.data.ValidatedRecipeVo;
 import at.easydiet.teamc.util.ClobConverter;
 
+/**
+ * This controller creates recipes and evaluates the nutrimentparameters of the
+ * recipe, while in progress the controller uses NutrimentRules to evaluate
+ * wether the goal of the recipe is achieved with the current ingredients.
+ *
+ * @author Stephan Svoboda
+ */
 public class CreateRecipeController
 {
 
@@ -46,6 +53,20 @@ public class CreateRecipeController
         _currentRules = new NutrimentRulesBo();
     }
 
+    /**
+     * Adds a NutrimentRule to NutrimentRules and evaluates the recipe including
+     * the new rule. Returns the validated recipe.
+     *
+     * @param pdd ParameterDefinition for the new NutrimentRule.
+     * @param cod CheckOperator for the new NutrimentRule.
+     * @param value Boundary value to check by the new NutrimentRule.
+     * @param pdud ParameterDefintionUnit which is corespondending to the
+     * choosen value.
+     * @return ValidatedRecipeVo which has the information of the ingredients,
+     * all NutrimentParmeters, weight and information about the NutrimentRules.
+     * @throws NutrimentRuleException is thrown if the new NutrimentRule
+     * contradicts the existing NutrimentRules.
+     */
     public ValidatedRecipeVo addParameter(ParameterDefinitionData pdd,
             CheckOperatorData cod, double value,
             ParameterDefinitionUnitData pdud) throws NutrimentRuleException
@@ -55,6 +76,17 @@ public class CreateRecipeController
         return checkRecipe();
     }
 
+    /**
+     * Adds a recipe as an ingredient to the recipe and evaluates the recipe
+     * with all NutrimentRules and calculates the new values for all
+     * NutrimentParameters.
+     *
+     * @param d recipe which is included as an ingridient.
+     * @param unit Unit of weight.
+     * @param amount Value of recipe weight.
+     * @return ValidatedRecipeVo which has the information of the ingredients,
+     * all NutrimentParmeters, weight and information about the NutrimentRules.
+     */
     public ValidatedRecipeVo addRecipeIngredient(RecipeData d,
             ParameterDefinitionUnitData unit, float amount)
     {
@@ -67,6 +99,20 @@ public class CreateRecipeController
         return this.checkRecipe();
     }
 
+    /**
+     * Changes an existing NutrimentRule to NutrimentRules and evaluates the recipe including
+     * the new rule. Returns the validated recipe.
+     *
+     * @param pdd ParameterDefinition for the changed NutrimentRule.
+     * @param cod CheckOperator for the changed NutrimentRule.
+     * @param value Boundary value to check by the changed NutrimentRule.
+     * @param pdud ParameterDefintionUnit which is corespondending to the
+     * choosen value.
+     * @return ValidatedRecipeVo which has the information of the ingredients,
+     * all NutrimentParmeters, weight and information about the NutrimentRules.
+     * @throws NutrimentRuleException is thrown if the new NutrimentRule
+     * contradicts the existing NutrimentRules.
+     */
     public ValidatedRecipeVo changeParameter(NutrimentParameterRuleData ndr,
             CheckOperatorData checkOperator, double value,
             ParameterDefinitionUnitData pdud, ParameterDefinitionData pdd)
@@ -79,6 +125,17 @@ public class CreateRecipeController
         return checkRecipe();
     }
 
+    /**
+     * Changes a recipe which is an ingredient of the recipe and evaluates the
+     * recipe with all NutrimentRules and calculates the new values for all
+     * NutrimentParameters.
+     *
+     * @param d recipe which is changed which is an ingridient.
+     * @param unit Unit of weight.
+     * @param amount Value of recipe weight.
+     * @return ValidatedRecipeVo which has the information of the ingredients,
+     * all NutrimentParmeters, weight and information about the NutrimentRules.
+     */
     public ValidatedRecipeVo changeRecipeIngredient(float amount,
             RecipeData rd, ParameterDefinitionUnitData pdu)
     {
@@ -91,6 +148,12 @@ public class CreateRecipeController
         return checkRecipe();
     }
 
+    /**
+     * Checks the recipe with all NutrimentRules and calulates all recipe values
+     * including all NutrimentParameters.
+     * @return ValidatedRecipeVo which has the information of the ingredients,
+     * all NutrimentParmeters, weight and information about the NutrimentRules.
+     */
     private ValidatedRecipeVo checkRecipe()
     {
         List<NutrimentParameterRuleData> nutrimentParams = new ArrayList<NutrimentParameterRuleData>();
@@ -104,10 +167,12 @@ public class CreateRecipeController
         return validatedRecipe;
     }
 
-    /*
-     * Remove a parameter
-     * @param param
-     * @return
+    /**
+     * Removes an existing NutrimentRule from the NutrimentRuleSet.
+     *
+     * @param param Rule to remove.
+     * @return ValidatedRecipeVo which has the information of the ingredients,
+     * all NutrimentParmeters, weight and information about the NutrimentRules.
      */
     public ValidatedRecipeVo removeParameter(NutrimentParameterRuleData param)
     {
@@ -115,10 +180,13 @@ public class CreateRecipeController
         return checkRecipe();
     }
 
-    /*
-     * Remove a Recipe
-     * @param param
-     * @return
+    /**
+     * Removes an ingredient from the recipe and calculates all new recipe
+     * specific values.
+     *
+     * @param rd Ingredient to remove.
+     * @return ValidatedRecipeVo which has the information of the ingredients,
+     * all NutrimentParmeters, weight and information about the NutrimentRules.
      */
     public ValidatedRecipeVo removeRecipeIngredient(RecipeData rd)
     {
@@ -129,11 +197,12 @@ public class CreateRecipeController
 
 
     /**
+     * Saves the recipe into database.
      * 
-     * @param recipeName
-     * @param preparation
-     * @param description
-     * @param benefits
+     * @param recipeName Name of the recipe.
+     * @param preparation Cooking instruction of the recipe.
+     * @param description Description of the recipe.
+     * @param benefits Benefits of the recipe.
      */
     public void save(String recipeName, String preparation, String description,String benefits,
             double preperationTime, int difficulty)
