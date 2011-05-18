@@ -12,6 +12,7 @@ import at.easydiet.teamc.model.data.CheckedRecipeVo;
 import at.easydiet.teamc.model.data.RecipeData;
 
 /**
+ * Represents a custom tree node for recipes
  * 
  * @author Michael Sieber
  */
@@ -28,18 +29,28 @@ public class RecipeTreeNode extends TreeNode {
 	/**
 	 * Create new tree node
 	 * 
-	 * @param r RecipeData
+	 * @param r CheckedRecipe for this node
 	 */
 	public RecipeTreeNode(CheckedRecipeVo r) {
 		_recipe = r;
 		setText(_recipe.getRecipeData().getName());
 	}
 
+	/**
+	 * Create new tree node
+	 * 
+	 * @param r RecipeData for this node
+	 */
 	public RecipeTreeNode(RecipeData r) {
 		_recipeData = r;
 		setText(_recipeData.getName());
 	}
 
+	/**
+	 * Gets the recipe data.
+	 * 
+	 * @return the recipe data
+	 */
 	public RecipeData getRecipeData() {
 
 		// check if a checked recipe is available
@@ -50,10 +61,20 @@ public class RecipeTreeNode extends TreeNode {
 		return _recipe.getRecipeData();
 	}
 
+	/**
+	 * Gets the amount.
+	 * 
+	 * @return the amount
+	 */
 	public float getAmount() {
 		return _amount;
 	}
 
+	/**
+	 * Sets the amount.
+	 * 
+	 * @param amount the new amount
+	 */
 	public void setAmount(float amount) {
 		_amount = amount;
 	}

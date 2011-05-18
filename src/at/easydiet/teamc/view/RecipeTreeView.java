@@ -41,7 +41,7 @@ public class RecipeTreeView extends TreeView {
 	/**
 	 * Set categories in tree view
 	 * 
-	 * @param categories
+	 * @param categories for this tree view
 	 */
 	public void setCategories(List<RecipeData> categories) {
 		setMainCategories(categories);
@@ -51,7 +51,7 @@ public class RecipeTreeView extends TreeView {
 	/**
 	 * Set main categories
 	 * 
-	 * @param categories
+	 * @param categories Main Categories to set
 	 */
 	private void setMainCategories(List<RecipeData> categories) {
 		final int mainCatLength = 1;
@@ -76,7 +76,7 @@ public class RecipeTreeView extends TreeView {
 	/**
 	 * Set sub categories
 	 * 
-	 * @param categories
+	 * @param categories Sub Categories to set
 	 */
 	private void setSubCategories(List<RecipeData> categories) {
 		final int subCatLength = 2;
@@ -104,8 +104,8 @@ public class RecipeTreeView extends TreeView {
 	/**
 	 * Get a recipe tree branch by his bls code
 	 * 
-	 * @param blsCode
-	 * @return
+	 * @param blsCode BlsCode to search for
+	 * @return RecipeTreeBranch with the corresponding BlsCode
 	 */
 	private RecipeTreeBranch getBranchByBLSCode(String blsCode,
 			List<RecipeTreeBranch> categories) {
@@ -121,7 +121,7 @@ public class RecipeTreeView extends TreeView {
 	/**
 	 * Displays a list of recipes as search result
 	 * 
-	 * @param recipe
+	 * @param recipes to display as search result
 	 */
 	public void setSearchedRecipes(List<RecipeData> recipes) {
 		_searchMode = true;
@@ -149,8 +149,8 @@ public class RecipeTreeView extends TreeView {
 	/**
 	 * Add recipes to the opened subcategory branch
 	 * 
-	 * @param subCategory
-	 * @param recipes
+	 * @param subCategory Sub category to add the recipes
+	 * @param recipes to add to a specific sub category
 	 */
 	public void addRecipesToOpenedBranch(RecipeTreeBranch subCategory,
 			List<RecipeData> recipes) {
@@ -210,7 +210,7 @@ public class RecipeTreeView extends TreeView {
 	/**
 	 * Get search mode
 	 * 
-	 * @return
+	 * @return true if the treeview is in search mode
 	 */
 	public boolean isSearchMode() {
 		return _searchMode;
@@ -219,8 +219,8 @@ public class RecipeTreeView extends TreeView {
 	/**
 	 * Check if a tree branch is already in cache
 	 * 
-	 * @param t
-	 * @return
+	 * @param t TreeBranch to check if it is cached
+	 * @return True if the tree branch is cached
 	 */
 	public boolean cacheContains(RecipeTreeBranch t) {
 		return _recipeCache.containsKey(t);

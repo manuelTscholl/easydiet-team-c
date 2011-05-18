@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package at.easydiet.teamc.exception;
 
 /**
- *
+ * Excpetion for parameters with no unit
+ * 
  * @author Stephan Svoboda
  */
-public class ParameterWithoutUnitException extends Exception{
+public class ParameterWithoutUnitException extends Exception {
 
 }

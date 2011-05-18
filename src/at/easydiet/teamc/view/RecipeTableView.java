@@ -46,7 +46,7 @@ public class RecipeTableView extends TableView {
 	/**
 	 * Removes a recipe from the table view
 	 * 
-	 * @param r
+	 * @param r recipe to remove
 	 */
 	public void removeRecipe(RecipeData r) {
 		List<HashMap<String, Object>> tableData = getTableData();
@@ -60,6 +60,11 @@ public class RecipeTableView extends TableView {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.pivot.wtk.TableView#getTableData()
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<HashMap<String, Object>> getTableData() {
@@ -69,8 +74,8 @@ public class RecipeTableView extends TableView {
 	/**
 	 * Check if a RecipeData is already in list
 	 * 
-	 * @param r
-	 * @return
+	 * @param r Recipe to check
+	 * @return Ture if the Recipe is already added
 	 */
 	public boolean containsRecipeData(RecipeData r) {
 		List<HashMap<String, Object>> tableData = getTableData();
@@ -85,8 +90,8 @@ public class RecipeTableView extends TableView {
 	/**
 	 * Set unit in a specific row
 	 * 
-	 * @param p
-	 * @param index
+	 * @param p Unit to add to the row
+	 * @param index Row to which the parameter should be added
 	 */
 	public void setUnit(ParameterDefinitionUnitData p, int index) {
 		HashMap<String, Object> map = _recipes.get(index);
@@ -103,8 +108,8 @@ public class RecipeTableView extends TableView {
 	/**
 	 * Get a recipe from a specific row
 	 * 
-	 * @param row
-	 * @return
+	 * @param row from which the recipe is wanted
+	 * @return The recipe of the specific row
 	 */
 	public RecipeData getRecipe(int row) {
 		HashMap<String, Object> map = _recipes.get(row);
@@ -114,8 +119,8 @@ public class RecipeTableView extends TableView {
 	/**
 	 * Get a unit from a specific row
 	 * 
-	 * @param row
-	 * @return
+	 * @param row from which the unit is wanted
+	 * @return The unit of the specific row
 	 */
 	public ParameterDefinitionUnitData getUnit(int row) {
 		HashMap<String, Object> map = _recipes.get(row);
@@ -125,8 +130,8 @@ public class RecipeTableView extends TableView {
 	/**
 	 * Get the quanity from a specific row
 	 * 
-	 * @param row
-	 * @return
+	 * @param row from which the quantity is wanted
+	 * @return The quantity of the specific row
 	 */
 	public float getQuantity(int row) {
 		HashMap<String, Object> map = _recipes.get(row);

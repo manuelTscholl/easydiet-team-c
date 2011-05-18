@@ -24,6 +24,11 @@ public class DoubleValidator implements Validator {
 		FORMAT.setParseBigDecimal(true);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.pivot.wtk.validation.Validator#isValid(java.lang.String)
+	 */
 	@Override
 	public boolean isValid(String text) {
 		boolean valid = false;

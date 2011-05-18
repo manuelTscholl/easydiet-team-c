@@ -6,37 +6,52 @@
  */
 package at.easydiet.teamc.view;
 
-import at.easydiet.teamc.model.data.RecipeData;
 import org.apache.pivot.wtk.content.TreeBranch;
 
+import at.easydiet.teamc.model.data.RecipeData;
+
 /**
- *
+ * A custom tree branch for recipes
+ * 
  * @author Michael Sieber
  */
 public class RecipeTreeBranch extends TreeBranch {
 
-    // class variables
-    public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(RecipeTreeBranch.class);
-    // instance variables
-    private RecipeData _recipeData;
-    private boolean _isMainCategory;
+	// class variables
+	public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
+			.getLogger(RecipeTreeBranch.class);
+	// instance variables
+	private RecipeData _recipeData;
+	private boolean _isMainCategory;
 
-    /**
-     * Create new Treebranch
-     * @param r Recipe
-     */
-    public RecipeTreeBranch(RecipeData r, boolean isMainCategory) {
-        _recipeData = r;
-        _isMainCategory = isMainCategory;
-        setText(_recipeData.getName());
+	/**
+	 * Create new Treebranch
+	 * 
+	 * @param r Recipe to add in this branch
+	 * @param isMainCategory True if this branch represents a BLS Maincategory
+	 */
+	public RecipeTreeBranch(RecipeData r, boolean isMainCategory) {
+		_recipeData = r;
+		_isMainCategory = isMainCategory;
+		setText(_recipeData.getName());
 
-    }
+	}
 
-    public RecipeData getRecipeData() {
-        return _recipeData;
-    }
+	/**
+	 * Get the recipe data of this branch
+	 * 
+	 * @return RecipeData of this branch
+	 */
+	public RecipeData getRecipeData() {
+		return _recipeData;
+	}
 
-    public boolean isMainCategory() {
-        return _isMainCategory;
-    }
+	/**
+	 * Checks if is main category.
+	 * 
+	 * @return true, if is main category
+	 */
+	public boolean isMainCategory() {
+		return _isMainCategory;
+	}
 }

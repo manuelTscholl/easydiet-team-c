@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package at.easydiet.teamc.exception;
 
 /**
- *
+ * Excpetion if no patient is available
+ * 
  * @author Stephan Svoboda
  */
-public class NoPatientException extends Exception{
+public class NoPatientException extends Exception {
 
 }
