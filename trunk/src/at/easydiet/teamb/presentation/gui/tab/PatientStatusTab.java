@@ -39,12 +39,13 @@ import at.easydiet.teamb.util.DateUtil;
 
 /**
  * The Class TreatmentTab.
- *
+ * 
  * @author TeamB
  */
 public class PatientStatusTab extends AbstractLazyTab implements Bindable {
 
-	private static final Logger LOGGER = Logger.getLogger(PatientStatusTab.class);
+	private static final Logger LOGGER = Logger
+			.getLogger(PatientStatusTab.class);
 
 	@BXML
 	private BoxPane _pane;
@@ -55,10 +56,18 @@ public class PatientStatusTab extends AbstractLazyTab implements Bindable {
 	 */
 	public PatientStatusTab() {
 		super();
+
+		try {
+			display(_useCaseManager);
+		} catch (NoPatientSelectedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
+	public void initialize(Map<String, Object> namespace, URL location,
+			Resources resources) {
 	}
 
 	@Override
@@ -78,45 +87,51 @@ public class PatientStatusTab extends AbstractLazyTab implements Bindable {
 	}
 
 	@Override
-	public void create() throws ExitNotPermittedException, OperationNotPermittedException {
+	public void create() throws ExitNotPermittedException,
+			OperationNotPermittedException {
 		editStatus(null);
 	}
-	
-	private void editStatus(PatientStateViewable state) throws ExitNotPermittedException, OperationNotPermittedException {
+
+	private void editStatus(PatientStateViewable state)
+			throws ExitNotPermittedException, OperationNotPermittedException {
 		if (_useCaseManager.getSelectedPatient() == null) {
 			throw new NoPatientSelectedException();
 		}
-		
+
 		try {
-			PatientStatusCreateTab createTab = (PatientStatusCreateTab) new BXMLSerializer().readObject(PatientStatusCreateTab.class,
-					"easydiet_tab_patientStatus_create.bxml");
-			
-			if(state != null){
+			PatientStatusCreateTab createTab = (PatientStatusCreateTab) new BXMLSerializer()
+					.readObject(PatientStatusCreateTab.class,
+							"easydiet_tab_patientStatus_create.bxml");
+
+			if (state != null) {
 				createTab.setPatientState(state);
 			}
-			
+
 			getLazyTab().changeContent(createTab);
-			
+
 		} catch (IOException ex) {
 			LOGGER.error("Could not load bxml", ex);
-			Alert.alert(MessageType.ERROR, "Es ist ein unbekannter Fehler aufgetreten", getWindow());
+			Alert.alert(MessageType.ERROR,
+					"Es ist ein unbekannter Fehler aufgetreten", getWindow());
 		} catch (SerializationException ex) {
 			LOGGER.error("Could not load bxml", ex);
-			Alert.alert(MessageType.ERROR, "Es ist ein unbekannter Fehler aufgetreten", getWindow());
+			Alert.alert(MessageType.ERROR,
+					"Es ist ein unbekannter Fehler aufgetreten", getWindow());
 		}
 	}
-	
+
 	@Override
-	public void display(UseCaseManager useCaseManager) throws NoPatientSelectedException {
+	public void display(UseCaseManager useCaseManager)
+			throws NoPatientSelectedException {
 		super.display(useCaseManager);
-		
+
 		if (_useCaseManager.getSelectedPatient() == null) {
 			throw new NoPatientSelectedException();
 		}
-		
+
 		_list = new ListBox<PatientStateViewable>();
 		_list.setRenderer(new ListBoxRenderer<PatientStateViewable>() {
-			
+
 			@Override
 			public void show(PatientStateViewable patientStateViewable) {
 				try {
@@ -129,31 +144,36 @@ public class PatientStatusTab extends AbstractLazyTab implements Bindable {
 					ex.printStackTrace();
 				}
 			}
-			
+
 			@Override
 			public boolean delete(PatientStateViewable state) {
 				PatientStateHandler handler = new PatientStateHandler(state);
+
 				try {
 					handler.removeState();
 					return true;
 				} catch (DatabaseException ex) {
-					LOGGER.error("Cannot remove State: " + state.toString(),ex);
+					LOGGER.error("Cannot remove State: " + state.toString(), ex);
 				}
 				return false;
 			}
 
 			@Override
 			public String getName(PatientStateViewable obj) {
-				PatientStateViewable state = (PatientStateViewable)obj;
-				return state.getType().getName() + " - " + DateUtil.CalendarToString(state.getDate(),"dd.MM.yy HH:mm");
+				PatientStateViewable state = obj;
+				return state.getType().getName()
+						+ " - "
+						+ DateUtil.CalendarToString(state.getDate(),
+								"dd.MM.yy HH:mm");
 			}
 		});
-		
-		PatientStateViewable[] states = _useCaseManager.getSelectedPatient().getPatientStates();
-		for(PatientStateViewable state : states){
+
+		PatientStateViewable[] states = _useCaseManager.getSelectedPatient()
+				.getPatientStates();
+		for (PatientStateViewable state : states) {
 			_list.addViewobject(state);
 		}
-		
+
 		_pane.add(_list);
 	}
 }

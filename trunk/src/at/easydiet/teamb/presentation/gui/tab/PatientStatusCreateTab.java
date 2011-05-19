@@ -23,6 +23,7 @@ import org.apache.pivot.util.Resources;
 import org.apache.pivot.util.concurrent.TaskExecutionException;
 import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Button;
+import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ComponentMouseButtonListener;
 import org.apache.pivot.wtk.Label;
@@ -31,6 +32,7 @@ import org.apache.pivot.wtk.ListButtonSelectionListener;
 import org.apache.pivot.wtk.ListView;
 import org.apache.pivot.wtk.ListViewItemStateListener;
 import org.apache.pivot.wtk.ListViewSelectionListener;
+import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.ScrollPane;
 import org.apache.pivot.wtk.TextArea;
 import org.apache.pivot.wtk.TextAreaContentListener;
@@ -66,13 +68,18 @@ import at.easydiet.teamb.presentation.util.Message;
 import at.easydiet.teamb.presentation.util.MessageType;
 import at.easydiet.teamb.util.DateUtil;
 import at.easydiet.teamb.util.StringUtil;
+import at.easydiet.teamc.adapter.PatientAdapter;
+import at.easydiet.teamc.adapter.SystemUserAdapter;
+import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 
 /**
  * @author TeamB
  */
-public class PatientStatusCreateTab extends AbstractLazyTab implements Bindable, EventListener<ValidatorArgs<PatientStateErrorField>> {
+public class PatientStatusCreateTab extends AbstractLazyTab implements
+		Bindable, EventListener<ValidatorArgs<PatientStateErrorField>> {
 
-	private static final Logger LOGGER = Logger.getLogger(PatientStatusCreateTab.class);
+	private static final Logger LOGGER = Logger
+			.getLogger(PatientStatusCreateTab.class);
 
 	@BXML
 	private ListButton _patientStateTypeListButton = null;
@@ -102,6 +109,8 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements Bindable,
 	private BoxPane _motivation = null;
 	@BXML
 	private BoxPane _compliance = null;
+	@BXML
+	private PushButton _save = null;
 
 	@BXML
 	private ScrollPane _laborParameterScrollPane = null;
@@ -133,235 +142,328 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements Bindable,
 
 	public void setPatientState(PatientStateViewable state) {
 		_useCasePatientStateHandler = new UseCasePatientStateHandler(state);
-		_patientStateHandler = _useCasePatientStateHandler.getPatientStateHandler();
+		_patientStateHandler = _useCasePatientStateHandler
+				.getPatientStateHandler();
 		_patientState = _patientStateHandler.getPatientState();
 	}
 
 	@Override
-	public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
+	public void initialize(Map<String, Object> namespace, URL location,
+			Resources resources) {
 
 		Image icon = null;
 		Image iconHover = null;
 		Image iconHighlighted = null;
 
-//		try {
-//			icon = Image.load(DietPlanTab.class.getResource("/gfx/icon/24x24px/favorite_inactive.png"));
-//			iconHover = Image.load(DietPlanTab.class.getResource("/gfx/icon/24x24px/favorite_hover.png"));
-//			iconHighlighted = Image.load(DietPlanTab.class.getResource("/gfx/icon/24x24px/favorite.png"));
-//
-//			_motivationRating = new RatingBoxPane(MAX_RATING_ELEMENTS, icon, iconHover, iconHighlighted);
-//			_complianceRating = new RatingBoxPane(MAX_RATING_ELEMENTS, icon, iconHover, iconHighlighted);
-//		} catch (TaskExecutionException ex) {
-//			LOGGER.warn("Can not load button data icon", ex);
-//		}
+		try {
+			icon = Image.load(PatientStatusCreateTab.class
+					.getResource("/gfx/icon/24x24px/favorite_inactive.png"));
+			iconHover = Image.load(PatientStatusCreateTab.class
+					.getResource("/gfx/icon/24x24px/favorite_hover.png"));
+			iconHighlighted = Image.load(PatientStatusCreateTab.class
+					.getResource("/gfx/icon/24x24px/favorite.png"));
 
-		_selectDietTreatmentsList.getListViewItemStateListeners().add(new ListViewItemStateListener() {
-			@Override
-			public void itemCheckedChanged(ListView listView, int selectedIndex) {
-				if (!_updating) {
-					List<?> items = listView.getListData();
-					Object item = items.get(selectedIndex);
-					if (item instanceof DietTreatmentViewable) {
-						if (listView.isItemChecked(selectedIndex)) {
-							_patientStateHandler.addDietTreatment((DietTreatmentViewable) item);
-						} else {
-							_patientStateHandler.removeDietTreatment((DietTreatmentViewable) item);
+			_motivationRating = new RatingBoxPane(MAX_RATING_ELEMENTS, icon,
+					iconHover, iconHighlighted);
+			_complianceRating = new RatingBoxPane(MAX_RATING_ELEMENTS, icon,
+					iconHover, iconHighlighted);
+		} catch (TaskExecutionException ex) {
+			LOGGER.warn("Can not load button data icon", ex);
+		}
+
+		_selectDietTreatmentsList.getListViewItemStateListeners().add(
+				new ListViewItemStateListener() {
+					@Override
+					public void itemCheckedChanged(ListView listView,
+							int selectedIndex) {
+						if (!_updating) {
+							List<?> items = listView.getListData();
+							Object item = items.get(selectedIndex);
+							if (item instanceof DietTreatmentViewable) {
+								if (listView.isItemChecked(selectedIndex)) {
+									_patientStateHandler
+											.addDietTreatment((DietTreatmentViewable) item);
+								} else {
+									_patientStateHandler
+											.removeDietTreatment((DietTreatmentViewable) item);
+								}
+							} else {
+								LOGGER.warn("expected datatype DietTreatmentViewable, found "
+										+ item.getClass());
+							}
 						}
-					} else {
-						LOGGER.warn("expected datatype DietTreatmentViewable, found " + item.getClass());
 					}
-				}
-			}
-		});
+				});
 
 		_selectDietTreatmentsList.setItemRenderer(new ListViewItemRenderer() {
 			@Override
-			public void render(Object item, int index, ListView listView, boolean selected, boolean checked, boolean highlighted, boolean disabled) {
+			public void render(Object item, int index, ListView listView,
+					boolean selected, boolean checked, boolean highlighted,
+					boolean disabled) {
 				if (item instanceof DietTreatmentViewable) {
 					DietTreatmentViewable treatment = (DietTreatmentViewable) item;
-					super.render(treatment.getName(), index, listView, selected, checked, highlighted, disabled);
+					super.render(treatment.getName(), index, listView,
+							selected, checked, highlighted, disabled);
 				} else {
-					super.render(item, index, listView, selected, checked, highlighted, disabled);
+					super.render(item, index, listView, selected, checked,
+							highlighted, disabled);
 				}
 			}
 		});
 
-		_selectLaborReports.getListViewItemStateListeners().add(new ListViewItemStateListener() {
-			@Override
-			public void itemCheckedChanged(ListView listView, int selectedIndex) {
-				if (!_updating) {
-					List<?> items = listView.getListData();
-					Object item = items.get(selectedIndex);
+		_selectLaborReports.getListViewItemStateListeners().add(
+				new ListViewItemStateListener() {
+					@Override
+					public void itemCheckedChanged(ListView listView,
+							int selectedIndex) {
+						if (!_updating) {
+							List<?> items = listView.getListData();
+							Object item = items.get(selectedIndex);
 
-					if (item instanceof LaborReportViewable) {
-						if (listView.isItemChecked(selectedIndex)) {
-							_patientStateHandler.addLaborReport((LaborReportViewable) item);
-						} else {
-							_patientStateHandler.removeLaborReport((LaborReportViewable) item);
+							if (item instanceof LaborReportViewable) {
+								if (listView.isItemChecked(selectedIndex)) {
+									_patientStateHandler
+											.addLaborReport((LaborReportViewable) item);
+								} else {
+									_patientStateHandler
+											.removeLaborReport((LaborReportViewable) item);
+								}
+							} else {
+								LOGGER.warn("expected datatype LaborReportViewable, found "
+										+ item.getClass());
+							}
 						}
-					} else {
-						LOGGER.warn("expected datatype LaborReportViewable, found " + item.getClass());
 					}
-				}
-			}
-		});
+				});
 
 		_selectLaborReports.setItemRenderer(new ListViewItemRenderer() {
 			@Override
-			public void render(Object item, int index, ListView listView, boolean selected, boolean checked, boolean highlighted, boolean disabled) {
+			public void render(Object item, int index, ListView listView,
+					boolean selected, boolean checked, boolean highlighted,
+					boolean disabled) {
 				if (item instanceof LaborReportViewable) {
 					LaborReportViewable laborreport = (LaborReportViewable) item;
-					super.render(DateUtil.CalendarToString(laborreport.getDate(), "dd.MM.yy"), index, listView, selected, checked, highlighted, disabled);
+					super.render(DateUtil.CalendarToString(
+							laborreport.getDate(), "dd.MM.yy"), index,
+							listView, selected, checked, highlighted, disabled);
 				} else {
-					super.render(item, index, listView, selected, checked, highlighted, disabled);
+					super.render(item, index, listView, selected, checked,
+							highlighted, disabled);
 				}
 			}
 		});
 
-		_selectLaborReports.getListViewSelectionListeners().add(new ListViewSelectionListener.Adapter() {
+		_selectLaborReports.getListViewSelectionListeners().add(
+				new ListViewSelectionListener.Adapter() {
 
-			@Override
-			public void selectedItemChanged(ListView listView, Object previewObject) {
-				if (!_updating) {
-					Object item = listView.getSelectedItem();
-					if (item instanceof LaborReportViewable) {
-						LaborReportViewable report = (LaborReportViewable) item;
-						_noticeTextArea.setText(report.getNotice());
-						LaborParameterBox box = new LaborParameterBox(null, new LaborReportHandler(report), true);
-						_laborParameterScrollPane.setView(box);
-					} else {
-						LOGGER.warn("expected datatype LaborReportViewable, found " + item.getClass());
+					@Override
+					public void selectedItemChanged(ListView listView,
+							Object previewObject) {
+						if (!_updating) {
+							Object item = listView.getSelectedItem();
+							if (item instanceof LaborReportViewable) {
+								LaborReportViewable report = (LaborReportViewable) item;
+								_noticeTextArea.setText(report.getNotice());
+								LaborParameterBox box = new LaborParameterBox(
+										null, new LaborReportHandler(report),
+										true);
+								_laborParameterScrollPane.setView(box);
+							} else {
+								LOGGER.warn("expected datatype LaborReportViewable, found "
+										+ item.getClass());
+							}
+						}
 					}
-				}
-			}
-		});
+				});
 
-		_motivationRating.getComponentMouseButtonListeners().add(new ComponentMouseButtonListener.Adapter() {
+		_motivationRating.getComponentMouseButtonListeners().add(
+				new ComponentMouseButtonListener.Adapter() {
 
-			@Override
-			public boolean mouseClick(Component component, org.apache.pivot.wtk.Mouse.Button button, int x, int y, int count) {
-				if (!_updating) {
-					_motivationLabel.setText("" + _motivationRating.getSelectedIndex());
-					_patientStateHandler.setMotivation(_motivationRating.getSelectedIndex());
-				}
-				return false;
-			}
-		});
+					@Override
+					public boolean mouseClick(Component component,
+							org.apache.pivot.wtk.Mouse.Button button, int x,
+							int y, int count) {
+						if (!_updating) {
+							_motivationLabel.setText(""
+									+ _motivationRating.getSelectedIndex());
+							_patientStateHandler
+									.setMotivation(_motivationRating
+											.getSelectedIndex());
+						}
+						return false;
+					}
+				});
 
-		_complianceRating.getComponentMouseButtonListeners().add(new ComponentMouseButtonListener.Adapter() {
+		_complianceRating.getComponentMouseButtonListeners().add(
+				new ComponentMouseButtonListener.Adapter() {
 
-			@Override
-			public boolean mouseClick(Component component, org.apache.pivot.wtk.Mouse.Button button, int x, int y, int count) {
-				if (!_updating) {
-					_complianceLabel.setText("" + _complianceRating.getSelectedIndex());
-					_patientStateHandler.setCompliance(_complianceRating.getSelectedIndex());
-				}
-				return false;
-			}
-		});
+					@Override
+					public boolean mouseClick(Component component,
+							org.apache.pivot.wtk.Mouse.Button button, int x,
+							int y, int count) {
+						if (!_updating) {
+							_complianceLabel.setText(""
+									+ _complianceRating.getSelectedIndex());
+							_patientStateHandler
+									.setCompliance(_complianceRating
+											.getSelectedIndex());
+						}
+						return false;
+					}
+				});
 
-		_anamnesisTextArea.getTextAreaContentListeners().add(new TextAreaContentListener.Adapter() {
+		_anamnesisTextArea.getTextAreaContentListeners().add(
+				new TextAreaContentListener.Adapter() {
 
-			@Override
-			public void textChanged(TextArea textArea) {
-				if (!_updating) {
-					_patientStateHandler.setAnamnesis(textArea.getText());
-				}
-			}
-		});
+					@Override
+					public void textChanged(TextArea textArea) {
+						if (!_updating) {
+							_patientStateHandler.setAnamnesis(textArea
+									.getText());
+						}
+					}
+				});
 
-		_patientStateTypeListButton.setDataRenderer(new ListButtonDataRenderer() {
-			@Override
-			public void render(Object data, Button button, boolean highlight) {
-				if (data instanceof PatientStateTypeViewable) {
-					PatientStateTypeViewable stateType = (PatientStateTypeViewable) data;
-					super.render(stateType.getName(), button, highlight);
-				} else {
-					super.render(data, button, highlight);
-				}
-			}
-		});
+		_patientStateTypeListButton
+				.setDataRenderer(new ListButtonDataRenderer() {
+					@Override
+					public void render(Object data, Button button,
+							boolean highlight) {
+						if (data instanceof PatientStateTypeViewable) {
+							PatientStateTypeViewable stateType = (PatientStateTypeViewable) data;
+							super.render(stateType.getName(), button, highlight);
+						} else {
+							super.render(data, button, highlight);
+						}
+					}
+				});
 		_patientStateTypeListButton.setItemRenderer(new ListViewItemRenderer() {
 			@Override
-			public void render(Object item, int index, ListView listView, boolean selected, boolean checked, boolean highlighted, boolean disabled) {
+			public void render(Object item, int index, ListView listView,
+					boolean selected, boolean checked, boolean highlighted,
+					boolean disabled) {
 				if (item instanceof PatientStateTypeViewable) {
 					PatientStateTypeViewable stateType = (PatientStateTypeViewable) item;
-					super.render(stateType.getName(), index, listView, selected, checked, highlighted, disabled);
+					super.render(stateType.getName(), index, listView,
+							selected, checked, highlighted, disabled);
 				} else {
-					super.render(item, index, listView, selected, checked, highlighted, disabled);
+					super.render(item, index, listView, selected, checked,
+							highlighted, disabled);
 				}
 			}
 		});
 
-		_patientStateTypeListButton.getListButtonSelectionListeners().add(new ListButtonSelectionListener.Adapter() {
-			@Override
-			public void selectedItemChanged(ListButton listButton, Object previousSelectedItem) {
-				if (!_updating) {
-					Object item = listButton.getSelectedItem();
-					if (item instanceof PatientStateTypeViewable) {
-						_patientStateHandler.setType((PatientStateTypeViewable) item);
-					} else {
-						LOGGER.warn("expected datatype PatientStateTypeViewable, found " + item.getClass());
+		_patientStateTypeListButton.getListButtonSelectionListeners().add(
+				new ListButtonSelectionListener.Adapter() {
+					@Override
+					public void selectedItemChanged(ListButton listButton,
+							Object previousSelectedItem) {
+						if (!_updating) {
+							Object item = listButton.getSelectedItem();
+							if (item instanceof PatientStateTypeViewable) {
+								_patientStateHandler
+										.setType((PatientStateTypeViewable) item);
+							} else {
+								LOGGER.warn("expected datatype PatientStateTypeViewable, found "
+										+ item.getClass());
+							}
+						}
 					}
-				}
-			}
-		});
+				});
 
-		_weightTextInput.getTextInputContentListeners().add(new InputListener() {
-			@Override
-			public void textEdited(TextInput textInput) {
-				if (!_updating) {
-					try {
-						_patientStateHandler.setWeight(Integer.parseInt(textInput.getText()));
-						updateCalculation();
-					} catch (NumberFormatException e) {
+		_weightTextInput.getTextInputContentListeners().add(
+				new InputListener() {
+					@Override
+					public void textEdited(TextInput textInput) {
+						if (!_updating) {
+							try {
+								_patientStateHandler.setWeight(Integer
+										.parseInt(textInput.getText()));
+								updateCalculation();
+							} catch (NumberFormatException e) {
 
+							}
+						}
 					}
-				}
-			}
-		});
+				});
 
-		_heightTextInput.getTextInputContentListeners().add(new InputListener() {
-			@Override
-			public void textEdited(TextInput textInput) {
-				if (!_updating) {
-					try {
-						_patientStateHandler.setHeight(Integer.parseInt(textInput.getText()));
-						updateCalculation();
-					} catch (NumberFormatException e) {
+		_heightTextInput.getTextInputContentListeners().add(
+				new InputListener() {
+					@Override
+					public void textEdited(TextInput textInput) {
+						if (!_updating) {
+							try {
+								_patientStateHandler.setHeight(Integer
+										.parseInt(textInput.getText()));
+								updateCalculation();
+							} catch (NumberFormatException e) {
 
+							}
+						}
 					}
-				}
-			}
-		});
+				});
 
 		_dateTimeBoxPane = new DateTimeInput();
-		_dateTimeBoxPane.getDateTimeInputSelectionListeners().add(new DateTimeInputSelectionListener() {
+		_dateTimeBoxPane.getDateTimeInputSelectionListeners().add(
+				new DateTimeInputSelectionListener() {
 
-			@Override
-			public void dateTimeChanged(DateTimeInput dateTimeInput) {
-				_patientStateHandler.setDate(dateTimeInput.getDate());
-			}
-		});
+					@Override
+					public void dateTimeChanged(DateTimeInput dateTimeInput) {
+						_patientStateHandler.setDate(dateTimeInput.getDate());
+					}
+				});
 		_dateTimeContainerBoxPane.add(_dateTimeBoxPane);
 
 		_motivation.insert(_motivationRating, 0);
 		_compliance.insert(_complianceRating, 0);
+
+		_save.getButtonPressListeners().add(new ButtonPressListener() {
+
+			@Override
+			public void buttonPressed(Button arg0) {
+				try {
+					save();
+					getWindow().close();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ErrorInFormException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (OperationNotPermittedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		});
+
+		try {
+			display(UseCaseManager.getWindowHandler());
+		} catch (NoPatientSelectedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void updateCalculation() {
-		if (!StringUtil.isEmpty(_heightTextInput.getText()) && !StringUtil.isEmpty(_weightTextInput.getText())) {
+		if (!StringUtil.isEmpty(_heightTextInput.getText())
+				&& !StringUtil.isEmpty(_weightTextInput.getText())) {
 			int weight = Integer.parseInt(_heightTextInput.getText());
 			int height = Integer.parseInt(_weightTextInput.getText());
 			double bmi = _patientStateHandler.getBMI(weight, height);
 			_bmi.setText("BMI = " + Double.toString(bmi));
-			BMIEvaluationEnum ev = _patientStateHandler.getBMIEvaluation(_patientStateHandler.getPatientState().getPatient().getGender(), _patientStateHandler
-					.getPatientState().getPatient().getBirthday(), bmi);
-			_bmiEvaluationLabel.setText(ev.getText() + " (ausgewertet mit " + ev.getEvaluatedWith() + ")");
+			BMIEvaluationEnum ev = _patientStateHandler.getBMIEvaluation(
+					_patientStateHandler.getPatientState().getPatient()
+							.getGender(), _patientStateHandler
+							.getPatientState().getPatient().getBirthday(), bmi);
+			_bmiEvaluationLabel.setText(ev.getText() + " (ausgewertet mit "
+					+ ev.getEvaluatedWith() + ")");
 		}
 	}
 
-	private abstract class InputListener extends TextInputContentListener.Adapter {
+	private abstract class InputListener extends
+			TextInputContentListener.Adapter {
 		public abstract void textEdited(TextInput textInput);
 
 		@Override
@@ -390,10 +492,11 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements Bindable,
 	}
 
 	@Override
-	public void save() throws DatabaseException, ErrorInFormException, OperationNotPermittedException {
+	public void save() throws DatabaseException, ErrorInFormException,
+			OperationNotPermittedException {
 		_useCasePatientStateHandler.save();
 		showInfoBar("Erfolgreich gespeichert!", MessageType.Info);
-		getLazyTab().display();
+		// getLazyTab().display();
 	}
 
 	@Override
@@ -408,7 +511,8 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements Bindable,
 	}
 
 	@Override
-	public void display(UseCaseManager useCaseManager) throws NoPatientSelectedException {
+	public void display(UseCaseManager useCaseManager)
+			throws NoPatientSelectedException {
 		super.display(useCaseManager);
 
 		if (_useCaseManager.getSelectedPatient() == null) {
@@ -416,10 +520,18 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements Bindable,
 		}
 
 		if (_useCasePatientStateHandler == null) {
-			_useCasePatientStateHandler = new UseCasePatientStateHandler(_useCaseManager.getCreator(), _useCaseManager.getSelectedPatient());
+			// _useCasePatientStateHandler = new
+			// UseCasePatientStateHandler(_useCaseManager.getCreator(),
+			// _useCaseManager.getSelectedPatient());
+			_useCasePatientStateHandler = new UseCasePatientStateHandler(
+					new SystemUserAdapter(BusinessLogicDelegationController
+							.getInstance().getActualUser()),
+					new PatientAdapter(BusinessLogicDelegationController
+							.getInstance().getActivePatient()));
 		}
 
-		_patientStateHandler = _useCasePatientStateHandler.getPatientStateHandler();
+		_patientStateHandler = _useCasePatientStateHandler
+				.getPatientStateHandler();
 		_patientState = _patientStateHandler.getPatientState();
 
 		_patientStateHandler.addValidadedListener(this);
@@ -444,18 +556,26 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements Bindable,
 	public void update() {
 		_updating = true;
 		PatientStateTypeViewable[] types = _patientStateHandler.getStateTypes();
-		_patientStateTypeListButton.setListData(new ArrayList<PatientStateTypeViewable>(types, 0, types.length));
+		_patientStateTypeListButton
+				.setListData(new ArrayList<PatientStateTypeViewable>(types, 0,
+						types.length));
 
-		DietTreatmentViewable[] diettreatments = _patientState.getPatient().getTreatments();
-		_selectDietTreatmentsList.setListData(new ArrayList<DietTreatmentViewable>(diettreatments, 0, diettreatments.length));
+		DietTreatmentViewable[] diettreatments = _patientState.getPatient()
+				.getTreatments();
+		_selectDietTreatmentsList
+				.setListData(new ArrayList<DietTreatmentViewable>(
+						diettreatments, 0, diettreatments.length));
 
-		LaborReportViewable[] laborreports = _patientState.getPatient().getLaborReports();
-		_selectLaborReports.setListData(new ArrayList<LaborReportViewable>(laborreports, 0, laborreports.length));
+		LaborReportViewable[] laborreports = _patientState.getPatient()
+				.getLaborReports();
+		_selectLaborReports.setListData(new ArrayList<LaborReportViewable>(
+				laborreports, 0, laborreports.length));
 
 		_patientStateTypeListButton.setSelectedItem(_patientState.getType());
 
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
-		DietTreatmentViewable[] treatmentsChecked = _patientState.getDietTreatments();
+		DietTreatmentViewable[] treatmentsChecked = _patientState
+				.getDietTreatments();
 
 		for (int i = 0; i < treatmentsChecked.length; i++) {
 			for (int j = 0; j < diettreatments.length; j++) {
@@ -469,7 +589,8 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements Bindable,
 		}
 
 		indexes.clear();
-		LaborReportViewable[] laborreportsChecked = _patientState.getLaborReports();
+		LaborReportViewable[] laborreportsChecked = _patientState
+				.getLaborReports();
 		for (int i = 0; i < laborreportsChecked.length; i++) {
 			for (int j = 0; j < laborreports.length; j++) {
 				if (laborreportsChecked[i].equals(laborreports[j])) {
@@ -484,13 +605,13 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements Bindable,
 		_dateTimeBoxPane.setDate(_patientState.getDate());
 
 		String text = Integer.toString(_patientState.getWeight());
-		if(text.equals("0")){
+		if (text.equals("0")) {
 			text = "";
 		}
 		_weightTextInput.setText(text);
-		
+
 		text = Integer.toString(_patientState.getHeight());
-		if(text.equals("0")){
+		if (text.equals("0")) {
 			text = "";
 		}
 		_heightTextInput.setText(text);
@@ -502,30 +623,33 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements Bindable,
 	}
 
 	@Override
-	public void fired(Object sender, ValidatorArgs<PatientStateErrorField> eventObject) {
+	public void fired(Object sender,
+			ValidatorArgs<PatientStateErrorField> eventObject) {
 		HashMap<PatientStateErrorField, Message> newErrors = new HashMap<PatientStateErrorField, Message>();
 
-		for (PatientStateErrorField patientStateErrorField : eventObject.getErrorFields()) {
+		for (PatientStateErrorField patientStateErrorField : eventObject
+				.getErrorFields()) {
 			Component component = null;
 			StringBuilder message = new StringBuilder("Das Feld ");
 			switch (patientStateErrorField) {
-				case DATETIME:
-					component = _dateTimeBoxPane;
-					message.append("Datum oder Uhrzeit");
-					break;
-				case TYPE:
-					component = _patientStateTypeListButton;
-					message.append("Patientstatustyp");
-					break;
-				default:
-					LOGGER.error("unknown labor report error field");
-					message.append(patientStateErrorField);
-					break;
+			case DATETIME:
+				component = _dateTimeBoxPane;
+				message.append("Datum oder Uhrzeit");
+				break;
+			case TYPE:
+				component = _patientStateTypeListButton;
+				message.append("Patientstatustyp");
+				break;
+			default:
+				LOGGER.error("unknown labor report error field");
+				message.append(patientStateErrorField);
+				break;
 			}
 
 			if (component != null) {
 				if (_lastErrors.containsKey(patientStateErrorField)) {
-					newErrors.put(patientStateErrorField, _lastErrors.get(patientStateErrorField));
+					newErrors.put(patientStateErrorField,
+							_lastErrors.get(patientStateErrorField));
 					_lastErrors.remove(patientStateErrorField);
 				} else {
 					if (component == _dateTimeBoxPane) {
@@ -534,7 +658,8 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements Bindable,
 						message.append(" darf nicht leer sein");
 					}
 
-					Message m = new Message(MessageType.Error, component, message.toString());
+					Message m = new Message(MessageType.Error, component,
+							message.toString());
 					putMessage(m);
 					newErrors.put(patientStateErrorField, m);
 				}

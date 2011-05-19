@@ -5,6 +5,12 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import at.easydiet.dao.DAOFactory;
+import at.easydiet.dao.HibernateUtil;
+import at.easydiet.dao.PatientStateDAO;
+import at.easydiet.model.DietTreatment;
+import at.easydiet.model.LaborReport;
+import at.easydiet.model.PatientState;
 import at.easydiet.teamb.application.handler.exception.DatabaseException;
 import at.easydiet.teamb.application.viewobject.DietTreatmentViewable;
 import at.easydiet.teamb.application.viewobject.LaborReportViewable;
@@ -16,17 +22,12 @@ import at.easydiet.teamb.domain.util.AbstractDO;
 import at.easydiet.teamb.domain.util.CalendarUtil;
 import at.easydiet.teamb.domain.util.ClobConverter;
 import at.easydiet.teamb.domain.util.ListConverter;
-import at.easydiet.model.DietTreatment;
-import at.easydiet.model.LaborReport;
-import at.easydiet.model.PatientState;
-import at.easydiet.dao.DAOFactory;
-import at.easydiet.dao.HibernateUtil;
-import at.easydiet.dao.PatientStateDAO;
 
 /**
  * Represents a PatientState in the domain layer
  */
-public class PatientStateDO extends AbstractDO<PatientState> implements IPatientState {
+public class PatientStateDO extends AbstractDO<PatientState> implements
+		IPatientState {
 	private static Logger LOGGER = Logger.getLogger(PatientStateDO.class);
 
 	private PatientState _patientState;
@@ -34,8 +35,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 	/**
 	 * Instantiates a new patientstate.
 	 * 
-	 * @param patientState
-	 *            the patientstate
+	 * @param patientState the patientstate
 	 */
 	public PatientStateDO(PatientState patientState) {
 		if (patientState == null) {
@@ -47,6 +47,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getPatientStateId()
 	 */
 	@Override
@@ -56,6 +57,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#setPatientStateId(long)
 	 */
 	@Override
@@ -65,24 +67,31 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getDate()
 	 */
 	@Override
 	public GregorianCalendar getDate() {
-		return CalendarUtil.ConvertDateToGregorianCalendar(_patientState.getDate());
+		return CalendarUtil.ConvertDateToGregorianCalendar(_patientState
+				.getDate());
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see at.easydiet.domain.object.IPatientState#setDate(java.util.GregorianCalendar)
+	 * 
+	 * @see
+	 * at.easydiet.domain.object.IPatientState#setDate(java.util.GregorianCalendar
+	 * )
 	 */
 	@Override
 	public void setDate(GregorianCalendar date) {
-		_patientState.setDate(CalendarUtil.ConvertGregorianCalendarToDate(date));
+		_patientState
+				.setDate(CalendarUtil.ConvertGregorianCalendarToDate(date));
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getAnamnesis()
 	 */
 	@Override
@@ -92,7 +101,9 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
-	 * @see at.easydiet.domain.object.IPatientState#setAnamnesis(java.lang.String)
+	 * 
+	 * @see
+	 * at.easydiet.domain.object.IPatientState#setAnamnesis(java.lang.String)
 	 */
 	@Override
 	public void setAnamnesis(String anamnesis) {
@@ -101,6 +112,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getWeight()
 	 */
 	@Override
@@ -110,6 +122,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#setWeight(java.lang.Integer)
 	 */
 	@Override
@@ -119,6 +132,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getWeightPercentile()
 	 */
 	@Override
@@ -128,6 +142,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#setWeightPercentile(float)
 	 */
 	@Override
@@ -137,6 +152,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getHeight()
 	 */
 	@Override
@@ -146,6 +162,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#setHeight(java.lang.Integer)
 	 */
 	@Override
@@ -155,6 +172,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getHeightPercentile()
 	 */
 	@Override
@@ -164,6 +182,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#setHeightPercentile(float)
 	 */
 	@Override
@@ -173,6 +192,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getCompliance()
 	 */
 	@Override
@@ -182,6 +202,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#setCompliance(int)
 	 */
 	@Override
@@ -191,6 +212,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getMotivation()
 	 */
 	@Override
@@ -200,6 +222,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#setMotivation(int)
 	 */
 	@Override
@@ -209,16 +232,21 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getType()
 	 */
 	@Override
 	public PatientStateTypeViewable getType() {
-		return (_patientState.getType() == null) ? null : new PatientStateTypeDO(_patientState.getType());
+		return (_patientState.getType() == null) ? null
+				: new PatientStateTypeDO(_patientState.getType());
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see at.easydiet.domain.object.IPatientState#setType(at.easydiet.application.viewobject.PatientStateTypeViewable)
+	 * 
+	 * @see
+	 * at.easydiet.domain.object.IPatientState#setType(at.easydiet.application
+	 * .viewobject.PatientStateTypeViewable)
 	 */
 	@Override
 	public void setType(PatientStateTypeViewable type) {
@@ -228,6 +256,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getCreator()
 	 */
 	@Override
@@ -237,80 +266,104 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
-	 * @see at.easydiet.domain.object.IPatientState#setCreator(at.easydiet.application.viewobject.SystemUserViewable)
+	 * 
+	 * @see
+	 * at.easydiet.domain.object.IPatientState#setCreator(at.easydiet.application
+	 * .viewobject.SystemUserViewable)
 	 */
 	@Override
 	public void setCreator(SystemUserViewable creator) {
-		SystemUserDO d = (SystemUserDO) creator;
-		_patientState.setCreator(d.getModel());
+		// SystemUserDO d = (SystemUserDO) creator;
+		_patientState.setCreator(creator.getModel());
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getLaborReports()
 	 */
 	@Override
 	public LaborReportViewable[] getLaborReports() {
-		return ListConverter.toDOArray(_patientState.getLaborReports(), new ListConverter.ModelToDO<LaborReportDO, LaborReport>() {
-			@Override
-			public LaborReportDO convert(LaborReport model) {
-				return new LaborReportDO(model);
-			}
-		}).toArray(new LaborReportViewable[0]);
+		return ListConverter.toDOArray(_patientState.getLaborReports(),
+				new ListConverter.ModelToDO<LaborReportDO, LaborReport>() {
+					@Override
+					public LaborReportDO convert(LaborReport model) {
+						return new LaborReportDO(model);
+					}
+				}).toArray(new LaborReportViewable[0]);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see at.easydiet.domain.object.IPatientState#addLabporReport(at.easydiet.domain.object.LaborReportDO)
+	 * 
+	 * @see
+	 * at.easydiet.domain.object.IPatientState#addLabporReport(at.easydiet.domain
+	 * .object.LaborReportDO)
 	 */
 	@Override
 	public void addLaborReport(LaborReportViewable laborReport) {
-		_patientState.getLaborReports().add(((LaborReportDO)laborReport).getModel());
+		_patientState.getLaborReports().add(
+				((LaborReportDO) laborReport).getModel());
 	}
-	
+
 	/*
 	 * (non-Javadoc)
-	 * @see at.easydiet.domain.object.IPatientState#removeLabporReport(at.easydiet.domain.object.LaborReportDO)
+	 * 
+	 * @see
+	 * at.easydiet.domain.object.IPatientState#removeLabporReport(at.easydiet
+	 * .domain.object.LaborReportDO)
 	 */
 	@Override
 	public void removeLaborReport(LaborReportViewable laborReport) {
-		_patientState.getLaborReports().remove(((LaborReportDO)laborReport).getModel());
+		_patientState.getLaborReports().remove(
+				((LaborReportDO) laborReport).getModel());
 	}
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getDietTreatments()
 	 */
 	@Override
 	public DietTreatmentViewable[] getDietTreatments() {
-		return ListConverter.toDOArray(_patientState.getDietTreatments(), new ListConverter.ModelToDO<DietTreatmentDO, DietTreatment>() {
-			@Override
-			public DietTreatmentDO convert(DietTreatment model) {
-				return new DietTreatmentDO(model);
-			}
-		}).toArray(new DietTreatmentViewable[0]);
+		return ListConverter.toDOArray(_patientState.getDietTreatments(),
+				new ListConverter.ModelToDO<DietTreatmentDO, DietTreatment>() {
+					@Override
+					public DietTreatmentDO convert(DietTreatment model) {
+						return new DietTreatmentDO(model);
+					}
+				}).toArray(new DietTreatmentViewable[0]);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see at.easydiet.domain.object.IPatientState#addDietTreatment(at.easydiet.domain.object.LaborReportDO)
+	 * 
+	 * @see
+	 * at.easydiet.domain.object.IPatientState#addDietTreatment(at.easydiet.
+	 * domain.object.LaborReportDO)
 	 */
 	@Override
 	public void addDietTreatment(DietTreatmentViewable dietTreatment) {
-		_patientState.getDietTreatments().add(((DietTreatmentDO)dietTreatment).getModel());
+		_patientState.getDietTreatments().add(
+				((DietTreatmentDO) dietTreatment).getModel());
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see at.easydiet.domain.object.IPatientState#removeDietTreatment(at.easydiet.domain.object.LaborReportDO)
+	 * 
+	 * @see
+	 * at.easydiet.domain.object.IPatientState#removeDietTreatment(at.easydiet
+	 * .domain.object.LaborReportDO)
 	 */
 	@Override
 	public void removeDietTreatment(DietTreatmentViewable dietTreatment) {
-		_patientState.getDietTreatments().remove(((DietTreatmentDO)dietTreatment).getModel());
+		_patientState.getDietTreatments().remove(
+				((DietTreatmentDO) dietTreatment).getModel());
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.domain.object.IPatientState#getPatient()
 	 */
 	@Override
@@ -320,12 +373,15 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 
 	/*
 	 * (non-Javadoc)
-	 * @see at.easydiet.domain.object.IPatientState#setPatient(at.easydiet.application.viewobject.PatientViewable)
+	 * 
+	 * @see
+	 * at.easydiet.domain.object.IPatientState#setPatient(at.easydiet.application
+	 * .viewobject.PatientViewable)
 	 */
 	@Override
 	public void setPatient(PatientViewable Patient) {
-		PatientDO d = (PatientDO) Patient;
-		_patientState.setPatient(d.getModel());
+		// PatientDO d = (PatientDO) Patient;
+		_patientState.setPatient(Patient.getModel());
 	}
 
 	@Override
@@ -339,18 +395,19 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 		PatientStateDAO dao = DAOFactory.getInstance().getPatientStateDAO();
 		dao.makePersistent(_patientState);
 	}
-	
+
 	@Override
 	public void discard() {
 		LOGGER.debug("discarding changes of " + _patientState);
 		if (isInDatabase()) {
 			HibernateUtil.currentSession().evict(_patientState);
-			_patientState = DAOFactory.getInstance().getPatientStateDAO().findById(_patientState.getPatientStateId(), false);
+			_patientState = DAOFactory.getInstance().getPatientStateDAO()
+					.findById(_patientState.getPatientStateId(), false);
 		} else {
 			_patientState = new PatientState();
 		}
 	}
-	
+
 	@Override
 	public boolean isInDatabase() {
 		return HibernateUtil.currentSession().contains(_patientState);
@@ -359,7 +416,7 @@ public class PatientStateDO extends AbstractDO<PatientState> implements IPatient
 	@Override
 	public void remove() throws DatabaseException {
 		Set<PatientState> set = _patientState.getPatient().getPatientStates();
-		if(!set.isEmpty()){
+		if (!set.isEmpty()) {
 			set.remove(_patientState);
 		}
 		PatientStateDAO dao = DAOFactory.getInstance().getPatientStateDAO();
