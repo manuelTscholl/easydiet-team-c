@@ -12,7 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 import at.easydiet.dao.RecipeDAO;
+import at.easydiet.teamb.application.handler.UseCaseManager;
+import at.easydiet.teamb.application.handler.exception.PatientChangeNotPermittedException;
 import at.easydiet.teamb.application.viewobject.SystemUserViewable;
+import at.easydiet.teamb.domain.object.PatientDO;
 import at.easydiet.teamb.domain.object.SystemUserDO;
 import at.easydiet.teamc.adapter.SystemUserAdapter;
 import at.easydiet.teamc.controller.usecase.CreateRecipeController;
@@ -140,6 +143,14 @@ public class BusinessLogicDelegationController {
 	 */
 	public void setActivePatient(PatientData p) {
 		_activePatient = (PatientBo) p;
+		try
+        {
+            UseCaseManager.getWindowHandler().changePatient(new PatientDO(_activePatient.getModel()));
+        }
+        catch (PatientChangeNotPermittedException e)
+        {
+            LOGGER.debug(e);
+        }
 		_searchPatientController.stop();
 	}
 
