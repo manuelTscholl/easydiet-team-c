@@ -57,6 +57,8 @@ public class PatientStatusTab extends AbstractLazyTab implements Bindable {
 	public PatientStatusTab() {
 		super();
 
+		_useCaseManager = UseCaseManager.getWindowHandler();
+
 		try {
 			display(_useCaseManager);
 		} catch (NoPatientSelectedException e) {
