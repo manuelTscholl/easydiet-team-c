@@ -86,6 +86,7 @@ public class IllnessesBox extends BoxPane {
 			addIllness = new LinkButton(new ButtonData("Zusätzliche Krankheit angeben"));
 		}
 		addIllness.getButtonPressListeners().add(new ButtonPressListener() {
+			@Override
 			public void buttonPressed(Button button) {
 				addIllness(_patientDataHandler.addIllness());
 			}
@@ -162,6 +163,8 @@ public class IllnessesBox extends BoxPane {
 
 		private TextInput _illnessTextInput;
 
+		private Message _errorMessage;
+
 		/**
 		 * Instantiates a new illness line.
 		 * 
@@ -173,6 +176,8 @@ public class IllnessesBox extends BoxPane {
 
 			_illnessTextInput = new TextInput();
 
+			_errorMessage = new Message(MessageType.Error, _illnessTextInput, "Keine Krankheit ausgewählt");
+			
 			_illnessHandler.addValidadedListener(this);
 
 			_illnessTextInput.setText((_illnessHandler.getIllness() != null) ? _illnessHandler.getIllness().getName() : "");
@@ -201,6 +206,7 @@ public class IllnessesBox extends BoxPane {
 
 			remove.getButtonPressListeners().add(new ButtonPressListener() {
 
+				@Override
 				public void buttonPressed(Button button) {
 					removeIllnessLine(IllnessLine.this);
 				}
@@ -255,14 +261,15 @@ public class IllnessesBox extends BoxPane {
 
 		private void updateSelectedIllness(IllnessViewable illness) {
 			_illnessHandler.setIllness(illness);
-		}
+		}
+
 
 		@Override
 		public void fired(Object sender, ValidatorArgs<IllnessErrorField> eventObject) {
 			if (eventObject.getErrorFields().isEmpty()) {
-				_errorBoxTab.removeMessages(_illnessTextInput);
+				_errorBoxTab.removeMessage(_errorMessage);
 			} else {
-				_errorBoxTab.putMessage(new Message(MessageType.Error, _illnessTextInput, "Keine Krankheit ausgewählt"));
+				_errorBoxTab.putMessage(_errorMessage);
 			}
 		}
 	}

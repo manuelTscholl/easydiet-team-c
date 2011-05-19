@@ -21,5 +21,6 @@ public enum LaborParameterErrorField {
 	/** Einheit */
 	UNIT, 
 	/** Wert */
-	VALUE;
+	VALUE,
+	DUPLICATE;
 }

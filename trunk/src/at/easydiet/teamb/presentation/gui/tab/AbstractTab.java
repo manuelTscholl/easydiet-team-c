@@ -513,15 +513,4 @@ public abstract class AbstractTab extends Border {
 		LOGGER.debug("removing " + this + " from display");
 		_useCaseManager = null;
 	}
-
-    /**
-     * @param component
-     */
-    public void removeMessages(Component component)
-    {
-        LOGGER.info("I söt was tua");
-        //XXX wichtig
-        
-        
-    }
 }

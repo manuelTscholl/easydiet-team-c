@@ -13,10 +13,11 @@ package at.easydiet.teamb.application.handler;
 import java.util.ArrayList;
 import java.util.List;
 
-import at.easydiet.teamb.application.viewobject.ParameterDefinitionViewable;
-import at.easydiet.teamb.domain.object.ParameterDefinitionDO;
-import at.easydiet.model.ParameterDefinition;
 import at.easydiet.dao.ParameterDefinitionDAO;
+import at.easydiet.model.ParameterDefinition;
+import at.easydiet.teamb.application.viewobject.ParameterDefinitionViewable;
+import at.easydiet.teamb.domain.IParameterDefinition;
+import at.easydiet.teamb.domain.object.ParameterDefinitionDO;
 
 /**
  * The ParameterDefinitionSearchHandler
@@ -24,14 +25,20 @@ import at.easydiet.dao.ParameterDefinitionDAO;
 public class ParameterDefinitionSearchHandler {
 
 	private ParameterDefinitionDAO _parameterDefinitionDAO;
-	
+	private Excluder _excluder;
+
 	/**
 	 * Instantiates a new parameterDefinitionSearchHandler
 	 */
 	public ParameterDefinitionSearchHandler() {
-		_parameterDefinitionDAO = new ParameterDefinitionDAO();
+		this(new DefaultExcluder());
 	}
-	
+
+	public ParameterDefinitionSearchHandler(Excluder excluder) {
+		_parameterDefinitionDAO = new ParameterDefinitionDAO();
+		_excluder = excluder;
+	}
+
 	/**
 	 * Search for {@link ParameterDefinitionViewable}s
 	 * 
@@ -41,17 +48,32 @@ public class ParameterDefinitionSearchHandler {
 	 *            maximum results which should be found
 	 * @return a List with different {@link ParameterDefinitionViewable}s
 	 */
-	public List<ParameterDefinitionViewable> searchParameterDefinitions(String searchText, int maxResults) {		
+	public List<ParameterDefinitionViewable> searchParameterDefinitions(String searchText, int maxResults) {
 		ParameterDefinition parameterDefinition = new ParameterDefinition();
 		parameterDefinition.setName(searchText.trim());
-		
+
 		List<ParameterDefinition> parameterDefinitions = _parameterDefinitionDAO.searchParameterDefinitions(parameterDefinition, maxResults);
 		List<ParameterDefinitionViewable> parameterDefinitionDOs = new ArrayList<ParameterDefinitionViewable>(maxResults);
-		
+
 		for (ParameterDefinition parameterDefinitionViewable : parameterDefinitions) {
-			parameterDefinitionDOs.add(new ParameterDefinitionDO(parameterDefinitionViewable));
+			IParameterDefinition p = new ParameterDefinitionDO(parameterDefinitionViewable);
+			if (!_excluder.exclude(p)) {
+				parameterDefinitionDOs.add(p);
+			}
 		}
-		
+
 		return parameterDefinitionDOs;
+	}
+
+	public interface Excluder {
+		public boolean exclude(IParameterDefinition parameterDefinition);
+	}
+
+	private static class DefaultExcluder implements Excluder {
+
+		@Override
+		public boolean exclude(IParameterDefinition parameterDefinition) {
+			return false;
+		}
 	}
 }

@@ -3,14 +3,14 @@
  * --------
  * 
  * TeamB:
- * 	Martin Balter, Bernhard Breuß, Lukas Ender and Stefan Mayer
+ *  Martin Balter, Bernhard Breuß, Lukas Ender and Stefan Mayer
  * 
- * Created:	21.04.2011
+ * Created: 21.04.2011
  */
 
 package at.easydiet.teamb.presentation.component;
 
-import java.util.LinkedList;
+import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 import org.apache.pivot.collections.ArrayList;
@@ -34,6 +34,7 @@ import org.apache.pivot.wtk.media.Image;
 
 import at.easydiet.teamb.application.handler.LaborParameterHandler;
 import at.easydiet.teamb.application.handler.LaborReportHandler;
+import at.easydiet.teamb.application.handler.ParameterDefinitionSearchHandler.Excluder;
 import at.easydiet.teamb.application.util.EventListener;
 import at.easydiet.teamb.application.util.ValidatorArgs.LaborParameterErrorField;
 import at.easydiet.teamb.application.util.ValidatorArgs.ValidatorArgs;
@@ -50,319 +51,347 @@ import at.easydiet.teamb.presentation.util.Renderer;
  * The Class ParameterBox.
  */
 public class LaborParameterBox extends BoxPane {
-	private static final Logger LOGGER = Logger.getLogger(LaborParameterBox.class);
+    private static final Logger LOGGER = Logger.getLogger(LaborParameterBox.class);
 
-	private AbstractTab _errorBoxTab;
+    private AbstractTab _errorBoxTab;
 
-	private BoxPane _container;
-	private Label _noParameter;
-	private LaborReportHandler _handler;
-	private boolean _readOnly;
+    private BoxPane _container;
+    private Label _noParameter;
+    private LaborReportHandler _handler;
+    private boolean _readOnly;
 
-	public LaborParameterBox(AbstractTab errorBoxTab, LaborReportHandler reportHandler) {
-		this(errorBoxTab, reportHandler, false);
-	}
+    public LaborParameterBox(AbstractTab errorBoxTab, LaborReportHandler reportHandler) {
+        this(errorBoxTab, reportHandler, false);
+    }
 
-	/**
-	 * Instantiates a new parameter box.
-	 *
-	 * @param errorBoxTab the error box tab
-	 * @param handler the handler
-	 * @param readOnly the read only
-	 */
-	public LaborParameterBox(AbstractTab errorBoxTab, LaborReportHandler handler, boolean readOnly) {
-		_errorBoxTab = errorBoxTab;
+    /**
+     * Instantiates a new parameter box.
+     * 
+     * @param errorBoxTab
+     *            the error box tab
+     * @param handler
+     *            the handler
+     * @param readOnly
+     *            the read only
+     */
+    public LaborParameterBox(AbstractTab errorBoxTab, LaborReportHandler handler, boolean readOnly) {
+        _errorBoxTab = errorBoxTab;
 
-		_handler = handler;
-		_readOnly = readOnly;
+        _handler = handler;
+        _readOnly = readOnly;
 
-		setOrientation(Orientation.VERTICAL);
-		getStyles().put("fill", true);
-		getStyles().put("spacing", 15);
+        setOrientation(Orientation.VERTICAL);
+        getStyles().put("fill", true);
+        getStyles().put("spacing", 15);
 
-		_container = new BoxPane(Orientation.VERTICAL);
-		_container.getStyles().put("fill", true);
+        _container = new BoxPane(Orientation.VERTICAL);
+        _container.getStyles().put("fill", true);
 
-		ScrollPane scrollPane = new ScrollPane(ScrollBarPolicy.FILL_TO_CAPACITY, ScrollBarPolicy.FILL);
-		scrollPane.setView(_container);
-		add(scrollPane);
+        ScrollPane scrollPane = new ScrollPane(ScrollBarPolicy.FILL_TO_CAPACITY, ScrollBarPolicy.FILL);
+        scrollPane.setView(_container);
+        add(scrollPane);
 
-		_noParameter = new Label("Es sind keine Parameter vorhanden");
-		add(_noParameter);
+        _noParameter = new Label("Es sind keine Parameter vorhanden");
+        add(_noParameter);
 
-		LinkButton addButton;
-		try {
-			addButton = new LinkButton(new ButtonData(Image.load(LaborParameterBox.class.getResource("/gfx/icon/16x16px/add.png")), "neuen Parameter anlegen"));
-		} catch (TaskExecutionException ex) {
-			LOGGER.warn("Unable to load add image", ex);
+        LinkButton addButton;
+        try {
+            addButton = new LinkButton(new ButtonData(Image.load(LaborParameterBox.class.getResource("/gfx/icon/16x16px/add.png")), "neuen Parameter anlegen"));
+        } catch (TaskExecutionException ex) {
+            LOGGER.warn("Unable to load add image", ex);
 
-			addButton = new LinkButton(new ButtonData("neuen Parameter anlegen"));
-		}
-		addButton.getButtonPressListeners().add(new ButtonPressListener() {
-			@Override
-			public void buttonPressed(Button button) {
-				new NewLaborParameterSheet(LaborParameterBox.this).open(getWindow());
-			}
-		});
+            addButton = new LinkButton(new ButtonData("neuen Parameter anlegen"));
+        }
+        addButton.getButtonPressListeners().add(new ButtonPressListener() {
+            @Override
+            public void buttonPressed(Button button) {
+                new NewLaborParameterSheet(LaborParameterBox.this).open(getWindow());
+            }
+        });
 
-		if (!_readOnly) {
-			add(addButton);
-		}
+        if (!_readOnly) {
+            add(addButton);
+        }
 
-		addParameters(_handler.getLaborReportParameters());
+        addParameters(_handler.getLaborReportParameters());
 
-	}
+    }
 
-	/**
-	 * Sets the handler.
-	 * 
-	 * @param handler
-	 *            the new handler
-	 */
-	public void setHandler(LaborReportHandler handler) {
-		_handler = handler;
-	}
+    /**
+     * Sets the handler.
+     * 
+     * @param handler
+     *            the new handler
+     */
+    public void setHandler(LaborReportHandler handler) {
+        _handler = handler;
+    }
 
-	/**
-	 * Adds the parameters.
-	 * 
-	 * @param parameterHandlers
-	 *            the parameter handlers
-	 */
-	public void addParameters(LaborParameterHandler[] parameterHandlers) {
-		for (LaborParameterHandler parameterHandler : parameterHandlers) {
-			addParameter(parameterHandler);
-		}
-	}
+    /**
+     * Adds the parameters.
+     * 
+     * @param parameterHandlers
+     *            the parameter handlers
+     */
+    public void addParameters(LaborParameterHandler[] parameterHandlers) {
+        for (LaborParameterHandler parameterHandler : parameterHandlers) {
+            addParameter(parameterHandler);
+        }
+    }
 
-	/**
-	 * Adds the parameter.
-	 * 
-	 * @param parameterHandler
-	 *            the parameter handler
-	 */
-	public void addParameter(LaborParameterHandler parameterHandler) {
-		_handler.addParameter(parameterHandler);
-		_container.add(new LaborParameterLine(parameterHandler));
-		_noParameter.setVisible(false);
-	}
+    /**
+     * Adds the parameter.
+     * 
+     * @param parameterHandler
+     *            the parameter handler
+     */
+    public void addParameter(LaborParameterHandler parameterHandler) {
+        _handler.addParameter(parameterHandler);
+        _container.add(new LaborParameterLine(parameterHandler));
+        _noParameter.setVisible(false);
+    }
 
-	/**
-	 * Sets the text of the no parameter label.
-	 * 
-	 * @param text
-	 *            the new no parameter text
-	 */
-	public void setNoParameterText(String text) {
-		_noParameter.setText(text);
-	}
+    /**
+     * Sets the text of the no parameter label.
+     * 
+     * @param text
+     *            the new no parameter text
+     */
+    public void setNoParameterText(String text) {
+        _noParameter.setText(text);
+    }
 
-	/**
-	 * Gets the no parameter label.
-	 * 
-	 * @return the no parameter label
-	 */
-	public Label getNoParameterLabel() {
-		return _noParameter;
-	}
+    /**
+     * Gets the no parameter label.
+     * 
+     * @return the no parameter label
+     */
+    public Label getNoParameterLabel() {
+        return _noParameter;
+    }
 
-	private void removeParameter(LaborParameterLine parameterLine) {
-		_handler.removeParameter(parameterLine.getParameterHandler());
-		_container.remove(parameterLine);
+    private void removeParameter(LaborParameterLine parameterLine) {
+        _handler.removeParameter(parameterLine.getParameterHandler());
+        _container.remove(parameterLine);
 
-		if (_container.getLength() == 0) {
-			_noParameter.setVisible(true);
-		}
-	}
-	
-	public void remove() {
-		for (Component c : _container) {
-			if (c instanceof LaborParameterLine) {
-				((LaborParameterLine)c)._parameterHandler.removeValidadedListener((LaborParameterLine)c);
-			}
-		}
-	}
+        if (_container.getLength() == 0) {
+            _noParameter.setVisible(true);
+        }
+    }
 
-	/**
-	 * The Class ParameterLine.
-	 */
-	private class LaborParameterLine extends BoxPane implements EventListener<ValidatorArgs<LaborParameterErrorField>> {
+    public void remove() {
+        for (Component c : _container) {
+            if (c instanceof LaborParameterLine) {
+                ((LaborParameterLine) c).remove();
+            }
+        }
+    }
 
-		private LaborParameterViewable _laborParameter;
-		private LaborParameterHandler _parameterHandler;
+    /**
+     * The Class ParameterLine.
+     */
+    private class LaborParameterLine extends BoxPane implements EventListener<ValidatorArgs<LaborParameterErrorField>> {
 
-		private Label _definition;
-		private ListButton _checkOperator;
-		private TextInput _value;
-		private ListButton _unit;
-		private LinkButton _remove;
+        private LaborParameterViewable _laborParameter;
+        private LaborParameterHandler _parameterHandler;
 
-		private LinkedList<Component> _lastErrors;
+        private Label _definition;
+        private ListButton _checkOperator;
+        private TextInput _value;
+        private ListButton _unit;
+        private LinkButton _remove;
 
-		/**
-		 * Instantiates a new parameter line.
-		 * 
-		 * @param parameterHandler
-		 *            the parameter handler
-		 */
-		public LaborParameterLine(LaborParameterHandler parameterHandler) {
-			super(Orientation.HORIZONTAL);
+        private HashMap<LaborParameterErrorField, Message> _lastErrors;
 
-			_lastErrors = new LinkedList<Component>();
+        /**
+         * Instantiates a new parameter line.
+         * 
+         * @param parameterHandler
+         *            the parameter handler
+         */
+        public LaborParameterLine(LaborParameterHandler parameterHandler) {
+            super(Orientation.HORIZONTAL);
 
-			_parameterHandler = parameterHandler;
-			_laborParameter = parameterHandler.getLaborParameter();
+            _lastErrors = new HashMap<LaborParameterErrorField, Message>();
 
-			_definition = new Label();
-			_checkOperator = new ListButton();
-			_value = new NullableTextInput();
-			_unit = new ListButton();
-			try {
-				_remove = new LinkButton(new ButtonData(Image.load(LaborParameterBox.class.getResource("/gfx/icon/16x16px/remove.png"))));
-			} catch (TaskExecutionException ex) {
-				LOGGER.warn("Unable to load remove image", ex);
+            _parameterHandler = parameterHandler;
+            _laborParameter = parameterHandler.getLaborParameter();
 
-				_remove = new LinkButton(new ButtonData("löschen"));
-			}
+            _definition = new Label();
+            _checkOperator = new ListButton();
+            _value = new NullableTextInput();
+            _unit = new ListButton();
+            try {
+                _remove = new LinkButton(new ButtonData(Image.load(LaborParameterBox.class.getResource("/gfx/icon/16x16px/remove.png"))));
+            } catch (TaskExecutionException ex) {
+                LOGGER.warn("Unable to load remove image", ex);
 
-			// fill in static values
-			_definition.setText(_laborParameter.getParameterDefinition().getName());
+                _remove = new LinkButton(new ButtonData("löschen"));
+            }
 
-			List<CheckOperatorEnum> checkOperatorsList = new ArrayList<CheckOperatorEnum>(CheckOperatorEnum.values(), 0, CheckOperatorEnum.values().length);
-			_checkOperator.setListData(checkOperatorsList);
-			_checkOperator.setSelectedItem(_laborParameter.getCheckOperator());
-			_checkOperator.setDataRenderer(new Renderer.ParameterListButtonDataRenderer());
-			_checkOperator.setItemRenderer(new Renderer.ParameterListViewItemRenderer());
-			_checkOperator.getListButtonSelectionListeners().add(new ListButtonSelectionListener.Adapter() {
-				@Override
-				public void selectedItemChanged(ListButton listButton, Object previousSelectedItem) {
-					Object item = listButton.getSelectedItem();
-					if (item instanceof CheckOperatorEnum) {
-						_parameterHandler.setCheckOperator((CheckOperatorEnum) item);
-					} else {
-						LOGGER.warn("expected datatype CheckOperatorEnum, found " + item.getClass());
-					}
-				}
-			});
+            // fill in static values
+            _definition.setText(_laborParameter.getParameterDefinition().getName());
 
-			_value.setTextSize(4);
-			_value.setText(_laborParameter.getValue());
-			_value.getTextInputContentListeners().add(new TextInputContentListener.Adapter() {
-				@Override
-				public void textChanged(TextInput textInput) {
-					_parameterHandler.setValue(textInput.getText());
-				}
-			});
+            List<CheckOperatorEnum> checkOperatorsList = new ArrayList<CheckOperatorEnum>(CheckOperatorEnum.values(), 0, CheckOperatorEnum.values().length);
+            _checkOperator.setListData(checkOperatorsList);
+            _checkOperator.setSelectedItem(_laborParameter.getCheckOperator());
+            _checkOperator.setDataRenderer(new Renderer.ParameterListButtonDataRenderer());
+            _checkOperator.setItemRenderer(new Renderer.ParameterListViewItemRenderer());
+            _checkOperator.getListButtonSelectionListeners().add(new ListButtonSelectionListener.Adapter() {
+                @Override
+                public void selectedItemChanged(ListButton listButton, Object previousSelectedItem) {
+                    Object item = listButton.getSelectedItem();
+                    if (item instanceof CheckOperatorEnum) {
+                        _parameterHandler.setCheckOperator((CheckOperatorEnum) item);
+                    } else {
+                        LOGGER.warn("expected datatype CheckOperatorEnum, found " + item.getClass());
+                    }
+                }
+            });
 
-			// fill in possible units (because definition can't be changed, this is static)
-			ParameterDefinitionUnitViewable[] units = _laborParameter.getParameterDefinition().getUnits();
-			_unit.setListData(new ArrayList<ParameterDefinitionUnitViewable>(units, 0, units.length));
-			_unit.setSelectedItem(_laborParameter.getParameterDefinitionUnit());
-			_unit.setDataRenderer(new Renderer.UnitListButtonDataRenderer());
-			_unit.setItemRenderer(new Renderer.UnitListViewItemRenderer());
-			_unit.getListButtonSelectionListeners().add(new ListButtonSelectionListener.Adapter() {
-				@Override
-				public void selectedItemChanged(ListButton listButton, Object previousSelectedItem) {
-					Object item = listButton.getSelectedItem();
-					if (item != null) {
-						if (item instanceof ParameterDefinitionUnitViewable) {
-							_parameterHandler.setParameterDefinitionUnit((ParameterDefinitionUnitViewable) item);
-						} else {
-							LOGGER.warn("expected datatype ParameterDefinitionUnitViewable, found " + item.getClass());
-						}
-					}
-				}
-			});
+            _value.setTextSize(4);
+            _value.setText(_laborParameter.getValue());
+            _value.getTextInputContentListeners().add(new TextInputContentListener.Adapter() {
+                @Override
+                public void textChanged(TextInput textInput) {
+                    _parameterHandler.setValue(textInput.getText());
+                }
+            });
 
-			// recognize remove button click
-			_remove.getButtonPressListeners().add(new ButtonPressListener() {
+            // fill in possible units (because definition can't be changed, this is static)
+            ParameterDefinitionUnitViewable[] units = _laborParameter.getParameterDefinition().getUnits();
+            _unit.setListData(new ArrayList<ParameterDefinitionUnitViewable>(units, 0, units.length));
+            _unit.setSelectedItem(_laborParameter.getParameterDefinitionUnit());
+            _unit.setDataRenderer(new Renderer.UnitListButtonDataRenderer());
+            _unit.setItemRenderer(new Renderer.UnitListViewItemRenderer());
+            _unit.getListButtonSelectionListeners().add(new ListButtonSelectionListener.Adapter() {
+                @Override
+                public void selectedItemChanged(ListButton listButton, Object previousSelectedItem) {
+                    Object item = listButton.getSelectedItem();
+                    if (item != null) {
+                        if (item instanceof ParameterDefinitionUnitViewable) {
+                            _parameterHandler.setParameterDefinitionUnit((ParameterDefinitionUnitViewable) item);
+                        } else {
+                            LOGGER.warn("expected datatype ParameterDefinitionUnitViewable, found " + item.getClass());
+                        }
+                    }
+                }
+            });
 
-				@Override
-				public void buttonPressed(Button button) {
-					_parameterHandler.removeValidadedListener(LaborParameterLine.this);
+            // recognize remove button click
+            _remove.getButtonPressListeners().add(new ButtonPressListener() {
 
-					removeParameter(LaborParameterLine.this);
-				}
-			});
+                @Override
+                public void buttonPressed(Button button) {
+                    _parameterHandler.removeValidadedListener(LaborParameterLine.this);
 
-			// register to parameter events
-			_parameterHandler.addValidadedListener(this);
+                    removeParameter(LaborParameterLine.this);
+                }
+            });
 
-			// styles
-			getStyles().put("verticalAlignment", "center");
+            // register to parameter events
+            _parameterHandler.addValidadedListener(this);
 
-			add(_definition);
-			add(_checkOperator);
-			add(_value);
-			add(_unit);
-			if (!_readOnly) {
-				add(_remove);
-			}
+            // styles
+            getStyles().put("verticalAlignment", "center");
 
-			if (_readOnly) {
-				for (Component c : this) {
-					c.setEnabled(false);
-				}
-			}
-		}
+            add(_definition);
+            add(_checkOperator);
+            add(_value);
+            add(_unit);
+            if (!_readOnly) {
+                add(_remove);
+            }
 
-		public LaborParameterHandler getParameterHandler() {
-			return _parameterHandler;
-		}
+            if (_readOnly) {
+                for (Component c : this) {
+                    c.setEnabled(false);
+                }
+            }
+        }
 
-		@Override
-		public void fired(Object sender, ValidatorArgs<LaborParameterErrorField> eventObject) {
-			LOGGER.debug("parameterbox errors: " + eventObject.getErrorFields());
+        public void remove() {
+            _parameterHandler.removeValidadedListener(this);
+            for (Message message : _lastErrors.values()) {
+                _errorBoxTab.removeMessage(message);
+            }
+            
+            _lastErrors = null;
+        }
 
-			LinkedList<Component> newErrors = new LinkedList<Component>();
+        public LaborParameterHandler getParameterHandler() {
+            return _parameterHandler;
+        }
 
-			for (LaborParameterErrorField laborParameterErrorField : eventObject.getErrorFields()) {
-				Component component = null;
-				StringBuilder message =  new StringBuilder("Das Feld ");
-				
-				switch (laborParameterErrorField) {
-					case CHECKOPERATOR:
-						component = _checkOperator;
-						message.append("Vergleichsoperator");
-						break;
-						
-					case DEFINITION:
-						component = _definition;
-						message.append("Name");
-						break;
-						
-					case UNIT:
-						component = _unit;
-						message.append("Einheit");
-						break;
-						
-					case VALUE:
-						component = _value;
-						message.append("Wert");
-						break;
+        @Override
+        public void fired(Object sender, ValidatorArgs<LaborParameterErrorField> eventObject) {
+            LOGGER.debug("parameterbox errors: " + eventObject.getErrorFields());
 
-					default:
-						LOGGER.error("unknown patient error field");
-						message.append(laborParameterErrorField);
-						break;
-				}
+            HashMap<LaborParameterErrorField, Message> newErrors = new HashMap<LaborParameterErrorField, Message>();
 
-				if (component != null) {
-					_lastErrors.remove(component);
-					newErrors.add(component);
-					
-					message.append(" hat einen ungültigen Wert");
-					
-					_errorBoxTab.putMessage(new Message(MessageType.Error, component, message.toString()));
-				}
-			}
+            for (LaborParameterErrorField laborParameterErrorField : eventObject.getErrorFields()) {
+                Component component = null;
+                StringBuilder message = new StringBuilder("Das Feld ");
+                switch (laborParameterErrorField) {
+                    case CHECKOPERATOR:
+                        component = _checkOperator;
+                        message.append("Vergleichsoperator");
+                        break;
 
-			// remove old errors
-			for (Component component : _lastErrors) {
-				_errorBoxTab.removeMessages(component);
-			}
+                    case DEFINITION:
+                        component = _definition;
+                        message.append("Name");
+                        break;
 
-			_lastErrors = newErrors;
-		}
-	}
+                    case UNIT:
+                        component = _unit;
+                        message.append("Einheit");
+                        break;
+
+                    case VALUE:
+                        component = _value;
+                        message.append("Wert");
+                        break;
+                        
+                    case DUPLICATE:
+                        component = this;
+                        break;
+
+                    default:
+                        LOGGER.error("unknown patient error field");
+                        message.append(laborParameterErrorField);
+                        break;
+                }
+
+                if (component != null) {
+                    if (_lastErrors.containsKey(laborParameterErrorField)) {
+                        newErrors.put(laborParameterErrorField, _lastErrors.get(laborParameterErrorField));
+                        _lastErrors.remove(laborParameterErrorField);
+                    } else {
+                        if (component != this) {
+                        message.append(" hat einen ungültigen Wert");
+                        } else {
+                            message = new StringBuilder("Der Parameter ");
+                            message.append(_laborParameter.getParameterDefinition().getName());
+                            message.append(" ist doppelt enthalten");
+                        }
+                        Message m = new Message(MessageType.Error, component, message.toString());
+                        _errorBoxTab.putMessage(m);
+                        newErrors.put(laborParameterErrorField, m);
+                    }
+                }
+            }
+
+            // remove old errors
+            for (Message message : _lastErrors.values()) {
+                _errorBoxTab.removeMessage(message);
+            }
+
+            _lastErrors = newErrors;
+        }
+    }
+
+    public Excluder getLaborParameterExcluder() {
+        return _handler.getLaborParameterExcluder();
+    }
 }
