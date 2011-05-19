@@ -30,7 +30,7 @@ public class DietTreatmentSystemUserBo  implements java.io.Serializable, Saveabl
        this._Function = functionBo;
     }
    
-    public int getDietTreatmentSystemUserId() {
+    public long getDietTreatmentSystemUserId() {
         return this.getDietTreatmentSystemUser().getDietTreatmentSystemUserId();
     }
     
