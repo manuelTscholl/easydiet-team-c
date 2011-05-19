@@ -5,9 +5,9 @@
     xmlns:easyDiet="at.easydiet.teamc.view"
     xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
     <BoxPane orientation="vertical">
-    <bxml:include bxml:id="laborview" src="teamb/easydiet_tab_labor.bxml"/>
+    <bxml:include bxml:id="_laborview" src="teamb/easydiet_tab_labor.bxml"/>
     <PushButton bxml:id="_addLaborReportButton" buttonData="Report hinzufügen"></PushButton>
-    <bxml:include bxml:id="patientStatusview" src="teamb/easydiet_tab_patientstatus.bxml"/>
+    <bxml:include bxml:id="_patientStatusview" src="teamb/easydiet_tab_patientstatus.bxml"/>
     <PushButton bxml:id="_addPatientStatusButton" buttonData="Patientenstatus hinzufügen"></PushButton>
     </BoxPane>
 </easyDiet:ContentAnamnesisScrollPane>
