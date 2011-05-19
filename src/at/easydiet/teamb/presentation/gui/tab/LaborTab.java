@@ -25,7 +25,6 @@ import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.MessageType;
 
 import at.easydiet.teamb.application.handler.AbstractUseCaseHandler;
-import at.easydiet.teamb.application.handler.LaborReportHandler;
 import at.easydiet.teamb.application.handler.UseCaseManager;
 import at.easydiet.teamb.application.handler.exception.DatabaseException;
 import at.easydiet.teamb.application.handler.exception.ErrorInFormException;
@@ -45,7 +44,7 @@ public class LaborTab extends AbstractLazyTab implements Bindable {
 	@BXML
 	private BoxPane _pane;
 	private ListBox<LaborReportViewable> _list;
-	
+
 	private static final Logger LOGGER = Logger.getLogger(LaborTab.class);
 
 	/**
@@ -56,7 +55,8 @@ public class LaborTab extends AbstractLazyTab implements Bindable {
 	}
 
 	@Override
-	public void initialize(Map<String, Object> namespace, URL location, Resources resources) {
+	public void initialize(Map<String, Object> namespace, URL location,
+			Resources resources) {
 
 	}
 
@@ -67,35 +67,41 @@ public class LaborTab extends AbstractLazyTab implements Bindable {
 	}
 
 	@Override
-	public void create() throws OperationNotPermittedException, ExitNotPermittedException {
+	public void create() throws OperationNotPermittedException,
+			ExitNotPermittedException {
 		editStatus(null);
 	}
-	
-	private void editStatus(LaborReportViewable report) throws ExitNotPermittedException, OperationNotPermittedException {
+
+	private void editStatus(LaborReportViewable report)
+			throws ExitNotPermittedException, OperationNotPermittedException {
 		if (_useCaseManager.getSelectedPatient() == null) {
 			throw new NoPatientSelectedException();
 		}
-		
-		try {
-			LaborReportCreateTab createTab = (LaborReportCreateTab) new BXMLSerializer().readObject(LaborReportCreateTab.class,
-					"easydiet_tab_labor_create.bxml");
 
-			if(report != null){
+		try {
+			LaborReportCreateTab createTab = (LaborReportCreateTab) new BXMLSerializer()
+					.readObject(LaborReportCreateTab.class,
+							"easydiet_tab_labor_create.bxml");
+
+			if (report != null) {
 				createTab.setLaborReport(report);
 			}
-			
+
 			getLazyTab().changeContent(createTab);
 		} catch (IOException ex) {
 			LOGGER.error("Could not load bxml", ex);
-			Alert.alert(MessageType.ERROR, "Es ist ein unbekannter Fehler aufgetreten", getWindow());
+			Alert.alert(MessageType.ERROR,
+					"Es ist ein unbekannter Fehler aufgetreten", getWindow());
 		} catch (SerializationException ex) {
 			LOGGER.error("Could not load bxml", ex);
-			Alert.alert(MessageType.ERROR, "Es ist ein unbekannter Fehler aufgetreten", getWindow());
+			Alert.alert(MessageType.ERROR,
+					"Es ist ein unbekannter Fehler aufgetreten", getWindow());
 		}
 	}
 
 	@Override
-	public void save() throws DatabaseException, ErrorInFormException, OperationNotPermittedException {
+	public void save() throws DatabaseException, ErrorInFormException,
+			OperationNotPermittedException {
 		throw new OperationNotPermittedException();
 	}
 
@@ -103,18 +109,19 @@ public class LaborTab extends AbstractLazyTab implements Bindable {
 	public void discard() throws OperationNotPermittedException {
 		throw new OperationNotPermittedException();
 	}
-	
+
 	@Override
-	public void display(UseCaseManager useCaseManager) throws NoPatientSelectedException {
+	public void display(UseCaseManager useCaseManager)
+			throws NoPatientSelectedException {
 		super.display(useCaseManager);
-		
+
 		if (_useCaseManager.getSelectedPatient() == null) {
 			throw new NoPatientSelectedException();
 		}
-		
+
 		_list = new ListBox();
 		_list.setRenderer(new ListBoxRenderer<LaborReportViewable>() {
-			
+
 			@Override
 			public void show(LaborReportViewable report) {
 				try {
@@ -127,33 +134,36 @@ public class LaborTab extends AbstractLazyTab implements Bindable {
 					ex.printStackTrace();
 				}
 			}
-			
+
 			@Override
 			public boolean delete(LaborReportViewable report) {
-			    
-			    return false;
-			    
-//				LaborReportHandler handler = new LaborReportHandler(report);
-//				try {
-//					//handler.remove();
-//					return true;
-//				} catch (DatabaseException ex) {
-//					LOGGER.error("Cannot remove LaborReport: " + report.toString(),ex);
-//				}
-//				return false;
+
+				return false;
+
+				// LaborReportHandler handler = new LaborReportHandler(report);
+				// try {
+				// //handler.remove();
+				// return true;
+				// } catch (DatabaseException ex) {
+				// LOGGER.error("Cannot remove LaborReport: " +
+				// report.toString(),ex);
+				// }
+				// return false;
 			}
 
 			@Override
 			public String getName(LaborReportViewable report) {
-				return DateUtil.CalendarToString(report.getDate(),"dd.MM.yy HH:mm");
+				return DateUtil.CalendarToString(report.getDate(),
+						"dd.MM.yy HH:mm");
 			}
 		});
-		
-		LaborReportViewable[] reports = UseCaseManager.getWindowHandler().getSelectedPatient().getLaborReports();
-		for(LaborReportViewable report : reports){
+
+		LaborReportViewable[] reports = UseCaseManager.getWindowHandler()
+				.getSelectedPatient().getLaborReports();
+		for (LaborReportViewable report : reports) {
 			_list.addViewobject(report);
 		}
-		
+
 		_pane.add(_list);
 	}
 }

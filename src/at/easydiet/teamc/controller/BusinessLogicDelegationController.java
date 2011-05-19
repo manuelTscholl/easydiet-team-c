@@ -16,7 +16,6 @@ import at.easydiet.teamb.application.handler.UseCaseManager;
 import at.easydiet.teamb.application.handler.exception.PatientChangeNotPermittedException;
 import at.easydiet.teamb.application.viewobject.SystemUserViewable;
 import at.easydiet.teamb.domain.object.PatientDO;
-import at.easydiet.teamb.domain.object.SystemUserDO;
 import at.easydiet.teamc.adapter.SystemUserAdapter;
 import at.easydiet.teamc.controller.usecase.CreateRecipeController;
 import at.easydiet.teamc.controller.usecase.DietryPlanController;
@@ -143,14 +142,12 @@ public class BusinessLogicDelegationController {
 	 */
 	public void setActivePatient(PatientData p) {
 		_activePatient = (PatientBo) p;
-		try
-        {
-            UseCaseManager.getWindowHandler().changePatient(new PatientDO(_activePatient.getModel()));
-        }
-        catch (PatientChangeNotPermittedException e)
-        {
-            LOGGER.debug(e);
-        }
+		try {
+			UseCaseManager.getWindowHandler().changePatient(
+					new PatientDO(_activePatient.getModel()));
+		} catch (PatientChangeNotPermittedException e) {
+			LOGGER.debug(e);
+		}
 		_searchPatientController.stop();
 	}
 
@@ -401,6 +398,7 @@ public class BusinessLogicDelegationController {
 
 	/**
 	 * saves the recipe with the defined parameters
+	 * 
 	 * @param recipeName
 	 * @param preparation
 	 * @param description
@@ -415,10 +413,9 @@ public class BusinessLogicDelegationController {
 		_createRecipeController.save(recipeName, preparation, description,
 				benefits, prepartionTime, difficulty);
 	}
-	
-	public SystemUserViewable getSystemUser()
-	{
-	    return new SystemUserAdapter(getActualUser());
+
+	public SystemUserViewable getSystemUser() {
+		return new SystemUserAdapter(getActualUser());
 	}
 
 }

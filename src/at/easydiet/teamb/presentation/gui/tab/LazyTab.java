@@ -35,12 +35,14 @@ import at.easydiet.teamb.presentation.gui.AbstractLazyTab;
 import at.easydiet.teamb.util.Initializator;
 
 /**
- * Useful for decorating a AbstractTab. Creates every time a new instance of the containing Tab when it gets displayed. (Within the TabPane of Pivot, always the
- * same instance would be used)
+ * Useful for decorating a AbstractTab. Creates every time a new instance of the
+ * containing Tab when it gets displayed. (Within the TabPane of Pivot, always
+ * the same instance would be used)
  * 
  * @author TeamB
  */
-public class LazyTab extends AbstractTab implements EventListener<PatientChangedEventArg> {
+public class LazyTab extends AbstractTab implements
+		EventListener<PatientChangedEventArg> {
 	private static final Logger LOGGER = Logger.getLogger(LazyTab.class);
 
 	private Initializator<? extends AbstractTab> _initializator;
@@ -51,8 +53,8 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 	/**
 	 * Creates a new Instance of LazyTab
 	 * 
-	 * @param initializator
-	 *            Used to get a new Instance of the containing AbstractTab when this tab should be displayed.
+	 * @param initializator Used to get a new Instance of the containing
+	 *            AbstractTab when this tab should be displayed.
 	 */
 	public LazyTab(Initializator<? extends AbstractTab> initializator) {
 		_initializator = initializator;
@@ -69,20 +71,22 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 	}
 
 	@Override
-	public void fired(final Object sender, final PatientChangedEventArg eventObject) {
+	public void fired(final Object sender,
+			final PatientChangedEventArg eventObject) {
 		if (_tab != null) {
 			try {
 				_useCaseManager.changeHandler(getHandler());
 			} catch (ExitNotPermittedException ex) {
 				LOGGER.debug("Changing content failed", ex);
 
-//				new YesNoAbortSheet(EasyBar.getCurrentInstance(), ex.getExitOptions(), new YesNoAbortSheet.Redo() {
-//
-//					@Override
-//					public void redo() throws ExitNotPermittedException {
-//						fired(sender, eventObject);
-//					}
-//				});
+				// new YesNoAbortSheet(EasyBar.getCurrentInstance(),
+				// ex.getExitOptions(), new YesNoAbortSheet.Redo() {
+				//
+				// @Override
+				// public void redo() throws ExitNotPermittedException {
+				// fired(sender, eventObject);
+				// }
+				// });
 			}
 
 			_tab.remove();
@@ -97,13 +101,18 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 	}
 
 	@Override
-	public void create() throws ExitNotPermittedException, OperationNotPermittedException {
+	public void create() throws ExitNotPermittedException,
+			OperationNotPermittedException {
 		if (_tab != null) {
 			try {
 				_tab.create();
 			} catch (NoPatientSelectedException ex) {
-				LOGGER.debug("creating new instance without a selected patient not possible", ex);
-				Alert.alert(MessageType.WARNING, "Es muss zuerst ein Patient ausgewählt sein!", getWindow());
+				LOGGER.debug(
+						"creating new instance without a selected patient not possible",
+						ex);
+				Alert.alert(MessageType.WARNING,
+						"Es muss zuerst ein Patient ausgewählt sein!",
+						getWindow());
 			}
 		} else {
 			throw new OperationNotPermittedException();
@@ -111,7 +120,8 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 	}
 
 	@Override
-	public void save() throws DatabaseException, ErrorInFormException, OperationNotPermittedException {
+	public void save() throws DatabaseException, ErrorInFormException,
+			OperationNotPermittedException {
 		if (_tab != null) {
 			_tab.save();
 		}
@@ -151,13 +161,16 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 		changeContent(tab, _useCaseManager);
 	}
 
-	private void changeContent(final AbstractTab tab, final UseCaseManager useCaseManager) {
+	private void changeContent(final AbstractTab tab,
+			final UseCaseManager useCaseManager) {
 		UseCaseManager oldWindowHandler = _useCaseManager;
 
 		try {
 			super.display(useCaseManager);
 		} catch (NoPatientSelectedException ex) {
-			LOGGER.fatal("AbstractTab is not in a position to throw a NoPatientSelectedException", ex);
+			LOGGER.fatal(
+					"AbstractTab is not in a position to throw a NoPatientSelectedException",
+					ex);
 		}
 
 		if (_useCaseManager != oldWindowHandler) {
@@ -166,18 +179,20 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 			}
 			_useCaseManager.addPatientListener(this);
 		}
-		
+
 		try {
 			useCaseManager.changeHandler(tab.getHandler());
 		} catch (ExitNotPermittedException ex) {
 			LOGGER.debug("got ExitNotPermitedException", ex);
-//			new YesNoAbortSheet(EasyBar.getCurrentInstance(), ex.getExitOptions(), new YesNoAbortSheet.Redo() {
-//				
-//				@Override
-//				public void redo() throws ExitNotPermittedException, OperationNotPermittedException {
-//					changeContent(tab, useCaseManager);
-//				}
-//			});
+			// new YesNoAbortSheet(EasyBar.getCurrentInstance(),
+			// ex.getExitOptions(), new YesNoAbortSheet.Redo() {
+			//
+			// @Override
+			// public void redo() throws ExitNotPermittedException,
+			// OperationNotPermittedException {
+			// changeContent(tab, useCaseManager);
+			// }
+			// });
 		}
 
 		if (_tab != null) {
@@ -215,7 +230,9 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 			if (_tab instanceof PatientTab) {
 				// Special "no patient selected" view.
 				try {
-					errorImage.setImage(Image.load(LazyTab.class.getResource("/gfx/icon/user_info/user_warning_create_new_info.png")));
+					errorImage
+							.setImage(Image.load(LazyTab.class
+									.getResource("/gfx/icon/user_info/user_warning_create_new_info.png")));
 				} catch (TaskExecutionException e) {
 					LOGGER.warn("Unable to load image", e);
 				}
@@ -224,7 +241,9 @@ public class LazyTab extends AbstractTab implements EventListener<PatientChanged
 			} else {
 				// Default "no patient selected" view.
 				try {
-					errorImage.setImage(Image.load(LazyTab.class.getResource("/gfx/icon/user_info/user_warning_select_patient.png")));
+					errorImage
+							.setImage(Image.load(LazyTab.class
+									.getResource("/gfx/icon/user_info/user_warning_select_patient.png")));
 				} catch (TaskExecutionException e) {
 					LOGGER.warn("Unable to load image", e);
 				}
