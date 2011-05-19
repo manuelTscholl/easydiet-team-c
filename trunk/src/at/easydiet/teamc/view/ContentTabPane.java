@@ -143,4 +143,11 @@ public class ContentTabPane extends TabPane implements Bindable {
 		_anamnesisBoxPane.setEnabled(true);
 		_dietryBoxPane.setEnabled(true);
 	}
+
+	/**
+	 * Reload the anamnesis tab
+	 */
+	public void reloadAnamnesisTab() {
+		_anamnesisScrollPane.reload();
+	}
 }

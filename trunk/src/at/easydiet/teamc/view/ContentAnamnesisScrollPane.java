@@ -22,6 +22,9 @@ import org.apache.pivot.wtk.Dialog;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.ScrollPane;
 
+import at.easydiet.teamb.application.handler.UseCaseManager;
+import at.easydiet.teamb.presentation.exception.NoPatientSelectedException;
+import at.easydiet.teamb.presentation.gui.tab.AbstractTab;
 import at.easydiet.teamc.model.data.PatientData;
 
 /**
@@ -41,6 +44,10 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 	private PushButton _addLaborReportButton;
 	@BXML
 	private PushButton _addPatientStatusButton;
+	@BXML
+	private AbstractTab _laborview;
+	@BXML
+	private AbstractTab _patientStatusview;
 
 	/**
 	 * First called after creating the GUI
@@ -122,5 +129,18 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 	@Override
 	public void updatePatientData(PatientData p) {
 		LOGGER.trace("NOT IMPLEMENTED");
+	}
+
+	/**
+	 * Reload the content of this tab
+	 */
+	public void reload() {
+		try {
+			_laborview.display(UseCaseManager.getWindowHandler());
+			_patientStatusview.display(UseCaseManager.getWindowHandler());
+		} catch (NoPatientSelectedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

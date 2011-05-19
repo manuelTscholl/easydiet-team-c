@@ -22,6 +22,7 @@ import org.apache.pivot.serialization.SerializationException;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Alert;
 import org.apache.pivot.wtk.BoxPane;
+import org.apache.pivot.wtk.Dialog;
 import org.apache.pivot.wtk.MessageType;
 
 import at.easydiet.teamb.application.handler.AbstractUseCaseHandler;
@@ -36,6 +37,7 @@ import at.easydiet.teamb.presentation.component.ListBoxRenderer;
 import at.easydiet.teamb.presentation.exception.NoPatientSelectedException;
 import at.easydiet.teamb.presentation.gui.AbstractLazyTab;
 import at.easydiet.teamb.util.DateUtil;
+import at.easydiet.teamc.view.ContentAnamnesisScrollPane;
 
 /**
  * @author TeamB
@@ -80,14 +82,19 @@ public class LaborTab extends AbstractLazyTab implements Bindable {
 
 		try {
 			LaborReportCreateTab createTab = (LaborReportCreateTab) new BXMLSerializer()
-					.readObject(LaborReportCreateTab.class,
-							"easydiet_tab_labor_create.bxml");
+					.readObject(ContentAnamnesisScrollPane.class,
+							"bxml/teamb/easydiet_tab_labor_create.bxml");
 
 			if (report != null) {
 				createTab.setLaborReport(report);
 			}
 
-			getLazyTab().changeContent(createTab);
+			Dialog d = new Dialog();
+			d.setContent(createTab);
+			d.setPreferredHeight(getWindow().getPreferredHeight() - 300);
+			d.open(getWindow());
+
+			// getLazyTab().changeContent(createTab);
 		} catch (IOException ex) {
 			LOGGER.error("Could not load bxml", ex);
 			Alert.alert(MessageType.ERROR,
