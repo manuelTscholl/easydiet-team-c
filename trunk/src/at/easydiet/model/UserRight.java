@@ -7,10 +7,6 @@ package at.easydiet.model;
 public class UserRight  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = 3930735817136938769L;
     private String _name;
 
     /**

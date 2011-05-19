@@ -12,10 +12,6 @@ import java.util.Set;
 public class TimeSpan  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -7437256819971857468L;
     private long _timeSpanId;
     private Date _start;
     private int _duration;

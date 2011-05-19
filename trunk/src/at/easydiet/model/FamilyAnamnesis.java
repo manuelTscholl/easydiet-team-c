@@ -9,9 +9,7 @@ import java.util.Set;
 public class FamilyAnamnesis  implements java.io.Serializable
 {
 
-	private static final long serialVersionUID = -3173217157674917806L;
-	
-	private long _familyAnamnesisId;
+    private long _familyAnamnesisId;
     private String _person;
     private Set<Illness> _illnesses = new HashSet<Illness>(0);
 
@@ -105,12 +103,8 @@ public class FamilyAnamnesis  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
-        builder.append("familyAnamnesisId").append("='").append(getFamilyAnamnesisId()).append("' ");			
-        builder.append("person").append("='").append(getPerson()).append("' ");			
-        builder.append("illnesses").append("='").append(getIllnesses()).append("' ");			
         builder.append("]");
       
         return builder.toString();

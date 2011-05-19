@@ -4,12 +4,10 @@ package at.easydiet.model;
 /**
  * Represents a FamilyStatus
  */
-public class FamilyStatus implements java.io.Serializable
+public class FamilyStatus  implements java.io.Serializable
 {
 
-	private static final long serialVersionUID = 2273876791625288594L;
-	
-	private String _status;
+    private String _status;
 
     /**
      * Initializes a new instance of the {@link FamilyStatus} class.
@@ -55,7 +53,6 @@ public class FamilyStatus implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
         builder.append("status").append("='").append(getStatus()).append("' ");			

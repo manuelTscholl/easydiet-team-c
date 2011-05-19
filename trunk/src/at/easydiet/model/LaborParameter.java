@@ -7,9 +7,7 @@ package at.easydiet.model;
 public class LaborParameter  implements java.io.Serializable
 {
 
-	private static final long serialVersionUID = -4426074917114847316L;
-	
-	private long _laborParameterId;
+    private long _laborParameterId;
     private String _Value;
     private ParameterDefinitionUnit _parameterDefinitionUnit;
     private CheckOperator _checkOperator;
@@ -162,5 +160,20 @@ public class LaborParameter  implements java.io.Serializable
     public void setLaborReport(LaborReport laborReport) 
     {
         _laborReport = laborReport;
+    }
+    
+    /**
+     * Returns a string representation of this instance.
+     * @return a string
+     */
+    @Override
+    public String toString() 
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
+		// interesting values
+        builder.append("]");
+      
+        return builder.toString();
     }
 }

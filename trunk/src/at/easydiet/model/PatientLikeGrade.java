@@ -1,15 +1,12 @@
 package at.easydiet.model;
 
 
-
 /**
  * Represents a PatientLikeGrade
  */
-public class PatientLikeGrade implements java.io.Serializable
+public class PatientLikeGrade  implements java.io.Serializable
 {
 
-    private static final long serialVersionUID = 4976665902101126051L;
-    
     private long _patientLikeGradeId;
     private String _name;
 
@@ -33,10 +30,9 @@ public class PatientLikeGrade implements java.io.Serializable
        _name = name;
     }
    
-	/**
-     * Gets the patient like grade id.
-     *
-     * @return the patient like grade id
+    /**       
+     * Gets the patientLikeGradeId of this instance. 
+     * @return the patientLikeGradeId currently set for this instance.
      */
     public long getPatientLikeGradeId() 
     {
@@ -52,12 +48,11 @@ public class PatientLikeGrade implements java.io.Serializable
         _patientLikeGradeId = patientLikeGradeId;
     }
     
-	/**
-	 * Gets the name.
-	 *
-	 * @return the name
-	 */
-	public String getName() 
+    /**       
+     * Gets the name of this instance. 
+     * @return the name currently set for this instance.
+     */
+    public String getName() 
     {
         return _name;
     }

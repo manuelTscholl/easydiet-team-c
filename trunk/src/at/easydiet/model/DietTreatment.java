@@ -10,14 +10,11 @@ import java.util.Set;
 public class DietTreatment  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = 3879975384365335112L;
     private long _dietTreatmentId;
     private Date _start;
     private int _duration;
     private String _name;
+    private String _shortDescription;
     private Set<NutritionProtocol> _nutritionProtocols = new HashSet<NutritionProtocol>(0);
     private Set<DietPlan> _dietPlans = new HashSet<DietPlan>(0);
     private Set<DietParameter> _dietParameters = new HashSet<DietParameter>(0);
@@ -57,6 +54,7 @@ public class DietTreatment  implements java.io.Serializable
      * @param start the start to set for this instance
      * @param duration the duration to set for this instance
      * @param name the name to set for this instance
+     * @param shortDescription the shortDescription to set for this instance
      * @param nutritionProtocols the nutritionProtocols to set for this instance
      * @param dietPlans the dietPlans to set for this instance
      * @param dietParameters the dietParameters to set for this instance
@@ -66,11 +64,12 @@ public class DietTreatment  implements java.io.Serializable
      * @param treatmentState the treatmentState to set for this instance
      * @param patient the patient to set for this instance
      */
-    public DietTreatment(Date start, int duration, String name, Set<NutritionProtocol> nutritionProtocols, Set<DietPlan> dietPlans, Set<DietParameter> dietParameters, Set<PatientState> patientStates, Set<DietTreatmentSystemUser> systemUsers, Set<ContactJournal> contactJournals, TreatmentState treatmentState, Patient patient) 
+    public DietTreatment(Date start, int duration, String name, String shortDescription, Set<NutritionProtocol> nutritionProtocols, Set<DietPlan> dietPlans, Set<DietParameter> dietParameters, Set<PatientState> patientStates, Set<DietTreatmentSystemUser> systemUsers, Set<ContactJournal> contactJournals, TreatmentState treatmentState, Patient patient) 
     {
        _start = start;
        _duration = duration;
        _name = name;
+       _shortDescription = shortDescription;
        _nutritionProtocols = nutritionProtocols;
        _dietPlans = dietPlans;
        _dietParameters = dietParameters;
@@ -151,6 +150,24 @@ public class DietTreatment  implements java.io.Serializable
     public void setName(String name) 
     {
         _name = name;
+    }
+    
+    /**       
+     * Gets the shortDescription of this instance. 
+     * @return the shortDescription currently set for this instance.
+     */
+    public String getShortDescription() 
+    {
+        return _shortDescription;
+    }
+    
+    /**       
+     * Sets the shortDescription of this instance. 
+     * @param shortDescription the new shortDescription of this instance.
+     */    
+    public void setShortDescription(String shortDescription) 
+    {
+        _shortDescription = shortDescription;
     }
     
     /**       

@@ -10,10 +10,6 @@ import java.util.Set;
 public class Recipe  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = 8149552592327951828L;
     private long _recipeId;
     private String _name;
     private String _blsCode;

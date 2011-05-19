@@ -7,10 +7,6 @@ package at.easydiet.model;
 public class ParameterDefinitionUnit  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -5166550150466202722L;
     private long _parameterDefinitionUnitId;
     private String _name;
     private ParameterDefinitionDataType _type;
@@ -87,5 +83,20 @@ public class ParameterDefinitionUnit  implements java.io.Serializable
     public void setType(ParameterDefinitionDataType type) 
     {
         _type = type;
+    }
+    
+    /**
+     * Returns a string representation of this instance.
+     * @return a string
+     */
+    @Override
+    public String toString() 
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
+		// interesting values
+        builder.append("]");
+      
+        return builder.toString();
     }
 }

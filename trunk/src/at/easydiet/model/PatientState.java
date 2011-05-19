@@ -10,9 +10,8 @@ import java.util.Set;
  */
 public class PatientState  implements java.io.Serializable
 {
-	private static final long serialVersionUID = -8596807076914792722L;
-	
-	private long _patientStateId;
+
+    private long _patientStateId;
     private Date _date;
     private Clob _anamnesis;
     private int _weight;
@@ -343,23 +342,8 @@ public class PatientState  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
-        builder.append("patientStateId").append("='").append(getPatientStateId()).append("' ");			
-        builder.append("date").append("='").append(getDate()).append("' ");			
-        builder.append("anamnesis").append("='").append(getAnamnesis()).append("' ");			
-        builder.append("weight").append("='").append(getWeight()).append("' ");			
-        builder.append("weightPercentile").append("='").append(getWeightPercentile()).append("' ");			
-        builder.append("height").append("='").append(getHeight()).append("' ");			
-        builder.append("heightPercentile").append("='").append(getHeightPercentile()).append("' ");			
-        builder.append("compliance").append("='").append(getCompliance()).append("' ");			
-        builder.append("motivation").append("='").append(getMotivation()).append("' ");			
-        builder.append("type").append("='").append(getType()).append("' ");			
-        builder.append("creator").append("='").append(getCreator()).append("' ");			
-        builder.append("laborReports").append("='").append(getLaborReports()).append("' ");			
-        builder.append("dietTreatments").append("='").append(getDietTreatments()).append("' ");			
-        builder.append("patient").append("='").append(getPatient()).append("' ");			
         builder.append("]");
       
         return builder.toString();

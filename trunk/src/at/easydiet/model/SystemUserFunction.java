@@ -7,10 +7,6 @@ package at.easydiet.model;
 public class SystemUserFunction  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = 6446211373297601243L;
     private String _name;
 
     /**

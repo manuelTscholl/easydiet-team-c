@@ -10,10 +10,6 @@ import java.util.Set;
 public class NutritionProtocol extends at.easydiet.model.DietPlan implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -1874487456969697799L;
     private Date _date;
     private String _contact;
     private Clob _notice;
@@ -28,13 +24,7 @@ public class NutritionProtocol extends at.easydiet.model.DietPlan implements jav
 
     /**
      * Initializes a new instance of the {@link NutritionProtocol} class.
-     *
-     * @param name the name to set for this instance
-     * @param createdOn the created on to set for this instance
-     * @param planType the plan type to set for this instance
-     * @param dietTreatment the diet treatment to set for this instance
-     * @param creator the creator to set for this instance
-     * @param date the date to set for this instance to set for this instance
+     * @param date the date to set for this instance
      */
     public NutritionProtocol(String name, Date createdOn, PlanType planType, DietTreatment dietTreatment, SystemUser creator, Date date) 
     {
@@ -44,14 +34,6 @@ public class NutritionProtocol extends at.easydiet.model.DietPlan implements jav
 
     /**
      * Initializes a new instance of the {@link NutritionProtocol} class.
-     *
-     * @param name the name to set for this instance
-     * @param createdOn the created on to set for this instance
-     * @param planType the plan type to set for this instance
-     * @param dietTreatment the diet treatment to set for this instance
-     * @param dietParameters the diet parameters to set for this instance
-     * @param creator the creator to set for this instance
-     * @param timeSpans the time spans to set for this instance
      * @param date the date to set for this instance
      * @param contact the contact to set for this instance
      * @param notice the notice to set for this instance

@@ -7,10 +7,6 @@ package at.easydiet.model;
 public class RecipeIngredient  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = 3344946157277639977L;
     private long _recipeIngredientId;
     private float _amount;
     private Recipe _ingredient;

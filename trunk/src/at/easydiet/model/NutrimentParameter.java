@@ -7,10 +7,6 @@ package at.easydiet.model;
 public class NutrimentParameter  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = 2579863774576179705L;
     private long _nutrimentParameterId;
     private String _value;
     private ParameterDefinition _parameterDefinition;
