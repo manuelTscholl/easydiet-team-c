@@ -382,10 +382,12 @@ public class PatientTab extends AbstractLazyTab implements Bindable,
 					save();
 					getWindow().close();
 				} catch (DatabaseException e) {
-					// TODO Auto-generated catch block
+					Alert.alert(org.apache.pivot.wtk.MessageType.ERROR,
+							e.toString(), getWindow());
 					e.printStackTrace();
 				} catch (ErrorInFormException e) {
-					// TODO Auto-generated catch block
+					Alert.alert(org.apache.pivot.wtk.MessageType.ERROR,
+							e.toString(), getWindow());
 					e.printStackTrace();
 				}
 			}
