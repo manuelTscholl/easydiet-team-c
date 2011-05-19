@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import at.easydiet.dao.DAOFactory;
+import at.easydiet.dao.HibernateUtil;
 import at.easydiet.model.LaborReport;
 import at.easydiet.teamb.application.handler.ParameterDefinitionSearchHandler.Excluder;
 import at.easydiet.teamb.application.handler.exception.DatabaseException;
@@ -216,10 +217,13 @@ public class LaborReportHandler extends AbstractHandler<LaborReportErrorField> i
      *             the error in form exception
      */
     public void save() throws DatabaseException, ErrorInFormException {
+        validate();
         if (!isValid()) {
             throw new ErrorInFormException();
         }
+        HibernateUtil.currentSession().beginTransaction();
         _laborreport.save();
+        HibernateUtil.currentSession().getTransaction().commit();
         _unsaved = false;
     }
 
