@@ -7,10 +7,6 @@ package at.easydiet.model;
 public class DietParameterType  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -3039257772526583561L;
     private String _name;
 
     /**

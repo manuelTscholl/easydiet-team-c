@@ -9,9 +9,7 @@ import java.util.Set;
 public class LaborReportType  implements java.io.Serializable
 {
 
-	private static final long serialVersionUID = 6386572436096191564L;
-	
-	private long _laborReportTypeId;
+    private long _laborReportTypeId;
     private String _Name;
     private Set<ParameterDefinition> _parameterDefinitions = new HashSet<ParameterDefinition>(0);
 
@@ -43,12 +41,11 @@ public class LaborReportType  implements java.io.Serializable
        _parameterDefinitions = parameterDefinitions;
     }
    
-	/**
-	 * Gets the labor report type id.
-	 *
-	 * @return the labor report type id
-	 */
-	public long getLaborReportTypeId() 
+    /**       
+     * Gets the laborReportTypeId of this instance. 
+     * @return the laborReportTypeId currently set for this instance.
+     */
+    public long getLaborReportTypeId() 
     {
         return _laborReportTypeId;
     }
@@ -62,10 +59,9 @@ public class LaborReportType  implements java.io.Serializable
         _laborReportTypeId = laborReportTypeId;
     }
     
-	/**
-     * Gets the name.
-     *
-     * @return the name
+    /**       
+     * Gets the Name of this instance. 
+     * @return the Name currently set for this instance.
      */
     public String getName() 
     {
@@ -81,12 +77,11 @@ public class LaborReportType  implements java.io.Serializable
         _Name = Name;
     }
     
-	/**
-	 * Gets the parameter definitions.
-	 *
-	 * @return the parameter definitions
-	 */
-	public Set<ParameterDefinition> getParameterDefinitions() 
+    /**       
+     * Gets the parameterDefinitions of this instance. 
+     * @return the parameterDefinitions currently set for this instance.
+     */
+    public Set<ParameterDefinition> getParameterDefinitions() 
     {
         return _parameterDefinitions;
     }
@@ -108,12 +103,8 @@ public class LaborReportType  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
-        builder.append("laborReportTypeId").append("='").append(getLaborReportTypeId()).append("' ");			
-        builder.append("Name").append("='").append(getName()).append("' ");			
-        builder.append("parameterDefinitions").append("='").append(getParameterDefinitions()).append("' ");			
         builder.append("]");
       
         return builder.toString();

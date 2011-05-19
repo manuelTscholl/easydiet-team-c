@@ -11,9 +11,7 @@ import java.util.Set;
 public class LaborReport  implements java.io.Serializable
 {
 
-	private static final long serialVersionUID = 5175617997757707421L;
-	
-	private long _laborReportId;
+    private long _laborReportId;
     private Date _date;
     private Clob _notice;
     private SystemUser _creator;
@@ -85,14 +83,6 @@ public class LaborReport  implements java.io.Serializable
      */
     public Date getDate() 
     {
-        try
-        {
-            System.out.println("get"+_date.toString()+getClass().getName() + "@" + System.identityHashCode(this));
-        }
-        catch (Exception e)
-        {
-            System.out.println("get null");
-        }
         return _date;
     }
     
@@ -102,16 +92,6 @@ public class LaborReport  implements java.io.Serializable
      */    
     public void setDate(Date date) 
     {
-        try
-        {
-            System.out.println("set"+_date.toString()+getClass().getName() + "@" + System.identityHashCode(this));
-        }
-        catch (Exception e)
-        {
-            System.out.println("set null");
-        }
-        
-
         _date = date;
     }
     
@@ -203,5 +183,20 @@ public class LaborReport  implements java.io.Serializable
     public void setPatient(Patient patient) 
     {
         _patient = patient;
+    }
+    
+    /**
+     * Returns a string representation of this instance.
+     * @return a string
+     */
+    @Override
+    public String toString() 
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
+		// interesting values
+        builder.append("]");
+      
+        return builder.toString();
     }
 }

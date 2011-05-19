@@ -7,10 +7,6 @@ package at.easydiet.model;
 public class TreatmentState  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -1058772431435525551L;
     private String _name;
 
     /**

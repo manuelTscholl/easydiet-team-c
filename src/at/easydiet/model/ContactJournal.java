@@ -9,10 +9,6 @@ import java.util.Date;
 public class ContactJournal  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = 4121628204567852781L;
     private long _contactJournalId;
     private Date _date;
     private Clob _description;

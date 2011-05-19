@@ -7,9 +7,7 @@ package at.easydiet.model;
 public class Illness  implements java.io.Serializable
 {
 
-	private static final long serialVersionUID = 5275615554243476827L;
-	
-	private long _illnessId;
+    private long _illnessId;
     private String _Name;
 
     /**
@@ -74,11 +72,8 @@ public class Illness  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
-        builder.append("illnessId").append("='").append(getIllnessId()).append("' ");			
-        builder.append("Name").append("='").append(getName()).append("' ");			
         builder.append("]");
       
         return builder.toString();

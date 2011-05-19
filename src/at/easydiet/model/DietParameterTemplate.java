@@ -7,10 +7,6 @@ package at.easydiet.model;
 public class DietParameterTemplate  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -7767029343898961053L;
     private long _dietParameterTemplateId;
     private CheckOperator _checkOperator;
     private int _duration;
@@ -18,6 +14,7 @@ public class DietParameterTemplate  implements java.io.Serializable
     private ParameterDefinitionUnit _parameterDefinitionUnit;
     private DietParameterType _dietParameterType;
     private ParameterDefinition _parameterDefinition;
+    private DietParameterSet _dietParameterSet;
 
     /**
      * Initializes a new instance of the {@link DietParameterTemplate} class.
@@ -50,8 +47,9 @@ public class DietParameterTemplate  implements java.io.Serializable
      * @param parameterDefinitionUnit the parameterDefinitionUnit to set for this instance
      * @param dietParameterType the dietParameterType to set for this instance
      * @param parameterDefinition the parameterDefinition to set for this instance
+     * @param dietParameterSet the dietParameterSet to set for this instance
      */
-    public DietParameterTemplate(CheckOperator checkOperator, int duration, String value, ParameterDefinitionUnit parameterDefinitionUnit, DietParameterType dietParameterType, ParameterDefinition parameterDefinition) 
+    public DietParameterTemplate(CheckOperator checkOperator, int duration, String value, ParameterDefinitionUnit parameterDefinitionUnit, DietParameterType dietParameterType, ParameterDefinition parameterDefinition, DietParameterSet dietParameterSet) 
     {
        _checkOperator = checkOperator;
        _duration = duration;
@@ -59,6 +57,7 @@ public class DietParameterTemplate  implements java.io.Serializable
        _parameterDefinitionUnit = parameterDefinitionUnit;
        _dietParameterType = dietParameterType;
        _parameterDefinition = parameterDefinition;
+       _dietParameterSet = dietParameterSet;
     }
    
     /**       
@@ -185,6 +184,24 @@ public class DietParameterTemplate  implements java.io.Serializable
     public void setParameterDefinition(ParameterDefinition parameterDefinition) 
     {
         _parameterDefinition = parameterDefinition;
+    }
+    
+    /**       
+     * Gets the dietParameterSet of this instance. 
+     * @return the dietParameterSet currently set for this instance.
+     */
+    public DietParameterSet getDietParameterSet() 
+    {
+        return _dietParameterSet;
+    }
+    
+    /**       
+     * Sets the dietParameterSet of this instance. 
+     * @param dietParameterSet the new dietParameterSet of this instance.
+     */    
+    public void setDietParameterSet(DietParameterSet dietParameterSet) 
+    {
+        _dietParameterSet = dietParameterSet;
     }
     
     /**

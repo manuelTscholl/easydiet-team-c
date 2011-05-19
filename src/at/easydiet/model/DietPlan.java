@@ -10,10 +10,6 @@ import java.util.Set;
 public class DietPlan  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = -1094183284575467262L;
     private long _dietPlanId;
     private String _name;
     private Date _createdOn;

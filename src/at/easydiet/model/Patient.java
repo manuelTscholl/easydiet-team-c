@@ -11,9 +11,7 @@ import java.util.Set;
 public class Patient  implements java.io.Serializable
 {
 
-	private static final long serialVersionUID = 4195729659042326768L;
-	
-	private long _patientId;
+    private long _patientId;
     private String _insuranceNumber;
     private String _forename;
     private String _lastname;
@@ -510,25 +508,8 @@ public class Patient  implements java.io.Serializable
     public String toString() 
     {
         StringBuilder builder = new StringBuilder();
-
         builder.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
 		// interesting values
-        builder.append("patientId").append("='").append(getPatientId()).append("' ");			
-        builder.append("insuranceNumber").append("='").append(getInsuranceNumber()).append("' ");			
-        builder.append("forename").append("='").append(getForename()).append("' ");			
-        builder.append("lastname").append("='").append(getLastname()).append("' ");			
-        builder.append("title").append("='").append(getTitle()).append("' ");			
-        builder.append("street").append("='").append(getStreet()).append("' ");			
-        builder.append("zip").append("='").append(getZip()).append("' ");			
-        builder.append("place").append("='").append(getPlace()).append("' ");			
-        builder.append("country").append("='").append(getCountry()).append("' ");			
-        builder.append("birthday").append("='").append(getBirthday()).append("' ");			
-        builder.append("job").append("='").append(getJob()).append("' ");			
-        builder.append("religion").append("='").append(getReligion()).append("' ");			
-        builder.append("regime").append("='").append(getRegime()).append("' ");			
-        builder.append("notice").append("='").append(getNotice()).append("' ");			
-        builder.append("gender").append("='").append(getGender()).append("' ");			
-        builder.append("familyStatus").append("='").append(getFamilyStatus()).append("' ");						
         builder.append("]");
       
         return builder.toString();

@@ -7,10 +7,6 @@ package at.easydiet.model;
 public class PlanType  implements java.io.Serializable
 {
 
-    /**
-     * A unique serialization id. 
-     */
-    private static final long serialVersionUID = 3096184167782923451L;
     private String _name;
 
     /**
