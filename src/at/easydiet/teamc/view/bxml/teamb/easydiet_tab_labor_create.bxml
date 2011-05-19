@@ -1,5 +1,3 @@
-<Dialog xmlns:bxml="http://pivot.apache.org/bxml" xmlns:content="org.apache.pivot.wtk.content"
-	xmlns="org.apache.pivot.wtk" preferredWidth="500">
 <tabLab:LaborReportCreateTab
  xmlns:bxml="http://pivot.apache.org/bxml"
  xmlns:content="org.apache.pivot.wtk.content"
@@ -33,4 +31,3 @@
     <!-- end: Labor Report -->
     
 </tabLab:LaborReportCreateTab>
-</Dialog>

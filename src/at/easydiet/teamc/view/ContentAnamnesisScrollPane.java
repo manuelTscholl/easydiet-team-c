@@ -17,6 +17,7 @@ import org.apache.pivot.serialization.SerializationException;
 import org.apache.pivot.util.Resources;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
+import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.Dialog;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.ScrollPane;
@@ -63,18 +64,25 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 					@Override
 					public void buttonPressed(Button arg0) {
 						BXMLSerializer bxml = new BXMLSerializer();
-						Dialog dialog;
+						Component component;
+						Dialog dialog = new Dialog();
 						try {
-							dialog = (Dialog) bxml
-									.readObject(
-											ContentAnamnesisScrollPane.class,
-											"bxml/teamb/easydiet_tab_labor_create.bxml");
+							component = (Component) bxml
+									.readObject(getClass()
+											.getResource(
+													"bxml/teamb/easydiet_tab_labor_create.bxml"));
+
+							dialog.setContent(component);
 							dialog.open(getWindow());
+
+							// set window height
 							dialog.setPreferredHeight(getPreferredHeight() - 80);
-						} catch (IOException ex) {
-							LOGGER.error(ex);
-						} catch (SerializationException ex) {
-							LOGGER.error(ex);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (SerializationException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 
 					}
