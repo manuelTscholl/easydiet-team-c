@@ -234,7 +234,7 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable,
 
         try
         {
-            display(_useCaseManager);
+            display(_useCaseManager.getWindowHandler());
         }
         catch (NoPatientSelectedException e)
         {
