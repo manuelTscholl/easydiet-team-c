@@ -6,9 +6,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.easydiet.dao.HibernateUtil;
 import at.easydiet.teamb.application.handler.exception.DatabaseException;
 import at.easydiet.teamb.application.handler.exception.ErrorInFormException;
+import at.easydiet.teamb.application.util.DuplicatPatientEventArg;
 import at.easydiet.teamb.application.util.Event;
+import at.easydiet.teamb.application.util.EventListener;
 import at.easydiet.teamb.application.util.ValidatorArgs.PatientDataErrorField;
 import at.easydiet.teamb.application.util.ValidatorArgs.ValidatorArgs;
 import at.easydiet.teamb.application.viewobject.IllnessViewable;
@@ -34,14 +37,16 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 
 	/** The _unsaved. */
 	private boolean _unsaved;
-	
+
 	private List<IllnessHandler> _illnessHandlers;
+
+	private boolean _duplicate;
+	private Event<DuplicatPatientEventArg> _duplicateEvent;
 
 	/**
 	 * Instantiates a new patient data handler.
 	 * 
-	 * @param patient
-	 *            the patient
+	 * @param patient the patient
 	 */
 	public PatientDataHandler(PatientViewable patient) {
 		if (patient == null) {
@@ -53,22 +58,25 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 		_validaded = new Event<ValidatorArgs<PatientDataErrorField>>(this);
 		_errorFields = new ArrayList<PatientDataErrorField>();
 
+		_duplicateEvent = new Event<DuplicatPatientEventArg>(this);
+		_duplicate = false;
+
 		IllnessViewable[] illnesses = _patient.getIllnesses();
 		_illnessHandlers = new ArrayList<IllnessHandler>();
 		for (IllnessViewable illness : illnesses) {
 			addIllness(new IllnessHandler(this, illness));
 		}
-		
+
 		validate();
-		
+		checkForDuplicate();
+
 		_unsaved = false;
 	}
 
 	/**
 	 * Sets the insurance number.
 	 * 
-	 * @param number
-	 *            the new insurance number
+	 * @param number the new insurance number
 	 */
 	public void setInsuranceNumber(String number) {
 		number = StringUtil.convertToNullIfPossible(number);
@@ -76,14 +84,15 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 		if (StringUtil.hasChanged(_patient.getInsuranceNumber(), number)) {
 			_unsaved = true;
 			_patient.setInsuranceNumber(number);
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the forename.
 	 * 
-	 * @param forename
-	 *            the new forename
+	 * @param forename the new forename
 	 */
 	public void setForename(String forename) {
 		if (StringUtil.hasChanged(_patient.getForename(), forename)) {
@@ -93,14 +102,15 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 
 			_patient.setForename(forename);
 			validate();
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the lastname.
 	 * 
-	 * @param lastname
-	 *            the new lastname
+	 * @param lastname the new lastname
 	 */
 	public void setLastname(String lastname) {
 		if (StringUtil.hasChanged(_patient.getLastname(), lastname)) {
@@ -109,14 +119,15 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 			}
 			_patient.setLastname(lastname);
 			validate();
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the title.
 	 * 
-	 * @param title
-	 *            the new title
+	 * @param title the new title
 	 */
 	public void setTitle(String title) {
 		title = StringUtil.convertToNullIfPossible(title);
@@ -124,14 +135,15 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 		if (StringUtil.hasChanged(_patient.getTitle(), title)) {
 			_unsaved = true;
 			_patient.setTitle(title);
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the street.
 	 * 
-	 * @param street
-	 *            the new street
+	 * @param street the new street
 	 */
 	public void setStreet(String street) {
 		street = StringUtil.convertToNullIfPossible(street);
@@ -139,14 +151,15 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 		if (StringUtil.hasChanged(_patient.getStreet(), street)) {
 			_unsaved = true;
 			_patient.setStreet(street);
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the zip.
 	 * 
-	 * @param zip
-	 *            the new zip
+	 * @param zip the new zip
 	 */
 	public void setZip(String zip) {
 		zip = StringUtil.convertToNullIfPossible(zip);
@@ -154,14 +167,15 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 		if (StringUtil.hasChanged(_patient.getZip(), zip)) {
 			_unsaved = true;
 			_patient.setZip(zip);
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the place.
 	 * 
-	 * @param place
-	 *            the new place
+	 * @param place the new place
 	 */
 	public void setPlace(String place) {
 		place = StringUtil.convertToNullIfPossible(place);
@@ -169,14 +183,15 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 		if (StringUtil.hasChanged(_patient.getPlace(), place)) {
 			_unsaved = true;
 			_patient.setPlace(place);
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the country.
 	 * 
-	 * @param country
-	 *            the new country
+	 * @param country the new country
 	 */
 	public void setCountry(String country) {
 		country = StringUtil.convertToNullIfPossible(country);
@@ -184,30 +199,34 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 		if (StringUtil.hasChanged(_patient.getCountry(), country)) {
 			_unsaved = true;
 			_patient.setCountry(country);
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the birthday.
 	 * 
-	 * @param birthday
-	 *            the new birthday
+	 * @param birthday the new birthday
 	 */
 	public void setBirthday(GregorianCalendar birthday) {
-		if (birthday != _patient.getBirthday() && (birthday == null || _patient.getBirthday() == null || birthday.compareTo(_patient.getBirthday()) != 0)) {
+		if (birthday != _patient.getBirthday()
+				&& (birthday == null || _patient.getBirthday() == null || birthday
+						.compareTo(_patient.getBirthday()) != 0)) {
 			if (_patient.getBirthday() != null) {
 				_unsaved = true;
 			}
 
 			_patient.setBirthday(birthday);
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the job.
 	 * 
-	 * @param job
-	 *            the new job
+	 * @param job the new job
 	 */
 	public void setJob(String job) {
 		job = StringUtil.convertToNullIfPossible(job);
@@ -215,14 +234,15 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 		if (StringUtil.hasChanged(_patient.getJob(), job)) {
 			_unsaved = true;
 			_patient.setJob(job);
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the religion.
 	 * 
-	 * @param religion
-	 *            the new religion
+	 * @param religion the new religion
 	 */
 	public void setReligion(String religion) {
 		religion = StringUtil.convertToNullIfPossible(religion);
@@ -230,14 +250,15 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 		if (StringUtil.hasChanged(_patient.getReligion(), religion)) {
 			_unsaved = true;
 			_patient.setReligion(religion);
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the regime.
 	 * 
-	 * @param regime
-	 *            the new regime
+	 * @param regime the new regime
 	 */
 	public void setRegime(String regime) {
 		regime = StringUtil.convertToNullIfPossible(regime);
@@ -245,14 +266,15 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 		if (StringUtil.hasChanged(_patient.getRegime(), regime)) {
 			_unsaved = true;
 			_patient.setRegime(regime);
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the notice.
 	 * 
-	 * @param notice
-	 *            the new notice
+	 * @param notice the new notice
 	 */
 	public void setNotice(String notice) {
 		notice = StringUtil.convertToNullIfPossible(notice);
@@ -260,33 +282,37 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 		if (StringUtil.hasChanged(_patient.getNotice(), notice)) {
 			_unsaved = true;
 			_patient.setNotice(notice);
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the gender.
 	 * 
-	 * @param gender
-	 *            the new gender
+	 * @param gender the new gender
 	 */
 	public void setGender(GenderEnum gender) {
 		if (gender != _patient.getGender()) {
 			_unsaved = true;
 			_patient.setGender(gender);
 			validate();
+
+			checkForDuplicate();
 		}
 	}
 
 	/**
 	 * Sets the family status.
 	 * 
-	 * @param familyStatus
-	 *            the new family status
+	 * @param familyStatus the new family status
 	 */
 	public void setFamilyStatus(FamilyStatusEnum familyStatus) {
 		if (familyStatus != _patient.getFamilyStatus()) {
 			_unsaved = true;
 			_patient.setFamilyStatus(familyStatus);
+
+			checkForDuplicate();
 		}
 	}
 
@@ -301,7 +327,7 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 
 	/**
 	 * Adds the illness.
-	 *
+	 * 
 	 * @param illnessHandler the illness handler
 	 * @return the illness handler
 	 */
@@ -323,11 +349,12 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 	/**
 	 * Removes the illness.
 	 * 
-	 * @param illnessHandler
-	 *            the illness handler
+	 * @param illnessHandler the illness handler
 	 */
 	public void removeIllness(IllnessHandler illnessHandler) {
 		_unsaved = true;
+
+		illnessHandler.removeErrors();
 
 		_handlers.remove(illnessHandler);
 
@@ -335,13 +362,13 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 			_patient.removeIllness(illnessHandler.getIllness());
 		}
 	}
-	
-	public void addLike(PatientLikeViewable like){
+
+	public void addLike(PatientLikeViewable like) {
 		_patient.addLike(like);
 		_unsaved = true;
 	}
-	
-	public void removeLike(PatientLikeViewable like){
+
+	public void removeLike(PatientLikeViewable like) {
 		_patient.removeLike(like);
 		_unsaved = true;
 	}
@@ -349,17 +376,17 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 	/**
 	 * Save.
 	 * 
-	 * @throws DatabaseException
-	 *             the database exception
-	 * @throws ErrorInFormException
-	 *             the error in form exception
+	 * @throws DatabaseException the database exception
+	 * @throws ErrorInFormException the error in form exception
 	 */
 	public void save() throws DatabaseException, ErrorInFormException {
 		if (!isValid()) {
 			throw new ErrorInFormException();
 		}
 
+		HibernateUtil.currentSession().beginTransaction();
 		_patient.savePatient();
+		HibernateUtil.currentSession().getTransaction().commit();
 		_unsaved = false;
 	}
 
@@ -379,7 +406,8 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 			_errorFields.add(PatientDataErrorField.GENDER);
 		}
 
-		_validaded.fireEvent(new ValidatorArgs<PatientDataErrorField>(_errorFields));
+		_validaded.fireEvent(new ValidatorArgs<PatientDataErrorField>(
+				_errorFields));
 	}
 
 	/**
@@ -391,10 +419,10 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 		return _patient;
 	}
 
-	public void setUnsaved(){
+	public void setUnsaved() {
 		_unsaved = true;
 	}
-	
+
 	/**
 	 * Gets the illnesses.
 	 * 
@@ -426,5 +454,29 @@ public class PatientDataHandler extends AbstractHandler<PatientDataErrorField> {
 	 */
 	public boolean isInDatabase() {
 		return _patient.isInDatabase();
+	}
+
+	private void checkForDuplicate() {
+		PatientViewable[] duplicates;
+		if (!isValid()) {
+			duplicates = new PatientViewable[0];
+		} else {
+			duplicates = _patient.getDuplicates();
+		}
+
+		if ((duplicates.length == 0) != _duplicate) {
+			_duplicateEvent.fireEvent(new DuplicatPatientEventArg(duplicates));
+			_duplicate = (duplicates.length == 0);
+		}
+	}
+
+	public void addDuplicatePatientListener(
+			EventListener<DuplicatPatientEventArg> handler) {
+		_duplicateEvent.addHandler(handler);
+	}
+
+	public void removeDuplciatePatientListener(
+			EventListener<DuplicatPatientEventArg> handler) {
+		_duplicateEvent.removeHandler(handler);
 	}
 }

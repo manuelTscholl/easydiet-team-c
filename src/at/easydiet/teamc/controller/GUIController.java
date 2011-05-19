@@ -391,7 +391,7 @@ public class GUIController implements PatientListener {
 			dialog.open(_easyDietWindow);
 
 			// set window height
-			dialog.setPreferredHeight(dialog.getWindow().getPreferredHeight() - 200);
+			dialog.setPreferredHeight(dialog.getWindow().getPreferredHeight() - 300);
 			dialog.setPreferredWidth(600);
 
 			// set dialog title
@@ -490,7 +490,7 @@ public class GUIController implements PatientListener {
 	 * @param rd to change
 	 * @param unit the changed unit
 	 * @param amount the changed amount
-         *
+	 * 
 	 */
 	public ValidatedRecipeVo changeRecipeIngredient(RecipeData rd,
 			ParameterDefinitionUnitData unit, float amount) {
@@ -498,13 +498,15 @@ public class GUIController implements PatientListener {
 				amount, rd, unit);
 	}
 
-        /*
-         * Add a Recipe Ingredient
-         *
-         * @param rd to add
-         * @param unit the add unit
-         * @param amount of the recipe
-         */
+	/*
+	 * Add a Recipe Ingredient
+	 * 
+	 * @param rd to add
+	 * 
+	 * @param unit the add unit
+	 * 
+	 * @param amount of the recipe
+	 */
 	public ValidatedRecipeVo addRecipeIngredient(RecipeData rd,
 			ParameterDefinitionUnitData unit, float amount) {
 		return _businessLogicDelegationController.addRecipeIngredient(rd, unit,
@@ -535,11 +537,11 @@ public class GUIController implements PatientListener {
 	 * Save the recipe
 	 * 
 	 * @param recipeName to save
-	 * @param preparation 
-	 * @param description 
-	 * @param benefits 
-	 * @param prepartionTime 
-	 * @param difficulty 
+	 * @param preparation
+	 * @param description
+	 * @param benefits
+	 * @param prepartionTime
+	 * @param difficulty
 	 */
 	public void saveRecipe(String recipeName, String preparation,
 			String description, String benefits, double prepartionTime,
