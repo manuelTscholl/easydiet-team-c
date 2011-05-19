@@ -94,12 +94,14 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 					@Override
 					public void buttonPressed(Button arg0) {
 						BXMLSerializer bxml = new BXMLSerializer();
-						Dialog dialog;
+						Component component;
+						Dialog dialog = new Dialog();
 						try {
-							dialog = (Dialog) bxml
-									.readObject(
-											ContentAnamnesisScrollPane.class,
-											"bxml/teamb/easydiet_tab_patientStatus_create.bxml");
+							component = (Component) bxml
+									.readObject(getClass()
+											.getResource(
+													"bxml/teamb/easydiet_tab_patientStatus_create.bxml"));
+							dialog.setContent(component);
 							dialog.open(getWindow());
 							dialog.setPreferredHeight(getPreferredHeight() - 80);
 						} catch (IOException ex) {
