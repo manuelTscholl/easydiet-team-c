@@ -198,6 +198,7 @@
 		<property name="start" column="Start" type="timestamp" not-null="true" />
 		<property name="duration" column="Duration" type="int" not-null="true" />
 		<property name="name" column="Name" type="string" not-null="true" />
+		<property name="shortDescription" column="ShortDescription" type="string" not-null="false" />
 		<set name="nutritionProtocols" lazy="true" inverse="true">
 			<key column="DietTreatmentId" not-null="true"/>
 			<one-to-many class="NutritionProtocol" />
@@ -384,12 +385,12 @@
 		<property name="amount" column="Amount" type="float" />
 		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" />
 
-		<set name="ingredients" inverse="true" cascade="all,delete-orphan">
+		<set name="ingredients" inverse="true">
 			<key column="RecipeId" not-null="true" />
 			<one-to-many class="RecipeIngredient" />
 		</set>
 
-		<set name="nutrimentParameters" lazy="false" fetch="subselect" cascade="all,delete-orphan">
+		<set name="nutrimentParameters" lazy="false" fetch="subselect">
 			<key column="RecipeId" not-null="true" />
 			<one-to-many class="NutrimentParameter" />
 		</set>
@@ -417,7 +418,7 @@
 		<property name="value" column="Value" type="string" not-null="true" />
 
 		<many-to-one name="parameterDefinition" column="ParameterDefinitionId" class="ParameterDefinition" not-null="true"/>
-		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" not-null="false"/>
+		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" not-null="true"/>
 	</class>
 
 	<class name="PatientStateType">
@@ -472,9 +473,11 @@
 		<property name="notice" column="Notice" type="clob" />
 
 		<many-to-one class="SystemUser" name="creator" column="Creator" not-null="true" />
+
 		
 		<set name="laborParameters" inverse="true" cascade="all,delete-orphan">
 			<key column="LaborReportId" not-null="true" />
+
 			<one-to-many class="LaborParameter" />
 		</set>
 	
@@ -484,6 +487,7 @@
 	
 		<!-- Bidirectional assoc to patient -->
 		<many-to-one name="patient" column="PatientId" class="Patient" not-null="true" insert="true" update="true"/>
+
 	</class>
 	
 	<class name="LaborParameter">
@@ -530,6 +534,9 @@
 		<many-to-one class="DietParameterType" name="dietParameterType" column="DietParameterType" not-null="true" />  
 		<many-to-one class="ParameterDefinition" name="parameterDefinition" column="ParameterDefinitionId" not-null="true" />
 
+		<!-- Bidirectional assoc to set -->
+		<many-to-one name="dietParameterSet" column="DietParameterSetId" class="DietParameterSet" insert="true" update="true"/>
+
 		<joined-subclass name="DietParameter">
 			<key column="DietParameterTemplateId" not-null="true" />
 			<property name="start" column="Start" type="timestamp" />
@@ -550,7 +557,7 @@
 
 		<property name="name" column="Name" type="string" not-null="true" unique="true" />
 
-		<set name="dietParameterTemplates" lazy="true">
+		<set name="dietParameterTemplates" lazy="true" cascade="all,delete-orphan">
 			<key column="DietParameterSetId" />
 			<one-to-many class="DietParameterTemplate" />
 		</set>

@@ -85,6 +85,14 @@ public class LaborReport  implements java.io.Serializable
      */
     public Date getDate() 
     {
+        try
+        {
+            System.out.println("get"+_date.toString()+getClass().getName() + "@" + System.identityHashCode(this));
+        }
+        catch (Exception e)
+        {
+            System.out.println("get null");
+        }
         return _date;
     }
     
@@ -94,6 +102,16 @@ public class LaborReport  implements java.io.Serializable
      */    
     public void setDate(Date date) 
     {
+        try
+        {
+            System.out.println("set"+_date.toString()+getClass().getName() + "@" + System.identityHashCode(this));
+        }
+        catch (Exception e)
+        {
+            System.out.println("set null");
+        }
+        
+
         _date = date;
     }
     

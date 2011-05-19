@@ -248,7 +248,7 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable,
         _useCaseHandler.save();
         showInfoBar("Erfolgreich gespeichert!", MessageType.Info);
 
-        getLazyTab().display();
+        //getLazyTab().display();
     }
 
     @Override
@@ -344,36 +344,21 @@ public class LaborReportCreateTab extends AbstractLazyTab implements Bindable,
     }
 
     @Override
-    public void display(UseCaseManager useCaseManager)
-            throws NoPatientSelectedException
-    {
+    public void display(UseCaseManager useCaseManager) throws NoPatientSelectedException {
         super.display(useCaseManager);
 
-        if (_useCaseManager.getSelectedPatient() == null)
-        {
+        if (_useCaseManager.getSelectedPatient() == null) {
             throw new NoPatientSelectedException();
         }
 
-        if (_useCaseHandler == null)
-        {
-            // TODO i think its not correct
-            _useCaseHandler = new UseCaseLaborReportHandler(
-                    new SystemUserAdapter(BusinessLogicDelegationController
-                            .getInstance().getActualUser()),
-                    new PatientAdapter(BusinessLogicDelegationController
-                            .getInstance().getActivePatient()));
-
-            _reportHandler = new LaborReportHandler(new SystemUserAdapter(
-                    BusinessLogicDelegationController.getInstance()
-                            .getActualUser()), new PatientAdapter(
-                    BusinessLogicDelegationController.getInstance()
-                            .getActivePatient()));
+        if (_useCaseHandler == null) {
+            _useCaseHandler = new UseCaseLaborReportHandler(_useCaseManager.getCreator(), _useCaseManager.getSelectedPatient());
+            _reportHandler = _useCaseHandler.getLaborReportHandler();
             _laborReport = _reportHandler.getLaborReport();
         }
 
         _reportHandler.addValidadedListener(this);
-        _reportHandler
-                .addLaborReportChangedListener((_laborParameterListener = new LaborParameterListener()));
+        _reportHandler.addLaborReportChangedListener((_laborParameterListener = new LaborParameterListener()));
 
         update();
     }
