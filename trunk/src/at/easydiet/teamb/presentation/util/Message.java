@@ -15,9 +15,6 @@ package at.easydiet.teamb.presentation.util;
 
 import org.apache.pivot.wtk.Component;
 
-/**
- * @author TeamB
- */
 public class Message implements Comparable<Message> {
 	private MessageType _messageType;
 	private Component _component;
@@ -26,18 +23,23 @@ public class Message implements Comparable<Message> {
 	/**
 	 * Initialize a new {@link Message} object
 	 * 
-	 * @param messageType
-	 *            type of the message
-	 * @param component
-	 *            the component containing an invalid value
-	 * @param messageText
-	 *            text of the Message
+	 * @param messageType type of the message
+	 * @param component the component containing an invalid value
+	 * @param messageText text of the Message
 	 */
-	public Message(MessageType messageType, Component component, String messageText) {
-		super();
+	public Message(MessageType messageType, Component component,
+			String messageText) {
 		_messageType = messageType;
 		_component = component;
 		_messageText = messageText;
+	}
+
+	public Message(MessageType messageType, String messageText) {
+		this(messageType, null, messageText);
+	}
+
+	public Message(MessageType messageType) {
+		this(messageType, null);
 	}
 
 	/**
@@ -48,8 +50,7 @@ public class Message implements Comparable<Message> {
 	}
 
 	/**
-	 * @param messageType
-	 *            the messageType to set
+	 * @param messageType the messageType to set
 	 */
 	public void setMessageType(MessageType messageType) {
 		_messageType = messageType;
@@ -57,7 +58,7 @@ public class Message implements Comparable<Message> {
 
 	/**
 	 * Gets the component.
-	 *
+	 * 
 	 * @return the component
 	 */
 	public Component getComponent() {
@@ -66,7 +67,7 @@ public class Message implements Comparable<Message> {
 
 	/**
 	 * Sets the component.
-	 *
+	 * 
 	 * @param component the new component
 	 */
 	public void setComponent(Component component) {
@@ -81,8 +82,7 @@ public class Message implements Comparable<Message> {
 	}
 
 	/**
-	 * @param messageText
-	 *            the messageText to set
+	 * @param messageText the messageText to set
 	 */
 	public void setMessageText(String messageText) {
 		_messageText = messageText;
@@ -92,7 +92,7 @@ public class Message implements Comparable<Message> {
 	public int compareTo(Message o) {
 		return getMessageType().compareTo(o.getMessageType());
 	}
-	
+
 	@Override
 	public String toString() {
 		return super.toString() + " '" + getMessageText() + "'";

@@ -96,5 +96,6 @@ xmlns="org.apache.pivot.wtk">
 				<component:NullableTextInput bxml:id="_countryTextInput" prompt="Land" textSize="31"/>
 			</BoxPane>
 		</Form.Section>
+		<PushButton bxml:id="_save" buttonData="Speichern"/>
 	</Form>
 </tabPatient:PatientTab>

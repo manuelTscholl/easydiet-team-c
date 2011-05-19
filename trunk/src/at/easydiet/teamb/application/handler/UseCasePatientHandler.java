@@ -10,30 +10,29 @@
 
 package at.easydiet.teamb.application.handler;
 
+import at.easydiet.model.Patient;
 import at.easydiet.teamb.application.handler.exception.DatabaseException;
 import at.easydiet.teamb.application.handler.exception.ErrorInFormException;
 import at.easydiet.teamb.application.handler.exception.OperationNotPermittedException;
 import at.easydiet.teamb.application.util.ExitOptions;
 import at.easydiet.teamb.application.viewobject.PatientViewable;
 import at.easydiet.teamb.domain.object.PatientDO;
-import at.easydiet.model.Patient;
 
 /**
  * @author TeamB
  */
 public class UseCasePatientHandler extends AbstractUseCaseHandler {
 	private PatientDataHandler _handler;
-	
+
 	private boolean _discard;
 
 	/**
 	 * Instantiates a new use UseCaseCreateDietPlanHandler
 	 * 
-	 * @param patient
-	 *            the patient
+	 * @param patient the patient
 	 */
 	public UseCasePatientHandler(PatientViewable patient) {
-		_handler = new PatientDataHandler((PatientDO) patient);
+		_handler = new PatientDataHandler(patient);
 		_discard = false;
 	}
 
@@ -55,12 +54,13 @@ public class UseCasePatientHandler extends AbstractUseCaseHandler {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.application.handler.AbstractUseCaseHandler#isExitable()
 	 */
 	@Override
 	public boolean isExitable() {
 		if (_handler.isInDatabase()) {
-			return (!_handler.isDirty() || (!_handler.isDirty() && _handler.isValid()));
+			return (!_handler.isDirty());
 		} else {
 			return _discard;
 		}
@@ -68,6 +68,7 @@ public class UseCasePatientHandler extends AbstractUseCaseHandler {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.application.handler.AbstractUseCaseHandler#save()
 	 */
 	@Override
@@ -77,6 +78,7 @@ public class UseCasePatientHandler extends AbstractUseCaseHandler {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see at.easydiet.application.handler.AbstractUseCaseHandler#discard()
 	 */
 	@Override
