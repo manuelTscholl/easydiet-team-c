@@ -145,6 +145,13 @@ public class PatientStatusCreateTab extends AbstractLazyTab implements
 		_patientStateHandler = _useCasePatientStateHandler
 				.getPatientStateHandler();
 		_patientState = _patientStateHandler.getPatientState();
+
+		try {
+			display(UseCaseManager.getWindowHandler());
+		} catch (NoPatientSelectedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

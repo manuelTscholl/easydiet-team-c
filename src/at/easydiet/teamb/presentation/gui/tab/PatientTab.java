@@ -392,6 +392,13 @@ public class PatientTab extends AbstractLazyTab implements Bindable,
 				}
 			}
 		});
+
+		try {
+			display(UseCaseManager.getWindowHandler());
+		} catch (NoPatientSelectedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -448,9 +455,11 @@ public class PatientTab extends AbstractLazyTab implements Bindable,
 			throws NoPatientSelectedException {
 		super.display(useCaseManager);
 
-		if (_useCaseManager.getSelectedPatient() == null) {
-			throw new NoPatientSelectedException();
-		}
+		// Error from teamb: Why should an patient be active if i want to add a
+		// new one?
+		// if (_useCaseManager.getSelectedPatient() == null) {
+		// throw new NoPatientSelectedException();
+		// }
 
 		if (_useCasePatientHandler == null) {
 			_useCasePatientHandler = new UseCasePatientHandler(
