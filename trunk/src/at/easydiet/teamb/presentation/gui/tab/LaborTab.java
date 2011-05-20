@@ -144,16 +144,16 @@ public class LaborTab extends AbstractLazyTab implements Bindable {
 
 			@Override
 			public boolean delete(LaborReportViewable report) {
-
 				return false;
 
 				// LaborReportHandler handler = new LaborReportHandler(report);
 				// try {
-				// //handler.remove();
+				// handler.remove();
 				// return true;
 				// } catch (DatabaseException ex) {
-				// LOGGER.error("Cannot remove LaborReport: " +
-				// report.toString(),ex);
+				// LOGGER.error(
+				// "Cannot remove LaborReport: " + report.toString(),
+				// ex);
 				// }
 				// return false;
 			}
