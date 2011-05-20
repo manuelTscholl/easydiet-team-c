@@ -24,6 +24,7 @@ import at.easydiet.teamc.controller.GUIController;
 import at.easydiet.teamc.model.data.MealData;
 import at.easydiet.teamc.model.data.MealLineData;
 import at.easydiet.teamc.view.ComponentListenerAdapter;
+import at.easydiet.teamc.view.ContentDietryPlanScrollPane;
 
 /**
  * Represents a single week
@@ -216,8 +217,8 @@ public class DietWeek {
 			// first row for add button
 			TablePane.Row buttonRow = new TablePane.Row();
 			ButtonData buttonData = new ButtonData();
-			buttonData.setIcon(getClass()
-					.getResource("../bxml/plus-circle.png"));
+			buttonData.setIcon(ContentDietryPlanScrollPane.class
+					.getResource("bxml/plus-circle.png"));
 			PushButton newMealButton = new PushButton(buttonData);
 			newMealButton.setPreferredSize(22, 20);
 			newMealButton.getStyles().put("toolbar", "true");
