@@ -39,7 +39,9 @@ import at.easydiet.teamc.model.data.ValidatedRecipeVo;
 import at.easydiet.teamc.util.CollectionConverter;
 import at.easydiet.teamc.util.EventArgs;
 import at.easydiet.teamc.util.IEventHandler;
+import at.easydiet.teamc.view.AddRecipeScrollPane;
 import at.easydiet.teamc.view.ChooseMealDialog;
+import at.easydiet.teamc.view.ContentAnamnesisScrollPane;
 import at.easydiet.teamc.view.ContentTabPane;
 import at.easydiet.teamc.view.DietPlanDialog;
 import at.easydiet.teamc.view.EasyDietMenuBar;
@@ -367,26 +369,13 @@ public class GUIController implements PatientListener {
 	 */
 	public void openAddRecipeDialog() {
 
-		openBxmlDialog("../view/bxml/addRecipe.bxml", "Neues Rezept erstellen");
-		_businessLogicDelegationController.createNewRecipe();
-	}
-
-	/**
-	 * Open dialog for adding new patients
-	 */
-	public void openAddPatientDialog() {
-		openBxmlDialog("../../teamb/view/bxml/easydiet_tab_patient.bxml",
-				"Patient hinzufügen");
-	}
-
-	private void openBxmlDialog(String resource, String title) {
 		// load dialog for creating a new recipe
 		BXMLSerializer bxml = new BXMLSerializer();
 		Component component;
 		Dialog dialog = new Dialog();
 		try {
-			component = (Component) bxml.readObject(getClass().getResource(
-					resource));
+			component = (Component) bxml.readObject(AddRecipeScrollPane.class
+					.getResource("bxml/addRecipe.bxml"));
 			dialog.setContent(component);
 			dialog.open(_easyDietWindow);
 
@@ -395,7 +384,38 @@ public class GUIController implements PatientListener {
 			dialog.setPreferredWidth(600);
 
 			// set dialog title
-			dialog.setTitle(title);
+			dialog.setTitle("Neues Rezept erstellen");
+
+		} catch (IOException ex) {
+			LOGGER.error(ex);
+		} catch (SerializationException ex) {
+			LOGGER.error(ex);
+		}
+		_businessLogicDelegationController.createNewRecipe();
+	}
+
+	/**
+	 * Open dialog for adding new patients
+	 */
+	public void openAddPatientDialog() {
+
+		// load dialog for creating a new recipe
+		BXMLSerializer bxml = new BXMLSerializer();
+		Component component;
+		Dialog dialog = new Dialog();
+		try {
+			component = (Component) bxml
+					.readObject(ContentAnamnesisScrollPane.class
+							.getResource("bxml/teamb/easydiet_tab_patient.bxml"));
+			dialog.setContent(component);
+			dialog.open(_easyDietWindow);
+
+			// set window height
+			dialog.setPreferredHeight(dialog.getWindow().getPreferredHeight() - 300);
+			dialog.setPreferredWidth(600);
+
+			// set dialog title
+			dialog.setTitle("Patient hinzufügen");
 
 		} catch (IOException ex) {
 			LOGGER.error(ex);
