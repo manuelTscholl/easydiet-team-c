@@ -233,7 +233,9 @@ public class DietWeek {
 					TablePane.Row mealRow = new TablePane.Row();
 					TablePane.Filler filler = new TablePane.Filler();
 					mealRow.add(filler); // meal button
-					Label mealCode = new Label(m.getMealCodeData().getName());
+					Label mealCode = new Label(m.getMealCodeData().getName()
+							+ ": ");
+					mealCode.getStyles().put("font", "Arial bold 12");
 					mealRow.add(mealCode);
 
 					// recipes

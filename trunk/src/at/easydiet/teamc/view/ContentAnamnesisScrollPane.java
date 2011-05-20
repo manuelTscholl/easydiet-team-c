@@ -81,6 +81,7 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 
 							dialog.setContent(component);
 							dialog.open(getWindow());
+							dialog.setTitle("Laborbefund hinzufügen");
 
 							// set window height
 							dialog.setPreferredHeight(getPreferredHeight() - 80);
@@ -110,6 +111,7 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 													"bxml/teamb/easydiet_tab_patientStatus_create.bxml"));
 							dialog.setContent(component);
 							dialog.open(getWindow());
+							dialog.setTitle("Patientenstatus anlegen");
 							dialog.setPreferredHeight(getPreferredHeight() - 80);
 						} catch (IOException ex) {
 							LOGGER.error(ex);

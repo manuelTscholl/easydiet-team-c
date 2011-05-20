@@ -142,7 +142,13 @@ public class SearchResult {
 				bdayLabel.getStyles().put("font",
 						new Font("Verdana", Font.BOLD, 11));
 				SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-				Label bday = new Label(format.format(p.getBirthday()));
+
+				Label bday;
+				if (p.getBirthday() != null) {
+					bday = new Label(format.format(p.getBirthday()));
+				} else {
+					bday = new Label("n/a");
+				}
 				innerBdayTro.add(bdayLabel);
 				innerBdayTro.add(bday);
 				innerTp.getRows().add(innerBdayTro);
