@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="src.test"/>
-	<classpathentry kind="src" path="src.resources"/>
+	<classpathentry excluding="**/.svn/" kind="src" path="src"/>
+	<classpathentry excluding="**/.svn/" kind="src" path="src.test"/>
+	<classpathentry excluding="**/.svn/" kind="src" path="src.resources"/>
 	<classpathentry kind="lib" path="lib/pivot-charts-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/pivot-core-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/pivot-web-2.0.jar"/>
