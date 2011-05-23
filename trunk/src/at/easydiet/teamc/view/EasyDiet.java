@@ -30,6 +30,7 @@ public class EasyDiet implements Application {
 			.getLogger(EasyDiet.class);
 	private static final String sTITLE;
 	private static final String sMAIN_XML;
+	public static final String LANGUAGE_KEY = "language";
 
 	// instance variables
 	private GUIController _guiController;

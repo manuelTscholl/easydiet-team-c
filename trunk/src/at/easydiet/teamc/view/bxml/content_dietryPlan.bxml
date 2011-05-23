@@ -12,7 +12,7 @@ horizontalScrollBarPolicy="never" verticalScrollBarPolicy="auto"
     xmlns="org.apache.pivot.wtk">
         <columns>
             <TablePane.Column bxml:id="planColumn"/>
-            <TablePane.Column bxml:id="parameterColumn" width="200"/>
+            <TablePane.Column bxml:id="parameterColumn" width="250"/>
         </columns>
 
     </TablePane>

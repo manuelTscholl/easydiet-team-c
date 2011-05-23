@@ -320,11 +320,12 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 									}
 									currentparametervalue += (averageparametervalue / mlb
 											.getMealLines().size());
-								} else {
-									currentparametervalue += mlb.getRecipe()
-											.getNutrimentParameterValue(
-													nutrimentParameterBo);
 								}
+								// else {
+								// currentparametervalue += mlb.getRecipe()
+								// .getNutrimentParameterValue(
+								// nutrimentParameterBo);
+								// }
 							}
 						}
 
