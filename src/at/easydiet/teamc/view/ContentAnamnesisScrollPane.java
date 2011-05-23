@@ -15,6 +15,7 @@ import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.serialization.SerializationException;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
@@ -25,6 +26,8 @@ import org.apache.pivot.wtk.ScrollPane;
 import at.easydiet.teamb.application.handler.UseCaseManager;
 import at.easydiet.teamb.presentation.exception.NoPatientSelectedException;
 import at.easydiet.teamb.presentation.gui.tab.AbstractTab;
+import at.easydiet.teamb.presentation.gui.tab.LaborTab;
+import at.easydiet.teamb.presentation.gui.tab.PatientTab;
 import at.easydiet.teamc.model.data.PatientData;
 
 /**
@@ -48,6 +51,8 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 	private AbstractTab _laborview;
 	@BXML
 	private AbstractTab _patientStatusview;
+	@BXML
+	private BoxPane _pane;
 
 	/**
 	 * First called after creating the GUI
@@ -138,8 +143,31 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 	 */
 	public void reload() {
 		try {
+			_pane.remove(_laborview);
+			_pane.remove(_patientStatusview);
+
+			BXMLSerializer bxml = new BXMLSerializer();
+			try {
+				_laborview = (LaborTab) bxml
+						.readObject(ContentAnamnesisScrollPane.class
+								.getResource("bxml/teamb/easydiet_tab_labor.bxml"));
+				_patientStatusview = (PatientTab) bxml
+						.readObject(ContentAnamnesisScrollPane.class
+								.getResource("bxml/teamb/easydiet_tab_patientstatus.bxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SerializationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			_pane.add(_laborview);
+			_pane.add(_patientStatusview);
 			_laborview.display(UseCaseManager.getWindowHandler());
 			_patientStatusview.display(UseCaseManager.getWindowHandler());
+
+			setView(_pane);
 		} catch (NoPatientSelectedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
