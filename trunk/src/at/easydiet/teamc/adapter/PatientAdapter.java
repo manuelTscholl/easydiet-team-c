@@ -8,7 +8,7 @@ package at.easydiet.teamc.adapter;
 
 import java.util.GregorianCalendar;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import at.easydiet.model.Patient;
 import at.easydiet.teamb.application.viewobject.DietTreatmentViewable;
 import at.easydiet.teamb.application.viewobject.FamilyAnamnesisViewable;
@@ -87,7 +87,7 @@ public class PatientAdapter implements PatientViewable {
 	 */
 	@Override
 	public FamilyStatusEnum getFamilyStatus() {
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class PatientAdapter implements PatientViewable {
 	 */
 	@Override
 	public IllnessViewable[] getIllnesses() {
-		throw new NotImplementedException();
+throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class PatientAdapter implements PatientViewable {
 	 */
 	@Override
 	public FamilyAnamnesisViewable[] getFamilyanamnesis() {
-		throw new NotImplementedException();
+throw new UnsupportedOperationException();
 	}
 
 	/**
