@@ -1,5 +1,5 @@
 <tabPatientStatus:PatientStatusTab
- xmlns:bxml="http://pivot.apache.org/bxml"
+xmlns:bxml="http://pivot.apache.org/bxml"
  xmlns:content="org.apache.pivot.wtk.content"
  xmlns:tabPatientStatus="at.easydiet.teamb.presentation.gui.tab"
  xmlns="org.apache.pivot.wtk">
@@ -8,7 +8,7 @@
 	    <Form.Section heading="Alle Patientenstaten anzeigen">
 			
 			<!-- diet plan reports -->
-			<BoxPane bxml:id="_pane" styles="{padding:10, fill:true}" orientation="vertical" />		
+			<BoxPane bxml:id="_statusPane" styles="{padding:10, fill:true}" orientation="vertical" />		
 			<!-- end: diet plan reports -->
 			
 		</Form.Section>
