@@ -59,7 +59,6 @@ public class LaborTab extends AbstractLazyTab implements Bindable {
 	@Override
 	public void initialize(Map<String, Object> namespace, URL location,
 			Resources resources) {
-
 	}
 
 	@Override

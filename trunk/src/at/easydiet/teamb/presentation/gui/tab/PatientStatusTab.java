@@ -50,7 +50,7 @@ public class PatientStatusTab extends AbstractLazyTab implements Bindable {
 			.getLogger(PatientStatusTab.class);
 
 	@BXML
-	private BoxPane _pane;
+	private BoxPane _statusPane;
 	private ListBox<PatientStateViewable> _list;
 
 	/**
@@ -58,15 +58,6 @@ public class PatientStatusTab extends AbstractLazyTab implements Bindable {
 	 */
 	public PatientStatusTab() {
 		super();
-
-		_useCaseManager = UseCaseManager.getWindowHandler();
-
-		try {
-			display(_useCaseManager);
-		} catch (NoPatientSelectedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -183,6 +174,6 @@ public class PatientStatusTab extends AbstractLazyTab implements Bindable {
 			_list.addViewobject(state);
 		}
 
-		_pane.add(_list);
+		_statusPane.add(_list);
 	}
 }

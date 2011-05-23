@@ -27,6 +27,7 @@ import at.easydiet.teamb.application.handler.UseCaseManager;
 import at.easydiet.teamb.presentation.exception.NoPatientSelectedException;
 import at.easydiet.teamb.presentation.gui.tab.AbstractTab;
 import at.easydiet.teamb.presentation.gui.tab.LaborTab;
+import at.easydiet.teamb.presentation.gui.tab.PatientStatusTab;
 import at.easydiet.teamc.model.data.PatientData;
 
 /**
@@ -51,7 +52,7 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 	@BXML
 	private AbstractTab _patientStatusview;
 	@BXML
-	private BoxPane _pane;
+	private BoxPane _boxpane;
 
 	/**
 	 * First called after creating the GUI
@@ -142,17 +143,16 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 	 */
 	public void reload() {
 		// try {
-		_pane.removeAll();
-		// _pane.remove(_patientStatusview);
+		_boxpane.removeAll();
 
 		BXMLSerializer bxml = new BXMLSerializer();
 		try {
 			_laborview = (LaborTab) bxml
 					.readObject(ContentAnamnesisScrollPane.class
 							.getResource("bxml/teamb/easydiet_tab_labor.bxml"));
-			// _patientStatusview = (PatientStatusTab) bxml
-			// .readObject(ContentAnamnesisScrollPane.class
-			// .getResource("bxml/teamb/easydiet_tab_patientstatus.bxml"));
+			_patientStatusview = (PatientStatusTab) bxml
+					.readObject(ContentAnamnesisScrollPane.class
+							.getResource("bxml/teamb/easydiet_tab_patientstatus.bxml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -161,12 +161,13 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 			e.printStackTrace();
 		}
 
-		_pane.add(_laborview);
-		_pane.add(_addLaborReportButton);
-		_pane.add(_patientStatusview);
-		_pane.add(_addPatientStatusButton);
+		_boxpane.add(_laborview);
+		_boxpane.add(_addLaborReportButton);
+		_boxpane.add(_patientStatusview);
+		_boxpane.add(_addPatientStatusButton);
 		try {
 			_laborview.display(UseCaseManager.getWindowHandler());
+			_patientStatusview.display(UseCaseManager.getWindowHandler());
 		} catch (NoPatientSelectedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -175,7 +176,7 @@ public class ContentAnamnesisScrollPane extends ScrollPane implements Bindable,
 		// _laborview.display(UseCaseManager.getWindowHandler());
 		// _patientStatusview.display(UseCaseManager.getWindowHandler());
 
-		setView(_pane);
+		setView(_boxpane);
 		// } catch (NoPatientSelectedException e) {
 		// // TODO Auto-generated catch block
 		// e.printStackTrace();

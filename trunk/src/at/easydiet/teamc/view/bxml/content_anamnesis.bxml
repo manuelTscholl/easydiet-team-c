@@ -4,7 +4,7 @@
     xmlns:bxml="http://pivot.apache.org/bxml"
     xmlns:easyDiet="at.easydiet.teamc.view"
     xmlns="org.apache.pivot.wtk" styles="{backgroundColor:'#EBEDEF'}">
-    <BoxPane bxml:id="_pane" orientation="vertical">
+    <BoxPane bxml:id="_boxpane" orientation="vertical">
     <bxml:include bxml:id="_laborview" src="teamb/easydiet_tab_labor.bxml"/>
     <PushButton bxml:id="_addLaborReportButton" buttonData="Report hinzufügen"></PushButton>
     <bxml:include bxml:id="_patientStatusview" src="teamb/easydiet_tab_patientstatus.bxml"/>
