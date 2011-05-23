@@ -47,7 +47,10 @@ public class ParameterDefinitionUnitBo implements java.io.Serializable,
 	 * @return the parameterDefinitionUnitId currently set for this instance.
 	 */
 	public long getParameterDefinitionUnitId() {
+	    if(this.getParameterDefinitionUnit()!=null)
 		return this.getParameterDefinitionUnit().getParameterDefinitionUnitId();
+	    
+	    return 0;
 	}
 
 	/**
@@ -68,7 +71,12 @@ public class ParameterDefinitionUnitBo implements java.io.Serializable,
 	 */
 	@Override
 	public String getName() {
+	    
+	    //Attention ParameterDefinitionUnit is a nullable propertie
+	    if(this.getParameterDefinitionUnit()!=null)
 		return this.getParameterDefinitionUnit().getName();
+	    
+	    return "";
 	}
 
 	/**
