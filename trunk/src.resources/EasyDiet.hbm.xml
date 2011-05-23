@@ -169,7 +169,7 @@
 		<property name="checkPattern" column="CheckPattern" type="string" />	
         
         <!-- No lazy loading, we will need units always -->
-        <set name="units" table="ParameterDefinitionUnits" lazy="true" fetch="subselect">
+        <set name="units" table="ParameterDefinitionUnits" lazy="true">
 			<key column="ParameterDefinitionId" not-null="true" />
 			<many-to-many class="ParameterDefinitionUnit" column="ParameterDefinitionUnitId" />
 		</set>        
@@ -217,7 +217,7 @@
 			<many-to-many class="PatientState" column="PatientStateId"/>
 		</set>
 		
-		<set name="systemUsers" lazy="true" cascade="all,delete-orphan">
+		<set name="systemUsers" lazy="true">
 			<key column="DietTreatmentId" not-null="true" />
 			<one-to-many class="DietTreatmentSystemUser" />
 		</set>
@@ -385,14 +385,14 @@
 		<property name="amount" column="Amount" type="float" />
 		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" />
 
-		<set name="ingredients" inverse="true" lazy="true" cascade="all,delete-orphan" fetch="join">
+		<set name="ingredients" inverse="true" lazy="true" cascade="all,delete-orphan" >
 			<key column="RecipeId" not-null="true" />
 			<one-to-many class="RecipeIngredient" />
 		</set>
 
-		<set name="nutrimentParameters" lazy="true" cascade="all,delete-orphan" fetch="join">
+		<set name="nutrimentParameters" lazy="true" cascade="all,delete-orphan" >
 			<key column="RecipeId" not-null="true" />
-			<one-to-many class="NutrimentParameter"/>
+			<one-to-many class="NutrimentParameter" />
 		</set>
 	</class>
 	
@@ -417,7 +417,7 @@
 		</id>
 		<property name="value" column="Value" type="string" not-null="true" />
 
-		<many-to-one name="parameterDefinition" column="ParameterDefinitionId" class="ParameterDefinition" not-null="true" />
+		<many-to-one name="parameterDefinition" column="ParameterDefinitionId" class="ParameterDefinition" not-null="true"/>
 		<many-to-one name="unit" column="ParameterDefinitionUnitId" class="ParameterDefinitionUnit" />
 	</class>
 
