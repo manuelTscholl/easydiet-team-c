@@ -46,7 +46,7 @@ xmlns="org.apache.pivot.wtk">
 				<component:NullableTextInput bxml:id="_jobTextInput" prompt="Job" textSize="31"/>
 			</BoxPane>
 			<BoxPane Form.label="Geburtstag">
-				<CalendarButton bxml:id="_birthdayCalendarButton" />
+				<CalendarButton bxml:id="_birthdayCalendarButton"/>
 			</BoxPane>
 			<BoxPane Form.label="SV-Nr.">
 				<component:NullableTextInput bxml:id="_insuranceNumberTextInput" prompt="nnnnTTMMJJ" textSize="15"/>

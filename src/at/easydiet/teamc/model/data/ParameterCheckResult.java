@@ -1,5 +1,6 @@
 package at.easydiet.teamc.model.data;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -24,6 +25,9 @@ public class ParameterCheckResult {
 	 * @param toadd the toadd
 	 */
 	public void addDietParameter(DietParameterData toadd) {
+		if (_dietParameterData == null) {
+			_dietParameterData = new HashSet<DietParameterData>();
+		}
 		_dietParameterData.add(toadd);
 	}
 
