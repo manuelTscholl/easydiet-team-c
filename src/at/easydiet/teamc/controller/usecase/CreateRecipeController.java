@@ -208,7 +208,7 @@ public class CreateRecipeController
             double preperationTime, int difficulty)
     {
         _currentRecipe.setName(recipeName);
-        _currentRecipe.setCookInstructions(ClobConverter.StringToClob(preparation+"\n Zubereitungszeit:"+preperationTime));
+        _currentRecipe.setCookInstructions(ClobConverter.StringToClob(preparation+"\n Zubereitungszeit:"+preperationTime+" Stunden"));
         _currentRecipe.setDescription(ClobConverter.StringToClob(description));
         _currentRecipe.setDifficulty(difficulty);
         _currentRecipe.setBlsCode("Z100000");        
