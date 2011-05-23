@@ -7,6 +7,7 @@
 package at.easydiet.teamc.view;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.collections.Map;
@@ -50,6 +51,7 @@ public class EasyDiet implements Application {
 	 */
 	public void startup(Display display, Map<String, String> properties)
 			throws Exception {
+		Locale.setDefault(Locale.ENGLISH);
 
 		// Load the Pivot window
 		BXMLSerializer bxmlSerializer = new BXMLSerializer();

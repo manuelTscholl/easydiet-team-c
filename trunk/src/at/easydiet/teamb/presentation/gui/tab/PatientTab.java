@@ -59,7 +59,6 @@ import at.easydiet.teamb.presentation.exception.NoPatientSelectedException;
 import at.easydiet.teamb.presentation.gui.AbstractLazyTab;
 import at.easydiet.teamb.presentation.util.Message;
 import at.easydiet.teamb.presentation.util.MessageType;
-import at.easydiet.teamb.view.PatientLikeManagementView;
 
 /**
  * @author TeamB
@@ -100,8 +99,6 @@ public class PatientTab extends AbstractLazyTab implements Bindable,
 	private ListButton _familyStateListButton = null;
 	@BXML
 	private Border _illnessesBorder = null;
-	@BXML
-	private PatientLikeManagementView _patientLike = null;
 	@BXML
 	private PushButton _save = null;
 
