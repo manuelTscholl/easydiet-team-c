@@ -59,7 +59,7 @@
 								headerData="Operator" width="55" />
 							<TableView.Column name="value" headerData="Wert"
 								width="60" />
-							<TableView.Column name="actualGram" headerData="Gesamt in g"
+							<TableView.Column name="actualGram" headerData="Gesamt"
 								width="100" />
 							<TableView.Column name="error" width="25">
 								<cellRenderer>

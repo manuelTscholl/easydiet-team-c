@@ -171,6 +171,7 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 						// validate inputs
 						if (validateTextInputs() && validateTextAreas()
 								&& validateParameters()) {
+							setCursor(getCursor().WAIT);
 							GUIController
 									.getInstance()
 									.saveRecipe(
@@ -188,7 +189,13 @@ public class AddRecipeScrollPane extends ScrollPane implements Bindable {
 									"Das Rezept wurde erfolgreich gespeichert",
 									null);
 							success.open(getWindow());
+							getWindow().close();
+
+							setCursor(getCursor().DEFAULT);
+
 						} else {
+							setCursor(getCursor().DEFAULT);
+
 							Prompt error = new Prompt(
 									MessageType.WARNING,
 									"Das Rezept konnte nicht gespeichert werden",
