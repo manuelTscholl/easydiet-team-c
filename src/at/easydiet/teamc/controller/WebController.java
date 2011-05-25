@@ -6,10 +6,15 @@
  */
 package at.easydiet.teamc.controller;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+
 /**
  * 
  * @author Michael
  */
+@ManagedBean
+@ApplicationScoped
 public class WebController {
 
 	// class variables
