@@ -83,4 +83,11 @@ public class CreateNutritionProtocolController {
 		return _recipes;
 	}
 
+	/**
+	 * Save the protocol
+	 */
+	public void save() {
+		// TODO implement
+	}
+
 }
