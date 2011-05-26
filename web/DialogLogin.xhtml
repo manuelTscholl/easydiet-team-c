@@ -15,12 +15,11 @@
             <h:form>
                 <h:panelGrid columns="2" cellspacing="5">
                     <h:outputLabel for="username" value="Username *"/>
-                    <p:inputText id="username" value="#{webController}" required="true" label="username"/>
-
+                    <p:inputText id="username" value="#{webController.userName}" required="true" label="username"/>
                     <h:outputLabel for="username" value="Passwort *" />
-                    <h:inputSecret id="passwort" value="#{webController}" required="true" label="passwort"/>
+                    <h:inputSecret id="passwort" value="#{webController.passwort}" required="true" label="passwort"/>
                     <f:facet name="footer">
-                        <p:commandButton value="Login" update="growl" actionListener="#{webController.loginPatient(username, password)}"/>
+                        <p:commandButton value="Login" update="growl" actionListener="#{webController.loginPatient}"/>
                     </f:facet>
                 </h:panelGrid>
             </h:form>
