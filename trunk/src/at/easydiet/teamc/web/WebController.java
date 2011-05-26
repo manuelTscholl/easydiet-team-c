@@ -6,6 +6,9 @@
  */
 package at.easydiet.teamc.web;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -14,6 +17,9 @@ import org.primefaces.context.RequestContext;
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
 import at.easydiet.teamc.model.PatientBo;
+import at.easydiet.teamc.model.data.MealCodeData;
+import at.easydiet.teamc.model.data.PlanTypeData;
+import at.easydiet.teamc.model.data.RecipeData;
 
 /**
  * Main entry point for web modules This controller is unique for each session
@@ -99,5 +105,39 @@ public class WebController {
 	 */
 	public void setPassword(String password) {
 		_password = password;
+	}
+
+	/**
+	 * Gets the plan types.
+	 * 
+	 * @return the plan types
+	 */
+	public List<PlanTypeData> getPlanTypes() {
+		return _protocolController.getPlanTypes();
+	}
+
+	/**
+	 * Gets the meal codes.
+	 * 
+	 * @return the meal codes
+	 */
+	public Set<MealCodeData> getMealCodes() {
+		return _protocolController.getMealCodes();
+	}
+
+	/**
+	 * Gets the recipes.
+	 * 
+	 * @return the recipes
+	 */
+	public List<RecipeData> getRecipes() {
+		return _protocolController.getRecipes();
+	}
+
+	/**
+	 * Save the nutrition protocol
+	 */
+	public void saveNutritionProtocol() {
+		_protocolController.save();
 	}
 }
