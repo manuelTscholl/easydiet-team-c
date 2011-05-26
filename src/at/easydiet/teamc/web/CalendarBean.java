@@ -2,16 +2,19 @@ package at.easydiet.teamc.web;
 
 import java.util.Date;
 
-import org.primefaces.event.DateSelectEvent;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
+@ManagedBean
+@SessionScoped
 public class CalendarBean {
 
 	private Date date1;
-	
+
 	private Date date2;
-	
+
 	private Date date3;
-	
+
 	public Date getDate1() {
 		return date1;
 	}
@@ -27,7 +30,7 @@ public class CalendarBean {
 	public void setDate2(Date date2) {
 		this.date2 = date2;
 	}
-	
+
 	public Date getDate3() {
 		return date3;
 	}
@@ -36,4 +39,3 @@ public class CalendarBean {
 		this.date3 = date3;
 	}
 }
-					
