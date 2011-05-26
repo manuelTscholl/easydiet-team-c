@@ -13,7 +13,7 @@ import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
 import at.easydiet.teamc.model.PatientBo;
 
 /**
- * 
+ * Main entry point for web modules
  * @author Michael
  */
 @ManagedBean
