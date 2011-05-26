@@ -11,6 +11,7 @@ import java.util.List;
 import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.SystemUserDAO;
 import at.easydiet.model.SystemUser;
+import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.SystemUserBo;
 
 /**
@@ -61,6 +62,16 @@ public class LoginController {
 	 */
 	public void setActualUser(SystemUserBo actualUser) {
 		_actualUser = actualUser;
+	}
+
+	/**
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	public PatientBo loginPatient(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
