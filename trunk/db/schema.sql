@@ -27,7 +27,7 @@
 
     create table DietParameterSet (
         DietParameterSetId bigint not null auto_increment,
-        Name varchar(255) not null,
+        Name varchar(255) not null unique,
         primary key (DietParameterSetId)
     );
 
@@ -39,7 +39,7 @@
         ParameterDefinitionUnitId bigint not null,
         DietParameterType varchar(255) not null,
         ParameterDefinitionId bigint not null,
-        DietParameterSetId bigint not null,
+        DietParameterSetId bigint,
         primary key (DietParameterTemplateId)
     );
 
@@ -53,8 +53,8 @@
         Name varchar(255) not null,
         CreatedOn datetime not null,
         PlanType varchar(255) not null,
+        DietTreatmentId bigint not null,
         Creator bigint not null,
-        DietTreatmentId bigint,
         primary key (DietPlanId)
     );
 
@@ -69,8 +69,9 @@
         Start datetime not null,
         Duration integer not null,
         Name varchar(255) not null,
+        ShortDescription varchar(255),
         TreatmentState varchar(255) not null,
-        PatientId bigint,
+        PatientId bigint not null,
         primary key (DietTreatmentId)
     );
 
@@ -82,12 +83,12 @@
 
     create table DietTreatmentPatientState (
         DietTreatmentId bigint not null,
-        DietParameterId bigint not null unique,
-        primary key (DietTreatmentId, DietParameterId)
+        PatientStateId bigint not null,
+        primary key (PatientStateId, DietTreatmentId)
     );
 
     create table DietTreatmentSystemUser (
-        DietTreatmentSystemUserId integer not null auto_increment,
+        DietTreatmentSystemUserId bigint not null auto_increment,
         SystemUserId bigint not null,
         Function varchar(255) not null,
         DietTreatmentId bigint not null,
@@ -101,9 +102,15 @@
         primary key (FamilyAnamnesisId)
     );
 
-    create table FamilyAnamnesisIllnesses (
+    create table FamilyAnamnesisIllness (
         FamilyAnamnesisId bigint not null,
-        Illness varchar(255)
+        IllnessId bigint not null,
+        primary key (FamilyAnamnesisId, IllnessId)
+    );
+
+    create table FamilyStatus (
+        Status varchar(255) not null,
+        primary key (Status)
     );
 
     create table Gender (
@@ -111,19 +118,42 @@
         primary key (Name)
     );
 
+    create table Illness (
+        IllnessId bigint not null auto_increment,
+        Name varchar(255) not null,
+        primary key (IllnessId)
+    );
+
+    create table LaborParameter (
+        LaborParameterId bigint not null auto_increment,
+        Value varchar(255) not null,
+        ParameterDefinitionUnitId bigint not null,
+        CheckOperatorId varchar(255) not null,
+        ParameterDefinitionId bigint not null,
+        LaborReportId bigint,
+        primary key (LaborParameterId)
+    );
+
     create table LaborReport (
         LaborReportId bigint not null auto_increment,
         Date datetime not null,
         Notice longtext,
         Creator bigint not null,
+        LaborReportTypeId bigint,
         PatientId bigint not null,
         primary key (LaborReportId)
     );
 
-    create table LaborReportDietParameter (
-        LaborReportId bigint not null,
-        DietParameterId bigint not null unique,
-        primary key (LaborReportId, DietParameterId)
+    create table LaborReportType (
+        LaborReportTypeId bigint not null auto_increment,
+        Name varchar(255) not null,
+        primary key (LaborReportTypeId)
+    );
+
+    create table LaborReportTypeParameterDefinition (
+        LaborReportTypeId bigint not null,
+        ParameterDefinitionId bigint not null unique,
+        primary key (LaborReportTypeId, ParameterDefinitionId)
     );
 
     create table Meal (
@@ -131,6 +161,7 @@
         Code varchar(255) not null,
         Name varchar(255) not null,
         TimeSpanId bigint not null,
+        Idx integer,
         primary key (MealId)
     );
 
@@ -145,8 +176,10 @@
         Quantity float not null,
         Info longtext,
         recipe bigint not null,
+        unit bigint not null,
+        ParentMealLineId bigint,
         MealId bigint not null,
-        ParentMealLineId bigint not null,
+        Idx integer,
         primary key (MealLineId)
     );
 
@@ -154,7 +187,7 @@
         NutrimentParameterId bigint not null auto_increment,
         Value varchar(255) not null,
         ParameterDefinitionId bigint not null,
-        ParameterDefinitionUnitId bigint not null,
+        ParameterDefinitionUnitId bigint,
         RecipeId bigint not null,
         primary key (NutrimentParameterId)
     );
@@ -195,32 +228,45 @@
 
     create table Patient (
         PatientId bigint not null auto_increment,
-        InsuranceNumber varchar(255) not null unique,
+        InsuranceNumber varchar(255),
         Forename varchar(255) not null,
         Lastname varchar(255) not null,
-        Title varchar(255) not null,
-        Street varchar(255) not null,
-        Zip varchar(255) not null,
-        Place varchar(255) not null,
-        Country varchar(255) not null,
-        Birthday datetime not null,
+        Username varchar(255),
+        Password varchar(255),
+        Title varchar(255),
+        Street varchar(255),
+        Zip varchar(255),
+        Place varchar(255),
+        Country varchar(255),
+        Birthday datetime,
         Job varchar(255),
         Religion varchar(255),
-        Regime varchar(255),
+        Regime longtext,
         Notice longtext,
         Gender varchar(255) not null,
+        FamilyStatus varchar(255),
         primary key (PatientId)
     );
 
-    create table PatientDisfavors (
+    create table PatientIllness (
         PatientId bigint not null,
-        RecipeId bigint not null,
-        primary key (PatientId, RecipeId)
+        IllnessId bigint not null,
+        primary key (PatientId, IllnessId)
     );
 
-    create table PatientIllnesses (
+    create table PatientLike (
+        PatientLikeId bigint not null auto_increment,
         PatientId bigint not null,
-        Illness varchar(255)
+        BlsPattern varchar(255) not null,
+        Grade bigint not null,
+        Notice varchar(255),
+        primary key (PatientLikeId)
+    );
+
+    create table PatientLikeGrade (
+        PatientLikeGradeId bigint not null,
+        Name varchar(255) not null,
+        primary key (PatientLikeGradeId)
     );
 
     create table PatientState (
@@ -438,9 +484,9 @@
         references DietTreatment (DietTreatmentId);
 
     alter table DietTreatmentPatientState 
-        add index FK9CB64170F264F81E (DietParameterId), 
-        add constraint FK9CB64170F264F81E 
-        foreign key (DietParameterId) 
+        add index FK9CB64170C53650D5 (PatientStateId), 
+        add constraint FK9CB64170C53650D5 
+        foreign key (PatientStateId) 
         references PatientState (PatientStateId);
 
     alter table DietTreatmentSystemUser 
@@ -467,11 +513,47 @@
         foreign key (PatientId) 
         references Patient (PatientId);
 
-    alter table FamilyAnamnesisIllnesses 
-        add index FK49219D05F40A20CB (FamilyAnamnesisId), 
-        add constraint FK49219D05F40A20CB 
+    alter table FamilyAnamnesisIllness 
+        add index FKB427BA17F40A20CB (FamilyAnamnesisId), 
+        add constraint FKB427BA17F40A20CB 
         foreign key (FamilyAnamnesisId) 
         references FamilyAnamnesis (FamilyAnamnesisId);
+
+    alter table FamilyAnamnesisIllness 
+        add index FKB427BA1711924959 (IllnessId), 
+        add constraint FKB427BA1711924959 
+        foreign key (IllnessId) 
+        references Illness (IllnessId);
+
+    alter table LaborParameter 
+        add index FKA34D557937BC9541 (LaborReportId), 
+        add constraint FKA34D557937BC9541 
+        foreign key (LaborReportId) 
+        references LaborReport (LaborReportId);
+
+    alter table LaborParameter 
+        add index FKA34D55796E3C21F1 (ParameterDefinitionId), 
+        add constraint FKA34D55796E3C21F1 
+        foreign key (ParameterDefinitionId) 
+        references ParameterDefinition (ParameterDefinitionId);
+
+    alter table LaborParameter 
+        add index FKA34D55793591AC51 (CheckOperatorId), 
+        add constraint FKA34D55793591AC51 
+        foreign key (CheckOperatorId) 
+        references CheckOperator (Name);
+
+    alter table LaborParameter 
+        add index FKA34D5579E3E89D19 (ParameterDefinitionUnitId), 
+        add constraint FKA34D5579E3E89D19 
+        foreign key (ParameterDefinitionUnitId) 
+        references ParameterDefinitionUnit (ParameterDefinitionUnitId);
+
+    alter table LaborReport 
+        add index FKB0C585644547BE55 (LaborReportTypeId), 
+        add constraint FKB0C585644547BE55 
+        foreign key (LaborReportTypeId) 
+        references LaborReportType (LaborReportTypeId);
 
     alter table LaborReport 
         add index FKB0C58564A7608723 (PatientId), 
@@ -485,17 +567,17 @@
         foreign key (Creator) 
         references SystemUser (SystemUserId);
 
-    alter table LaborReportDietParameter 
-        add index FKC9DA871137BC9541 (LaborReportId), 
-        add constraint FKC9DA871137BC9541 
-        foreign key (LaborReportId) 
-        references LaborReport (LaborReportId);
+    alter table LaborReportTypeParameterDefinition 
+        add index FK7CB4F23E4547BE55 (LaborReportTypeId), 
+        add constraint FK7CB4F23E4547BE55 
+        foreign key (LaborReportTypeId) 
+        references LaborReportType (LaborReportTypeId);
 
-    alter table LaborReportDietParameter 
-        add index FKC9DA8711444512E3 (DietParameterId), 
-        add constraint FKC9DA8711444512E3 
-        foreign key (DietParameterId) 
-        references DietParameter (DietParameterTemplateId);
+    alter table LaborReportTypeParameterDefinition 
+        add index FK7CB4F23E6E3C21F1 (ParameterDefinitionId), 
+        add constraint FK7CB4F23E6E3C21F1 
+        foreign key (ParameterDefinitionId) 
+        references ParameterDefinition (ParameterDefinitionId);
 
     alter table Meal 
         add index FK2487E35FB4052B (TimeSpanId), 
@@ -520,6 +602,12 @@
         add constraint FKC92C02776ED73A1E 
         foreign key (recipe) 
         references Recipe (RecipeId);
+
+    alter table MealLine 
+        add index FKC92C02774DA9F442 (unit), 
+        add constraint FKC92C02774DA9F442 
+        foreign key (unit) 
+        references ParameterDefinitionUnit (ParameterDefinitionUnitId);
 
     alter table MealLine 
         add index FKC92C02775992B695 (ParentMealLineId), 
@@ -587,23 +675,35 @@
         foreign key (Gender) 
         references Gender (Name);
 
-    alter table PatientDisfavors 
-        add index FKDF29FA9EA7608723 (PatientId), 
-        add constraint FKDF29FA9EA7608723 
+    alter table Patient 
+        add index FK340C82E527DED24E (FamilyStatus), 
+        add constraint FK340C82E527DED24E 
+        foreign key (FamilyStatus) 
+        references FamilyStatus (Status);
+
+    alter table PatientIllness 
+        add index FK7FC21EDBA7608723 (PatientId), 
+        add constraint FK7FC21EDBA7608723 
         foreign key (PatientId) 
         references Patient (PatientId);
 
-    alter table PatientDisfavors 
-        add index FKDF29FA9E76981BB9 (RecipeId), 
-        add constraint FKDF29FA9E76981BB9 
-        foreign key (RecipeId) 
-        references Recipe (RecipeId);
+    alter table PatientIllness 
+        add index FK7FC21EDB11924959 (IllnessId), 
+        add constraint FK7FC21EDB11924959 
+        foreign key (IllnessId) 
+        references Illness (IllnessId);
 
-    alter table PatientIllnesses 
-        add index FK97B5E0C9A7608723 (PatientId), 
-        add constraint FK97B5E0C9A7608723 
+    alter table PatientLike 
+        add index FK82BAAC1CA7608723 (PatientId), 
+        add constraint FK82BAAC1CA7608723 
         foreign key (PatientId) 
         references Patient (PatientId);
+
+    alter table PatientLike 
+        add index FK82BAAC1C2800554 (Grade), 
+        add constraint FK82BAAC1C2800554 
+        foreign key (Grade) 
+        references PatientLikeGrade (PatientLikeGradeId);
 
     alter table PatientState 
         add index FKD50258ACBFC865B1 (SystemUserId), 
