@@ -103,7 +103,7 @@ public class PatientDAO extends GenericHibernateDAO<Patient, Long> {
 		Patient user = new Patient();
 		user.setUsername(username);
 		Example userSearch = Example.create(user).excludeZeroes().ignoreCase()
-				.enableLike(MatchMode.ANYWHERE);
+				.enableLike(MatchMode.EXACT);
 
 		// search
 		Patient result = (Patient) getSession().createCriteria(Patient.class)
