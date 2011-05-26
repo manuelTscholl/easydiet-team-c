@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.prime.com.tr/ui"
-      template="../templates/ui.xhtml">
+      xmlns:p="http://primefaces.prime.com.tr/ui">
       
     <h:head>
         <title>EasyDiet</title>
@@ -15,13 +14,12 @@
         <p:growl id="growl" showDetail="true" life="3000"/>
             <h:form>
                 <h:panelGrid columns="2" cellspacing="5">
-                    <h:outputLabel value="Username *"/>
-                    <p:inputText id="username" required="true" label="username"/>
-
-                    <h:outputLabel value="Passwort *" />
-                    <h:inputSecret id="passwort" required="true" label="passwort"/>
+                    <h:outputLabel for="username" value="Username *"/>
+                    <p:inputText id="username" value="#{webController.userName}" required="true" label="username"/>
+                    <h:outputLabel for="username" value="Passwort *" />
+                    <h:inputSecret id="passwort" value="#{webController.passwort}" required="true" label="passwort"/>
                     <f:facet name="footer">
-                        <p:commandButton value="Login" update="growl" actionListener="#{webController}"/>
+                        <p:commandButton value="Login" update="growl" actionListener="#{webController.loginPatient}"/>
                     </f:facet>
                 </h:panelGrid>
             </h:form>
