@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<h:head>
+	<title>EasyDiet Weblogin</title>
+	<script type="text/javascript">
+		function handleLoginRequest(xhr, status, args) {
+			if (!args.validationFailed || args.loggedIn) {
+				window.location.replace("index.jsf");
+			}
+		}
+	</script>
+</h:head>
+<h:body>
+	<h:form>
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel for="username" value="Username: *" />
+			<p:inputText value="#{webController.username}" id="username"
+				required="true" label="username" />
+
+			<h:outputLabel for="password" value="Password: * " />
+			<h:inputSecret value="#{webController.password}" id="password"
+				required="true" label="password" />
+
+			<f:facet name="footer">
+				<p:commandButton value="Login"
+					actionListener="#{webController.loginPatient()}"
+					oncomplete="handleLoginRequest(xhr, status, args)" />
+			</f:facet>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
+
