@@ -246,7 +246,6 @@ public class SearchPatientController extends Event<EventArgs> implements
 	 * @return patient with this username
 	 */
 	public PatientBo loginPatient(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return DatabaseController.getInstance().getPatientByUsername(username);
 	}
 }

@@ -76,9 +76,12 @@ public class LoginController {
 		PatientBo user = SearchPatientController.getInstance().loginPatient(
 				username);
 
-		// check for correct password
-		if (user.getPassword().equals(password)) {
-			return user;
+		if (user != null) {
+
+			// check for correct password
+			if (user.getPassword().equals(password)) {
+				return user;
+			}
 		}
 
 		return null;

@@ -9,6 +9,8 @@ package at.easydiet.teamc.web;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.context.RequestContext;
+
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
 import at.easydiet.teamc.model.PatientBo;
@@ -27,8 +29,9 @@ public class WebController {
 
 	// instance variables
 	private PatientBo _loggedInUser;
-	private String _username;
-	private String _password;
+	private String _username = "";
+	private String _password = "";
+	private boolean _loggedIn = false;
 	private CreateNutritionProtocolController _protocolController;
 
 	/**
@@ -36,14 +39,23 @@ public class WebController {
 	 * @username Login name
 	 * @password User password
 	 */
-	public boolean loginPatient() {
-		_loggedInUser = LoginController.getInstance().loginPatient(_username,
-				_password);
+	public void loginPatient() {
 
-		if (_loggedInUser != null) {
-			return true;
+		// check if name is set
+		if (_username != null && !_username.equals("") && _password != null
+				&& !_password.equals("")) {
+			_loggedInUser = LoginController.getInstance().loginPatient(
+					_username, _password);
+
+			if (_loggedInUser != null) {
+				_loggedIn = true;
+			} else {
+				_loggedIn = false;
+			}
 		}
-		return false;
+
+		RequestContext context = RequestContext.getCurrentInstance();
+		context.addCallbackParam("loggedIn", _loggedIn);
 	}
 
 	/**
