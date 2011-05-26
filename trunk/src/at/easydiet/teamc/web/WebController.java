@@ -62,14 +62,29 @@ public class WebController {
 		return _username;
 	}
 
+	/**
+	 * Sets the username.
+	 * 
+	 * @param username the new username
+	 */
 	public void setUsername(String username) {
 		_username = username;
 	}
 
+	/**
+	 * Gets the password.
+	 * 
+	 * @return the password
+	 */
 	public String getPassword() {
 		return _password;
 	}
 
+	/**
+	 * Sets the password.
+	 * 
+	 * @param password the new password
+	 */
 	public void setPassword(String password) {
 		_password = password;
 	}
