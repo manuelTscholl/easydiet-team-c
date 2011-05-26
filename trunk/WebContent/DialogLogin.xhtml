@@ -21,7 +21,7 @@
                     <h:outputLabel value="Passwort *" />
                     <h:inputSecret id="passwort" required="true" label="passwort"/>
                     <f:facet name="footer">
-                        <p:commandButton value="Login" update="growl" actionListener="#{webController.loginPatient(username, password)}"/>
+                        <p:commandButton value="Login" update="growl" actionListener="#{webController}"/>
                     </f:facet>
                 </h:panelGrid>
             </h:form>
