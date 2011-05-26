@@ -36,8 +36,9 @@ public class CreateNutritionProtocolController {
 	 * Instantiates a new creates the nutrition protocol controller.
 	 */
 	public CreateNutritionProtocolController() {
+		_actualProtocol = new NutritionProtocolBo();
 
-		// init necessary protocol data
+		// load necessary protocol data
 		_planTypes = BusinessLogicDelegationController.getInstance()
 				.getAllPlanTypes();
 		_mealCodes = BusinessLogicDelegationController.getInstance()
