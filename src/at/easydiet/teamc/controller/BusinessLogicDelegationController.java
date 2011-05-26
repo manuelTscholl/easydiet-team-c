@@ -29,7 +29,6 @@ import at.easydiet.teamc.exception.NutrimentRuleException;
 import at.easydiet.teamc.exception.TimeIntersectionException;
 import at.easydiet.teamc.model.DietParameterBo;
 import at.easydiet.teamc.model.PatientBo;
-import at.easydiet.teamc.model.PlanTypeBo;
 import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.SystemUserBo;
 import at.easydiet.teamc.model.data.CheckOperatorData;
@@ -42,6 +41,7 @@ import at.easydiet.teamc.model.data.NutrimentParameterRuleData;
 import at.easydiet.teamc.model.data.ParameterDefinitionData;
 import at.easydiet.teamc.model.data.ParameterDefinitionUnitData;
 import at.easydiet.teamc.model.data.PatientData;
+import at.easydiet.teamc.model.data.PlanTypeData;
 import at.easydiet.teamc.model.data.RecipeData;
 import at.easydiet.teamc.model.data.ValidatedRecipeVo;
 import at.easydiet.teamc.util.EventArgs;
@@ -420,19 +420,9 @@ public class BusinessLogicDelegationController {
 	}
 
 	/**
-	 * @param username
-	 * @param password
 	 * @return
 	 */
-	public PatientBo loginPatient(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * @return
-	 */
-	public List<PlanTypeBo> getAllPlanTypes() {
+	public List<PlanTypeData> getAllPlanTypes() {
 		// TODO Auto-generated method stub
 		return null;
 	}

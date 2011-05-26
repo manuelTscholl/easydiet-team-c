@@ -11,6 +11,7 @@ import java.util.List;
 import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.SystemUserDAO;
 import at.easydiet.model.SystemUser;
+import at.easydiet.teamc.controller.usecase.SearchPatientController;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.SystemUserBo;
 
@@ -65,12 +66,21 @@ public class LoginController {
 	}
 
 	/**
-	 * @param username
-	 * @param password
-	 * @return
+	 * Login a patient
+	 * @param username of the patient
+	 * @param password of the patient
+	 * @return Logged in patient or null if no patient whit this login
+	 *         informations is found
 	 */
 	public PatientBo loginPatient(String username, String password) {
-		// TODO Auto-generated method stub
+		PatientBo user = SearchPatientController.getInstance().loginPatient(
+				username);
+
+		// check for correct password
+		if (user.getPassword().equals(password)) {
+			return user;
+		}
+
 		return null;
 	}
 
