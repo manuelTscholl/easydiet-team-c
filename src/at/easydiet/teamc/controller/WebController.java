@@ -27,15 +27,17 @@ public class WebController {
 	// instance variables
 	private PatientBo _loggedInUser;
 	private CreateNutritionProtocolController _protocolController;
+	private String _username;
+	private String _passwort;
+
 
 	/**
 	 * Login a patient
 	 * @username Login name
 	 * @password User password
 	 */
-	public boolean loginPatient(String username, String password) {
-		_loggedInUser = LoginController.getInstance().loginPatient(username,
-				password);
+	public boolean getLoginPatient() {
+		_loggedInUser = LoginController.getInstance().loginPatient(_username, _passwort);
 
 		if (_loggedInUser != null) {
 			return true;
@@ -48,5 +50,21 @@ public class WebController {
 	 */
 	public void createNewProtocol() {
 		_protocolController = new CreateNutritionProtocolController();
+	}
+
+	public String getUsername() {
+		return _username;
+	}
+
+	public void setUsername(String _username) {
+		this._username = _username;
+	}
+
+	public String getPasswort() {
+		return _passwort;
+	}
+
+	public void setPasswort(String _passwort) {
+		this._passwort = _passwort;
 	}
 }
