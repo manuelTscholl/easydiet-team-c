@@ -3,24 +3,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.prime.com.tr/ui">
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      >
       
     <h:head>
         <title>EasyDiet</title>
+        <link rel="stylesheet" type="text/css" href="style.css"></link>
     </h:head>
-    <h:body>
+    <h:body >
         <h:outputLink id="loginLink" onclick="dlg.show()" title="login">
         </h:outputLink>
         <p:growl id="growl" showDetail="true" life="3000"/>
             <h:form>
                 <h:panelGrid columns="2" cellspacing="5">
-                    <h:outputLabel for="username" value="Username *"/>
-                    <p:inputText id="username" value="#{webController.userName}" required="true" label="username"/>
+                    <h:outputLabel  for="username" value="Username *"/>
+                    <p:inputText id="username" value="#{webController.username}" required="true" label="username"/>
+                    
                     <h:outputLabel for="username" value="Passwort *" />
-                    <h:inputSecret id="passwort" value="#{webController.passwort}" required="true" label="passwort"/>
+                    <h:inputSecret id="passwort" value="#{webController}" required="true" label="passwort"/>
                     <f:facet name="footer">
-                        <p:commandButton value="Login" update="growl" actionListener="#{webController.loginPatient}"/>
+                        <p:commandButton styleClass="button" value="Login" action="#{webController.loginPatient}"/>
                     </f:facet>
+                  
+                    <h:selectBooleanCheckbox id="remeber">
+                    <h:outputLabel for="remember">Remember Me</h:outputLabel>
+                    </h:selectBooleanCheckbox>
+                 
                 </h:panelGrid>
             </h:form>
     </h:body>
