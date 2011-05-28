@@ -14,6 +14,7 @@
 			}
 		}
 	</script>
+	<link rel="stylesheet" type="text/css" href="style.css"></link>
 </h:head>
 <h:body>
 	<h:form>
@@ -31,6 +32,10 @@
 					actionListener="#{webController.loginPatient()}"
 					oncomplete="handleLoginRequest(xhr, status, args)" />
 			</f:facet>
+
+			<h:selectBooleanCheckbox id="remeber">
+				<h:outputLabel for="remember">Remember Me</h:outputLabel>
+			</h:selectBooleanCheckbox>
 		</h:panelGrid>
 	</h:form>
 </h:body>
