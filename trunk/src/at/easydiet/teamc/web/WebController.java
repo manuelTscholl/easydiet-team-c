@@ -46,6 +46,7 @@ public class WebController {
 	 * @password User password
 	 */
 	public void loginPatient() {
+		// FIXME Exception bei falschem login. Nicht null zur überprüfung
 
 		// check if name is set
 		if (_username != null && !_username.equals("") && _password != null
