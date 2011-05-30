@@ -21,6 +21,7 @@ import at.easydiet.model.DietParameter;
 import at.easydiet.model.ParameterDefinition;
 import at.easydiet.model.ParameterDefinitionUnit;
 import at.easydiet.model.Patient;
+import at.easydiet.model.PlanType;
 import at.easydiet.model.Recipe;
 import at.easydiet.teamc.dao.MealCodeDao;
 import at.easydiet.teamc.model.CheckOperatorBo;
@@ -29,6 +30,7 @@ import at.easydiet.teamc.model.MealCodeBo;
 import at.easydiet.teamc.model.ParameterDefinitionBo;
 import at.easydiet.teamc.model.ParameterDefinitionUnitBo;
 import at.easydiet.teamc.model.PatientBo;
+import at.easydiet.teamc.model.PlanTypeBo;
 import at.easydiet.teamc.model.RecipeBo;
 
 /**
@@ -229,4 +231,18 @@ public class DatabaseController {
 				.findByUsername(username));
 	}
 
+	/**
+	 * Get all plan types
+	 * @return plan types
+	 */
+	public List<PlanTypeBo> getAllPlanTypes() {
+		List<PlanType> planTypes = DAOFactory.getInstance().getPlanTypeDAO()
+				.findAll();
+		List<PlanTypeBo> plans = new ArrayList<PlanTypeBo>();
+
+		for (PlanType p : planTypes) {
+			plans.add(new PlanTypeBo(p));
+		}
+		return plans;
+	}
 }
