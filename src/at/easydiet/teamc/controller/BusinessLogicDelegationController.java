@@ -19,6 +19,7 @@ import at.easydiet.teamb.domain.object.PatientDO;
 import at.easydiet.teamc.adapter.SystemUserAdapter;
 import at.easydiet.teamc.controller.usecase.CreateRecipeController;
 import at.easydiet.teamc.controller.usecase.DietryPlanController;
+import at.easydiet.teamc.controller.usecase.PlanTypeController;
 import at.easydiet.teamc.controller.usecase.SearchParameterController;
 import at.easydiet.teamc.controller.usecase.SearchPatientController;
 import at.easydiet.teamc.controller.usecase.SearchRecipeController;
@@ -423,8 +424,7 @@ public class BusinessLogicDelegationController {
 	 * @return
 	 */
 	public List<PlanTypeData> getAllPlanTypes() {
-		// TODO Auto-generated method stub
-		return null;
+		return PlanTypeController.getInstance().getAllPlanTypes();
 	}
 
 }
