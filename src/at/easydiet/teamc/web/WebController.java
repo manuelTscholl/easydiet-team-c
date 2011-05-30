@@ -16,6 +16,7 @@ import org.primefaces.context.RequestContext;
 
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
+import at.easydiet.teamc.exception.LoginFailedException;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.PlanTypeData;
@@ -38,6 +39,7 @@ public class WebController {
 	private String _username = "";
 	private String _password = "";
 	private boolean _loggedIn = false;
+	private String _exception = "";
 	private CreateNutritionProtocolController _protocolController;
 
 	/**
@@ -46,23 +48,23 @@ public class WebController {
 	 * @password User password
 	 */
 	public void loginPatient() {
-		// FIXME Exception bei falschem login. Nicht null zur überprüfung
 
 		// check if name is set
 		if (_username != null && !_username.equals("") && _password != null
 				&& !_password.equals("")) {
-			_loggedInUser = LoginController.getInstance().loginPatient(
-					_username, _password);
-
-			if (_loggedInUser != null) {
+			try {
+				_loggedInUser = LoginController.getInstance().loginPatient(
+						_username, _password);
 				_loggedIn = true;
-			} else {
+			} catch (LoginFailedException e) {
 				_loggedIn = false;
+				_exception = e.toString();
 			}
 		}
 
 		RequestContext context = RequestContext.getCurrentInstance();
 		context.addCallbackParam("loggedIn", _loggedIn);
+		context.addCallbackParam("exception", _exception);
 	}
 
 	/**
