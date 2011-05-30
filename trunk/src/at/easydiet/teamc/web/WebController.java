@@ -120,6 +120,14 @@ public class WebController {
 	}
 
 	/**
+	 * Set the chosen plan type
+	 * @param planType plan type to set
+	 */
+	public void setPlanType(PlanTypeData planType) {
+		_protocolController.setPlanType(planType);
+	}
+
+	/**
 	 * Gets the meal codes.
 	 * 
 	 * @return the meal codes
@@ -129,12 +137,28 @@ public class WebController {
 	}
 
 	/**
+	 * Set the chosen meal codes
+	 * @param mealCodes meal codes to set
+	 */
+	public void setMealCodes(Set<MealCodeData> mealCodes) {
+		_protocolController.setMealCodes(mealCodes);
+	}
+
+	/**
 	 * Gets the recipes.
 	 * 
 	 * @return the recipes
 	 */
 	public List<RecipeData> getRecipes() {
 		return _protocolController.getRecipes();
+	}
+
+	/**
+	 * Set the chosen recipes
+	 * @param recipes to set
+	 */
+	public void setRecipes(List<RecipeData> recipes) {
+		_protocolController.setRecipes(recipes);
 	}
 
 	/**
