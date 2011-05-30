@@ -16,7 +16,6 @@ import org.primefaces.context.RequestContext;
 
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
-import at.easydiet.teamc.exception.LoginFailedException;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.PlanTypeData;
@@ -39,7 +38,6 @@ public class WebController {
 	private String _username = "";
 	private String _password = "";
 	private boolean _loggedIn = false;
-	private String _exception = "";
 	private CreateNutritionProtocolController _protocolController;
 
 	/**
@@ -48,27 +46,23 @@ public class WebController {
 	 * @password User password
 	 */
 	public void loginPatient() {
+		// FIXME Exception bei falschem login. Nicht null zur überprüfung
 
-		// check if name and password are set
+		// check if name is set
 		if (_username != null && !_username.equals("") && _password != null
 				&& !_password.equals("")) {
+			_loggedInUser = LoginController.getInstance().loginPatient(
+					_username, _password);
 
-			// process login
-			try {
-				_loggedInUser = LoginController.getInstance().loginPatient(
-						_username, _password);
+			if (_loggedInUser != null) {
 				_loggedIn = true;
-			} catch (LoginFailedException e) {
-				_loggedInUser = null;
+			} else {
 				_loggedIn = false;
-				_exception = e.toString();
 			}
 		}
 
-		// callback
 		RequestContext context = RequestContext.getCurrentInstance();
 		context.addCallbackParam("loggedIn", _loggedIn);
-		context.addCallbackParam("exception", _exception);
 	}
 
 	/**
@@ -124,14 +118,6 @@ public class WebController {
 	}
 
 	/**
-	 * Set the chosen plan type
-	 * @param planType plan type to set
-	 */
-	public void setPlanType(PlanTypeData planType) {
-		_protocolController.setPlanType(planType);
-	}
-
-	/**
 	 * Gets the meal codes.
 	 * 
 	 * @return the meal codes
@@ -141,28 +127,12 @@ public class WebController {
 	}
 
 	/**
-	 * Set the chosen meal codes
-	 * @param mealCodes meal codes to set
-	 */
-	public void setMealCodes(Set<MealCodeData> mealCodes) {
-		_protocolController.setMealCodes(mealCodes);
-	}
-
-	/**
 	 * Gets the recipes.
 	 * 
 	 * @return the recipes
 	 */
 	public List<RecipeData> getRecipes() {
 		return _protocolController.getRecipes();
-	}
-
-	/**
-	 * Set the chosen recipes
-	 * @param recipes to set
-	 */
-	public void setRecipes(List<RecipeData> recipes) {
-		_protocolController.setRecipes(recipes);
 	}
 
 	/**
