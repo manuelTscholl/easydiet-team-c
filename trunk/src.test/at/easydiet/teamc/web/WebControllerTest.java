@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
+import at.easydiet.teamc.exception.LoginFailedException;
 import at.easydiet.teamc.model.PatientBo;
 
 /**
@@ -34,24 +35,33 @@ public class WebControllerTest extends TestCase {
 	/**
 	 * Test method for
 	 * {@link at.easydiet.teamc.web.WebController#loginPatient()}.
+	 * @throws LoginFailedException
 	 */
 	@Test
 	public void testLoginPatient() {
 		String result = "Thomas Geiger";
 
 		// correct login
-		PatientBo activePatient = LoginController.getInstance().loginPatient(
-				"tgeiger", "tgeiger");
-
-		assertEquals(
-				activePatient.getForename() + " " + activePatient.getLastname(),
-				result);
+		PatientBo activePatient;
+		try {
+			activePatient = LoginController.getInstance().loginPatient(
+					"tgeiger", "tgeiger");
+			assertEquals(
+					activePatient.getForename() + " "
+							+ activePatient.getLastname(), result);
+		} catch (LoginFailedException e) {
+			assertTrue(false);
+		}
 
 		// incorrect login
-		PatientBo fail = LoginController.getInstance().loginPatient("tgeiger",
-				"fail");
-
-		assertEquals(fail, null);
+		PatientBo fail = null;
+		try {
+			fail = LoginController.getInstance()
+					.loginPatient("tgeiger", "fail");
+			assertTrue(true);
+		} catch (LoginFailedException e) {
+			assertNull(fail);
+		}
 	}
 
 	/**
