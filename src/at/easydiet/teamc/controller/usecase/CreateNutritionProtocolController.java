@@ -9,6 +9,7 @@ package at.easydiet.teamc.controller.usecase;
 import java.util.List;
 import java.util.Set;
 
+import at.easydiet.dao.DAOFactory;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.model.NutritionProtocolBo;
 import at.easydiet.teamc.model.data.MealCodeData;
@@ -31,6 +32,7 @@ public class CreateNutritionProtocolController {
 	private List<PlanTypeData> _planTypes;
 	private Set<MealCodeData> _mealCodes;
 	private List<RecipeData> _recipes;
+	private PlanTypeData _selectedPlanType;
 
 	/**
 	 * Instantiates a new creates the nutrition protocol controller.
@@ -45,6 +47,7 @@ public class CreateNutritionProtocolController {
 				.getAllMealCodes();
 		_recipes = BusinessLogicDelegationController.getInstance()
 				.recipeSearch(null, null);
+		_selectedPlanType = null;
 	}
 
 	/**
@@ -87,7 +90,35 @@ public class CreateNutritionProtocolController {
 	 * Save the protocol
 	 */
 	public void save() {
-		// TODO implement
+		DAOFactory.getInstance().getNutritionProtocolDAO()
+				.makePersistent(_actualProtocol.getModel());
+	}
+
+	/**
+	 * Sets the plan types.
+	 * 
+	 * @param planTypes the new plan types
+	 */
+	public void setPlanType(PlanTypeData planTypes) {
+		_selectedPlanType = planTypes;
+	}
+
+	/**
+	 * Sets the meal codes.
+	 * 
+	 * @param mealCodes the new meal codes
+	 */
+	public void setMealCodes(Set<MealCodeData> mealCodes) {
+		_mealCodes = mealCodes;
+	}
+
+	/**
+	 * Sets the recipes.
+	 * 
+	 * @param recipes the new recipes
+	 */
+	public void setRecipes(List<RecipeData> recipes) {
+		_recipes = recipes;
 	}
 
 }

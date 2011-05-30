@@ -96,4 +96,13 @@ public class NutritionProtocolBo extends DietPlanBo implements
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
+	/**
+	 * Gets the model.
+	 * 
+	 * @return the model
+	 */
+	public NutritionProtocol getModel() {
+		return _NutritionProtocol;
+	}
+
 }
