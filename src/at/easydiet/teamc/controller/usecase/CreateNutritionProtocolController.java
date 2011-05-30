@@ -15,6 +15,7 @@ import at.easydiet.teamc.model.NutritionProtocolBo;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.PlanTypeData;
 import at.easydiet.teamc.model.data.RecipeData;
+import java.util.Map;
 
 /**
  * Controller for processing nutrition protocols Every user gets his own
@@ -49,6 +50,14 @@ public class CreateNutritionProtocolController {
 				.recipeSearch(null, null);
 		_selectedPlanType = null;
 	}
+        //TODO wie bekommen wir rezepte und mengen von jsf vereint
+        public void addRecipesToProtocoll(Map<RecipeData, Float> recipes){
+            
+        }
+
+        private void addRecipeToProtocoll(RecipeData recipe){
+
+        }
 
 	/**
 	 * Gets the actual protocol.
