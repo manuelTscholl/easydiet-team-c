@@ -45,6 +45,10 @@ public class WebController {
 	private String _exception = "";
 	private DietryPlanData _selectedPlan;
 
+	{
+	    
+	    _protocolController = new CreateNutritionProtocolController();
+	}
 	/**
 	 * Login a patient
 	 * @username Login name
@@ -168,7 +172,8 @@ public class WebController {
 	 * @param event
 	 */
 	public void nutrimentProtocolDateSelect(DateSelectEvent event) {
-		LOGGER.info("Autsch ich wurde erschossen!");
+	    _protocolController.NutrimentProtocolDateSelect();
+		LOGGER.info("nutrimentProtocolDateSelect event");
 	}
 
 }

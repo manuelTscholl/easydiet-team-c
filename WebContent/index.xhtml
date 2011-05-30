@@ -15,9 +15,12 @@
 		<h:form>
 			<p>
 				von:
-				<p:calendar value="#{calendarBean.startDate}" showOn="button" />
+				<p:calendar value="#{nutrimentProtocolBean.startDate}" showOn="button" selectListener="#{webController.nutrimentProtocolDateSelect}" /> 	
 				bis:
-				<p:calendar value="#{calendarBean.endDate}" showOn="button"/>
+				<p:calendar value="#{nutrimentProtocolBean.endDate}" showOn="button" selectListener="#{webController.nutrimentProtocolDateSelect}" />
+				<h:selectOneMenu value="dietryplan">
+					<f:selectItem itemLabel="use TimeSpan" itemValue=""/>
+				</h:selectOneMenu>
 			</p>
 
 			<h:panelGrid columns="2" style="margin-top:10px">
@@ -43,12 +46,12 @@
 				<h:panelGrid id="display" columns="2" cellpadding="5">
 
 					<h:outputText value="Inline Date:" />
-					<h:outputText value="#{calendarBean.startDate}">
+					<h:outputText value="#{nutrimentProtocolBean.startDate}">
 						<f:convertDateTime pattern="MM/dd/yyyy" />
 					</h:outputText>
 
 					<h:outputText value="Popup Date:" />
-					<h:outputText value="#{calendarBean.endDate}">
+					<h:outputText value="#{nutrimentProtocolBean.endDate}">
 						<f:convertDateTime pattern="MM/dd/yyyy" />
 					</h:outputText>
 
