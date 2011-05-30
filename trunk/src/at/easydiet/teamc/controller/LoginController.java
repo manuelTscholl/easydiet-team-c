@@ -12,6 +12,7 @@ import at.easydiet.dao.DAOFactory;
 import at.easydiet.dao.SystemUserDAO;
 import at.easydiet.model.SystemUser;
 import at.easydiet.teamc.controller.usecase.SearchPatientController;
+import at.easydiet.teamc.exception.LoginFailedException;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.SystemUserBo;
 
@@ -72,7 +73,7 @@ public class LoginController {
 	 * @return Logged in patient or null if no patient whit this login
 	 *         informations is found
 	 */
-	public PatientBo loginPatient(String username, String password) {
+	public PatientBo loginPatient(String username, String password) throws LoginFailedException {
 		PatientBo user = SearchPatientController.getInstance().loginPatient(
 				username);
 
@@ -81,10 +82,13 @@ public class LoginController {
 			// check for correct password
 			if (user.getPassword().equals(password)) {
 				return user;
-			}
-		}
+			}else{
+                            throw new LoginFailedException("Wrong password.");
+                        }
+		}else{
+                    throw new LoginFailedException("Username not known.");
+                }
 
-		return null;
 	}
 
 }
