@@ -11,12 +11,9 @@ import java.util.Set;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.view.facelets.FaceletContext;
-import javax.servlet.jsp.PageContext;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.DateSelectEvent;
-import org.primefaces.event.ItemSelectEvent;
 
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
@@ -165,14 +162,13 @@ public class WebController {
 	public void setDietryPlan(DietryPlanData d) {
 		_selectedPlan = d;
 	}
-	
+
 	/**
-	 * Is fired when a date from nutrimentprotocolis selected 
+	 * Is fired when a date from nutrimentprotocolis selected
 	 * @param event
 	 */
-	public void nutrimentProtocolDateSelect(DateSelectEvent event)
-	{
-	    LOGGER.info("Autsch ich wurde erschossen!");
+	public void nutrimentProtocolDateSelect(DateSelectEvent event) {
+		LOGGER.info("Autsch ich wurde erschossen!");
 	}
 
 }
