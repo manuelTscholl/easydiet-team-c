@@ -16,7 +16,9 @@ import org.primefaces.context.RequestContext;
 
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
+import at.easydiet.teamc.exception.LoginFailedException;
 import at.easydiet.teamc.model.PatientBo;
+import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.PlanTypeData;
 import at.easydiet.teamc.model.data.RecipeData;
@@ -39,6 +41,8 @@ public class WebController {
 	private String _password = "";
 	private boolean _loggedIn = false;
 	private CreateNutritionProtocolController _protocolController;
+	private String _exception = "";
+	private DietryPlanData _selectedPlan;
 
 	/**
 	 * Login a patient
@@ -51,18 +55,19 @@ public class WebController {
 		// check if name is set
 		if (_username != null && !_username.equals("") && _password != null
 				&& !_password.equals("")) {
-			_loggedInUser = LoginController.getInstance().loginPatient(
-					_username, _password);
-
-			if (_loggedInUser != null) {
+			try {
+				_loggedInUser = LoginController.getInstance().loginPatient(
+						_username, _password);
 				_loggedIn = true;
-			} else {
+			} catch (LoginFailedException e) {
 				_loggedIn = false;
+				_exception = e.toString();
 			}
 		}
 
 		RequestContext context = RequestContext.getCurrentInstance();
 		context.addCallbackParam("loggedIn", _loggedIn);
+		context.addCallbackParam("exception", _exception);
 	}
 
 	/**
@@ -141,4 +146,21 @@ public class WebController {
 	public void saveNutritionProtocol() {
 		_protocolController.save();
 	}
+
+	/**
+	 * Get all dietry plans
+	 */
+	public DietryPlanData getAllDietryPlans() {
+		return null;
+	}
+
+	/**
+	 * Sets the dietry plan.
+	 * 
+	 * @param d the new dietry plan
+	 */
+	public void setDietryPlan(DietryPlanData d) {
+		_selectedPlan = d;
+	}
+
 }
