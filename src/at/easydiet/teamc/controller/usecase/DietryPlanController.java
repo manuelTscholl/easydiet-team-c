@@ -140,7 +140,7 @@ public class DietryPlanController extends Event<EventArgs> {
         DietParameterBo dpbo2;
 
         // cache activePatiet
-        _activePatient = activePatient;
+        setActivePatient(activePatient);
 
         // check time intersections
         if (checkForTimeIntersections(startdate, enddate)) {
@@ -245,7 +245,7 @@ public class DietryPlanController extends Event<EventArgs> {
         if (enddate.before(startdate)) {
             return false;
         } else {
-            for (DietTreatmentBo tsb : _activePatient.getTreatments()) {
+            for (DietTreatmentBo tsb : getActivePatient().getTreatments()) {
                 if (tsb.getStart().equals(startdate)
                         || tsb.getStart().before(startdate)) {
                     for (DietPlanBo dpb : tsb.getDietPlans()) {
@@ -292,7 +292,7 @@ public class DietryPlanController extends Event<EventArgs> {
     private DietTreatmentBo searchTreatmentForDietplan(TimeSpanBo tsb) {
         Date tempenddate;
         DietTreatmentBo temp = null;
-        for (DietTreatmentBo dietTreatmentBo : _activePatient.getTreatments()) {
+        for (DietTreatmentBo dietTreatmentBo : getActivePatient().getTreatments()) {
             tempenddate = new Date(
                     dietTreatmentBo.getStart().getTime()
                     + (dietTreatmentBo.getDuration() * MILLISECONDS_TO_DAY_FACTOR));
@@ -410,5 +410,19 @@ public class DietryPlanController extends Event<EventArgs> {
      */
     public DietryPlanData getDietryPlan() {
         return _dietPlanBo;
+    }
+
+    /**
+     * @return the _activePatient
+     */
+    public PatientBo getActivePatient() {
+        return _activePatient;
+    }
+
+    /**
+     * @param activePatient the _activePatient to set
+     */
+    public void setActivePatient(PatientBo activePatient) {
+        this._activePatient = activePatient;
     }
 }

@@ -39,4 +39,9 @@ public interface DietryPlanData {
      * @return
      */
     Set<MealData> getMealsByDay(int day);
+    /**
+     * 
+     * @return
+     */
+    public List<MealData> getAllMeals();
 }

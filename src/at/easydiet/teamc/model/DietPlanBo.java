@@ -389,6 +389,21 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 		return null;
 
 	}
+        
+        /**
+         * Returns all Meals associatied to a Diatplan.
+         * 
+         * @return ArrayList<MealData>
+         */
+        public List<MealData> getAllMeals(){
+            List<MealData> temp = new ArrayList<MealData>();
+            for(TimeSpanBo tsp: getTimeSpans()){
+                for(MealBo mb: tsp.getMeals()){
+                    temp.add(mb);
+                }
+            }
+            return temp;
+        }
 
 	@Override
 	public MealData getMealData() {
