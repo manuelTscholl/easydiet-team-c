@@ -6,14 +6,19 @@
  */
 package at.easydiet.teamc.controller.usecase;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import at.easydiet.dao.DAOFactory;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
+import at.easydiet.teamc.model.DietPlanBo;
 import at.easydiet.teamc.model.NutritionProtocolBo;
+import at.easydiet.teamc.model.PatientBo;
+import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
+import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.data.PlanTypeData;
 import at.easydiet.teamc.model.data.RecipeData;
 
@@ -131,4 +136,18 @@ public class CreateNutritionProtocolController {
 		_recipes = recipes;
 	}
 
+	/**
+	 * Get all dietry plans from patient
+	 * @param patient
+	 * @return
+	 */
+	public List<DietryPlanData> getAllDietryPlans(PatientData patient) {
+		PatientBo p = (PatientBo) patient;
+		List<DietryPlanData> plans = new ArrayList<DietryPlanData>();
+		for (DietPlanBo d : p.getAllDietPlans()) {
+			plans.add(d);
+		}
+
+		return plans;
+	}
 }

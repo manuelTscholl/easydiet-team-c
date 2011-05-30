@@ -17,9 +17,9 @@ import org.primefaces.context.RequestContext;
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
 import at.easydiet.teamc.exception.LoginFailedException;
-import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
+import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.data.PlanTypeData;
 import at.easydiet.teamc.model.data.RecipeData;
 
@@ -36,7 +36,7 @@ public class WebController {
 			.getLogger(WebController.class);
 
 	// instance variables
-	private PatientBo _loggedInUser;
+	private PatientData _loggedInUser;
 	private String _username = "";
 	private String _password = "";
 	private boolean _loggedIn = false;
@@ -50,7 +50,6 @@ public class WebController {
 	 * @password User password
 	 */
 	public void loginPatient() {
-		// FIXME Exception bei falschem login. Nicht null zur überprüfung
 
 		// check if name is set
 		if (_username != null && !_username.equals("") && _password != null
@@ -150,8 +149,8 @@ public class WebController {
 	/**
 	 * Get all dietry plans
 	 */
-	public DietryPlanData getAllDietryPlans() {
-		return null;
+	public List<DietryPlanData> getAllDietryPlans() {
+		return _protocolController.getAllDietryPlans(_loggedInUser);
 	}
 
 	/**
