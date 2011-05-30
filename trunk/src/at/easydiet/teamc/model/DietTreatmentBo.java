@@ -13,6 +13,8 @@ import at.easydiet.model.DietTreatment;
 import at.easydiet.model.DietTreatmentSystemUser;
 import at.easydiet.model.NutritionProtocol;
 import at.easydiet.model.PatientState;
+import at.easydiet.teamc.exception.NoDietPlanException;
+import java.util.Calendar;
 
 
 
@@ -197,6 +199,42 @@ public class DietTreatmentBo  implements java.io.Serializable, Saveable {
      */
     public void setDietTreatment(DietTreatment DietTreatment) {
         this._DietTreatment = DietTreatment;
+    }
+
+    /**
+     * Returns a Dietplan which should have the correct date.
+     * @param date
+     * @return DietPlanBo
+     */
+    public DietPlanBo searchDietryPlansByTimeSpan(Date date) throws NoDietPlanException{
+        DietPlanBo temp = null;
+        boolean isDateInPlan=false;
+        int timeadd=0;
+
+        //search DietPlan which could have the correct date
+        for(DietPlanBo dpb: this.getDietPlans()){
+            if(temp==null){
+                temp=dpb;
+            }
+            if(dpb.getFirstTimeSpan().getTime()<=date.getTime()&&dpb.getFirstTimeSpan().getTime()>=temp.getFirstTimeSpan().getTime()){
+                temp=dpb;
+            }
+        }
+        
+        //determine wether the DietPlan does have the correct date in any TimeSpan
+        for(TimeSpanBo tsb: temp.getTimeSpans()){
+            for(int i=0;i<=tsb.getDuration();i++){
+                timeadd=i*1000*60*60*24;
+                if((tsb.getStart().getTime()+timeadd)==date.getTime()){
+                    isDateInPlan=true;
+                }
+            }
+        }
+        if(isDateInPlan){
+        return temp;
+        }else{
+            throw new NoDietPlanException("Theres no DietPlan with this Date"+date.toString());
+        }
     }
 
     @Override

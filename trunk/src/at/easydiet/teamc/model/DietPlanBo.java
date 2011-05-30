@@ -260,7 +260,7 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 	 * @return
 	 */
 	public MealBo addMealCode(MealCodeData mcd, int day) {
-		TimeSpanBo timeSpanBo = serachTimespan(day);
+		TimeSpanBo timeSpanBo = searchTimespan(day);
 		MealBo mBo = new MealBo(new Meal(mcd.getCode(), mcd.getName(),
 				timeSpanBo.getTimeSpan()));
 		timeSpanBo.addMeal(mBo);
@@ -376,7 +376,7 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 	 * @param day
 	 * @return
 	 */
-	private TimeSpanBo serachTimespan(int day) {
+	private TimeSpanBo searchTimespan(int day) {
 		Date search = new Date(this.getCreatedOn().getTime() + (day - 1) * 1000
 				* 60 * 60 * 24);
 		for (TimeSpanBo tsb : this.getTimeSpans()) {
@@ -393,7 +393,7 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
         /**
          * Returns all Meals associatied to a Diatplan.
          * 
-         * @return ArrayList<MealData>
+         * @return List<MealData>
          */
         public List<MealData> getAllMeals(){
             List<MealData> temp = new ArrayList<MealData>();
@@ -493,10 +493,24 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 			}
 		}
 		if (getMealsByDay(day).isEmpty()) {
-			mb = new MealBo(mcd.getCode(), mcd.getName(), serachTimespan(day));
+			mb = new MealBo(mcd.getCode(), mcd.getName(), searchTimespan(day));
 			mb.addRecipe(recipeBo, quantity, mealLineID);
 			return mb;
 		}
 		return null;
 	}
+
+        public Date getFirstTimeSpan(){
+            Date temp=null;
+            for(TimeSpanBo ts: getTimeSpans()){
+                if(temp==null){
+                    temp=ts.getStart();
+                }else{
+                    if(temp.getTime()>=ts.getStart().getTime()){
+                        temp=ts.getStart();
+                    }
+                }
+            }
+            return temp;
+        }
 }
