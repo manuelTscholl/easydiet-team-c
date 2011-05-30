@@ -47,7 +47,7 @@ public class WebControllerTest extends TestCase {
 				activePatient.getForename() + " " + activePatient.getLastname(),
 				result);
 
-		// uncorrect login
+		// incorrect login
 		PatientBo fail = LoginController.getInstance().loginPatient("tgeiger",
 				"fail");
 
