@@ -49,19 +49,23 @@ public class WebController {
 	 */
 	public void loginPatient() {
 
-		// check if name is set
+		// check if name and password are set
 		if (_username != null && !_username.equals("") && _password != null
 				&& !_password.equals("")) {
+
+			// process login
 			try {
 				_loggedInUser = LoginController.getInstance().loginPatient(
 						_username, _password);
 				_loggedIn = true;
 			} catch (LoginFailedException e) {
+				_loggedInUser = null;
 				_loggedIn = false;
 				_exception = e.toString();
 			}
 		}
 
+		// callback
 		RequestContext context = RequestContext.getCurrentInstance();
 		context.addCallbackParam("loggedIn", _loggedIn);
 		context.addCallbackParam("exception", _exception);
