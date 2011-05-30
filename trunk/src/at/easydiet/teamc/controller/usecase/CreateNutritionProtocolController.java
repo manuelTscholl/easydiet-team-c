@@ -16,6 +16,7 @@ import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.model.DietPlanBo;
 import at.easydiet.teamc.model.NutritionProtocolBo;
 import at.easydiet.teamc.model.PatientBo;
+import at.easydiet.teamc.model.PlanTypeBo;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.PatientData;
@@ -116,6 +117,7 @@ public class CreateNutritionProtocolController {
 	 */
 	public void setPlanType(PlanTypeData planTypes) {
 		_selectedPlanType = planTypes;
+		_actualProtocol.setPlanType((PlanTypeBo) _selectedPlanType);
 	}
 
 	/**
