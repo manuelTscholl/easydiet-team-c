@@ -5,9 +5,12 @@ import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import at.easydiet.model.NutritionProtocol;
+import at.easydiet.teamc.model.NutritionProtocolBo;
+
 @ManagedBean
 @SessionScoped
-public class NutrimentProtocolBean{
+public class NutrimentProtocolBean extends NutritionProtocolBo{
 
 	private Date _startDate;
 	private Date _endDate;

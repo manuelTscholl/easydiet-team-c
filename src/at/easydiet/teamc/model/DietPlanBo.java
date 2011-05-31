@@ -59,6 +59,20 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 		this._planType = planTypeBo;
 		this._creator = creatorBo;
 	}
+	
+	   /**
+     * 
+     * @param name
+     * @param createdOn
+     * @param planTypeBo
+     * @param creatorBo
+     */
+    public DietPlanBo(String name, Date createdOn, PlanTypeBo planTypeBo,
+            SystemUserBo creatorBo) {
+        this(new DietPlan(name, createdOn, planTypeBo.getPlanType(), null, creatorBo.getModel()));
+        this._planType = planTypeBo;
+        this._creator = creatorBo;
+    }
 
 	/**
 	 * 
@@ -224,7 +238,7 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 	/**
 	 * @return the _dietPlan
 	 */
-	protected DietPlan getDietPlan() {
+	public DietPlan getDietPlan() {
 		return _dietPlan;
 	}
 
