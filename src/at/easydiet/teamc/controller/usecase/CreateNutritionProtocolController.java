@@ -171,4 +171,8 @@ public class CreateNutritionProtocolController {
 		// bean.setEndDate(test);
 		// bean.setStartDate(test);
 	}
+
+	public void searchRecipes(String query) {
+		
+	}
 }
