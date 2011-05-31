@@ -25,6 +25,7 @@ public class TimeSpanBo  implements java.io.Serializable, Saveable {
         this._TimeSpan=timeSpan;
     }
 
+    
 	
     public TimeSpanBo(Date start, int duration, DietPlanBo dietPlanBo) {
         this(new TimeSpan(start, duration, dietPlanBo.getDietPlan()));
