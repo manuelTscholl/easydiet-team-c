@@ -6,17 +6,21 @@
  */
 package at.easydiet.teamc.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.hibernate.mapping.Array;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.DateSelectEvent;
 
+import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
+import at.easydiet.teamc.controller.usecase.SearchRecipeController;
 import at.easydiet.teamc.exception.LoginFailedException;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
@@ -44,6 +48,16 @@ public class WebController {
 	private CreateNutritionProtocolController _protocolController;
 	private String _exception = "";
 	private DietryPlanData _selectedPlan;
+	
+	private RecipeData _chosenRecipe;
+
+	public RecipeData getChosenRecipe() {
+		return _chosenRecipe;
+	}
+
+	public void setChosenRecipe(RecipeData _chosenRecipe) {
+		this._chosenRecipe = _chosenRecipe;
+	}
 
 	{
 
@@ -175,6 +189,17 @@ public class WebController {
 	public void nutrimentProtocolDateSelect(DateSelectEvent event) {
 		// _protocolController.NutrimentProtocolDateSelect();
 		LOGGER.info("nutrimentProtocolDateSelect event");
+	}
+	
+	public List<RecipeData> completeRecipeSearch(String query){
+		ArrayList<RecipeData> recipes=(ArrayList)this.searchRecipes(query);
+		return null;
+	}
+
+	private List<RecipeData> searchRecipes(String query) {
+		BusinessLogicDelegationController blg=BusinessLogicDelegationController.getInstance();
+		blg.searchRecipe("", query);
+		return null;
 	}
 
 }
