@@ -22,6 +22,7 @@ import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
 import at.easydiet.teamc.controller.usecase.SearchRecipeController;
 import at.easydiet.teamc.exception.LoginFailedException;
+import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.PatientData;
@@ -49,14 +50,14 @@ public class WebController {
 	private String _exception = "";
 	private DietryPlanData _selectedPlan;
 	
-	private RecipeData _chosenRecipe;
+	private String _chosenRecipe;
 
-	public RecipeData getChosenRecipe() {
+	public String getChosenRecipe() {
 		return _chosenRecipe;
 	}
 
-	public void setChosenRecipe(RecipeData _chosenRecipe) {
-		this._chosenRecipe = _chosenRecipe;
+	public void setChosenRecipe(String chosenRecipe) {
+		_chosenRecipe=chosenRecipe;
 	}
 
 	{
@@ -191,15 +192,23 @@ public class WebController {
 		LOGGER.info("nutrimentProtocolDateSelect event");
 	}
 	
-	public List<RecipeData> completeRecipeSearch(String query){
-		ArrayList<RecipeData> recipes=(ArrayList)this.searchRecipes(query);
-		return null;
+	public List<String> completeRecipeSearch(String query){
+		ArrayList<String> s=new ArrayList<String>();
+		for(RecipeData rd:searchRecipes(query)){
+			s.add(rd.getName());
+		}
+		return s;
+		
 	}
 
 	private List<RecipeData> searchRecipes(String query) {
-		BusinessLogicDelegationController blg=BusinessLogicDelegationController.getInstance();
-		blg.searchRecipe("", query);
-		return null;
+		SearchRecipeController src=SearchRecipeController.getInstance();
+		ArrayList<RecipeData> recipes=new ArrayList<RecipeData>();
+		for(RecipeBo b: src.searchRecipe(null, query)){
+			recipes.add((RecipeData)b);
+		}
+		return recipes;
+		
 	}
 
 }
