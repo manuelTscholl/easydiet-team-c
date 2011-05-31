@@ -186,7 +186,7 @@ public class CreateNutritionProtocolController {
             {
             DietPlan plan = new DietPlan("new", new Date(), new PlanType("Ernährungsprotokoll"), null,LoginController.getInstance().getActualUser().getModel());
             planBo = new DietPlanBo(plan);
-            bean.setDietPlan(plan);
+            bean.setDietPlan(plan);     
             }
             else
             {
@@ -197,8 +197,8 @@ public class CreateNutritionProtocolController {
             {
                 TimeSpanBo span = new TimeSpanBo(current,1,planBo);               
                 bean.addTimeSpan(span);                
-                current.setTime(current.getTime() + 1 * 24 * 60 * 60 * 100);
-                
+                current.setTime(current.getTime() + 1 * 24 * 60 * 60 * 1000);
+                LOGGER.info("one day added");
                 
             }
             LOGGER.info("timespans added");
