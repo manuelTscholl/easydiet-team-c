@@ -7,21 +7,33 @@
 package at.easydiet.teamc.controller.usecase;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.context.FacesContext;
+import javax.faces.view.facelets.FaceletContext;
+
+import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
+
 import at.easydiet.dao.DAOFactory;
+import at.easydiet.model.DietPlan;
+import at.easydiet.model.PlanType;
+import at.easydiet.model.TimeSpan;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
+import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.model.DietPlanBo;
 import at.easydiet.teamc.model.NutritionProtocolBo;
 import at.easydiet.teamc.model.PatientBo;
 import at.easydiet.teamc.model.PlanTypeBo;
+import at.easydiet.teamc.model.TimeSpanBo;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.data.PlanTypeData;
 import at.easydiet.teamc.model.data.RecipeData;
+import at.easydiet.teamc.web.NutrimentProtocolBean;
 
 /**
  * Controller for processing nutrition protocols Every user gets his own
@@ -40,7 +52,7 @@ public class CreateNutritionProtocolController {
 	private Set<MealCodeData> _mealCodes;
 	private List<RecipeData> _recipes;
 	private PlanTypeData _selectedPlanType;
-	private static final String NUTRIMENTBEANNAME = "nutrimentProtocolBean";
+	private static final String NUTRIMENTBEANNAME="nutrimentProtocolBean";
 
 	/**
 	 * Instantiates a new creates the nutrition protocol controller.
@@ -154,25 +166,43 @@ public class CreateNutritionProtocolController {
 		return plans;
 	}
 
-	/**
+    /**
      * 
      */
-	public void nutrimentProtocolDateSelect() {
-		// FacesContext context = FacesContext.getCurrentInstance();
-		// NutrimentProtocolBean bean = context.getApplication()
-		// .evaluateExpressionGet(context, "#{" + NUTRIMENTBEANNAME + "}",
-		// NutrimentProtocolBean.class);
-		// if (bean == null) {
-		// LOGGER.info("context is null");
-		// return;
-		// }
-		// LOGGER.info("setting date equal");
-		// Date test = new Date();
-		// bean.setEndDate(test);
-		// bean.setStartDate(test);
-	}
-
-	public void searchRecipes(String query) {
-		
-	}
+    public void NutrimentProtocolDateSelect()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        NutrimentProtocolBean bean = context.getApplication().evaluateExpressionGet(context, "#{"+NUTRIMENTBEANNAME+"}", NutrimentProtocolBean.class);
+        if(bean==null)
+        {
+            LOGGER.info("context is null");
+            return;
+        }
+        if(bean.getStartDate()!=null && bean.getEndDate()!=null && bean.getStartDate().compareTo(bean.getEndDate())<=0)
+        {
+            Date current = bean.getStartDate();
+            DietPlanBo planBo = null;
+            if(bean.getDietPlan()==null)
+            {
+            DietPlan plan = new DietPlan("new", new Date(), new PlanType("Ernährungsprotokoll"), null,LoginController.getInstance().getActualUser().getModel());
+            planBo = new DietPlanBo(plan);
+            bean.setDietPlan(plan);
+            }
+            else
+            {
+                planBo = new DietPlanBo(bean.getDietPlan());
+            }
+            //add a timespan for each day
+            while(bean.getEndDate().after(current))
+            {
+                TimeSpanBo span = new TimeSpanBo(current,1,planBo);               
+                bean.addTimeSpan(span);                
+                current.setTime(current.getTime() + 1 * 24 * 60 * 60 * 100);
+                
+                
+            }
+            LOGGER.info("timespans added");
+        }
+        
+    }
 }
