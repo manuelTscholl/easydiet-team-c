@@ -64,7 +64,7 @@
 			<h:outputText value="Rezept suchen"></h:outputText>
 			<p:panel>
 				<h:panelGrid columns="2">  					
-					<p:autoComplete value="#{webController.chosenRecipe}" 
+					<p:autoComplete minQueryLength="2" value="#{webController.chosenRecipe}"
 					completeMethod="#{webController.completeRecipeSearch}">
 					</p:autoComplete>
 				</h:panelGrid>
