@@ -7,13 +7,9 @@
 package at.easydiet.teamc.controller.usecase;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.FaceletContext;
 
 import at.easydiet.dao.DAOFactory;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
@@ -26,7 +22,6 @@ import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.data.PlanTypeData;
 import at.easydiet.teamc.model.data.RecipeData;
-import at.easydiet.teamc.web.NutrimentProtocolBean;
 
 /**
  * Controller for processing nutrition protocols Every user gets his own
@@ -45,7 +40,7 @@ public class CreateNutritionProtocolController {
 	private Set<MealCodeData> _mealCodes;
 	private List<RecipeData> _recipes;
 	private PlanTypeData _selectedPlanType;
-	private static final String NUTRIMENTBEANNAME="nutrimentProtocolBean";
+	private static final String NUTRIMENTBEANNAME = "nutrimentProtocolBean";
 
 	/**
 	 * Instantiates a new creates the nutrition protocol controller.
@@ -159,21 +154,21 @@ public class CreateNutritionProtocolController {
 		return plans;
 	}
 
-    /**
+	/**
      * 
      */
-    public void NutrimentProtocolDateSelect()
-    {
-        FacesContext context = FacesContext.getCurrentInstance();
-        NutrimentProtocolBean bean = context.getApplication().evaluateExpressionGet(context, "#{"+NUTRIMENTBEANNAME+"}", NutrimentProtocolBean.class);
-        if(bean==null)
-        {
-            LOGGER.info("context is null");
-            return;
-        }
-        LOGGER.info("setting date equal");
-        Date test = new Date();
-        bean.setEndDate(test);
-        bean.setStartDate(test);
-    }
+	public void nutrimentProtocolDateSelect() {
+		// FacesContext context = FacesContext.getCurrentInstance();
+		// NutrimentProtocolBean bean = context.getApplication()
+		// .evaluateExpressionGet(context, "#{" + NUTRIMENTBEANNAME + "}",
+		// NutrimentProtocolBean.class);
+		// if (bean == null) {
+		// LOGGER.info("context is null");
+		// return;
+		// }
+		// LOGGER.info("setting date equal");
+		// Date test = new Date();
+		// bean.setEndDate(test);
+		// bean.setStartDate(test);
+	}
 }
