@@ -46,9 +46,10 @@ public class WebController {
 	private DietryPlanData _selectedPlan;
 
 	{
-	    
-	    _protocolController = new CreateNutritionProtocolController();
+
+		_protocolController = new CreateNutritionProtocolController();
 	}
+
 	/**
 	 * Login a patient
 	 * @username Login name
@@ -172,7 +173,7 @@ public class WebController {
 	 * @param event
 	 */
 	public void nutrimentProtocolDateSelect(DateSelectEvent event) {
-	    _protocolController.NutrimentProtocolDateSelect();
+		// _protocolController.NutrimentProtocolDateSelect();
 		LOGGER.info("nutrimentProtocolDateSelect event");
 	}
 
