@@ -39,36 +39,22 @@
 				</p:ajaxStatus>
 
 			</h:panelGrid>
+			
 
-			<p:dialog header="Selected Dates" widgetVar="dialog"
-				showEffect="fold" hideEffect="fold" height="150">
 
-				<h:panelGrid id="display" columns="2" cellpadding="5">
 
-					<h:outputText value="Inline Date:" />
-					<h:outputText value="#{nutrimentProtocolBean.startDate}">
-						<f:convertDateTime pattern="MM/dd/yyyy" />
-					</h:outputText>
+			<p:dataTable value="#{nutrimentProtocolBean.timespans}" var="span" >
+				<p:column>
+					<f:facet name="header"><h:outputText value="Name"/></f:facet>
+					<h:outputText value="#{span.start}"></h:outputText>
+				</p:column>
+								
+				<p:column>
+					<f:facet name="header"><h:outputText value="Auswählen"/></f:facet>
+					<h:selectManyCheckbox ></h:selectManyCheckbox>
+				</p:column>
+			</p:dataTable>
 
-					<h:outputText value="Popup Date:" />
-					<h:outputText value="#{nutrimentProtocolBean.endDate}">
-						<f:convertDateTime pattern="MM/dd/yyyy" />
-					</h:outputText>
-
-				</h:panelGrid>
-
-			</p:dialog>
-		</h:form>
-		
-		<h:form>
-			<h:outputText value="Rezept suchen"></h:outputText>
-			<p:panel>
-				<h:panelGrid columns="2">  					
-					<p:autoComplete minQueryLength="2" value="#{webController.chosenRecipe}"
-					completeMethod="#{webController.completeRecipeSearch}">
-					</p:autoComplete>
-				</h:panelGrid>
-			</p:panel>
 		</h:form>
 </h:body>
 </f:view>

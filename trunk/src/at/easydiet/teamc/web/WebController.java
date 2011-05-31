@@ -188,7 +188,7 @@ public class WebController {
 	 * @param event
 	 */
 	public void nutrimentProtocolDateSelect(DateSelectEvent event) {
-		// _protocolController.NutrimentProtocolDateSelect();
+		_protocolController.NutrimentProtocolDateSelect();
 		LOGGER.info("nutrimentProtocolDateSelect event");
 	}
 	
