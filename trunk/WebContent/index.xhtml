@@ -59,6 +59,17 @@
 
 			</p:dialog>
 		</h:form>
+		
+		<h:form>
+			<h:outputText value="Rezept suchen"></h:outputText>
+			<p:panel>
+				<h:panelGrid columns="2">  					
+					<p:autoComplete value="#{webController.chosenRecipe}" 
+					completeMethod="#{webController.completeRecipeSearch}">
+					</p:autoComplete>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
 </h:body>
 </f:view>
 </html>
