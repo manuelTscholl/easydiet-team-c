@@ -55,7 +55,21 @@
 				</p:column>
 			</p:dataTable>
 
+	
 		</h:form>
+		
+		<h:form>
+			<h:outputText value="Rezept suchen"></h:outputText>
+			<p:panel><h:graphicImage name="img/loading_site.gif"></h:graphicImage>
+				<h:panelGrid columns="2">  					
+					<p:autoComplete minQueryLength="2" value="#{webController.chosenRecipe}"
+					
+					completeMethod="#{webController.completeRecipeSearch}">
+					</p:autoComplete>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
 </h:body>
 </f:view>
 </html>
