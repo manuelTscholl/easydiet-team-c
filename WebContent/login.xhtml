@@ -12,7 +12,7 @@
         <script type="text/javascript">
         	function handleLoginRequest(xhr, status, args) {
         		
-        		if(args.loggedIn){
+        		if(!args.validationFailed || args.loggedIn){
         			window.location.replace("index.jsf");
         		}
         	}
@@ -26,16 +26,16 @@
                 <h:panelGrid columns="2" cellspacing="5">
                     <h:outputLabel  for="username" value="Username *"/>
                     <p:inputText id="username" value="#{webController.username}" required="true" label="username"/>
-                    <h:outputLabel for="password" value="Passwort *" />
-                    <h:inputSecret id="password" value="#{webController.passwort}" required="true" label="password"/>
+                    <h:outputLabel for="password" value="Password *" />
+                    <h:inputSecret id="password" value="#{webController.password}" required="true" label="password"/>
                     <f:facet name="footer">
-                         <p:commandButton styleClass="button" value="Login" actionListener="#{webController.loginPatient}"
+                         <p:commandButton styleClass="button" value="Login" 
+                         				actionListener="#{WebController.loginPatient}"
                          				oncomplete="handleLoginRequest(xhr, status,args)"/> 
                     </f:facet>
-                    <h:selectBooleanCheckbox id="remember">
+                    <h:selectBooleanCheckbox id="rememberMe">
                     	<h:outputLabel for="remember">Remember Me</h:outputLabel>
                     </h:selectBooleanCheckbox>
-                 
                 </h:panelGrid>
             </h:form>
     </h:body>
