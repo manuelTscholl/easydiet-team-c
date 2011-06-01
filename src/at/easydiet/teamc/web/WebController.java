@@ -13,11 +13,9 @@ import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import org.hibernate.mapping.Array;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.DateSelectEvent;
 
-import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
 import at.easydiet.teamc.controller.usecase.SearchRecipeController;
@@ -50,7 +48,7 @@ public class WebController {
 	private CreateNutritionProtocolController _protocolController;
 	private String _exception = "";
 	private DietryPlanData _selectedPlan;
-	
+
 	private String _chosenRecipe;
 
 	public String getChosenRecipe() {
@@ -58,7 +56,7 @@ public class WebController {
 	}
 
 	public void setChosenRecipe(String chosenRecipe) {
-		_chosenRecipe=chosenRecipe;
+		_chosenRecipe = chosenRecipe;
 	}
 
 	{
@@ -82,8 +80,10 @@ public class WebController {
 				_loggedIn = true;
 			} catch (LoginFailedException e) {
 				_loggedIn = false;
-				_exception = e.toString();
+				_exception = e.getMessage();
 			}
+		} else {
+			_exception = "Bitte Logindaten eintragen";
 		}
 
 		RequestContext context = RequestContext.getCurrentInstance();
@@ -198,24 +198,24 @@ public class WebController {
 		_protocolController.NutrimentProtocolDateSelect();
 		LOGGER.info("nutrimentProtocolDateSelect event");
 	}
-	
-	public List<String> completeRecipeSearch(String query){
-		ArrayList<String> s=new ArrayList<String>();
-		for(RecipeData rd:searchRecipes(query)){
+
+	public List<String> completeRecipeSearch(String query) {
+		ArrayList<String> s = new ArrayList<String>();
+		for (RecipeData rd : searchRecipes(query)) {
 			s.add(rd.getName());
 		}
 		return s;
-		
+
 	}
 
 	private List<RecipeData> searchRecipes(String query) {
-		SearchRecipeController src=SearchRecipeController.getInstance();
-		ArrayList<RecipeData> recipes=new ArrayList<RecipeData>();
-		for(RecipeBo b: src.searchRecipe(null, query)){
-			recipes.add((RecipeData)b);
+		SearchRecipeController src = SearchRecipeController.getInstance();
+		ArrayList<RecipeData> recipes = new ArrayList<RecipeData>();
+		for (RecipeBo b : src.searchRecipe(null, query)) {
+			recipes.add(b);
 		}
 		return recipes;
-		
+
 	}
 
 }
