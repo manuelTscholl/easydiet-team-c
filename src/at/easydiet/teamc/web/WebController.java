@@ -10,10 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.DateSelectEvent;
@@ -53,11 +51,8 @@ public class WebController {
 	private String _exception = "";
 	private DietryPlanData _selectedPlan;
 
-	
 	private DualListModel<RecipeData> _recipes;
-	
-	
-	
+
 	private String _chosenRecipe;
 
 	public String getChosenRecipe() {
@@ -66,11 +61,6 @@ public class WebController {
 
 	public void setChosenRecipe(String chosenRecipe) {
 		_chosenRecipe = chosenRecipe;
-	}
-
-	{
-
-		_protocolController = new CreateNutritionProtocolController();
 	}
 
 	/**
@@ -161,9 +151,6 @@ public class WebController {
 		return _protocolController.getMealCodes();
 	}
 
-	
-	
-
 	/**
 	 * Save the nutrition protocol
 	 */
@@ -220,23 +207,23 @@ public class WebController {
 		return recipes;
 
 	}
-	
-	public void handleSelect(SelectEvent e){
-		//recipe was selected..add to nutritionprotocol
-		
-		
+
+	public void handleSelect(SelectEvent e) {
+		// recipe was selected..add to nutritionprotocol
+
 	}
-	
-	public DualListModel<RecipeData> getRecipes(){
-		List<RecipeData> searchRecipes=new ArrayList<RecipeData>(searchRecipes(this._chosenRecipe));
-		List<RecipeData> targetRecipes=new ArrayList<RecipeData>();
-		
-		_recipes=new DualListModel<RecipeData>(searchRecipes, targetRecipes);
+
+	public DualListModel<RecipeData> getRecipes() {
+		List<RecipeData> searchRecipes = new ArrayList<RecipeData>(
+				searchRecipes(this._chosenRecipe));
+		List<RecipeData> targetRecipes = new ArrayList<RecipeData>();
+
+		_recipes = new DualListModel<RecipeData>(searchRecipes, targetRecipes);
 		return _recipes;
 	}
-	
-	public void setRecipes(DualListModel<RecipeData> recipes){
-		this._recipes=recipes;
+
+	public void setRecipes(DualListModel<RecipeData> recipes) {
+		this._recipes = recipes;
 	}
 
 }
