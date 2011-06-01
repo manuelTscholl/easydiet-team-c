@@ -48,21 +48,27 @@
 	
 		</h:form>
 		
-		<h:form>
-			<h:outputText value="Rezept suchen"></h:outputText>
-			<p:panel>
-				<h:panelGrid columns="2">  					
-					<p:autoComplete minQueryLength="2" maxResults="5" value="#{webController.chosenRecipe}"
-					completeMethod="#{webController.completeRecipeSearch}">
-					</p:autoComplete>
-					<p:ajaxStatus>
-						<f:facet name="start">
-							<h:graphicImage url="img/loading_content.gif"/>
-						</f:facet>
-					</p:ajaxStatus>
-				</h:panelGrid>
-			</p:panel>
-		</h:form>
+		<!-- Dialog for adding recipes. -->			
+		<p:dialog widgetVar="dlg3" showEffect="bounce" hideEffect="explode">
+		
+			<h:form>
+			
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Rezept: " for="recipe"/>
+					<p:autoComplete id="recipe" minQueryLength="2" maxResults="5" 
+					value="#{webController.chosenRecipe}"
+					completeMethod="#{webController.completeRecipeSearch}" 
+					selectListener="#{webController.handleSelect}"/>
+				</h:panelGrid>	
+				</h:form>
+			
+			<h:form title="Rezepte Auswahl">			
+				<p:pickList value="#{webController.recipes}" 
+				var="recipe" itemLabel="{recipe.name}" itemValue="{recipe}" 
+				showSourceControls="true" showTargetControls="true" effect="bounce"></p:pickList>
+			</h:form>
+			
+		</p:dialog>		
 </h:body>
 </f:view>
 </html>
