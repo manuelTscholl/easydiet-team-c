@@ -30,12 +30,9 @@
                     <h:inputSecret id="password" value="#{webController.password}" required="true" label="password"/>
                     <f:facet name="footer">
                          <p:commandButton styleClass="button" value="Login" 
-                         				actionListener="#{WebController.loginPatient}"
+                         				actionListener="#{webController.loginPatient}"
                          				oncomplete="handleLoginRequest(xhr, status,args)"/> 
                     </f:facet>
-                    <h:selectBooleanCheckbox id="rememberMe">
-                    	<h:outputLabel for="remember">Remember Me</h:outputLabel>
-                    </h:selectBooleanCheckbox>
                 </h:panelGrid>
             </h:form>
     </h:body>

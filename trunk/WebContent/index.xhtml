@@ -24,19 +24,9 @@
 			</p>
 
 			<h:panelGrid columns="2" style="margin-top:10px">
-				<p:commandButton value="Submit" update="display"
+				<p:commandButton value="Submit" 
 					oncomplete="dialog.show()" />
 
-
-				<p:ajaxStatus style="width:16px;height:16px;">
-					<f:facet name="start">
-						<h:graphicImage value="../design/ajaxloading.gif" />
-					</f:facet>
-
-					<f:facet name="complete">
-						<h:outputText value="" />
-					</f:facet>
-				</p:ajaxStatus>
 
 			</h:panelGrid>
 			
@@ -73,7 +63,6 @@
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
-
 </h:body>
 </f:view>
 </html>
