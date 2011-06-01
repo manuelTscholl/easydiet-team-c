@@ -45,7 +45,21 @@
 	
 		</h:form>
 		
-		<p:commandButton value="Rezept hinzufügen" onclick="dlg3.show();" type="button"/> 
+		
+		<h:form>
+		<p:panel>
+			<h:panelGrid columns="2" cellpadding="5">		
+			<h:outputText value="Tag 1"></h:outputText>			
+			<p:commandButton value="Rezept hinzufügen" onclick="dlg3.show();" type="button"/>
+			<h:outputText value="Tag 2"></h:outputText>	
+			<p:commandButton value="Rezept hinzufügen" onclick="dlg3.show();" type="button"/>
+			</h:panelGrid>	
+			
+			
+		</p:panel>
+		</h:form>
+		
+		 
 		
 		<!-- Dialog for adding recipes. -->			
 		<p:dialog widgetVar="dlg3" showEffect="bounce" hideEffect="explode">
@@ -61,11 +75,7 @@
 				</h:panelGrid>	
 				</h:form>
 			
-			<h:form title="Rezepte Auswahl">			
-				<p:pickList value="#{webController.recipes}" 
-				var="recipe" itemLabel="{recipe.name}" itemValue="{recipe}" 
-				showSourceControls="true" showTargetControls="true" effect="bounce"></p:pickList>
-			</h:form>
+			
 			
 		</p:dialog>		
 </h:body>
