@@ -79,13 +79,13 @@ public class LoginController {
 		PatientBo user = SearchPatientController.getInstance().loginPatient(
 				username);
 
-		if (user != null) {
+		if (user.getModel() != null) {
 
 			// check for correct password
 			if (user.getPassword().equals(password)) {
 				return user;
 			} else {
-				throw new LoginFailedException("Wrong password.");
+				throw new LoginFailedException("Wrong password or username.");
 			}
 		} else {
 			throw new LoginFailedException("Username not known.");
