@@ -10,11 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.DateSelectEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DualListModel;
 
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
@@ -49,6 +53,11 @@ public class WebController {
 	private String _exception = "";
 	private DietryPlanData _selectedPlan;
 
+	
+	private DualListModel<RecipeData> _recipes;
+	
+	
+	
 	private String _chosenRecipe;
 
 	public String getChosenRecipe() {
@@ -152,14 +161,8 @@ public class WebController {
 		return _protocolController.getMealCodes();
 	}
 
-	/**
-	 * Gets the recipes.
-	 * 
-	 * @return the recipes
-	 */
-	public List<RecipeData> getRecipes() {
-		return _protocolController.getRecipes();
-	}
+	
+	
 
 	/**
 	 * Save the nutrition protocol
@@ -208,7 +211,7 @@ public class WebController {
 
 	}
 
-	private List<RecipeData> searchRecipes(String query) {
+	public List<RecipeData> searchRecipes(String query) {
 		SearchRecipeController src = SearchRecipeController.getInstance();
 		ArrayList<RecipeData> recipes = new ArrayList<RecipeData>();
 		for (RecipeBo b : src.searchRecipe(null, query)) {
@@ -216,6 +219,24 @@ public class WebController {
 		}
 		return recipes;
 
+	}
+	
+	public void handleSelect(SelectEvent e){
+		//recipe was selected..add to nutritionprotocol
+		
+		
+	}
+	
+	public DualListModel<RecipeData> getRecipes(){
+		List<RecipeData> searchRecipes=new ArrayList<RecipeData>(searchRecipes(this._chosenRecipe));
+		List<RecipeData> targetRecipes=new ArrayList<RecipeData>();
+		
+		_recipes=new DualListModel<RecipeData>(searchRecipes, targetRecipes);
+		return _recipes;
+	}
+	
+	public void setRecipes(DualListModel<RecipeData> recipes){
+		this._recipes=recipes;
 	}
 
 }
