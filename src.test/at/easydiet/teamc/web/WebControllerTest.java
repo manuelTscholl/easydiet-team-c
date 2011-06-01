@@ -13,6 +13,7 @@ import org.junit.Test;
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
 import at.easydiet.teamc.exception.LoginFailedException;
+import at.easydiet.teamc.exception.NoDietPlanException;
 import at.easydiet.teamc.model.data.PatientData;
 
 /**
@@ -28,6 +29,7 @@ public class WebControllerTest extends TestCase {
 	// instance variables
 	private WebController _webCtrl;
 	private CreateNutritionProtocolController _protocolCtrl;
+	private PatientData _activePatient;
 
 	{
 		_webCtrl = new WebController();
@@ -44,13 +46,13 @@ public class WebControllerTest extends TestCase {
 		String result = "Thomas Geiger";
 
 		// correct login
-		PatientData activePatient;
+		
 		try {
-			activePatient = LoginController.getInstance().loginPatient(
+			_activePatient = LoginController.getInstance().loginPatient(
 					"tgeiger", "tgeiger");
 			assertEquals(
-					activePatient.getForename() + " "
-							+ activePatient.getLastname(), result);
+					_activePatient.getForename() + " "
+							+ _activePatient.getLastname(), result);
 		} catch (LoginFailedException e) {
 			assertTrue(false);
 		}
@@ -77,5 +79,18 @@ public class WebControllerTest extends TestCase {
 		assertNotNull(_protocolCtrl.getMealCodes());
 		assertNotNull(_protocolCtrl.getPlanTypes());
 		assertNotNull(_protocolCtrl.getRecipes());
+	}
+	
+	@Test
+	public void testGetAllDietryPlans(){
+		try {
+			_activePatient = LoginController.getInstance().loginPatient(
+					"tgeiger", "tgeiger");
+			assertNotNull(_protocolCtrl.getAllDietryPlans(_activePatient));
+		} catch (NoDietPlanException e) {
+			assertTrue(true);
+		} catch (LoginFailedException e){
+			assertTrue(false);
+		}
 	}
 }

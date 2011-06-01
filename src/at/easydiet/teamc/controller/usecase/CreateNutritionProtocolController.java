@@ -23,6 +23,7 @@ import at.easydiet.model.PlanType;
 import at.easydiet.model.TimeSpan;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.controller.LoginController;
+import at.easydiet.teamc.exception.NoDietPlanException;
 import at.easydiet.teamc.model.DietPlanBo;
 import at.easydiet.teamc.model.NutritionProtocolBo;
 import at.easydiet.teamc.model.PatientBo;
@@ -155,10 +156,14 @@ public class CreateNutritionProtocolController {
 	 * Get all dietry plans from patient
 	 * @param patient
 	 * @return
+	 * @throws NoDietPlanException is thrown if patient has no DietPlans
 	 */
-	public List<DietryPlanData> getAllDietryPlans(PatientData patient) {
+	public List<DietryPlanData> getAllDietryPlans(PatientData patient) throws NoDietPlanException {
 		PatientBo p = (PatientBo) patient;
 		List<DietryPlanData> plans = new ArrayList<DietryPlanData>();
+		if(p.getAllDietPlans().size()<=0){
+			throw new NoDietPlanException("This patient has no DietPlan.");
+		}
 		for (DietPlanBo d : p.getAllDietPlans()) {
 			plans.add(d);
 		}
