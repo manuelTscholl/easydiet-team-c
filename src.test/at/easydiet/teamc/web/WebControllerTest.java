@@ -40,10 +40,16 @@ public class WebControllerTest extends TestCase {
 	private WebController _webCtrl;
 	private CreateNutritionProtocolController _protocolCtrl;
 	private PatientData _activePatient;
+	private String _recipeSearchQuery;
+	private RecipeBo _recipe;
 
-	{
+	protected void setUp() throws Exception {
 		_webCtrl = new WebController();
 		_protocolCtrl = new CreateNutritionProtocolController();
+		_activePatient = LoginController.getInstance().loginPatient(
+				"tgeiger", "tgeiger");
+		_recipeSearchQuery = "Vollkornbrot mit Soja";
+		_recipe = SearchRecipeController.getInstance().searchRecipe(null, "Vollkornbrot mit Soja").get(0);
 	}
 
 	/**
@@ -89,7 +95,7 @@ public class WebControllerTest extends TestCase {
 		assertNotNull(_protocolCtrl.getMealCodes());
 		assertNotNull(_protocolCtrl.getPlanTypes());
 		assertNotNull(_protocolCtrl.getRecipes());
-		RecipeBo recipe=SearchRecipeController.getInstance().searchRecipe(null, "Vollkornbrot mit Soja").get(0);
+//		RecipeBo recipe=SearchRecipeController.getInstance().searchRecipe(null, "Vollkornbrot mit Soja").get(0);
 //		Map<RecipeData, Float> recipes=new HashMap<RecipeData, Float>();
 //		recipes.put((RecipeData) recipe, 150F);
 //		_protocolCtrl.addRecipesToProtocoll(recipes);
@@ -102,13 +108,21 @@ public class WebControllerTest extends TestCase {
 	@Test
 	public void testGetAllDietryPlans(){
 		try {
-			_activePatient = LoginController.getInstance().loginPatient(
-					"tgeiger", "tgeiger");
 			assertNotNull(_protocolCtrl.getAllDietryPlans(_activePatient));
 		} catch (NoDietPlanException e) {
 			assertTrue(true);
-		} catch (LoginFailedException e){
-			assertTrue(false);
-		}
+		} 
+	}
+	
+	@Test
+	public void testCompleteRecipeSearch(){
+		assertEquals(_recipeSearchQuery, _webCtrl.completeRecipeSearch(_recipeSearchQuery).get(0));
+		assertNotNull(_webCtrl.completeRecipeSearch(null));
+	}
+	
+	@Test
+	public void testSearchRecipe(){
+		assertEquals(_recipe, _webCtrl.searchRecipes(_recipeSearchQuery).get(0));
+		assertNotNull(_webCtrl.searchRecipes(null));
 	}
 }

@@ -66,6 +66,23 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
         }
 
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	if (obj == null || !obj.getClass().equals(this.getClass())) {
+    	      return false;
+    	    }
+    	
+    	RecipeBo recipetocompare = (RecipeBo) obj;
+    	
+    	return this.getRecipeId()==recipetocompare.getRecipeId();
+    }
+    
+    @Override
+    public int hashCode() {
+    	Long l = this.getRecipeId();
+    	return l.hashCode();
+    }
 
     /**
      * Calculates the values for all nutriment parameter.
