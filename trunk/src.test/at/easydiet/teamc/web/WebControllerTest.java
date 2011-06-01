@@ -6,15 +6,25 @@
  */
 package at.easydiet.teamc.web;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import junit.framework.TestCase;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.junit.Test;
 
+import at.easydiet.teamc.controller.DatabaseController;
 import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
+import at.easydiet.teamc.controller.usecase.SearchRecipeController;
 import at.easydiet.teamc.exception.LoginFailedException;
 import at.easydiet.teamc.exception.NoDietPlanException;
+import at.easydiet.teamc.model.RecipeBo;
+import at.easydiet.teamc.model.TimeSpanBo;
 import at.easydiet.teamc.model.data.PatientData;
+import at.easydiet.teamc.model.data.RecipeData;
 
 /**
  * 
@@ -79,6 +89,14 @@ public class WebControllerTest extends TestCase {
 		assertNotNull(_protocolCtrl.getMealCodes());
 		assertNotNull(_protocolCtrl.getPlanTypes());
 		assertNotNull(_protocolCtrl.getRecipes());
+		RecipeBo recipe=SearchRecipeController.getInstance().searchRecipe(null, "Vollkornbrot mit Soja").get(0);
+//		Map<RecipeData, Float> recipes=new HashMap<RecipeData, Float>();
+//		recipes.put((RecipeData) recipe, 150F);
+//		_protocolCtrl.addRecipesToProtocoll(recipes);
+		_protocolCtrl.getActualProtocol().addTimeSpan(new TimeSpanBo(new Date(), 2, _protocolCtrl.getActualProtocol()));
+		assertEquals(1, _protocolCtrl.getActualProtocol().getTimeSpans().size());
+		_protocolCtrl.getActualProtocol().addMealCode(DatabaseController.getInstance().getAllMealCodes().get(0), 1);
+		assertEquals(1, _protocolCtrl.getActualProtocol().getAllMeals().size());
 	}
 	
 	@Test

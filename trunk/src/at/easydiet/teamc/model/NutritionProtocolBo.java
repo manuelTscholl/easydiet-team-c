@@ -18,6 +18,10 @@ public class NutritionProtocolBo extends DietPlanBo implements
 	private NutritionProtocol _NutritionProtocol;
 
 	public NutritionProtocolBo() {
+		super();
+		this._NutritionProtocol=new NutritionProtocol();
+		this._dietPlan=this._NutritionProtocol;
+		this._NutritionProtocol.setCreatedOn(new Date());
 	}
 
 	public NutritionProtocolBo(NutritionProtocol nutritionProtocol) {
