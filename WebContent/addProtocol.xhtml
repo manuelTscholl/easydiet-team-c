@@ -12,70 +12,38 @@
 	<h:body>
 		<h1>Ernährungsprotokoll erfassen</h1>
 
-		<h:form>
-			<p>
-				von:
-				<p:calendar value="#{nutrimentProtocolBean.startDate}" showOn="button" />
-				bis:
-				<p:calendar value="#{nutrimentProtocolBean.endDate}" showOn="button"/>
-			</p>
+		<p:accordionPanel autoHeight="false">
+			<p:tab title="Allgemeine Informationen">
+				<p:panel>Zeitspanne definieren</p:panel>
+				<h:form>
+					<p>
+						von:
+						<p:calendar value="#{nutrimentProtocolBean.startDate}"
+							showOn="button" />
+						bis:
+						<p:calendar value="#{nutrimentProtocolBean.endDate}"
+							showOn="button" />
+					</p>
+					<p:commandButton value="Zeitspanne anlegen" 
+					action="#{nutrimentProtocolBean.generateTimespan}"/>
 
-			<h:panelGrid columns="2" style="margin-top:10px">
-				<p:commandButton value="Submit" update="display"
-					oncomplete="dialog.show()" />
+				</h:form>
+			</p:tab>
 
-
-				<p:ajaxStatus style="width:16px;height:16px;">
-					<f:facet name="start">
-						<h:graphicImage value="../design/ajaxloading.gif" />
-					</f:facet>
-
-					<f:facet name="complete">
-						<h:outputText value="" />
-					</f:facet>
-				</p:ajaxStatus>
-
-			</h:panelGrid>
-
-			<p:dialog header="Selected Dates" widgetVar="dialog"
-				showEffect="fold" hideEffect="fold" height="150">
-
-				<h:panelGrid id="display" columns="2" cellpadding="5">
-
-					<h:outputText value="Inline Date:" />
-					<h:outputText value="#{nutrimentProtocolBean.startDate}">
-						<f:convertDateTime pattern="MM/dd/yyyy" />
-					</h:outputText>
-
-					<h:outputText value="Popup Date:" />
-					<h:outputText value="#{nutrimentProtocolBean.endDate}">
-						<f:convertDateTime pattern="MM/dd/yyyy" />
-					</h:outputText>
-
-				</h:panelGrid>
-
-			</p:dialog>
-		</h:form>
-		
-		<h:form>
-			<p:dataTable value="#{webController.recipes}" var="currRecipe" 
-			selection="nutrimentProtocolBean.chosenRecipes" selectionMode="multiple">
-				<p:column>
-					<f:facet name="header"><h:outputText value="Name"/></f:facet>
-					<h:outputText value="#{currRecipe.name}"></h:outputText>
-				</p:column>
+			<p:tab title="Mahlzeiten und Rezepte eintragen">
+				<h:form>
 				
-				<p:column>
-					<f:facet name="header"><h:outputText value="Gesamtmenge"/></f:facet>
-					<h:outputText value="#{currRecipe.totalAmount}"></h:outputText>
-				</p:column>
-				
-				<p:column>
-					<f:facet name="header"><h:outputText value="Auswählen"/></f:facet>
-					<h:selectManyCheckbox ></h:selectManyCheckbox>
-				</p:column>
-			</p:dataTable>
-		</h:form>
-</h:body>
+					<p:dataTable value="#{nutrimentProtocolBean.timespanDays}">
+					<p:column><h:outputText value="#{day}"/></p:column>
+					</p:dataTable>
+				</h:form>
+			</p:tab>
+
+		</p:accordionPanel>
+
+
+
+
+	</h:body>
 </f:view>
 </html>
