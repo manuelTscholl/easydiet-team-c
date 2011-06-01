@@ -29,9 +29,6 @@
 
 
 			</h:panelGrid>
-			
-
-
 
 			<p:dataTable value="#{nutrimentProtocolBean.timespans}" var="span" >
 				<p:column>
@@ -48,6 +45,8 @@
 	
 		</h:form>
 		
+		<p:commandButton value="Rezept hinzufügen" onclick="dlg3.show();" type="button"/> 
+		
 		<!-- Dialog for adding recipes. -->			
 		<p:dialog widgetVar="dlg3" showEffect="bounce" hideEffect="explode">
 		
@@ -62,11 +61,7 @@
 				</h:panelGrid>	
 				</h:form>
 			
-			<h:form title="Rezepte Auswahl">			
-				<p:pickList value="#{webController.recipes}" 
-				var="recipe" itemLabel="{recipe.name}" itemValue="{recipe}" 
-				showSourceControls="true" showTargetControls="true" effect="bounce"></p:pickList>
-			</h:form>
+			
 			
 		</p:dialog>		
 </h:body>
