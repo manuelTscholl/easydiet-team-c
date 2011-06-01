@@ -22,6 +22,7 @@ import at.easydiet.teamc.controller.LoginController;
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
 import at.easydiet.teamc.controller.usecase.SearchRecipeController;
 import at.easydiet.teamc.exception.LoginFailedException;
+import at.easydiet.teamc.exception.NoDietPlanException;
 import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
@@ -171,7 +172,13 @@ public class WebController {
 	 * Get all dietry plans
 	 */
 	public List<DietryPlanData> getAllDietryPlans() {
-		return _protocolController.getAllDietryPlans(_loggedInUser);
+		try {
+			return _protocolController.getAllDietryPlans(_loggedInUser);
+		} catch (NoDietPlanException e) {
+			LOGGER.error(e.getMessage(), e);
+			e.printStackTrace();
+			return new ArrayList<DietryPlanData>();
+		}
 	}
 
 	/**
