@@ -10,9 +10,8 @@
         <title>EasyDiet</title>
         <link rel="stylesheet" type="text/css" href="style.css"></link>
         <script type="text/javascript">
-        	function handleLoginRequest(xhr, status, args) {
-        		
-        		if(args.loggedIn){
+        	function handleLoginRequest(xhr, status, args) {	
+        		if(!args.validationFailed &amp;&amp; args.loggedIn){
         			window.location.replace("index.jsf");
         		} else {
         			alert(args.exception);
