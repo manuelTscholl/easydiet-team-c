@@ -189,8 +189,7 @@ public class WebController {
 		LOGGER.info("nutrimentProtocolDateSelect event");
 	}
 
-	public List<String> getCompleteRecipeSearch() {
-	    String query = "";
+	public List<String> completeRecipeSearch(String query) {
 		ArrayList<String> s = new ArrayList<String>();
 		for (RecipeData rd : searchRecipes(query)) {
 			s.add(rd.getName());
@@ -209,7 +208,7 @@ public class WebController {
 
 	}
 
-	public void getHandleSelect(SelectEvent e) {
+	public void handleSelect(SelectEvent e) {
 		// recipe was selected..add to nutritionprotocol
 
 	}

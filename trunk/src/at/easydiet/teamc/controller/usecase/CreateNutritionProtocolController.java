@@ -38,170 +38,205 @@ import at.easydiet.teamc.web.NutrimentProtocolBean;
  * 
  * @author Michael
  */
-public class CreateNutritionProtocolController {
+public class CreateNutritionProtocolController
+{
 
-	// class variables
-	private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
-			.getLogger(CreateNutritionProtocolController.class);
-	// instance variables
-	private NutritionProtocolBo _actualProtocol;
-	private List<PlanTypeData> _planTypes;
-	private Set<MealCodeData> _mealCodes;
-	private List<RecipeData> _recipes;
-	private PlanTypeData _selectedPlanType;
-	private static final String NUTRIMENTBEANNAME = "nutrimentProtocolBean";
+    // class variables
+    private static final org.apache.log4j.Logger LOGGER            = org.apache.log4j.Logger
+                                                                           .getLogger(CreateNutritionProtocolController.class);
+    // instance variables
+    private NutritionProtocolBo                  _actualProtocol;
+    private List<PlanTypeData>                   _planTypes;
+    private Set<MealCodeData>                    _mealCodes;
+    private List<RecipeData>                     _recipes;
+    private PlanTypeData                         _selectedPlanType;
+    private static final String                  NUTRIMENTBEANNAME = "nutrimentProtocolBean";
 
-	/**
-	 * Instantiates a new creates the nutrition protocol controller.
-	 */
-	public CreateNutritionProtocolController() {
-		_actualProtocol = new NutritionProtocolBo();
+    /**
+     * Instantiates a new creates the nutrition protocol controller.
+     */
+    public CreateNutritionProtocolController()
+    {
+        _actualProtocol = new NutritionProtocolBo();
 
-		// load necessary protocol data
-		_planTypes = BusinessLogicDelegationController.getInstance()
-				.getAllPlanTypes();
-		_mealCodes = BusinessLogicDelegationController.getInstance()
-				.getAllMealCodes();
-		_recipes = BusinessLogicDelegationController.getInstance()
-				.recipeSearch(null, null);
-		_selectedPlanType = null;
-	}
+        // load necessary protocol data
+        _planTypes = BusinessLogicDelegationController.getInstance()
+                .getAllPlanTypes();
+        _mealCodes = BusinessLogicDelegationController.getInstance()
+                .getAllMealCodes();
+        _recipes = BusinessLogicDelegationController.getInstance()
+                .recipeSearch(null, null);
+        _selectedPlanType = null;
+    }
 
-	// TODO wie bekommen wir rezepte und mengen von jsf vereint
-	public void addRecipesToProtocoll(Map<RecipeData, Float> recipes) {
+    // TODO wie bekommen wir rezepte und mengen von jsf vereint
+    public void addRecipesToProtocoll(Map<RecipeData, Float> recipes)
+    {
 
-	}
+    }
 
-	private void addRecipeToProtocoll(RecipeData recipe) {
+    private void addRecipeToProtocoll(RecipeData recipe)
+    {
 
-	}
+    }
 
-	/**
-	 * Gets the actual protocol.
-	 * 
-	 * @return the actual protocol
-	 */
-	public NutritionProtocolBo getActualProtocol() {
-		return _actualProtocol;
-	}
+    /**
+     * Gets the actual protocol.
+     * 
+     * @return the actual protocol
+     */
+    public NutritionProtocolBo getActualProtocol()
+    {
+        return _actualProtocol;
+    }
 
-	/**
-	 * Gets the plan types.
-	 * 
-	 * @return the plan types
-	 */
-	public List<PlanTypeData> getPlanTypes() {
-		return _planTypes;
-	}
+    /**
+     * Gets the plan types.
+     * 
+     * @return the plan types
+     */
+    public List<PlanTypeData> getPlanTypes()
+    {
+        return _planTypes;
+    }
 
-	/**
-	 * Gets the meal codes.
-	 * 
-	 * @return the meal codes
-	 */
-	public Set<MealCodeData> getMealCodes() {
-		return _mealCodes;
-	}
+    /**
+     * Gets the meal codes.
+     * 
+     * @return the meal codes
+     */
+    public Set<MealCodeData> getMealCodes()
+    {
+        return _mealCodes;
+    }
 
-	/**
-	 * Gets the recipes.
-	 * 
-	 * @return the recipes
-	 */
-	public List<RecipeData> getRecipes() {
-		return _recipes;
-	}
+    /**
+     * Gets the recipes.
+     * 
+     * @return the recipes
+     */
+    public List<RecipeData> getRecipes()
+    {
+        return _recipes;
+    }
 
-	/**
-	 * Save the protocol
-	 */
-	public void save() {
-		DAOFactory.getInstance().getNutritionProtocolDAO()
-				.makePersistent(_actualProtocol.getModel());
-	}
+    /**
+     * Save the protocol
+     */
+    public void save()
+    {
+        DAOFactory.getInstance().getNutritionProtocolDAO()
+                .makePersistent(_actualProtocol.getModel());
+    }
 
-	/**
-	 * Sets the plan types.
-	 * 
-	 * @param planTypes the new plan types
-	 */
-	public void setPlanType(PlanTypeData planTypes) {
-		_selectedPlanType = planTypes;
-		_actualProtocol.setPlanType((PlanTypeBo) _selectedPlanType);
-	}
+    /**
+     * Sets the plan types.
+     * 
+     * @param planTypes
+     *            the new plan types
+     */
+    public void setPlanType(PlanTypeData planTypes)
+    {
+        _selectedPlanType = planTypes;
+        _actualProtocol.setPlanType((PlanTypeBo) _selectedPlanType);
+    }
 
-	/**
-	 * Sets the meal codes.
-	 * 
-	 * @param mealCodes the new meal codes
-	 */
-	public void setMealCodes(Set<MealCodeData> mealCodes) {
-		_mealCodes = mealCodes;
-	}
+    /**
+     * Sets the meal codes.
+     * 
+     * @param mealCodes
+     *            the new meal codes
+     */
+    public void setMealCodes(Set<MealCodeData> mealCodes)
+    {
+        _mealCodes = mealCodes;
+    }
 
-	/**
-	 * Sets the recipes.
-	 * 
-	 * @param recipes the new recipes
-	 */
-	public void setRecipes(List<RecipeData> recipes) {
-		_recipes = recipes;
-	}
+    /**
+     * Sets the recipes.
+     * 
+     * @param recipes
+     *            the new recipes
+     */
+    public void setRecipes(List<RecipeData> recipes)
+    {
+        _recipes = recipes;
+    }
 
-	/**
-	 * Get all dietry plans from patient
-	 * @param patient
-	 * @return
-	 * @throws NoDietPlanException is thrown if patient has no DietPlans
-	 */
-	public List<DietryPlanData> getAllDietryPlans(PatientData patient) throws NoDietPlanException {
-		PatientBo p = (PatientBo) patient;
-		List<DietryPlanData> plans = new ArrayList<DietryPlanData>();
-		if(p.getAllDietPlans().size()<=0){
-			throw new NoDietPlanException("This patient has no DietPlan.");
-		}
-		for (DietPlanBo d : p.getAllDietPlans()) {
-			plans.add(d);
-		}
+    /**
+     * Get all dietry plans from patient
+     * 
+     * @param patient
+     * @return
+     * @throws NoDietPlanException
+     *             is thrown if patient has no DietPlans
+     */
+    public List<DietryPlanData> getAllDietryPlans(PatientData patient)
+            throws NoDietPlanException
+    {
+        PatientBo p = (PatientBo) patient;
+        List<DietryPlanData> plans = new ArrayList<DietryPlanData>();
+        if (p.getAllDietPlans().size() <= 0)
+        {
+            throw new NoDietPlanException("This patient has no DietPlan.");
+        }
+        for (DietPlanBo d : p.getAllDietPlans())
+        {
+            plans.add(d);
+        }
 
-		return plans;
-	}
+        return plans;
+    }
 
-	/**
+    /**
      * 
      */
-	public void NutrimentProtocolDateSelect() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		NutrimentProtocolBean bean = context.getApplication()
-				.evaluateExpressionGet(context, "#{" + NUTRIMENTBEANNAME + "}",
-						NutrimentProtocolBean.class);
-		if (bean == null) {
-			LOGGER.info("context is null");
-			return;
-		}
-		if (bean.getStartDate() != null && bean.getEndDate() != null
-				&& bean.getStartDate().compareTo(bean.getEndDate()) <= 0) {
-			Date current = bean.getStartDate();
-			DietPlanBo planBo = null;
-			if (bean.getDietPlan() == null) {
-				DietPlan plan = new DietPlan("new", new Date(), new PlanType(
-						"Ernährungsprotokoll"), null, LoginController
-						.getInstance().getActualUser().getModel());
-				planBo = new DietPlanBo(plan);
-				bean.setDietPlan(plan);
-			} else {
-				planBo = new DietPlanBo(bean.getDietPlan());
-			}
-			// add a timespan for each day
-			while (bean.getEndDate().after(current)) {
-				TimeSpanBo span = new TimeSpanBo(current, 1, planBo);
-				bean.addTimeSpan(span);
-				current.setTime(current.getTime() + 1 * 24 * 60 * 60 * 1000);
-				LOGGER.info("one day added");
+    public void NutrimentProtocolDateSelect()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        NutrimentProtocolBean bean = context.getApplication()
+                .evaluateExpressionGet(context, "#{" + NUTRIMENTBEANNAME + "}",
+                        NutrimentProtocolBean.class);
+        if (bean == null)
+        {
+            LOGGER.info("context is null");
+            return;
+        }
+        if (bean.getStartDate() != null && bean.getEndDate() != null
+                && bean.getStartDate().compareTo(bean.getEndDate()) <= 0)
+        {
+            Date current = bean.getStartDate();
+            DietPlanBo planBo = null;
+            if (bean.getDietPlan() == null)
+            {
+                DietPlan plan = new DietPlan("new", new Date(), new PlanType(
+                        "Ernährungsprotokoll"), null, LoginController
+                        .getInstance().getActualUser().getModel());
+                planBo = new DietPlanBo(plan);
+                bean.setDietPlan(plan);
+            }
+            else
+            {
+                planBo = new DietPlanBo(bean.getDietPlan());
+            }
+            // add a timespan for each day
+            while (bean.getEndDate().after(current))
+            {
+                Date toInsert = new Date(current.getTime());
+                
+                TimeSpanBo span = new TimeSpanBo(toInsert, 1, planBo);
+                bean.addTimeSpan(span);
+                current.setTime(current.getTime() + 1 * 24 * 60 * 60 * 1000);
+                LOGGER.info("one day added");
 
-			}
-			LOGGER.info("timespans added");
-		}
+            }
+            for (TimeSpanBo item : bean.getTimeSpans())
+            {
+                LOGGER.info(item.getStart());
+            }
+            LOGGER.info("fertig");
+            
+        }
 
-	}
+    }
 }
