@@ -12,77 +12,84 @@
 	</h:head>
 	<h:body onload="#{webController.createNewProtocol()}">
 		<h1>Ernährungsprotokoll erfassen</h1>
-
 		<h:form>
 			<p>
 				von:
-				<p:calendar value="#{nutrimentProtocolBean.startDate}" showOn="button" selectListener="#{webController.nutrimentProtocolDateSelect}" /> 	
+				<p:calendar value="#{nutrimentProtocolBean.startDate}"
+					showOn="button"
+					selectListener="#{webController.nutrimentProtocolDateSelect}" />
 				bis:
-				<p:calendar value="#{nutrimentProtocolBean.endDate}" showOn="button" selectListener="#{webController.nutrimentProtocolDateSelect}" />
+				<p:calendar value="#{nutrimentProtocolBean.endDate}" showOn="button"
+					selectListener="#{webController.nutrimentProtocolDateSelect}" />
 				<h:selectOneMenu value="dietryplan">
-					<f:selectItem itemLabel="use TimeSpan" itemValue=""/>
+					<f:selectItem itemLabel="use TimeSpan" itemValue="" />
 				</h:selectOneMenu>
 			</p>
 
 			<h:panelGrid columns="2" style="margin-top:10px">
-				<p:commandButton value="Submit" 
-					oncomplete="dialog.show()" />
+				<p:commandButton value="Submit" oncomplete="dialog.show()" />
 
 
 			</h:panelGrid>
 
-			<p:dataTable value="#{nutrimentProtocolBean.timespans}" var="span" >
+			<p:dataTable value="#{nutrimentProtocolBean.timespans}" var="span">
 				<p:column>
-					<f:facet name="header"><h:outputText value="Name"/></f:facet>
+					<f:facet name="header">
+						<h:outputText value="Name" />
+					</f:facet>
 					<h:outputText value="#{span.start}"></h:outputText>
 				</p:column>
-								
+
 				<p:column>
-					<f:facet name="header"><h:outputText value="Auswählen"/></f:facet>
-					<h:selectManyCheckbox ></h:selectManyCheckbox>
+					<f:facet name="header">
+						<h:outputText value="Auswählen" />
+					</f:facet>
+					<h:selectManyCheckbox></h:selectManyCheckbox>
 				</p:column>
 			</p:dataTable>
 
-	
+
 		</h:form>
-		
-		
+
+
 		<h:form>
-		<p:panel>
-			<h:panelGrid columns="2" cellpadding="5">		
-			<h:outputText value="Tag 1"></h:outputText>			
-			<p:commandButton value="Rezept hinzufügen" onclick="dlg3.show();" type="button"/>
-			<h:outputText value="Tag 2"></h:outputText>	
-			<p:commandButton value="Rezept hinzufügen" onclick="dlg3.show();" type="button"/>
-			</h:panelGrid>	
-		</p:panel>
+			<p:panel>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputText value="Tag 1"></h:outputText>
+					<p:commandButton value="Rezept hinzufügen" onclick="dlg3.show();"
+						type="button" />
+					<h:outputText value="Tag 2"></h:outputText>
+					<p:commandButton value="Rezept hinzufügen" onclick="dlg3.show();"
+						type="button" />
+				</h:panelGrid>
+			</p:panel>
 		</h:form>
+
 		
-		 
-		
-		<!-- Dialog for adding recipes. -->			
+Dialog for adding recipes. 
+
 		<p:dialog widgetVar="dlg3" showEffect="bounce" hideEffect="explode">
-		
+
 			<h:form>
-			
-			<h:panelGrid columns="2">
-				<h:outputLabel value="Rezept: " for="recipe"/>
-					<p:autoComplete id="recipe" minQueryLength="2" maxResults="5" 
-					value="#{webController.chosenRecipe}"
-					completeMethod="#{webController.completeRecipeSearch}" 
-					selectListener="#{webController.handleSelect}"/>
-				</h:panelGrid>	
-				</h:form>
-				
-			<h:form title="Rezepte Auswahl">			
-				<p:pickList value="#{webController.recipes}" 
-				var="recipe" itemLabel="{recipe}" itemValue="{recipe}" 
-				showSourceControls="true" showTargetControls="true" effect="bounce"></p:pickList>
+
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Rezept: " for="recipe" />
+					<p:autoComplete id="recipe" minQueryLength="2" maxResults="5"
+						value="#{webController.chosenRecipe}"
+						completeMethod="#{webController.completeRecipeSearch}"
+						selectListener="#{webController.handleSelect}" />
+				</h:panelGrid>
 			</h:form>
-			
-			
-			
-		</p:dialog>		
-</h:body>
+
+			<h:form title="Rezepte Auswahl">
+				<p:pickList value="#{webController.recipes}" var="recipe"
+					itemLabel="{recipe}" itemValue="{recipe}" showSourceControls="true"
+					showTargetControls="true" effect="bounce"></p:pickList>
+			</h:form>
+
+
+
+		</p:dialog>
+	</h:body>
 </f:view>
 </html>
