@@ -1,6 +1,7 @@
 package at.easydiet.teamc.web;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -88,6 +89,10 @@ public class NutrimentProtocolBean extends NutritionProtocolBo{
         {
             bos.add(timeSpanBo);
         }
+        
+        Collections.sort(bos);
+        
+        
         return bos;
     }
     

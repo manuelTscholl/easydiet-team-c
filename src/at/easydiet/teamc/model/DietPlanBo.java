@@ -213,7 +213,8 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 	 */
 	public Set<TimeSpanBo> getTimeSpans() {
 	    if(_dietPlan==null)return null;
-		Set<TimeSpanBo> temp = new HashSet<TimeSpanBo>(this._dietPlan.getTimeSpans().size());
+
+	    Set<TimeSpanBo> temp = new HashSet<TimeSpanBo>(this._dietPlan.getTimeSpans().size());
 		for (TimeSpan timeSpan : this._dietPlan.getTimeSpans()) {
 			temp.add(new TimeSpanBo(timeSpan));
 		}

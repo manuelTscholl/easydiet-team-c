@@ -19,7 +19,7 @@ import at.easydiet.model.TimeSpan;
  */
 @ManagedBean
 @SessionScoped
-public class TimeSpanBo  implements java.io.Serializable, Saveable {
+public class TimeSpanBo  implements java.io.Serializable, Saveable,Comparable<TimeSpanBo> {
 
      private TimeSpan _TimeSpan;
 
@@ -117,6 +117,20 @@ public class TimeSpanBo  implements java.io.Serializable, Saveable {
     @Override
     public boolean save() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * compares the startdate
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(TimeSpanBo o)
+    {
+        if(o==null)return 1;
+        if(o.getStart().equals(getStart()))return 0;
+        if(o.getStart().after(getStart()))return -1;
+        if(getStart().after(o.getStart()))return +1;
+        return 0;
     }
 
 
