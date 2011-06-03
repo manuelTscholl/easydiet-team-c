@@ -45,7 +45,9 @@
 						<h:outputText value="Auswählen" />
 					</f:facet>
 					<p:commandButton value="Rezept hinzufügen" onclick="dlg3.show();"
-					type="button" />
+					type="button" actionListener="#{WebController.setCurrentTimespan}">
+					<f:attribute name="timespan" value="#{span.start}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 
