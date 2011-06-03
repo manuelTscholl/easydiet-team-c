@@ -39,40 +39,60 @@
 					<f:facet name="header">
 						<h:outputText value="Auswählen" />
 					</f:facet>
-					<p:commandButton value="Ajax Submit" update="panel,display"  
-             actionListener="#{pprBean.savePerson}" />  
-					<p:commandButton value="Rezept hinzufügen" 
-					type="button" actionListener="#{webController.setCurrentTimespan}"><!--
-					<f:attribute name="timespan" value="#{span}" />
-					--></p:commandButton>
+					<p:commandButton onclick="dlg3.show()" value="Rezept hinzufügen"
+						update="panel,display"
+						actionListener="#{nutrimentProtocolBean.setCurrentTimespan}">
+						<f:attribute name="timespan" value="#{span}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
-</h:form>
-
-
+		</h:form>
 
 		<p:dialog widgetVar="dlg3" showEffect="bounce" hideEffect="explode">
 
 			<h:form>
-
-				<h:panelGrid columns="2">
+				<h:outputLabel value="#{nutrimentProtocolBean.currentTimespan}" />
+				<h:panelGrid id="displayMeals" columns="2">
 					<h:outputLabel value="Rezept: " for="recipe" />
 					<p:autoComplete id="recipe" minQueryLength="2" maxResults="5"
 						value="#{webController.chosenRecipe}"
 						completeMethod="#{webController.completeRecipeSearch}"
 						selectListener="#{webController.handleSelect}" />
 				</h:panelGrid>
-			</h:form>
 
+			</h:form>
 			<h:form title="Rezepte Auswahl">
 				<p:pickList value="#{webController.recipes}" var="recipe"
-					itemLabel="#{recipe.blsCode}" itemValue="#{recipe.blsCode}" showSourceControls="true"
-					showTargetControls="true" effect="bounce"></p:pickList>
+					itemLabel="#{recipe.blsCode}" itemValue="#{recipe.blsCode}"
+					showSourceControls="true" showTargetControls="true" effect="bounce"></p:pickList>
+
+
+				<p:commandButton value="Rezept hinzufügen" update="displayCities"
+					oncomplete="cityDialog.show()">
+					<f:attribute name="selected"
+						value="#{webController.recipes.target}" />
+				</p:commandButton>
+
 			</h:form>
-
-
-
 		</p:dialog>
+
+
+
+		<h:form>
+			<p:dialog modal="true" showEffect="fade" hideEffect="fade"
+				widgetVar="cityDialog">
+				<h:panelGrid id="displayCities" columns="2">
+
+					<h:outputText value="Target: " style="font-weight:bold" />
+					<ui:repeat value="#{webController.recipes.target}" var="item">
+						<h:outputText value="#{item}" style="margin-right:5px" />
+					</ui:repeat>
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+
+
+
 	</h:body>
 </f:view>
 </html>

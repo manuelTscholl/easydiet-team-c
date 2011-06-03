@@ -268,16 +268,7 @@ public class WebController
         this._recipes = recipes;
     }
 
-    /**
-     * sets the current time span which have to be used for adding meals
-     * 
-     * @param e
-     */
-    public void setCurrentTimespan(ActionEvent e)
-    {
-        @SuppressWarnings("unused")
-        TimeSpanBo myAttribute = (TimeSpanBo) e.getComponent().getAttributes()
-                .get("timespan");
-    }
+
+
 
 }

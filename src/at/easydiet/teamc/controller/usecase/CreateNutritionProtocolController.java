@@ -51,6 +51,9 @@ public class CreateNutritionProtocolController
     private List<RecipeData>                     _recipes;
     private PlanTypeData                         _selectedPlanType;
     private static final String                  NUTRIMENTBEANNAME = "nutrimentProtocolBean";
+
+
+
     /**
      * Instantiates a new creates the nutrition protocol controller.
      */
@@ -222,7 +225,7 @@ public class CreateNutritionProtocolController
             while (bean.getEndDate().after(current))
             {
                 Date toInsert = new Date(current.getTime());
-                
+
                 TimeSpanBo span = new TimeSpanBo(toInsert, 1, planBo);
                 bean.addTimeSpan(span);
                 current.setTime(current.getTime() + 1 * 24 * 60 * 60 * 1000);
@@ -234,8 +237,10 @@ public class CreateNutritionProtocolController
                 LOGGER.info(item.getStart());
             }
             LOGGER.info("fertig");
-            
+
         }
 
     }
+    
+
 }
