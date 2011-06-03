@@ -25,13 +25,8 @@
 					<f:selectItem itemLabel="use TimeSpan" itemValue="" />
 				</h:selectOneMenu>
 			</p>
-
-			<h:panelGrid columns="2" style="margin-top:10px">
-				<p:commandButton value="Submit" oncomplete="dialog.show()" />
-
-
-			</h:panelGrid>
-
+		</h:form>
+		<h:form>
 			<p:dataTable value="#{nutrimentProtocolBean.timespans}" var="span">
 				<p:column>
 					<f:facet name="header">
@@ -44,15 +39,17 @@
 					<f:facet name="header">
 						<h:outputText value="Auswählen" />
 					</f:facet>
-					<p:commandButton value="Rezept hinzufügen" onclick="dlg3.show();"
-					type="button" actionListener="#{WebController.setCurrentTimespan}">
-					<f:attribute name="timespan" value="#{span.start}" />
-					</p:commandButton>
+					<p:commandButton value="Ajax Submit" update="panel,display"  
+             actionListener="#{pprBean.savePerson}" />  
+					<p:commandButton value="Rezept hinzufügen" 
+					type="button" actionListener="#{webController.setCurrentTimespan}"><!--
+					<f:attribute name="timespan" value="#{span}" />
+					--></p:commandButton>
 				</p:column>
 			</p:dataTable>
+</h:form>
 
 
-		</h:form>
 
 		<p:dialog widgetVar="dlg3" showEffect="bounce" hideEffect="explode">
 

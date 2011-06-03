@@ -28,6 +28,7 @@ import at.easydiet.teamc.controller.usecase.SearchRecipeController;
 import at.easydiet.teamc.exception.LoginFailedException;
 import at.easydiet.teamc.exception.NoDietPlanException;
 import at.easydiet.teamc.model.RecipeBo;
+import at.easydiet.teamc.model.TimeSpanBo;
 import at.easydiet.teamc.model.data.DietryPlanData;
 import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.PatientData;
@@ -267,19 +268,16 @@ public class WebController
         this._recipes = recipes;
     }
 
+    /**
+     * sets the current time span which have to be used for adding meals
+     * 
+     * @param e
+     */
     public void setCurrentTimespan(ActionEvent e)
     {
-        try
-        {
-            Date myAttribute = DateFormat.getInstance()
-                    .parse(e.getComponent().getAttributes().get("timespan")
-                            .toString());
-        }
-        catch (ParseException e1)
-        {
-            LOGGER.debug(e1);
-        }
-
+        @SuppressWarnings("unused")
+        TimeSpanBo myAttribute = (TimeSpanBo) e.getComponent().getAttributes()
+                .get("timespan");
     }
 
 }
