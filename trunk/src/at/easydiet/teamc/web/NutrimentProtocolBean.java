@@ -8,6 +8,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import com.sun.xml.internal.ws.api.PropertySet.Property;
 
@@ -26,7 +28,8 @@ public class NutrimentProtocolBean extends NutritionProtocolBo{
 	private Date _endDate;
 	
 	private String _chosenRecipe;
-	
+    private TimeSpanBo _currentTimespan;
+
 	private TimeSpanBo _timeSpan;
 	
 	/**
@@ -142,4 +145,46 @@ public class NutrimentProtocolBean extends NutritionProtocolBo{
 		_timeSpanInDays=days;
 	}
 	
+    /**
+     * Gets the currentTimespan.
+     * @return the currentTimespan
+     */
+    public TimeSpanBo getCurrentTimespan()
+    {
+        return _currentTimespan;
+    }
+    
+    /**
+     * 
+     */
+    public void addRecipe()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        WebController webController = context.getApplication()
+        .evaluateExpressionGet(context, "#{webController}",
+                WebController.class);        
+        System.out.println(webController.getRecipes().getTarget().get(0).getName());
+    }
+    
+    /**
+     * @param myAttribute
+     */
+    public void setCurrentTimespan(TimeSpanBo myAttribute)
+    {
+        _currentTimespan=myAttribute;
+    }
+	
+    /**
+     * sets the current time span which have to be used for adding meals
+     * 
+     * @param e
+     */
+    public void setCurrentTimespan(ActionEvent e)
+    {
+        TimeSpanBo myAttribute = (TimeSpanBo) e.getComponent().getAttributes()
+                .get("timespan");
+        
+        setCurrentTimespan(myAttribute);
+    }
+    
 }
