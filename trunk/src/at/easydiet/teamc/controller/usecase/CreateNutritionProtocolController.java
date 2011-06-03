@@ -51,7 +51,6 @@ public class CreateNutritionProtocolController
     private List<RecipeData>                     _recipes;
     private PlanTypeData                         _selectedPlanType;
     private static final String                  NUTRIMENTBEANNAME = "nutrimentProtocolBean";
-
     /**
      * Instantiates a new creates the nutrition protocol controller.
      */
