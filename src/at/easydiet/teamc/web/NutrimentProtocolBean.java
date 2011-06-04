@@ -15,9 +15,12 @@ import com.sun.xml.internal.ws.api.PropertySet.Property;
 
 import at.easydiet.model.NutritionProtocol;
 import at.easydiet.teamc.controller.usecase.SearchRecipeController;
+import at.easydiet.teamc.model.MealBo;
+import at.easydiet.teamc.model.MealLineBo;
 import at.easydiet.teamc.model.NutritionProtocolBo;
 import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.TimeSpanBo;
+import at.easydiet.teamc.model.data.MealLineData;
 import at.easydiet.teamc.model.data.RecipeData;
 
 @ManagedBean
@@ -31,8 +34,28 @@ public class NutrimentProtocolBean extends NutritionProtocolBo{
     private TimeSpanBo _currentTimespan;
 
 	private TimeSpanBo _timeSpan;
+	private List<MealLineBo> _mealLines;
 	
 	/**
+     * Gets the mealLines.
+     * @return the mealLines
+     */
+    public List<MealLineBo> getMealLines()
+    {
+        
+        return _mealLines;
+    }
+
+    /**
+     * Sets the mealLines.
+     * @param mealLines the mealLines to set
+     */
+    public void setMealLines(List<MealLineBo> mealLines)
+    {
+        _mealLines = mealLines;
+    }
+
+    /**
 	 * Folgende zwei Felder dienen nur zum Test
 	 */
 	private TimeSpanBo _currTimeSpan;	
@@ -182,8 +205,7 @@ public class NutrimentProtocolBean extends NutritionProtocolBo{
     public void setCurrentTimespan(ActionEvent e)
     {
         TimeSpanBo myAttribute = (TimeSpanBo) e.getComponent().getAttributes()
-                .get("timespan");
-        
+                .get("timespan");        
         setCurrentTimespan(myAttribute);
     }
     

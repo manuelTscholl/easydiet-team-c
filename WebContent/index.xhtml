@@ -11,76 +11,120 @@
 		<link rel="stylesheet" type="text/css" href="style.css"></link>
 	</h:head>
 	<h:body onload="#{webController.createNewProtocol()}">
-	<h1>Ernährungsprotokoll erfassen</h1>
-	<br/>
-	<p:accordionPanel autoHeight="false">
-			<p:tab title="Allgemeine Informationen">
-				<p:panel>Zeitspanne definieren</p:panel>
+		<h1>Ernährungsprotokoll erfassen</h1>
+		<br />
 		<h:form>
-			<p>
-				von:
-				<p:calendar value="#{nutrimentProtocolBean.startDate}"
-					showOn="button"
-					selectListener="#{webController.nutrimentProtocolDateSelect}" />
-				bis:
-				<p:calendar value="#{nutrimentProtocolBean.endDate}" showOn="button"
-					selectListener="#{webController.nutrimentProtocolDateSelect}"/>
-				<h:selectOneMenu value="#{webController.selectedPlan}" >
-					<f:selectItems value="#{webController.allDietryPlans}" 
-					var="plan" itemValue="#{plan.name}"/>
-				</h:selectOneMenu>
-			</p>
-		</h:form>
-		</p:tab>
-		<p:tab title="Mahlzeiten und Rezepte eintragen">
-		<h:form>
-			<p:dataTable value="#{nutrimentProtocolBean.timespans}" var="span">
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Name" />
-					</f:facet>
-					<h:outputText value="#{span.start}"></h:outputText>
-				</p:column>
+			<p:accordionPanel autoHeight="false">
 
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Auswählen" />
-					</f:facet>
-					<p:commandButton onclick="dlg3.show()" value="Rezept hinzufügen"
-						update="panel,display"
-						actionListener="#{nutrimentProtocolBean.setCurrentTimespan}">
-						<f:attribute name="timespan" value="#{span}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
-		</h:form>
-		</p:tab>
-		</p:accordionPanel>
+				<p:tab title="Allgemeine Informationen">
+					<p:panel>Zeitspanne definieren</p:panel>
 
+					<p>
+						von:
+						<p:calendar value="#{nutrimentProtocolBean.startDate}"
+							showOn="button"
+							selectListener="#{webController.nutrimentProtocolDateSelect}" />
+						bis:
+						<p:calendar value="#{nutrimentProtocolBean.endDate}"
+							showOn="button"
+							selectListener="#{webController.nutrimentProtocolDateSelect}"
+							onSelectUpdate="mealTimespans" />
+						<h:selectOneMenu value="#{webController.selectedPlan}">
+							<f:selectItems value="#{webController.allDietryPlans}" var="plan"
+								itemValue="#{plan.name}" />
+						</h:selectOneMenu>
+					</p>
+
+				</p:tab>
+
+				<p:tab title="Mahlzeiten und Rezepte eintragen">
+					<p:dataTable id="mealTimespans"
+						value="#{nutrimentProtocolBean.timespans}" var="span">
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Name" />
+							</f:facet>
+							<h:outputText value="#{span.start}"></h:outputText>
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Auswählen" />
+							</f:facet>
+							<p:commandButton onclick="dlg3.show()" value="Rezept hinzufügen"
+								actionListener="#{nutrimentProtocolBean.setCurrentTimespan}">
+								<f:attribute name="timespan" value="#{span}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+
+				</p:tab>
+			</p:accordionPanel>
+		</h:form>
 		<p:dialog widgetVar="dlg3" showEffect="bounce" hideEffect="explode">
 
-			<h:form>
-				<h:outputLabel value="#{nutrimentProtocolBean.currentTimespan}" />
-				<h:panelGrid id="displayMeals" columns="2">
-					<h:outputLabel value="Rezept: " for="recipe" />
-					<p:autoComplete id="recipe" minQueryLength="2" maxResults="5"
-						value="#{webController.chosenRecipe}"
-						completeMethod="#{webController.completeRecipeSearch}"
-						selectListener="#{webController.handleSelect}" />
-				</h:panelGrid>
-
-			</h:form>
 			<h:form title="Rezepte Auswahl">
-				<p:pickList value="#{webController.recipes}" var="recipe"
-					itemLabel="#{recipe.blsCode}" itemValue="#{recipe.blsCode}"
-					showSourceControls="true" showTargetControls="true" effect="bounce"></p:pickList>
+				<p:panel header="Create a new Mealline">
+					<h:panelGrid columns="2" id="grid">
+						<h:outputLabel value="Name : *" for="txt_title"></h:outputLabel>
+						<p:inputText id="txt_title" value="#{mealLineBean.name}"
+							required="true" />
+
+						<h:outputLabel value="Menge : *" for="txt_quantity"></h:outputLabel>
+						<p:inputText id="txt_quantity" required="true"
+							value="#{mealLineBean.quantity}" />
+							
+						<h:outputLabel value="Zeitpnkt : *" for="txt_mealCode"></h:outputLabel>
+						<p:inputText id="txt_mealCode" required="true" 
+							value="#{mealLineBean.code}" />
+
+						<p:commandButton value="Reset" type="reset" />
+						<p:commandButton value="Add" update="books msgs @parent"
+						action="#{mealLineBean.reinit}"
+						>
+							<p:collector value="#{mealLineBean.mealLine}"
+								addTo="#{mealLineBean.mealLines}" />
+						</p:commandButton>
+					</h:panelGrid>
+				</p:panel>
+
+				<p:ajaxStatus style="width:16px;height:16px;">
+					<f:facet name="start">
+						<h:graphicImage value="../design/ajaxloading.gif" />
+					</f:facet>
+
+					<f:facet name="complete">
+						<h:outputText value="" />
+					</f:facet>
+				</p:ajaxStatus>
 
 
-				<p:commandButton value="Rezept hinzufügen" update="displayCities"
-					oncomplete="cityDialog.show()">
-					<f:attribute name="selected"
-						value="#{webController.recipes.target}" />
-				</p:commandButton>
+				<p:outputPanel id="meallines">
+					<p:dataTable value="#{nutrimentProtocolBean.mealLines}" var="mealline">
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Name" />
+							</f:facet>
+							<h:outputText value="mealline" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Menge" />
+							</f:facet>
+							<h:outputText value="mealline.quantity" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Zeitpunkt" />
+							</f:facet>
+							<h:outputText value="mealline.code" />
+						</p:column>
+
+					</p:dataTable>
+				</p:outputPanel>
 
 			</h:form>
 		</p:dialog>
