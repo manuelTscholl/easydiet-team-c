@@ -34,6 +34,7 @@ import at.easydiet.teamc.model.data.MealCodeData;
 import at.easydiet.teamc.model.data.PatientData;
 import at.easydiet.teamc.model.data.PlanTypeData;
 import at.easydiet.teamc.model.data.RecipeData;
+import at.easydiet.teamc.view.AddRecipeScrollPane;
 
 /**
  * Main entry point for web modules This controller is unique for each session
@@ -61,14 +62,16 @@ public class WebController
     private DualListModel<RecipeData>            _recipes;
 
     private String                               _chosenRecipe;
-    
-    private DietryPlanData getSelectedPlan(){
-    	return _selectedPlan;
+
+    public DietryPlanData getSelectedPlan()
+    {
+        return _selectedPlan;
     }
-    private void setSelectedPlan(DietryPlanData plan){
-    	_selectedPlan=plan;
+
+    public void setSelectedPlan(DietryPlanData plan)
+    {
+        _selectedPlan = plan;
     }
-    
 
     public String getChosenRecipe()
     {
@@ -275,8 +278,5 @@ public class WebController
     {
         this._recipes = recipes;
     }
-
-
-
 
 }
