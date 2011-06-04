@@ -61,6 +61,14 @@ public class WebController
     private DualListModel<RecipeData>            _recipes;
 
     private String                               _chosenRecipe;
+    
+    private DietryPlanData getSelectedPlan(){
+    	return _selectedPlan;
+    }
+    private void setSelectedPlan(DietryPlanData plan){
+    	_selectedPlan=plan;
+    }
+    
 
     public String getChosenRecipe()
     {

@@ -11,7 +11,11 @@
 		<link rel="stylesheet" type="text/css" href="style.css"></link>
 	</h:head>
 	<h:body onload="#{webController.createNewProtocol()}">
-		<h1>Ernährungsprotokoll erfassen</h1>
+	<h1>Ernährungsprotokoll erfassen</h1>
+	<br/>
+	<p:accordionPanel autoHeight="false">
+			<p:tab title="Allgemeine Informationen">
+				<p:panel>Zeitspanne definieren</p:panel>
 		<h:form>
 			<p>
 				von:
@@ -20,12 +24,15 @@
 					selectListener="#{webController.nutrimentProtocolDateSelect}" />
 				bis:
 				<p:calendar value="#{nutrimentProtocolBean.endDate}" showOn="button"
-					selectListener="#{webController.nutrimentProtocolDateSelect}" />
-				<h:selectOneMenu value="dietryplan">
-					<f:selectItem itemLabel="use TimeSpan" itemValue="" />
+					selectListener="#{webController.nutrimentProtocolDateSelect}"/>
+				<h:selectOneMenu value="#{webController.selectedPlan}" >
+					<f:selectItems value="#{webController.allDietryPlans}" 
+					var="plan" itemValue="#{plan.name}"/>
 				</h:selectOneMenu>
 			</p>
 		</h:form>
+		</p:tab>
+		<p:tab title="Mahlzeiten und Rezepte eintragen">
 		<h:form>
 			<p:dataTable value="#{nutrimentProtocolBean.timespans}" var="span">
 				<p:column>
@@ -47,6 +54,8 @@
 				</p:column>
 			</p:dataTable>
 		</h:form>
+		</p:tab>
+		</p:accordionPanel>
 
 		<p:dialog widgetVar="dlg3" showEffect="bounce" hideEffect="explode">
 
