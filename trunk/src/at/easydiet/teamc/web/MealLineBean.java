@@ -6,19 +6,20 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.model.MealBo;
 import at.easydiet.teamc.model.MealLineBo;
 import at.easydiet.teamc.model.TimeSpanBo;
+import at.easydiet.teamc.model.data.MealCodeData;
 
 @ManagedBean
 @SessionScoped
 public class MealLineBean {
 
 	private MealLineBo mealline=new MealLineBo();
+	private List<MealLineBo> meallines = new ArrayList<MealLineBo>();	
 	
 	
-	private List<MealLineBo> meallines = new ArrayList<MealLineBo>();
-
 	public String reinit() {
 		mealline=new MealLineBo();
 		
@@ -60,6 +61,15 @@ public class MealLineBean {
 
 	public void setQuantity(float quantity) {
 		mealline.setQuantity(quantity);
+	}
+	
+	public List<MealCodeData> getAllMeals(){
+		BusinessLogicDelegationController s=BusinessLogicDelegationController.getInstance();
+		List<MealCodeData> mealCodes=new ArrayList<MealCodeData>();
+		for(MealCodeData md:s.getAllMealCodes()){
+			mealCodes.add(md);
+		}
+		return mealCodes;
 	}
 
 	

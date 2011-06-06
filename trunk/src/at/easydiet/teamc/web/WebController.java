@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -63,7 +64,7 @@ public class WebController
 
     private DualListModel<RecipeData>            _recipes;
 
-    private String                               _chosenRecipe;
+    private RecipeData                               _chosenRecipe;
 
     
     public PatientData getLoggedInUser() {
@@ -86,12 +87,14 @@ public class WebController
 
     public String getChosenRecipe()
     {
-        return _chosenRecipe;
+    	if(_chosenRecipe!=null){
+        return _chosenRecipe.toString();
+    	}else return "";
     }
 
     public void setChosenRecipe(String chosenRecipe)
     {
-        _chosenRecipe = chosenRecipe;
+        
     }
 
     /**
@@ -269,26 +272,24 @@ public class WebController
         return recipes;
 
     }
-
+    /**
+     * whenever a recipe gets selected this method is called. The method adds the selected
+     * recipe to the mealline object
+     * @param e
+     */
     public void handleSelect(SelectEvent e)
     {
-        // recipe was selected..add to nutritionprotocol
-
+    	FacesContext context = FacesContext.getCurrentInstance();
+		MealLineBean mealLineBean = context.getApplication()
+				.evaluateExpressionGet(context, "#{mealLineBean}",
+						MealLineBean.class);
+		SearchRecipeController src= SearchRecipeController.getInstance();
+		List<RecipeBo> recipes=src.searchRecipe("", e.getObject().toString());
+		
+		mealLineBean.getMealLine().setRecipe(recipes.get(0));		
+		mealLineBean.setName(recipes.get(0).getName());
     }
 
-    public DualListModel<RecipeData> getRecipes()
-    {
-        List<RecipeData> searchRecipes = new ArrayList<RecipeData>(
-                searchRecipes(this._chosenRecipe));
-        List<RecipeData> targetRecipes = new ArrayList<RecipeData>();
-
-        _recipes = new DualListModel<RecipeData>(searchRecipes, targetRecipes);
-        return _recipes;
-    }
-
-    public void setRecipes(DualListModel<RecipeData> recipes)
-    {
-        this._recipes = recipes;
-    }
+   
 
 }
