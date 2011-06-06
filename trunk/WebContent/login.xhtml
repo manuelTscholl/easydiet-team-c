@@ -21,19 +21,17 @@
 <h:body>
 <p:ajaxStatus onstart="statusdialog.show();" onsuccess="statusdialog.hide();"/>  
     
-<p:dialog widgetVar="statusdialog" modal="true" header="Status" 
+<p:dialog widgetVar="statusdialog" modal="true" header="logging in..." 
 draggable="false" closable="false">
 	<p:graphicImage value="img/ajax-loading-bar.gif"></p:graphicImage>
 </p:dialog>
-	<h:form>
-	<p:messages/>
+	<h:form>	
 		<table cellspacing="10">
 			<tr>
 				<td><h:outputLabel for="username" value="Benutzername" /></td>
 				<td><p:inputText id="username"
 						value="#{webController.username}" required="true" label="username" />
-				</td>
-				<p:message for="username"/>
+				</td>				
 			</tr>
 			<tr>
 				<td><h:outputLabel for="password" value="Passwort" /></td>
@@ -45,7 +43,7 @@ draggable="false" closable="false">
 				<td></td>
 				<td><p:commandButton styleClass="button" value="Login"
 						actionListener="#{webController.loginPatient}"
-						oncomplete="handleLoginRequest(xhr, status,args)" /></td>
+						oncomplete="handleLoginRequest(xhr, status,args)" update="msg"/></td>
 			</tr>
 		</table>
 	</h:form> 	 
