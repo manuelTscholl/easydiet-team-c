@@ -61,9 +61,12 @@
 				</p:tab>
 			</p:accordionPanel>
 		</h:form>
+
+
 		<p:dialog widgetVar="dlg3" showEffect="bounce" hideEffect="explode">
 
 			<h:form title="Rezepte Auswahl">
+				<p:growl id="msgs" />
 				<p:panel header="Create a new Mealline">
 					<h:panelGrid columns="2" id="grid">
 						<h:outputLabel value="Name : *" for="txt_title"></h:outputLabel>
@@ -73,15 +76,14 @@
 						<h:outputLabel value="Menge : *" for="txt_quantity"></h:outputLabel>
 						<p:inputText id="txt_quantity" required="true"
 							value="#{mealLineBean.quantity}" />
-							
+
 						<h:outputLabel value="Zeitpnkt : *" for="txt_mealCode"></h:outputLabel>
-						<p:inputText id="txt_mealCode" required="true" 
+						<p:inputText id="txt_mealCode" required="true"
 							value="#{mealLineBean.code}" />
 
 						<p:commandButton value="Reset" type="reset" />
-						<p:commandButton value="Add" update="books msgs @parent"
-						action="#{mealLineBean.reinit}"
-						>
+						<p:commandButton value="Add" update="meallines msgs @parent"
+							action="#{mealLineBean.reinit}">
 							<p:collector value="#{mealLineBean.mealLine}"
 								addTo="#{mealLineBean.mealLines}" />
 						</p:commandButton>
@@ -100,7 +102,8 @@
 
 
 				<p:outputPanel id="meallines">
-					<p:dataTable value="#{nutrimentProtocolBean.mealLines}" var="mealline">
+					<p:dataTable value="#{nutrimentProtocolBean.mealLines}"
+						var="mealline">
 
 						<p:column>
 							<f:facet name="header">
@@ -128,7 +131,6 @@
 
 			</h:form>
 		</p:dialog>
-
 
 
 		<h:form>
