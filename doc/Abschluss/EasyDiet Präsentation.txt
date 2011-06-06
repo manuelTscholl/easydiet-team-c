@@ -1,0 +1,18 @@
+Präsentation:
+
+ 1) Kundenpräsentation (ca. 20min)
+	- Begrüßung
+	- Projektdetails (Aufwand, Kosten, ...), Vorteile unseres Programmes (Webung, Lügen,..)
+	- Überblick über die implementierten Usecases
+	- Mindest Systemvoraussetzung (PC, Server, DB Server)
+	- Vorführung der Usecases im laufenden Programm (anhand eines Szenarios)
+	
+2) Technische Präsentation (ca. 25min)
+	- DB Modell
+	- Schichtenarchitektur
+	- Integration Timebox 2
+	- Verwendete Bibliotheken (Hibernate, Pivot, Primefaces) -> + Begründung
+	- Webarchitektur
+	- Allgemeine Designentscheidungen
+	
+3) Fragen (ca. 15min)
