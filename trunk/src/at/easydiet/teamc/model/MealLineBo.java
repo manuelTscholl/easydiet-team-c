@@ -24,6 +24,7 @@ public class MealLineBo implements java.io.Serializable, Saveable, MealLineData 
 	private MealLine _MealLine;
 
 	public MealLineBo() {
+		this._MealLine=new MealLine();
 
 	}
 
