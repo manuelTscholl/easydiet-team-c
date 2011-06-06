@@ -19,6 +19,12 @@
         </script>
 </h:head>
 <h:body>
+<p:ajaxStatus onstart="statusdialog.show();" onsuccess="statusdialog.hide();"/>  
+    
+<p:dialog widgetVar="statusdialog" modal="true" header="Status" 
+draggable="false" closable="false">
+	<p:graphicImage value="img/ajax-loading-bar.gif"></p:graphicImage>
+</p:dialog>
 	<h:form>
 	
 		<table cellspacing="10">
@@ -41,7 +47,7 @@
 						oncomplete="handleLoginRequest(xhr, status,args)" /></td>
 			</tr>
 		</table>
-	</h:form>
+	</h:form> 	 
 </h:body>
 </html>
 
