@@ -13,8 +13,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.context.RequestContext;
@@ -116,6 +118,7 @@ public class WebController
         RequestContext context = RequestContext.getCurrentInstance();
         context.addCallbackParam("loggedIn", _loggedIn);
         context.addCallbackParam("exception", _exception);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Welcome" + _username + "!"));
     }
 
     /**
