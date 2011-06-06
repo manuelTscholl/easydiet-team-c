@@ -30,7 +30,6 @@ public class MealLineBean {
 		return mealline;
 	}
 	public List<MealLineBo> getMealLines() {
-		System.out.println("TETR");
 		return meallines;
 	}
 	private MealBo getMealBo() {
