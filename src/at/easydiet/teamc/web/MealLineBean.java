@@ -31,7 +31,7 @@ public class MealLineBean {
 
 	private List<MealLineBo> _mealLines = new ArrayList<MealLineBo>();
 
-	private String reinit() {
+	public String reinit() {
 		_mealLine = new MealLineBo();
 		return null;
 	}
