@@ -26,13 +26,14 @@ draggable="false" closable="false">
 	<p:graphicImage value="img/ajax-loading-bar.gif"></p:graphicImage>
 </p:dialog>
 	<h:form>
-	
+	<p:messages/>
 		<table cellspacing="10">
 			<tr>
 				<td><h:outputLabel for="username" value="Benutzername" /></td>
 				<td><p:inputText id="username"
 						value="#{webController.username}" required="true" label="username" />
 				</td>
+				<p:message for="username"/>
 			</tr>
 			<tr>
 				<td><h:outputLabel for="password" value="Passwort" /></td>
