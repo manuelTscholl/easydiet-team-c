@@ -66,71 +66,66 @@
 
 		<p:dialog widgetVar="dlg3" showEffect="bounce" hideEffect="explode">
 
-			<h:form title="Rezepte Auswahl">
-				<p:growl id="msgs" />
-				<p:panel header="Create a new Mealline">
-					<h:panelGrid columns="2" id="grid">
-						<h:outputLabel value="Name : *" for="txt_title"></h:outputLabel>
-						<p:inputText id="txt_title" value="#{mealLineBean.name}"
-							required="true" />
+			<h:form id="form">
 
-						<h:outputLabel value="Menge : *" for="txt_quantity"></h:outputLabel>
+			<p:growl id="msgs" />
+
+			<p:panel header="Create a new Mealline">
+				<h:panelGrid columns="2" id="grid">
+					<h:outputLabel value="Title : *" for="txt_title"></h:outputLabel>
+					<p:inputText id="txt_title" value="#{mealLineBean.name}"
+						required="true" />
+
+					<h:outputLabel value="Zeitpunkt : *" for="txt_mealCode"></h:outputLabel>
+					<p:inputText id="txt_mealCode" required="true"
+						value="#{mealLineBean.code}" />
+						
+					<h:outputLabel value="Menge : *" for="txt_quantity"></h:outputLabel>
 						<p:inputText id="txt_quantity" required="true"
 							value="#{mealLineBean.quantity}" />
 
-						<h:outputLabel value="Zeitpnkt : *" for="txt_mealCode"></h:outputLabel>
-						<p:inputText id="txt_mealCode" required="true"
-							value="#{mealLineBean.code}" />
+					<p:commandButton value="Reset" type="reset" />
+					<p:commandButton value="Add" update="books msgs @parent"
+						action="#{mealLineBean.reinit}">
+						<p:collector value="#{mealLineBean.mealLine}"
+							addTo="#{mealLineBean.mealLines}" />
+					</p:commandButton>
+				</h:panelGrid>
+			</p:panel>
 
-						<p:commandButton value="Reset" type="reset" />
-						<p:commandButton value="Add" update="meallines msgs @parent"
-							action="#{mealLineBean.reinit}">
-							<p:collector value="#{mealLineBean.mealLine}"
-								addTo="#{mealLineBean.mealLines}" />
-						</p:commandButton>
-					</h:panelGrid>
-				</p:panel>
+			
 
-				<p:ajaxStatus style="width:16px;height:16px;">
-					<f:facet name="start">
-						<h:graphicImage value="../design/ajaxloading.gif" />
-					</f:facet>
+			<p:outputPanel id="books">
+				<p:dataTable value="#{mealLineBean.mealLines}" var="mealLine">
 
-					<f:facet name="complete">
-						<h:outputText value="" />
-					</f:facet>
-				</p:ajaxStatus>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Title" />
+						</f:facet>
+						<h:outputText value="#{mealLine.mealBo.name}" />
+					</p:column>
 
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Menge" />
+						</f:facet>
+						<h:outputText value="#{mealLine.quantity}" />
+					</p:column>
 
-				<p:outputPanel id="meallines">
-					<p:dataTable value="#{nutrimentProtocolBean.mealLines}"
-						var="mealline">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Zeitpunkt" />
+						</f:facet>
+						<h:outputText value="#{mealLine.mealBo.code}" />
+						<p:commandLink value="Remove" update="form:books" process="@this">
+							<p:collector value="#{mealLine}" removeFrom="#{mealLineBean.mealLines}" />
+						</p:commandLink>
+					</p:column>
 
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="Name" />
-							</f:facet>
-							<h:outputText value="mealline" />
-						</p:column>
+				</p:dataTable>
+			</p:outputPanel>
 
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="Menge" />
-							</f:facet>
-							<h:outputText value="mealline.quantity" />
-						</p:column>
-
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="Zeitpunkt" />
-							</f:facet>
-							<h:outputText value="mealline.code" />
-						</p:column>
-
-					</p:dataTable>
-				</p:outputPanel>
-
-			</h:form>
+		</h:form>
 		</p:dialog>
 
 
