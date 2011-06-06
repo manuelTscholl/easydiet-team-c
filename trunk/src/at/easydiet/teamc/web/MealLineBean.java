@@ -22,94 +22,75 @@ import at.easydiet.teamc.model.TimeSpanBo;
  */
 @SessionScoped
 @ManagedBean
-public class MealLineBean
-{
+public class MealLineBean {
 
-    private MealLineBo                          _mealLine = new MealLineBo(0,
-                                                                 null, null,
-                                                                  null, null,
-                                                                  null, null);
+	private MealLineBo _mealLine = new MealLineBo();
 
-    public static final org.apache.log4j.Logger LOGGER    = org.apache.log4j.Logger
-                                                                  .getLogger(MealLineBean.class);
+	public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
+			.getLogger(MealLineBean.class);
 
-    private List<MealLineBo> _mealLines = new ArrayList<MealLineBo>();
-    
-    private String reinit()
-    {
-        _mealLine = new MealLineBo(0,
-                null, null,
-                null, null,
-                null, null);
-        return null;
-    }
-        
-    
-    /**
-     * Gets the mealLine.
-     * @return the mealLine
-     */
-    public MealLineBo getMealLine()
-    {
-        return _mealLine;
-    }
+	private List<MealLineBo> _mealLines = new ArrayList<MealLineBo>();
 
+	private String reinit() {
+		_mealLine = new MealLineBo();
+		return null;
+	}
 
-    /**
-     * Sets the mealLine.
-     * @param mealLine the mealLine to set
-     */
-    public void setMealLine(MealLineBo mealLine)
-    {
-        _mealLine = mealLine;
-    }
+	/**
+	 * Gets the mealLine.
+	 * @return the mealLine
+	 */
+	public MealLineBo getMealLine() {
+		return _mealLine;
+	}
 
+	/**
+	 * Sets the mealLine.
+	 * @param mealLine the mealLine to set
+	 */
+	public void setMealLine(MealLineBo mealLine) {
+		_mealLine = mealLine;
+	}
 
-    public String getName()
-    {
-        return getMealBo().getName();
-    }
-    
-    public void setName(String name)
-    {
-        getMealBo().setName(name);
-    }
-    
-    public float getQuantity(){
-        return _mealLine.getQuantity();
-    }
-    
-    public void setQuantity(float quantity){
-        _mealLine.setQuantity(quantity);
-    }
-    public String getCode()
-    {
-        return getMealBo().getCode();
-    }
-    
-    public void setCode(String code)
-    {        
-        getMealBo().setCode(code);
-    }
-    
-    private MealBo getMealBo()
-    {
-        if(_mealLine.getMealBo()==null)
-        {
-            _mealLine.setMealBo(new MealBo("","",new TimeSpanBo(null)));
-        }
-        
-        return _mealLine.getMealBo();
-    }
-    
-    public List<MealLineBo> getMealLines()
-    {
-        return _mealLines;
-    
-    }
-    public void setMealLines(List<MealLineBo> lines)
-    {
-        _mealLines = lines;
-    }
-    
+	public String getName() {
+		return getMealBo().getName();
+	}
+
+	public void setName(String name) {
+		getMealBo().setName(name);
+	}
+
+	public float getQuantity() {
+		return _mealLine.getQuantity();
+	}
+
+	public void setQuantity(float quantity) {
+		_mealLine.setQuantity(quantity);
+	}
+
+	public String getCode() {
+		return getMealBo().getCode();
+	}
+
+	public void setCode(String code) {
+		getMealBo().setCode(code);
+	}
+
+	private MealBo getMealBo() {
+		if (_mealLine.getMealBo() == null) {
+			_mealLine.setMealBo(new MealBo("", "", new TimeSpanBo(null)));
+		}
+
+		return _mealLine.getMealBo();
+	}
+
+	public List<MealLineBo> getMealLines() {
+		return _mealLines;
+
+	}
+
+	public void setMealLines(List<MealLineBo> lines) {
+		_mealLines = lines;
+	}
+
 }
