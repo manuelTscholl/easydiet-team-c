@@ -77,10 +77,7 @@ public class CreateNutritionProtocolController
 
     }
 
-    private void addRecipeToProtocoll(RecipeData recipe)
-    {
-
-    }
+   
 
     /**
      * Gets the actual protocol.
