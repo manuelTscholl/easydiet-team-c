@@ -1,9 +1,3 @@
-/**
- * This file is part of EasyDiet.
- *   created on: 04.06.2011
- *   created by: Manuel
- *   file: MealLineBean.java
- */
 package at.easydiet.teamc.web;
 
 import java.util.ArrayList;
@@ -16,42 +10,42 @@ import at.easydiet.teamc.model.MealBo;
 import at.easydiet.teamc.model.MealLineBo;
 import at.easydiet.teamc.model.TimeSpanBo;
 
-/**
- * @author Manuel
- * 
- */
-@SessionScoped
 @ManagedBean
+@SessionScoped
 public class MealLineBean {
 
-	private MealLineBo _mealLine = new MealLineBo();
-
-	public static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger
-			.getLogger(MealLineBean.class);
-
-	private List<MealLineBo> _mealLines = new ArrayList<MealLineBo>();
+	private MealLineBo mealline=new MealLineBo();
+	
+	
+	private List<MealLineBo> meallines = new ArrayList<MealLineBo>();
 
 	public String reinit() {
-		_mealLine = new MealLineBo();
+		mealline=new MealLineBo();
+		
 		return null;
 	}
 
-	/**
-	 * Gets the mealLine.
-	 * @return the mealLine
-	 */
 	public MealLineBo getMealLine() {
-		return _mealLine;
+		return mealline;
+	}
+	public List<MealLineBo> getMealLines() {
+		System.out.println("TETR");
+		return meallines;
+	}
+	private MealBo getMealBo() {
+		if (mealline.getMealBo() == null) {
+			mealline.setMealBo(new MealBo("", "", new TimeSpanBo(null)));
+		}
+
+		return mealline.getMealBo();
+	}
+	public String getCode() {
+		return getMealBo().getCode();
 	}
 
-	/**
-	 * Sets the mealLine.
-	 * @param mealLine the mealLine to set
-	 */
-	public void setMealLine(MealLineBo mealLine) {
-		_mealLine = mealLine;
+	public void setCode(String code) {
+		getMealBo().setCode(code);
 	}
-
 	public String getName() {
 		return getMealBo().getName();
 	}
@@ -61,36 +55,13 @@ public class MealLineBean {
 	}
 
 	public float getQuantity() {
-		return _mealLine.getQuantity();
+		return mealline.getQuantity();
 	}
 
 	public void setQuantity(float quantity) {
-		_mealLine.setQuantity(quantity);
+		mealline.setQuantity(quantity);
 	}
 
-	public String getCode() {
-		return getMealBo().getCode();
-	}
-
-	public void setCode(String code) {
-		getMealBo().setCode(code);
-	}
-
-	private MealBo getMealBo() {
-		if (_mealLine.getMealBo() == null) {
-			_mealLine.setMealBo(new MealBo("", "", new TimeSpanBo(null)));
-		}
-
-		return _mealLine.getMealBo();
-	}
-
-	public List<MealLineBo> getMealLines() {
-		return _mealLines;
-
-	}
-
-	public void setMealLines(List<MealLineBo> lines) {
-		_mealLines = lines;
-	}
-
-}
+	
+}	
+					
