@@ -11,6 +11,8 @@
 		<link rel="stylesheet" type="text/css" href="style.css"></link>
 	</h:head>
 	<h:body onload="#{webController.createNewProtocol()}">
+		<h:outputText value="Hallo"/><h:outputLabel value="#{webController.loggedInUser.forename}"/> 
+
 		<h1>Ernährungsprotokoll erfassen</h1>
 		<br />
 		<h:form>
@@ -52,7 +54,7 @@
 							</f:facet>
 							<p:commandButton onclick="dlg3.show()" value="Rezept hinzufügen"
 								actionListener="#{nutrimentProtocolBean.setCurrentTimespan}">
-								<f:attribute name="timespan" value="#{span}" />
+								<f:attribute name="timespan" value="#{span}"/>
 							</p:commandButton>
 						</p:column>
 					</p:dataTable>

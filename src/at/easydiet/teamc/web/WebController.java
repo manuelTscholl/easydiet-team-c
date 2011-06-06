@@ -54,7 +54,7 @@ public class WebController
 
     // instance variables
     private PatientData                          _loggedInUser;
-    private String                               _username  = "";
+	private String                               _username  = "";
     private String                               _password  = "";
     private boolean                              _loggedIn  = false;
     private CreateNutritionProtocolController    _protocolController;
@@ -65,6 +65,15 @@ public class WebController
 
     private String                               _chosenRecipe;
 
+    
+    public PatientData getLoggedInUser() {
+		return _loggedInUser;
+	}
+
+	public void setLoggedInUser(PatientData _loggedInUser) {
+		this._loggedInUser = _loggedInUser;
+	}
+    
     public DietryPlanData getSelectedPlan()
     {
         return _selectedPlan;
@@ -118,7 +127,7 @@ public class WebController
         RequestContext context = RequestContext.getCurrentInstance();
         context.addCallbackParam("loggedIn", _loggedIn);
         context.addCallbackParam("exception", _exception);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Welcome" + _username + "!"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Sample info message", "PrimeFaces rocks!"));  
     }
 
     /**
