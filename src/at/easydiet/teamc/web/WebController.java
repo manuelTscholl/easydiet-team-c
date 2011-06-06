@@ -61,10 +61,8 @@ public class WebController
     private CreateNutritionProtocolController    _protocolController;
     private String                               _exception = "";
     private DietryPlanData                       _selectedPlan;
-
-    private DualListModel<RecipeData>            _recipes;
-
     private RecipeData                               _chosenRecipe;
+    
 
     
     public PatientData getLoggedInUser() {
@@ -288,6 +286,13 @@ public class WebController
 		
 		mealLineBean.getMealLine().setRecipe(recipes.get(0));		
 		mealLineBean.setName(recipes.get(0).getName());
+		context = FacesContext.getCurrentInstance();
+		
+		NutrimentProtocolBean nprb = context.getApplication()
+				.evaluateExpressionGet(context, "#{nutrimentProtocolBean}",
+						NutrimentProtocolBean.class);
+		
+		
     }
 
    

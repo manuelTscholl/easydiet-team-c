@@ -47,11 +47,6 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 		_mealLines = mealLines;
 	}
 
-	/**
-	 * Folgende zwei Felder dienen nur zum Test
-	 */
-	private TimeSpanBo _currTimeSpan;
-	private List<Integer> _timeSpanInDays;
 
 	public String getChosenRecipe() {
 		return _chosenRecipe;
@@ -129,31 +124,7 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 		return recipes;
 	}
 
-	/**
-	 * Testmethode für Anzeige der Timespan
-	 */
-	public void generateTimespan() {
-		System.out.println("TEST");
-		int duration = (int) (_endDate.getTime() - _startDate.getTime()) * 1000
-				* 60 * 60 * 24;
-		// calc duration
-		ArrayList<Integer> days = new ArrayList<Integer>();
-		for (int i = 0; i < duration; i++) {
-			days.add(i);
-		}
-		_timeSpanInDays = days;
-		System.out.println(days.size());
-		_currTimeSpan = new TimeSpanBo(_startDate, duration, null);
-
-	}
-
-	public List<Integer> getTimespanDays() {
-		return _timeSpanInDays;
-	}
-
-	public void setTimespanDays(List<Integer> days) {
-		_timeSpanInDays = days;
-	}
+	
 
 	/**
 	 * Gets the currentTimespan.
@@ -171,8 +142,7 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 		WebController webController = context.getApplication()
 				.evaluateExpressionGet(context, "#{webController}",
 						WebController.class);
-		System.out.println(webController.getRecipes().getTarget().get(0)
-				.getName());
+		
 	}
 
 	/**
@@ -192,5 +162,7 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 				.get("timespan");
 		setCurrentTimespan(myAttribute);
 	}
+	
+	
 
 }
