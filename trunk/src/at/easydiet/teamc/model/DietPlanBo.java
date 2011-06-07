@@ -4,6 +4,9 @@ package at.easydiet.teamc.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -482,8 +485,7 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 	@Override
 	public Set<MealData> getMealsByDay(int day) {
 		Set<MealData> _meals = new HashSet<MealData>();
-		TimeSpan[] timespans = _dietPlan.getTimeSpans().toArray(
-				new TimeSpan[_dietPlan.getTimeSpans().size()]);
+		TimeSpan[] timespans = sortByTimespan( _dietPlan.getTimeSpans());
 
 		TimeSpan currTimespan = null;
 		for (int i = 0; i <= timespans.length; i++) {
@@ -498,6 +500,23 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 		}
 		return _meals;
 
+	}
+	
+	private TimeSpan[] sortByTimespan(Set<TimeSpan> timespans){
+		List<TimeSpan> temp = new ArrayList<TimeSpan>();
+		for (TimeSpan timeSpan : timespans) {
+			temp.add(timeSpan);
+		}
+		Collections.sort(temp, new Comparator<TimeSpan>() {
+
+			@Override
+			public int compare(TimeSpan o1, TimeSpan o2) {
+				return o1.getStart().compareTo(o2.getStart());
+			}
+		});
+		
+		return timespans.toArray(
+				new TimeSpan[_dietPlan.getTimeSpans().size()]);
 	}
 
 	public MealData addRecipe(RecipeBo recipeBo, int day, float quantity,

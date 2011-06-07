@@ -54,6 +54,40 @@ public class MealLineBo implements java.io.Serializable, Saveable, MealLineData 
 		}
 		setUnitDefaultValue();
 	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((_MealLine == null) ? 0 : _MealLine.hashCode());
+		result = prime * result + ((_recipe == null) ? 0 : _recipe.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof MealLineBo))
+			return false;
+		MealLineBo other = (MealLineBo) obj;
+		if (_MealLine == null) {
+			if (other._MealLine != null)
+				return false;
+		} else if (!_MealLine.equals(other._MealLine))
+			return false;
+		if (_recipe == null) {
+			if (other._recipe != null)
+				return false;
+		} else if (!_recipe.equals(other._recipe))
+			return false;
+		return true;
+	}
 
 	@Override
 	public long getMealLineId() {
