@@ -10,6 +10,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.event.SelectEvent;
+
 import at.easydiet.teamc.controller.usecase.SearchRecipeController;
 import at.easydiet.teamc.model.MealLineBo;
 import at.easydiet.teamc.model.NutritionProtocolBo;
@@ -28,10 +30,11 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 	private TimeSpanBo _currentTimespan;
 
 	private TimeSpanBo _timeSpan;
-	private List<MealLineBo> _mealLines;
+	private List<MealLineBo> _mealLines=new ArrayList<MealLineBo>();
 
 	/**
 	 * Gets the mealLines.
+	 * 
 	 * @return the mealLines
 	 */
 	public List<MealLineBo> getMealLines() {
@@ -41,12 +44,13 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 
 	/**
 	 * Sets the mealLines.
-	 * @param mealLines the mealLines to set
+	 * 
+	 * @param mealLines
+	 *            the mealLines to set
 	 */
 	public void setMealLines(List<MealLineBo> mealLines) {
 		_mealLines = mealLines;
 	}
-
 
 	public String getChosenRecipe() {
 		return _chosenRecipe;
@@ -58,6 +62,7 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 
 	/**
 	 * Gets the startDate.
+	 * 
 	 * @return the startDate
 	 */
 	public Date getStartDate() {
@@ -66,7 +71,9 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 
 	/**
 	 * Sets the startDate.
-	 * @param startDate the startDate to set
+	 * 
+	 * @param startDate
+	 *            the startDate to set
 	 */
 	public void setStartDate(Date startDate) {
 		_startDate = startDate;
@@ -74,6 +81,7 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 
 	/**
 	 * Gets the endDate.
+	 * 
 	 * @return the endDate
 	 */
 	public Date getEndDate() {
@@ -82,7 +90,9 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 
 	/**
 	 * Sets the endDate.
-	 * @param endDate the endDate to set
+	 * 
+	 * @param endDate
+	 *            the endDate to set
 	 */
 	public void setEndDate(Date endDate) {
 		_endDate = endDate;
@@ -103,6 +113,7 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 
 	/**
 	 * Completes the search for the autoComplete method
+	 * 
 	 * @param query
 	 * @return
 	 */
@@ -124,10 +135,9 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 		return recipes;
 	}
 
-	
-
 	/**
 	 * Gets the currentTimespan.
+	 * 
 	 * @return the currentTimespan
 	 */
 	public TimeSpanBo getCurrentTimespan() {
@@ -137,12 +147,28 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 	/**
      * 
      */
-	public void addRecipe() {
+	public void addRecipe(ActionEvent e) {
+
 		FacesContext context = FacesContext.getCurrentInstance();
-		WebController webController = context.getApplication()
+		MealLineBean mealLineBean = context.getApplication()
+				.evaluateExpressionGet(context, "#{mealLineBean}",
+						MealLineBean.class);
+		context = FacesContext.getCurrentInstance();
+		WebController wc = context.getApplication()
 				.evaluateExpressionGet(context, "#{webController}",
 						WebController.class);
 		
+		
+		SearchRecipeController src = SearchRecipeController.getInstance();
+		
+		List<RecipeBo> recipes = src.searchRecipe("", wc.getChosenRecipe());
+		if (recipes.size() > 0) {
+			mealLineBean.getMealLine().setRecipe(recipes.get(0));
+			mealLineBean.setName(recipes.get(0).getName());
+			context = FacesContext.getCurrentInstance();
+
+		}
+
 	}
 
 	/**
@@ -162,7 +188,5 @@ public class NutrimentProtocolBean extends NutritionProtocolBo {
 				.get("timespan");
 		setCurrentTimespan(myAttribute);
 	}
-	
-	
 
 }

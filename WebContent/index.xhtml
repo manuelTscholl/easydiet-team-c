@@ -58,7 +58,7 @@
 							<p:panel id="display">
 								<ui:repeat value="#{mealLineBean.mealLines}" var="meal" 
 								varStatus="iterator">
-									<h:outputLabel value="#{meal.recipe.name}"></h:outputLabel>
+									<h:outputLabel value="#{meal.recipe.name}"/>
 								</ui:repeat>
 								 </p:panel>
 							</p:panel>
@@ -74,7 +74,7 @@
 		</h:form>
 
 
-		<p:dialog widgetVar="dlg3" height="800" width="800" showEffect="bounce" hideEffect="explode">
+		<p:dialog widgetVar="dlg3" height="800" width="800">
 
 			<h:form id="form">
 
@@ -99,7 +99,8 @@
 
 						<p:commandButton value="Reset" type="reset" />
 						<p:commandButton value="Add" update="books msgs @parent"
-							action="#{mealLineBean.reinit}">
+							action="#{mealLineBean.reinit}" 
+							actionListener="#{nutrimentProtocolBean.addRecipe}">
 							<p:collector value="#{mealLineBean.mealLine}"
 								addTo="#{mealLineBean.mealLines}" />
 						</p:commandButton>
