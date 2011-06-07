@@ -399,6 +399,7 @@ public class DietryPlanController extends Event<EventArgs> {
             HibernateUtil.currentSession().getTransaction().commit();
         } catch (Exception e) {
             HibernateUtil.currentSession().getTransaction().rollback();
+            LOGGER.fatal(e.getMessage());
         }
 
     }
