@@ -61,7 +61,7 @@ public class WebController
     private CreateNutritionProtocolController    _protocolController;
     private String                               _exception = "";
     private DietryPlanData                       _selectedPlan;
-    private RecipeData                               _chosenRecipe;
+    private String                               _chosenRecipe;
     
 
     
@@ -86,7 +86,7 @@ public class WebController
     public String getChosenRecipe()
     {
     	if(_chosenRecipe!=null){
-        return _chosenRecipe.toString();
+        return _chosenRecipe;
     	}else return "";
     }
 
@@ -277,22 +277,7 @@ public class WebController
      */
     public void handleSelect(SelectEvent e)
     {
-    	FacesContext context = FacesContext.getCurrentInstance();
-		MealLineBean mealLineBean = context.getApplication()
-				.evaluateExpressionGet(context, "#{mealLineBean}",
-						MealLineBean.class);
-		SearchRecipeController src= SearchRecipeController.getInstance();
-		List<RecipeBo> recipes=src.searchRecipe("", e.getObject().toString());
-		
-		mealLineBean.getMealLine().setRecipe(recipes.get(0));		
-		mealLineBean.setName(recipes.get(0).getName());
-		context = FacesContext.getCurrentInstance();
-		
-		NutrimentProtocolBean nprb = context.getApplication()
-				.evaluateExpressionGet(context, "#{nutrimentProtocolBean}",
-						NutrimentProtocolBean.class);
-		
-		
+    	_chosenRecipe=e.getObject().toString();
     }
 
    
