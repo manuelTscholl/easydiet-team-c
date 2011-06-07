@@ -92,6 +92,9 @@ public class RecipeBo implements java.io.Serializable, Saveable, RecipeData {
     }
 
     public long getRecipeId() {
+    	if(_Recipe==null){
+    		return 0;
+    	}
         return this.getRecipe().getRecipeId();
     }
 
