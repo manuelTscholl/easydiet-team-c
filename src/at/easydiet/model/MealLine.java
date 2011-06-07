@@ -10,7 +10,58 @@ import java.util.List;
 public class MealLine  implements java.io.Serializable
 {
 
-    private long _mealLineId;
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((_alternatives == null) ? 0 : _alternatives.hashCode());
+		result = prime * result + ((_info == null) ? 0 : _info.hashCode());
+		result = prime * result + (int) (_mealLineId ^ (_mealLineId >>> 32));
+		result = prime * result + ((_parent == null) ? 0 : _parent.hashCode());
+		result = prime * result + Float.floatToIntBits(_quantity);
+		result = prime * result + ((_unit == null) ? 0 : _unit.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof MealLine))
+			return false;
+		MealLine other = (MealLine) obj;
+		if (_alternatives == null) {
+			if (other._alternatives != null)
+				return false;
+		} else if (!_alternatives.equals(other._alternatives))
+			return false;
+		if (_info == null) {
+			if (other._info != null)
+				return false;
+		} else if (!_info.equals(other._info))
+			return false;
+		if (_mealLineId != other._mealLineId)
+			return false;
+		if (_parent == null) {
+			if (other._parent != null)
+				return false;
+		} else if (!_parent.equals(other._parent))
+			return false;
+		if (Float.floatToIntBits(_quantity) != Float
+				.floatToIntBits(other._quantity))
+			return false;
+		if (_unit == null) {
+			if (other._unit != null)
+				return false;
+		} else if (!_unit.equals(other._unit))
+			return false;
+		return true;
+	}
+
+	private long _mealLineId;
     private float _quantity;
     private Clob _info;
     private List<MealLine> _alternatives = new ArrayList<MealLine>(0);
