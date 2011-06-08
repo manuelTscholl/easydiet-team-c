@@ -33,11 +33,9 @@
 							onSelectUpdate="mealTimespans" />
 
 						<h:selectOneMenu value="#{webController.selectedPlan}">
-							<f:selectItems value="#{webController.allDietryPlans}" />
+							<f:selectItems value="#{webController.allDietryPlans}" var="plan"
+								itemValue="#{plan.name}" />
 						</h:selectOneMenu>
-						<p:commandButton value="Diätplan auswählen"
-							actionListener="#{webController.dietryPlanSelected}">
-						</p:commandButton>
 					</p>
 
 				</p:tab>
@@ -61,21 +59,21 @@
 									<ui:repeat value="#{span.mealsAsList}" var="meal"
 										varStatus="iterator">
 										<h:outputLabel value="#{meal.code}" />
-
-										<p:panel>
-											<ui:repeat value="#{meal.mealLinesAsList}" var="mealline"
-												varStatus="iterator">
-												<h:outputLabel value="#{mealline.recipe.name}" />
-												<br />
+									
+									<p:panel>
+										<ui:repeat value="#{meal.mealLinesAsList}" var="mealline"
+											varStatus="iterator">
+											<h:outputLabel value="#{mealline.recipe.name}" /><br />
 											Menge: <h:outputLabel value="#{mealline.quantity}" /> g<br />
-											</ui:repeat>
-										</p:panel>
+										</ui:repeat>
+									</p:panel>
 									</ui:repeat>
 								</p:panel>
 							</p:panel>
 							<p:commandButton onclick="dlg3.show()" value="Rezept hinzufügen"
 								actionListener="#{nutrimentProtocolBean.initRecipeDialog}"
-								update="form:mealDataTable">
+								update="form:mealDataTable"
+								>
 								<f:attribute name="timespan" value="#{span}" />
 							</p:commandButton>
 						</p:column>
@@ -149,12 +147,13 @@
 							<f:facet name="header">
 								<h:outputText value="Remove" />
 							</f:facet>
-							<p:commandLink value="Remove" update="form:mealDataTable"
-								process="@this" actionListener="#{mealLineBean.removeMealLine}">
+							<p:commandLink value="Remove" update="form:mealDataTable" process="@this"
+							actionListener="#{mealLineBean.removeMealLine}"
+							>
 								<p:collector value="#{mealLine}"
 									removeFrom="#{mealLineBean.mealLines}" />
-
-								<f:attribute name="mealLine" value="#{mealLine}" />
+									
+								<f:attribute name="mealLine" value="#{mealLine}"/>
 							</p:commandLink>
 						</p:column>
 

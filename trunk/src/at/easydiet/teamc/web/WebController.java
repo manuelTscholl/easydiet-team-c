@@ -233,7 +233,7 @@ public class WebController
         }
     }
 
-    public void dietryPlanSelected()
+    public void dietryPlanSelected(ActionEvent e)
     {
         LOGGER.info("new plan selected!");
     }
