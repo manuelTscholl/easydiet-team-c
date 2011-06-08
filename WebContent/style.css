@@ -5,7 +5,9 @@
 
 body {
 	font-family: Verdana, sans-serif;
+	background: url(img/hintergrund.jpg);
 	color: #3a3a3a;
+	
 }
 
 button {
