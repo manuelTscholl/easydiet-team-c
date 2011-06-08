@@ -10,12 +10,11 @@
 		<title>EasyDiet</title>
 		<link rel="stylesheet" type="text/css" href="style.css"></link>
 	</h:head>
-	<h:body onload="#{webController.createNewProtocol()}"
-			style="background: url(img/hintergrund.jpg)">
-		<h:outputText value="Willkommen im Portal, " style="color: white" />
-		<h:outputLabel value="#{webController.loggedInUser.forename}" style="color: white" />
-		<br /> <br />
-		<h1 style="color: white">Ernährungsprotokoll erfassen</h1>
+	<h:body onload="#{webController.createNewProtocol()}" style="background: url(img/hintergrund.jpg)">
+		<h:outputText value="Willkommen im Portal, " />
+		<h:outputLabel value="#{webController.loggedInUser.forename}" />
+
+		<h1>Ernährungsprotokoll erfassen</h1>
 		<br />
 		<h:form>
 			<p:accordionPanel autoHeight="false">
@@ -26,18 +25,20 @@
 						von:
 						<p:calendar value="#{nutrimentProtocolBean.startDate}"
 							showOn="button"
-							selectListener="#{webController.nutrimentProtocolDateSelect}" />
+							selectListener="#{nutrimentProtocolBean.handleDateSelect}" />
 						bis:
 						<p:calendar value="#{nutrimentProtocolBean.endDate}"
 							showOn="button"
-							selectListener="#{webController.nutrimentProtocolDateSelect}"
+							selectListener="#{nutrimentProtocolBean.handleDateSelect}"
 							onSelectUpdate="mealTimespans" />
-							
-						<h:selectOneMenu id="dietryplans" value="#{webController.selectedPlan}">
-						<f:selectItem itemLabel="Plan auswählen"/>
+
+						<h:selectOneMenu id="dietryplans"
+							value="#{webController.selectedPlan}">
+							<f:selectItem itemLabel="Plan auswählen" />
 							<f:selectItems value="#{webController.allDietryPlans}" var="plan"
 								itemValue="#{plan.name}" />
-								<p:ajax event="change" listener="#{webController.selectedPlan}" process="dietryplans"></p:ajax>
+							<p:ajax event="change" listener="#{webController.selectedPlan}"
+								process="dietryplans"></p:ajax>
 						</h:selectOneMenu>
 
 					</p>
@@ -58,28 +59,32 @@
 							<f:facet name="header">
 								<h:outputText value="Mahlzeiten/Rezepte" />
 							</f:facet>
-							<p:panel header="Mahlzeiten">
-								<p:panel>
+							<p:accordionPanel collapsible="true" autoHeight="false">
+								<p:tab title="Übersicht">
 									<ui:repeat value="#{span.mealsAsList}" var="meal"
 										varStatus="iterator">
-										<h:outputLabel value="#{meal.code}" />
-
-										<p:panel>
-											<ui:repeat value="#{meal.mealLinesAsList}" var="mealline"
-												varStatus="iterator">
-												<h:outputLabel value="#{mealline.recipe.name}" />
-												<br />
+										<p:accordionPanel autoHeight="false" collapsible="true">
+											<p:tab title="#{meal.code}">
+												
+												<ui:repeat value="#{meal.mealLinesAsList}" var="mealline"
+													varStatus="iterator">
+													<h:outputLabel value="#{mealline.recipe.name}" />
+													<br />
 											Menge: <h:outputLabel value="#{mealline.quantity}" /> g<br />
-											</ui:repeat>
-										</p:panel>
+												</ui:repeat>
+											</p:tab>
+										</p:accordionPanel>
 									</ui:repeat>
-								</p:panel>
-							</p:panel>
-							<p:commandButton onclick="dlg3.show()" value="Rezept hinzufügen"
-								actionListener="#{nutrimentProtocolBean.initRecipeDialog}"
-								update="form:mealDataTable">
-								<f:attribute name="timespan" value="#{span}" />
-							</p:commandButton>
+								</p:tab>
+								<p:tab title="Bearbeiten">
+									<p:commandButton onclick="dlg3.show()"
+										value="Rezept hinzufügen"
+										actionListener="#{nutrimentProtocolBean.initRecipeDialog}"
+										update="form:mealDataTable">
+										<f:attribute name="timespan" value="#{span}" />
+									</p:commandButton>
+								</p:tab>
+							</p:accordionPanel>
 						</p:column>
 					</p:dataTable>
 

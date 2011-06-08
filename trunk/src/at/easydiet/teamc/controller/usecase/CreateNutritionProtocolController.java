@@ -190,7 +190,7 @@ public class CreateNutritionProtocolController
     /**
      * 
      */
-    public void NutrimentProtocolDateSelect()
+    public void nutrimentProtocolDateSelect()
     {
         FacesContext context = FacesContext.getCurrentInstance();
         NutrimentProtocolBean bean = context.getApplication()

@@ -1,5 +1,6 @@
 package at.easydiet.teamc.web;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -10,8 +11,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.event.DateSelectEvent;
 import org.primefaces.event.SelectEvent;
 
+import com.sun.istack.internal.logging.Logger;
+
+import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
 import at.easydiet.teamc.controller.usecase.SearchRecipeController;
 import at.easydiet.teamc.model.MealLineBo;
 import at.easydiet.teamc.model.NutritionProtocolBo;
@@ -30,10 +35,11 @@ public class NutrimentProtocolBean extends NutritionProtocolBo
     private String           _chosenRecipe;
     private TimeSpanBo       _currentTimespan;
 
-    private TimeSpanBo       _timeSpan;
     private List<MealLineBo> _mealLines = new ArrayList<MealLineBo>();
 
     private MealLineBean     _mealLineBean;
+    
+    private CreateNutritionProtocolController _controller;
 
     private static final org.apache.log4j.Logger LOGGER     = org.apache.log4j.Logger
     .getLogger(NutrimentProtocolBean.class);
@@ -44,6 +50,7 @@ public class NutrimentProtocolBean extends NutritionProtocolBo
         _mealLineBean = context.getApplication()
         .evaluateExpressionGet(context, "#{mealLineBean}",
                 MealLineBean.class);
+        _controller=new CreateNutritionProtocolController();
     }
     /**
      * Gets the mealLines.
@@ -117,6 +124,7 @@ public class NutrimentProtocolBean extends NutritionProtocolBo
     public void setEndDate(Date endDate)
     {
         _endDate = endDate;
+        _controller.nutrimentProtocolDateSelect();
     }
 
     public List<TimeSpanBo> getTimespans()
@@ -226,5 +234,9 @@ public class NutrimentProtocolBean extends NutritionProtocolBo
                 .get("timespan");
         setCurrentTimespan(myAttribute);
     }
+    
+    public void handleDateSelect(DateSelectEvent event) {	
+		_controller.nutrimentProtocolDateSelect();
+	}
 
 }
