@@ -1,10 +1,14 @@
 package at.easydiet.teamc.web;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.model.MealBo;
@@ -14,63 +18,146 @@ import at.easydiet.teamc.model.data.MealCodeData;
 
 @ManagedBean
 @SessionScoped
-public class MealLineBean {
+public class MealLineBean
+{
 
-	private MealLineBo mealline=new MealLineBo();
-	private List<MealLineBo> meallines = new ArrayList<MealLineBo>();	
-	
-	
-	public String reinit() {
-		mealline=new MealLineBo();
-		
-		return null;
-	}
+    private MealLineBo            _mealline  = new MealLineBo();
+    private List<MealLineBo>      _meallines = new ArrayList<MealLineBo>();
+    private NutrimentProtocolBean _nutrimentProtocolBean;
 
-	public MealLineBo getMealLine() {
-		return mealline;
-	}
-	public List<MealLineBo> getMealLines() {
-		return meallines;
-	}
-	private MealBo getMealBo() {
-		if (mealline.getMealBo() == null) {
-			mealline.setMealBo(new MealBo("", "", new TimeSpanBo(null)));
-		}
+    /**
+     * Gets the timespan.
+     * 
+     * @return the timespan
+     */
+    public TimeSpanBo getActiveTimespan()
+    {
+        return getNutrimentProtocolBean().getCurrentTimespan();
+    }
 
-		return mealline.getMealBo();
-	}
-	public String getCode() {
-		return getMealBo().getCode();
-	}
+    /**
+     * Sets the timespan.
+     * 
+     * @param timespan
+     *            the timespan to set
+     */
+    public void setActiveTimespan(TimeSpanBo timespan)
+    {
+        getNutrimentProtocolBean().setCurrentTimespan(timespan);
+    }
 
-	public void setCode(String code) {
-		getMealBo().setCode(code);
-	}
-	public String getName() {
-		return getMealBo().getName();
-	}
+    /**
+     * Gets the nutrimentProtocolBean.
+     * 
+     * @return the nutrimentProtocolBean
+     */
+    public NutrimentProtocolBean getNutrimentProtocolBean()
+    {
+        if (_nutrimentProtocolBean == null)
+        {
+            FacesContext context = FacesContext.getCurrentInstance();
+            _nutrimentProtocolBean = context.getApplication()
+                    .evaluateExpressionGet(context, "#{nutrimentProtocolBean}",
+                            NutrimentProtocolBean.class);
+        }
+        return _nutrimentProtocolBean;
+    }
 
-	public void setName(String name) {
-		getMealBo().setName(name);
-	}
+    public void getDataFromActiveTimespan()
+    {
+        _meallines.clear();
+        for (MealBo meals : getActiveTimespan().getMealsAsList())
+        {
+            _meallines.addAll(meals.getMealLinesAsList());
+        }
+    }
 
-	public float getQuantity() {
-		return mealline.getQuantity();
-	}
+    public String reinit()
+    {
+        boolean added = false;
+        if (getActiveTimespan().getMeals() != null)
+        {
+            for (MealBo meal : getActiveTimespan().getMeals())
+            {
+                if (meal.getCode().equals(getCode()))
+                {
+                    added = true;
+                    meal.setMealLine(_mealline);
+                }
+            }
+        }
+        if (added == false)
+        {
+            MealBo temp = new MealBo(getCode(), getCode(), getActiveTimespan());
+            temp.setMealLine(_mealline);
+            getActiveTimespan().setMeal(temp);
+        }
+        added = false;
 
-	public void setQuantity(float quantity) {
-		mealline.setQuantity(quantity);
-	}
-	
-	public List<MealCodeData> getAllMeals(){
-		BusinessLogicDelegationController s=BusinessLogicDelegationController.getInstance();
-		List<MealCodeData> mealCodes=new ArrayList<MealCodeData>();
-		for(MealCodeData md:s.getAllMealCodes()){
-			mealCodes.add(md);
-		}
-		return mealCodes;
-	}
+        _mealline = new MealLineBo();
+        return null;
+    }
 
-	
-}	
-					
+    public MealLineBo getMealLine()
+    {
+        return _mealline;
+    }
+
+    public List<MealLineBo> getMealLines()
+    {
+        return _meallines;
+    }
+
+    private MealBo getMealBo()
+    {
+        if (_mealline.getMealBo() == null)
+        {
+            _mealline.setMealBo(new MealBo("", "", new TimeSpanBo(null)));
+        }
+
+        return _mealline.getMealBo();
+    }
+
+    public String getCode()
+    {
+        return getMealBo().getCode();
+    }
+
+    public void setCode(String code)
+    {
+        getMealBo().setCode(code);
+    }
+
+    public String getName()
+    {
+        return getMealBo().getName();
+    }
+
+    public void setName(String name)
+    {
+        getMealBo().setName(name);
+    }
+
+    public float getQuantity()
+    {
+        return _mealline.getQuantity();
+    }
+
+    public void setQuantity(float quantity)
+    {
+        _mealline.setQuantity(quantity);
+    }
+
+    public List<MealCodeData> getAllMeals()
+    {
+        BusinessLogicDelegationController s = BusinessLogicDelegationController
+                .getInstance();
+        List<MealCodeData> mealCodes = new ArrayList<MealCodeData>();
+        for (MealCodeData md : s.getAllMealCodes())
+        {
+            mealCodes.add(md);
+        }
+        return mealCodes;
+    }
+
+}
