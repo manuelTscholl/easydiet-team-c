@@ -116,6 +116,14 @@ public class TimeSpanBo implements java.io.Serializable, Saveable,
         return temp;
     }
     
+    public void removeMeal(MealBo meal)
+    {
+        if(_TimeSpan.getMeals().contains(meal.getMeal()))
+        {
+            _TimeSpan.getMeals().remove(meal.getMeal());
+        }            
+    }
+    
     public List<MealBo> getMealsAsList()
     {
         List<MealBo> temp = new ArrayList<MealBo>();

@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.model.MealBo;
@@ -21,9 +22,11 @@ import at.easydiet.teamc.model.data.MealCodeData;
 public class MealLineBean
 {
 
-    private MealLineBo            _mealline  = new MealLineBo();
-    private List<MealLineBo>      _meallines = new ArrayList<MealLineBo>();
-    private NutrimentProtocolBean _nutrimentProtocolBean;
+    private MealLineBo                           _mealline  = new MealLineBo();
+    private List<MealLineBo>                     _meallines = new ArrayList<MealLineBo>();
+    private NutrimentProtocolBean                _nutrimentProtocolBean;
+    private static final org.apache.log4j.Logger LOGGER     = org.apache.log4j.Logger
+                                                                    .getLogger(NutrimentProtocolBean.class);
 
     /**
      * Gets the timespan.
@@ -106,6 +109,27 @@ public class MealLineBean
     public List<MealLineBo> getMealLines()
     {
         return _meallines;
+    }
+
+    public void removeMealLine(ActionEvent e)
+    {
+        LOGGER.info("start deleting message");
+        MealLineBo mealLineBo = (MealLineBo) e.getComponent().getAttributes()
+                .get("mealLine");
+
+        for (MealBo meal : getActiveTimespan().getMeals())
+        {
+            LOGGER.info("before delete:" + meal.getMealLines().size());
+            meal.removeMealLine(mealLineBo);
+            LOGGER.info("after delete:" + meal.getMealLines().size());
+            LOGGER.info("Number of meallines in Meal:"+ meal.getMealLines().size());
+            if(meal.getMealLines().size()==0)
+            {
+                getActiveTimespan().removeMeal(meal);
+            }
+        }
+        
+        
     }
 
     private MealBo getMealBo()
