@@ -5,9 +5,7 @@
 
 body {
 	font-family: Verdana, sans-serif;
-	background: url(img/hintergrund.jpg);
 	color: #3a3a3a;
-	
 }
 
 button {
@@ -19,3 +17,8 @@ button {
 	-webkit-border-radius: 5px;
 	font-size: 13px;
 }
+
+body {
+	
+}
+
