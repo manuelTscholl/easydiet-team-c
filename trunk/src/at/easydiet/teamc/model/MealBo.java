@@ -2,6 +2,7 @@ package at.easydiet.teamc.model;
 
 // Generated 02.04.2011 00:41:04 by Hibernate Tools 3.4.0.CR1
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -104,12 +105,22 @@ public class MealBo implements java.io.Serializable, Saveable, MealData,
 		}
 		return temp;
 	}
+	
+	public List<MealLineBo> getMealLinesAsList()
+	{
+	    return new ArrayList<MealLineBo>(getMealLines());
+	}
 
 	public void setMealLines(Set<MealLineBo> mealLinesBo) {
 		for (MealLineBo mealLineBo : mealLinesBo) {
 			this._meal.getMealLines().add(mealLineBo.getMealLine());
 		}
 	}
+	
+	   public void setMealLine(MealLineBo mealLineBo) {
+	            this._meal.getMealLines().add(mealLineBo.getMealLine());	        
+	    }
+
 
 	/**
 	 * @return the _meal

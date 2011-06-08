@@ -31,7 +31,7 @@
 							showOn="button"
 							selectListener="#{webController.nutrimentProtocolDateSelect}"
 							onSelectUpdate="mealTimespans" />
-							
+
 						<h:selectOneMenu value="#{webController.selectedPlan}">
 							<f:selectItems value="#{webController.allDietryPlans}" var="plan"
 								itemValue="#{plan.name}" />
@@ -55,16 +55,26 @@
 								<h:outputText value="Mahlzeiten/Rezepte" />
 							</f:facet>
 							<p:panel header="Mahlzeiten">
-							<p:panel id="display">
-								<ui:repeat value="#{mealLineBean.mealLines}" var="meal" 
-								varStatus="iterator">
-									<h:outputLabel value="#{meal.recipe.name}"/>
-								</ui:repeat>
-								 </p:panel>
+								<p:panel>
+									<ui:repeat value="#{span.mealsAsList}" var="meal"
+										varStatus="iterator">
+										<h:outputLabel value="#{meal.code}" />
+									
+									<p:panel>
+										<ui:repeat value="#{meal.mealLinesAsList}" var="mealline"
+											varStatus="iterator">
+											<h:outputLabel value="#{mealline.recipe.name}" /><br />
+											Menge: <h:outputLabel value="#{mealline.quantity}" /> g<br />
+										</ui:repeat>
+									</p:panel>
+									</ui:repeat>
+								</p:panel>
 							</p:panel>
 							<p:commandButton onclick="dlg3.show()" value="Rezept hinzufügen"
-								actionListener="#{nutrimentProtocolBean.setCurrentTimespan}">
-								<f:attribute name="timespan" value="#{span}" update="display" />
+								actionListener="#{nutrimentProtocolBean.initRecipeDialog}"
+								update="@all"
+								>
+								<f:attribute name="timespan" value="#{span}" />
 							</p:commandButton>
 						</p:column>
 					</p:dataTable>
@@ -85,21 +95,20 @@
 						<h:outputLabel value="Title : *" for="txt_title"></h:outputLabel>
 						<p:autoComplete value="#{webController.chosenRecipe}"
 							completeMethod="#{webController.completeRecipeSearch}"
-							selectListener="#{webController.handleSelect}"
-						/>		
-					
+							selectListener="#{webController.handleSelect}" />
+
 						<h:outputLabel value="Zeitpunkt : *" for="txt_mealCode"></h:outputLabel>
-						<h:selectOneMenu value="#{mealLineBean.code}">  
-            				<f:selectItem itemLabel="Mahlzeit auswählen" itemValue="" />  
-            				<f:selectItems value="#{mealLineBean.allMeals}" />  
-        				</h:selectOneMenu> 
-        				<h:outputLabel value="Menge : *" for="txt_quantity"></h:outputLabel>
+						<h:selectOneMenu value="#{mealLineBean.code}">
+							<f:selectItem itemLabel="Mahlzeit auswählen" itemValue="" />
+							<f:selectItems value="#{mealLineBean.allMeals}" />
+						</h:selectOneMenu>
+						<h:outputLabel value="Menge : *" for="txt_quantity"></h:outputLabel>
 						<p:inputText id="txt_quantity" required="true"
 							value="#{mealLineBean.quantity}" />
 
 						<p:commandButton value="Reset" type="reset" />
 						<p:commandButton value="Add" update="books msgs @parent"
-							action="#{mealLineBean.reinit}" 
+							action="#{mealLineBean.reinit}"
 							actionListener="#{nutrimentProtocolBean.addRecipe}">
 							<p:collector value="#{mealLineBean.mealLine}"
 								addTo="#{mealLineBean.mealLines}" />
@@ -118,7 +127,7 @@
 							</f:facet>
 							<h:outputText value="#{mealLine.mealBo.name}" />
 						</p:column>
-							
+
 						<p:column>
 							<f:facet name="header">
 								<h:outputText value="Menge" />
@@ -131,9 +140,9 @@
 								<h:outputText value="Zeitpunkt" />
 							</f:facet>
 							<h:outputText value="#{mealLine.mealBo.code}" />
-							
+
 						</p:column>
-						
+
 						<p:column>
 							<f:facet name="header">
 								<h:outputText value="Remove" />
