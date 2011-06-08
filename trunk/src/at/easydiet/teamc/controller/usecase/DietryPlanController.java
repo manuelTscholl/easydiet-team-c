@@ -137,6 +137,7 @@ public class DietryPlanController extends Event<EventArgs> {
         long duration;
         TimeSpanBo timespanbo;
         DietParameterBo dpbo;
+        DietParameterBo dpbo1;
         DietParameterBo dpbo2;
 
         // cache activePatiet
@@ -153,11 +154,13 @@ public class DietryPlanController extends Event<EventArgs> {
             PlanType toSet = null;
             if (types != null) {
                 for (PlanType planType : types) {
-                    if (planType.getName().equals("TestPlanC")) {
+                    if (planType.getName().equals("Diätplan")) {
                         toSet = planType;
                     }
 
                 }
+            }else{
+            	toSet= new PlanType("Diätplan");
             }
             // initiates Diatplan with needed values
             _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo(toSet),
@@ -168,9 +171,12 @@ public class DietryPlanController extends Event<EventArgs> {
             if (dptd != null) {
                 for (int i = 0; i < dptd.size(); i++) {
                     dpbo = (DietParameterBo) dptd.get(i);
-                    dpbo.setValue(parameterMinValues.get(i).toString());
-                    dpbo.setCheckOperatorBo(new CheckOperatorBo(">="));
-                    dpb.add(dpbo);
+                    dpbo1 = new DietParameterBo(new CheckOperatorBo(">="),
+                            dpbo.getDietParameterType(),
+                            dpbo.getParameterDefinition());
+                    dpbo1.setDietParameterTemplateId(dpbo.getDietParameterTemplateId());
+                    dpbo1.setValue(parameterMinValues.get(i).toString());
+                    dpb.add(dpbo1);
                     dpbo2 = new DietParameterBo(new CheckOperatorBo("<="),
                             dpbo.getDietParameterType(),
                             dpbo.getParameterDefinition());
@@ -395,6 +401,7 @@ public class DietryPlanController extends Event<EventArgs> {
     public void saveDietryPlan() {
         try {
             HibernateUtil.currentSession().beginTransaction();
+            HibernateUtil.currentSession().clear();
             _dietPlanBo.save();
             HibernateUtil.currentSession().getTransaction().commit();
         } catch (Exception e) {
