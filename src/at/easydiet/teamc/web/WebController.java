@@ -76,11 +76,13 @@ public class WebController
 
     public DietryPlanData getSelectedPlan()
     {
+        LOGGER.info("plan selected");
         return _selectedPlan;
     }
 
     public void setSelectedPlan(DietryPlanData plan)
     {
+        LOGGER.info("plan setted");
         _selectedPlan = plan;
     }
 
@@ -233,9 +235,9 @@ public class WebController
         }
     }
 
-    public void dietryPlanSelected(ActionEvent e)
-    {
-        LOGGER.info("new plan selected!");
+    public void dietryPlanSelected()
+    {        
+        LOGGER.info(getSelectedPlan().getDuration());
     }
 
     /**
