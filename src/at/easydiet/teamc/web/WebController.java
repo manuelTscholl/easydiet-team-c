@@ -19,6 +19,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.DateSelectEvent;
@@ -55,24 +56,24 @@ public class WebController
 
     // instance variables
     private PatientData                          _loggedInUser;
-	private String                               _username  = "";
+    private String                               _username  = "";
     private String                               _password  = "";
     private boolean                              _loggedIn  = false;
     private CreateNutritionProtocolController    _protocolController;
     private String                               _exception = "";
     private DietryPlanData                       _selectedPlan;
     private String                               _chosenRecipe;
-    
 
-    
-    public PatientData getLoggedInUser() {
-		return _loggedInUser;
-	}
+    public PatientData getLoggedInUser()
+    {
+        return _loggedInUser;
+    }
 
-	public void setLoggedInUser(PatientData _loggedInUser) {
-		this._loggedInUser = _loggedInUser;
-	}
-    
+    public void setLoggedInUser(PatientData _loggedInUser)
+    {
+        this._loggedInUser = _loggedInUser;
+    }
+
     public DietryPlanData getSelectedPlan()
     {
         return _selectedPlan;
@@ -85,14 +86,17 @@ public class WebController
 
     public String getChosenRecipe()
     {
-    	if(_chosenRecipe!=null){
-        return _chosenRecipe;
-    	}else return "";
+        if (_chosenRecipe != null)
+        {
+            return _chosenRecipe;
+        }
+        else
+            return "";
     }
 
     public void setChosenRecipe(String chosenRecipe)
     {
-        
+
     }
 
     /**
@@ -128,7 +132,10 @@ public class WebController
         RequestContext context = RequestContext.getCurrentInstance();
         context.addCallbackParam("loggedIn", _loggedIn);
         context.addCallbackParam("exception", _exception);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Sample info message", "PrimeFaces rocks!"));  
+        FacesContext.getCurrentInstance().addMessage(
+                null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "Sample info message", "PrimeFaces rocks!"));
     }
 
     /**
@@ -226,6 +233,11 @@ public class WebController
         }
     }
 
+    public void dietryPlanSelected()
+    {
+        LOGGER.info("new plan selected!");
+    }
+
     /**
      * Sets the dietry plan.
      * 
@@ -270,16 +282,16 @@ public class WebController
         return recipes;
 
     }
+
     /**
-     * whenever a recipe gets selected this method is called. The method adds the selected
-     * recipe to the mealline object
+     * whenever a recipe gets selected this method is called. The method adds
+     * the selected recipe to the mealline object
+     * 
      * @param e
      */
     public void handleSelect(SelectEvent e)
     {
-    	_chosenRecipe=e.getObject().toString();
+        _chosenRecipe = e.getObject().toString();
     }
-
-   
 
 }

@@ -106,6 +106,14 @@ public class MealBo implements java.io.Serializable, Saveable, MealData,
 		return temp;
 	}
 	
+	public void removeMealLine(MealLineBo mealLine)
+	{
+	    if(_meal.getMealLines().contains(mealLine.getMealLine()))
+	    {
+	        _meal.getMealLines().remove(mealLine.getMealLine());
+	    }
+	}
+	
 	public List<MealLineBo> getMealLinesAsList()
 	{
 	    return new ArrayList<MealLineBo>(getMealLines());

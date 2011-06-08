@@ -2,6 +2,8 @@ package at.easydiet.teamc.model;
 
 // Generated 02.04.2011 00:41:04 by Hibernate Tools 3.4.0.CR1
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -37,6 +39,16 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 	protected DietPlan _dietPlan;
 
 	/**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        
+        return getName() + " start: " +new SimpleDateFormat("dd.MM.yyyy").format(getFirstTimeSpan());
+    }
+
+    /**
      *
      */
 	protected DietPlanBo() {
