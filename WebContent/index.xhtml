@@ -9,18 +9,25 @@
 	<h:head>
 		<title>EasyDiet</title>
 		<link rel="stylesheet" type="text/css" href="style.css"></link>
+		<script type="text/javascript">
+			var curStyle = {
+					background: {image: "img/hintergrund2"},
+					mode: "no-repeat",
+					size: 40
+			}; 
+		</script>
 	</h:head>
-	<h:body onload="#{webController.createNewProtocol()}">
-		<h:outputText value="Willkommen im Portal, " />
-		<h:outputLabel value="#{webController.loggedInUser.forename}" />
-
-		<h1>Ernährungsprotokoll erfassen</h1>
+	<h:body onload="#{webController.createNewProtocol()}" 
+	      style="background: url(img/hintergrund.jpg)">
+		<h:outputText style="color: white" value="Willkommen im Portal, " />
+		<h:outputLabel style="color: white" value="#{webController.loggedInUser.forename}" />
+		<br /> <br />
+		<h1 style="color: white">Ernährungsprotokoll erfassen</h1>
 		<br />
 		<h:form>
 			<p:accordionPanel autoHeight="false">
 				<p:tab title="Allgemeine Informationen">
-					<p:panel>Zeitspanne definieren</p:panel>
-
+					<p:panel style="color: blue;">Zeitspanne definieren</p:panel>
 					<p>
 						von:
 						<p:calendar value="#{nutrimentProtocolBean.startDate}"
