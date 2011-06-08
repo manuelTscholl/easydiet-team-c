@@ -37,9 +37,13 @@ public class MealLineBo implements java.io.Serializable, Saveable, MealLineData 
 	public MealLineBo(float quantity, RecipeBo recipeBo,
 			ParameterDefinitionUnitBo parameterDefinitionUnitBo,
 			MealLineBo parentbo, MealBo mealBo) {
+		
 		this(new MealLine(quantity, ClobConverter.StringToClob(""), null,
-				recipeBo.getRecipe(), null, parentbo.getMealLine(),
+				recipeBo.getRecipe(), null, null,
 				mealBo.getMeal()));
+		if(parentbo!=null){
+			this._MealLine.setParent(parentbo._MealLine.getParent());
+		}
 		setUnitDefaultValue();
 	}
 

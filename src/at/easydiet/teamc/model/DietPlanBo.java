@@ -515,7 +515,7 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 			}
 		});
 		
-		return timespans.toArray(
+		return temp.toArray(
 				new TimeSpan[_dietPlan.getTimeSpans().size()]);
 	}
 
