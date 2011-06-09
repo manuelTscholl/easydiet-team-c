@@ -196,9 +196,9 @@ public class NutrimentProtocolBean extends NutritionProtocolBo
         if (recipes.size() > 0)
         {
             mealLineBean.getMealLine().setRecipe(recipes.get(0));
+            mealLineBean.getMealLine().getMealBo().setTimeSpan(getCurrentTimespan());
             mealLineBean.setName(recipes.get(0).getName());
             context = FacesContext.getCurrentInstance();
-
         }
 
     }
