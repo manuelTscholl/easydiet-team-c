@@ -51,7 +51,7 @@ public class CreateNutritionProtocolController
     private List<RecipeData>                     _recipes;
     private PlanTypeData                         _selectedPlanType;
     private static final String                  NUTRIMENTBEANNAME = "nutrimentProtocolBean";
-
+    private boolean _dateAlreadySelected=false;
 
 
     /**
@@ -202,7 +202,7 @@ public class CreateNutritionProtocolController
             return;
         }
         if (bean.getStartDate() != null && bean.getEndDate() != null
-                && bean.getStartDate().compareTo(bean.getEndDate()) <= 0)
+                && bean.getStartDate().compareTo(bean.getEndDate()) <= 0 && _dateAlreadySelected==false)
         {
             Date current = bean.getStartDate();
             DietPlanBo planBo = null;
