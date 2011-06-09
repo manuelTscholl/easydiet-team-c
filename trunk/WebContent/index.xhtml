@@ -44,7 +44,6 @@
 					</p>
 
 				</p:tab>
-
 				<p:tab title="Mahlzeiten und Rezepte eintragen">
 					<p:dataTable id="mealTimespans"
 						value="#{nutrimentProtocolBean.timespans}" var="span">
@@ -64,8 +63,7 @@
 									<ui:repeat value="#{span.mealsAsList}" var="meal"
 										varStatus="iterator">
 										<p:accordionPanel autoHeight="false" collapsible="true">
-											<p:tab title="#{meal.code}">
-												
+											<p:tab title="#{meal.code}">												
 												<ui:repeat value="#{meal.mealLinesAsList}" var="mealline"
 													varStatus="iterator">
 													<h:outputLabel value="#{mealline.recipe.name}" />
@@ -96,27 +94,24 @@
 		<p:dialog widgetVar="dlg3" height="800" width="800">
 
 			<h:form id="form">
-
-				<p:growl id="msgs" />
-
 				<p:panel header="Neue Mahlzeitzeile hinzufügen">
 					<h:panelGrid columns="2" id="grid">
-						<h:outputLabel value="Title : *" for="txt_title"></h:outputLabel>
+						<h:outputLabel value="Title : *"></h:outputLabel>
 						<p:autoComplete value="#{webController.chosenRecipe}"
 							completeMethod="#{webController.completeRecipeSearch}"
 							selectListener="#{webController.handleSelect}" />
 
-						<h:outputLabel value="Zeitpunkt : *" for="txt_mealCode"></h:outputLabel>
+						<h:outputLabel value="Zeitpunkt : *"></h:outputLabel>
 						<h:selectOneMenu value="#{mealLineBean.code}">
 							<f:selectItem itemLabel="Mahlzeit auswählen" itemValue="" />
 							<f:selectItems value="#{mealLineBean.allMeals}" />
 						</h:selectOneMenu>
-						<h:outputLabel value="Menge : *" for="txt_quantity"></h:outputLabel>
+						<h:outputLabel value="Menge : *"></h:outputLabel>
 						<p:inputText id="txt_quantity" required="true"
 							value="#{mealLineBean.quantity}" />
 
 						<p:commandButton value="Reset" type="reset" />
-						<p:commandButton value="Add" update="mealDataTable msgs @parent"
+						<p:commandButton value="Add" update="mealDataTable"
 							action="#{mealLineBean.reinit}"
 							actionListener="#{nutrimentProtocolBean.addRecipe}">
 							<p:collector value="#{mealLineBean.mealLine}"
