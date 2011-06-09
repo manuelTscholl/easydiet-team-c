@@ -29,6 +29,11 @@ public class MealBo implements java.io.Serializable, Saveable, MealData,
 
 	private MealBo() {
 	}
+	
+	public TimeSpanBo getTimeSpan()
+	{
+	    return new TimeSpanBo(_meal.getTimeSpan());
+	}
 
 	public MealBo(Meal meal) {
 		this._meal = meal;

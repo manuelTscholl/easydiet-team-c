@@ -62,7 +62,7 @@
 									<ui:repeat value="#{span.mealsAsList}" var="meal"
 										varStatus="iterator">
 										<p:accordionPanel autoHeight="false" collapsible="true">
-											<p:tab title="#{meal.code}">
+											<p:tab title="#{meal.name}">
 												<ui:repeat value="#{meal.mealLinesAsList}" var="mealline"
 													varStatus="iterator">
 													<h:outputLabel value="#{mealline.recipe.name}" />
@@ -84,6 +84,8 @@
 							</p:accordionPanel>
 						</p:column>
 					</p:dataTable>
+					
+					<p:commandButton value="speichern" actionListener="webController.saveNutrimentProtocol"></p:commandButton>
 
 				</p:tab>
 			</p:accordionPanel>
@@ -98,9 +100,11 @@
 							<h:outputText value="#{plan.toString()}"></h:outputText>
 						</p:column>
 						<p:column>
-							<p:commandButton update="display">
+							<p:commandButton update="mealTimespans"
+								actionListener="#{webController.dietryPlanSelected}">
 								<f:setPropertyActionListener value="#{plan}"
 									target="#{webController.selectedPlan}" />
+									<f:attribute name="plan" value="#{plan}"/>
 							</p:commandButton>
 						</p:column>
 					</p:dataTable>

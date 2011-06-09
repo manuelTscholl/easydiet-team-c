@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import at.easydiet.model.Meal;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
 import at.easydiet.teamc.model.MealBo;
 import at.easydiet.teamc.model.MealLineBo;
@@ -22,12 +23,47 @@ import at.easydiet.teamc.model.data.MealCodeData;
 public class MealLineBean
 {
 
+
+
     private MealLineBo                           _mealline  = new MealLineBo();
     private List<MealLineBo>                     _meallines = new ArrayList<MealLineBo>();
     private NutrimentProtocolBean                _nutrimentProtocolBean;
     private static final org.apache.log4j.Logger LOGGER     = org.apache.log4j.Logger
                                                                     .getLogger(NutrimentProtocolBean.class);
 
+    
+    /**
+     * Gets the meallines.
+     * @return the meallines
+     */
+    public List<MealLineBo> getMeallines()
+    {
+        return _meallines;
+    }
+
+    /**
+     * Sets the meallines.
+     * @param meallines the meallines to set
+     */
+    public void setMeallines(List<MealLineBo> meallines)
+    {
+        _meallines = meallines;
+    }
+    
+    /**
+     * 
+     * @param toRemove
+     */
+    public void removeMealLine(MealLineBo toRemove)
+    {
+        _meallines.remove(toRemove);    
+    }
+    
+    public void addMealLine(MealLineBo toAdd)
+    {
+        _meallines.add(toAdd);
+    }
+    
     /**
      * Gets the timespan.
      * 

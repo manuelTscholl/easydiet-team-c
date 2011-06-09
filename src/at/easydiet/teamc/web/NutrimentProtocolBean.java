@@ -234,5 +234,5 @@ public class NutrimentProtocolBean extends NutritionProtocolBo
     public void handleDateSelect(DateSelectEvent event) {	
 		_controller.nutrimentProtocolDateSelect();
 	}
-
+    
 }
