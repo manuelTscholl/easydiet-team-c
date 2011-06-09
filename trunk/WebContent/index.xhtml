@@ -36,15 +36,9 @@
 							showOn="button"
 							selectListener="#{nutrimentProtocolBean.handleDateSelect}"
 							onSelectUpdate="mealTimespans" />
+							
+							<p:commandButton onclick="dietPlanSelect.show()" value="zeige"></p:commandButton>
 
-						<h:selectOneMenu id="dietryplans" >
-							<f:selectItem itemLabel="Plan auswählen" />
-							<f:selectItems value="#{webController.allDietryPlans}" var="plan"
-								itemValue="#{plan}" itemLabel="#{plan.toString()}"/>
-								<p:ajax event="change"
-									listener="#{webController.getSelectedPlan}"
-									process="dietryplans"></p:ajax>
-						</h:selectOneMenu>
 
 					</p>
 
@@ -95,6 +89,13 @@
 			</p:accordionPanel>
 		</h:form>
 
+
+		<p:dialog widgetVar="dietPlanSelect">
+			<h:form>
+				<p:panel header="Neue Mahlzeitzeile hinzufügen">
+				</p:panel>
+			</h:form>
+		</p:dialog>
 
 		<p:dialog widgetVar="dlg3" height="800" width="800">
 

@@ -85,6 +85,11 @@ public class WebController
         LOGGER.info("plan setted");
         _selectedPlan = plan;
     }
+    
+    public void setSelectedPlan(String s)
+    {
+        LOGGER.info("test");
+    }
 
     public String getChosenRecipe()
     {
