@@ -1,6 +1,5 @@
 package at.easydiet.teamc.web;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -12,9 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.DateSelectEvent;
-import org.primefaces.event.SelectEvent;
-
-import com.sun.istack.internal.logging.Logger;
 
 import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
 import at.easydiet.teamc.controller.usecase.SearchRecipeController;
