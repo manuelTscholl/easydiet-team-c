@@ -33,7 +33,9 @@ import at.easydiet.teamc.controller.usecase.SearchRecipeController;
 import at.easydiet.teamc.exception.LoginFailedException;
 import at.easydiet.teamc.exception.NoDietPlanException;
 import at.easydiet.teamc.model.DietPlanBo;
+import at.easydiet.teamc.model.MealLineBo;
 import at.easydiet.teamc.model.NutritionProtocolBo;
+import at.easydiet.teamc.model.PlanTypeBo;
 import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.TimeSpanBo;
 import at.easydiet.teamc.model.data.DietryPlanData;
@@ -256,18 +258,27 @@ public class WebController
         LOGGER.info(getSelectedPlan().getDuration());
     }
 
+    /**
+     * 
+     * @param actionEvent
+     */
     public void saveNutrimentProtocol(ActionEvent actionEvent)
     {
         NutritionProtocolBo protocol = _protocolController.getActualProtocol();
         Set<TimeSpanBo> timespans = new HashSet<TimeSpanBo>();
-        for (MealCodeData meal : _mealLineBean.getAllMeals())
+        for (MealLineBo meal : _mealLineBean.getMealLines())
         {
-            timespans.add(meal.getTimeSpan());
+            if(!timespans.contains(meal.getMealBo().getTimeSpan()))
+            {
+            timespans.add(meal.getMealBo().getTimeSpan());
+            }
         }
         protocol.setTimeSpans(timespans);
         protocol.setCreatedOn(new Date());
-        
-        protocol.save();
+        protocol.setPlanType(new PlanTypeBo("Ernährungsprotokoll"));
+        protocol.setName(new Date().toString());
+        _protocolController.setActualProtocol(protocol);
+        _protocolController.save();
     }
 
     /**

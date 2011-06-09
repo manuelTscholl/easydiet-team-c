@@ -112,4 +112,13 @@ public class MealCodeBo implements java.io.Serializable, Saveable, MealCodeData
         return this.getName();
     }
 
+    /**
+     * @see at.easydiet.teamc.model.data.MealCodeData#getTimeSpan()
+     */
+    @Override
+    public TimeSpanBo getTimeSpan()
+    {
+        return new TimeSpanBo(_Meal.getTimeSpan());
+    }
+
 }

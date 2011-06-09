@@ -86,6 +86,15 @@ public class CreateNutritionProtocolController
     {
         return _actualProtocol;
     }
+    
+    /**
+     * 
+     * @param protocol
+     */
+    public void setActualProtocol(NutritionProtocolBo protocol)
+    {
+        _actualProtocol = protocol;
+    }
 
     /**
      * Gets the plan types.

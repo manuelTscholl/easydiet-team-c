@@ -219,5 +219,5 @@ public class MealLineBean
         }
         return mealCodes;
     }
-
+    
 }
