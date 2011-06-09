@@ -219,7 +219,7 @@ public class CreateNutritionProtocolController
                 planBo = new DietPlanBo(bean.getDietPlan());
             }
             // add a timespan for each day
-            while (bean.getEndDate().after(current))
+            while (bean.getEndDate().getTime()>=current.getTime())
             {
                 Date toInsert = new Date(current.getTime());
 
