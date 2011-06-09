@@ -10,11 +10,15 @@
 		<title>EasyDiet</title>
 		<link rel="stylesheet" type="text/css" href="style.css"></link>
 	</h:head>
-	<h:body onload="#{webController.createNewProtocol()}" style="background: url(img/hintergrund.jpg)">
+	<h:body onload="#{webController.createNewProtocol()}"
+		style="background: url(img/hintergrund.jpg)">
 		<h:outputText value="Willkommen im Portal, " style="color: white" />
-		<h:outputLabel value="#{webController.loggedInUser.forename}" style="color: white"/>
-		<h:outputLabel value="#{webController.loggedInUser.lastname}" style="color: white" />
-		<br /> <br />
+		<h:outputLabel value="#{webController.loggedInUser.forename}"
+			style="color: white" />
+		<h:outputLabel value="#{webController.loggedInUser.lastname}"
+			style="color: white" />
+		<br />
+		<br />
 		<h1 style="color: white">Ernährungsprotokoll erfassen</h1>
 		<br />
 		<h:form>
@@ -33,13 +37,13 @@
 							selectListener="#{nutrimentProtocolBean.handleDateSelect}"
 							onSelectUpdate="mealTimespans" />
 
-						<h:selectOneMenu id="dietryplans"
-							value="#{webController.selectedPlan}">
+						<h:selectOneMenu id="dietryplans" >
 							<f:selectItem itemLabel="Plan auswählen" />
 							<f:selectItems value="#{webController.allDietryPlans}" var="plan"
-								itemValue="#{plan.name}" />
-							<p:ajax event="change" listener="#{webController.selectedPlan}"
-								process="dietryplans"></p:ajax>
+								itemValue="#{plan}" itemLabel="#{plan.toString()}"/>
+								<p:ajax event="change"
+									listener="#{webController.getSelectedPlan}"
+									process="dietryplans"></p:ajax>
 						</h:selectOneMenu>
 
 					</p>
@@ -64,7 +68,7 @@
 									<ui:repeat value="#{span.mealsAsList}" var="meal"
 										varStatus="iterator">
 										<p:accordionPanel autoHeight="false" collapsible="true">
-											<p:tab title="#{meal.code}">												
+											<p:tab title="#{meal.code}">
 												<ui:repeat value="#{meal.mealLinesAsList}" var="mealline"
 													varStatus="iterator">
 													<h:outputLabel value="#{mealline.recipe.name}" />
