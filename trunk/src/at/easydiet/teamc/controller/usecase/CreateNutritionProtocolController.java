@@ -42,17 +42,17 @@ public class CreateNutritionProtocolController
 {
 
     // class variables
-    private static final org.apache.log4j.Logger LOGGER            = org.apache.log4j.Logger
-                                                                           .getLogger(CreateNutritionProtocolController.class);
+    private static final org.apache.log4j.Logger LOGGER               = org.apache.log4j.Logger
+                                                                              .getLogger(CreateNutritionProtocolController.class);
     // instance variables
     private NutritionProtocolBo                  _actualProtocol;
     private List<PlanTypeData>                   _planTypes;
     private Set<MealCodeData>                    _mealCodes;
     private List<RecipeData>                     _recipes;
     private PlanTypeData                         _selectedPlanType;
-    private static final String                  NUTRIMENTBEANNAME = "nutrimentProtocolBean";
-    private boolean _dateAlreadySelected=false;
-
+    private DietPlanBo                           _dietPlanBo;
+    private static final String                  NUTRIMENTBEANNAME    = "nutrimentProtocolBean";
+    private boolean                              _dateAlreadySelected = false;
 
     /**
      * Instantiates a new creates the nutrition protocol controller.
@@ -76,8 +76,6 @@ public class CreateNutritionProtocolController
     {
 
     }
-
-   
 
     /**
      * Gets the actual protocol.
@@ -202,9 +200,10 @@ public class CreateNutritionProtocolController
             return;
         }
         if (bean.getStartDate() != null && bean.getEndDate() != null
-                && bean.getStartDate().compareTo(bean.getEndDate()) <= 0 && _dateAlreadySelected==false)
+                && bean.getStartDate().compareTo(bean.getEndDate()) <= 0
+                && _dateAlreadySelected == false)
         {
-        	_dateAlreadySelected=true;
+            _dateAlreadySelected = true;
             Date current = bean.getStartDate();
             DietPlanBo planBo = null;
             if (bean.getDietPlan() == null)
@@ -220,7 +219,7 @@ public class CreateNutritionProtocolController
                 planBo = new DietPlanBo(bean.getDietPlan());
             }
             // add a timespan for each day
-            while (bean.getEndDate().getTime()>=current.getTime())
+            while (bean.getEndDate().getTime() >= current.getTime())
             {
                 Date toInsert = new Date(current.getTime());
 
@@ -239,6 +238,41 @@ public class CreateNutritionProtocolController
         }
 
     }
+
+    /**
+     * @param selectedPlan
+     */
+    public void setDietPlanBo(DietPlanBo selectedPlan)
+    {
+        
+        _dietPlanBo = selectedPlan;
+    }
     
+    /**
+     * @param selectedPlan
+     */
+    public DietPlanBo getDietPlanBo()
+    {        
+        return _dietPlanBo;
+    }
+
+    /**
+     * 
+     */
+    public void handlePlanSelected()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        NutrimentProtocolBean bean = context.getApplication()
+                .evaluateExpressionGet(context, "#{" + NUTRIMENTBEANNAME + "}",
+                        NutrimentProtocolBean.class);
+        
+        bean.getTimespans().clear();
+        
+        for (TimeSpanBo timespan : getDietPlanBo().getTimeSpans())
+        {
+         bean.addTimeSpan(timespan);
+        }
+        
+    }
 
 }

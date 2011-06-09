@@ -8,8 +8,11 @@
 package at.easydiet.teamc.model.data;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
+import at.easydiet.teamc.model.TimeSpanBo;
 
 
 /**
@@ -44,4 +47,10 @@ public interface DietryPlanData {
      * @return
      */
     public List<MealData> getAllMeals();
+    
+    /**
+     * 
+     * @return
+     */
+    public Date getFirstTimeSpan();
 }

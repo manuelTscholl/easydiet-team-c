@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +32,8 @@ import at.easydiet.teamc.controller.usecase.CreateNutritionProtocolController;
 import at.easydiet.teamc.controller.usecase.SearchRecipeController;
 import at.easydiet.teamc.exception.LoginFailedException;
 import at.easydiet.teamc.exception.NoDietPlanException;
+import at.easydiet.teamc.model.DietPlanBo;
+import at.easydiet.teamc.model.NutritionProtocolBo;
 import at.easydiet.teamc.model.RecipeBo;
 import at.easydiet.teamc.model.TimeSpanBo;
 import at.easydiet.teamc.model.data.DietryPlanData;
@@ -60,6 +63,7 @@ public class WebController
     private String                               _password  = "";
     private boolean                              _loggedIn  = false;
     private CreateNutritionProtocolController    _protocolController;
+    private MealLineBean                         _mealLineBean;
     private String                               _exception = "";
     private DietryPlanData                       _selectedPlan;
     private String                               _chosenRecipe;
@@ -85,7 +89,7 @@ public class WebController
         LOGGER.info("plan setted");
         _selectedPlan = plan;
     }
-    
+
     public void setSelectedPlan(String s)
     {
         LOGGER.info("test");
@@ -146,11 +150,14 @@ public class WebController
     }
 
     /**
-     * Create a new dietry protocol.
+     * Create a new dietry protocol. every time called
      */
     public void createNewProtocol()
     {
         _protocolController = new CreateNutritionProtocolController();
+        FacesContext context = FacesContext.getCurrentInstance();
+        _mealLineBean = context.getApplication().evaluateExpressionGet(context,
+                "#{mealLineBean}", MealLineBean.class);
     }
 
     /**
@@ -240,20 +247,27 @@ public class WebController
         }
     }
 
-    public void dietryPlanSelected()
-    {        
+    public void dietryPlanSelected(ActionEvent actionEvent)
+    {
+        setSelectedPlan((DietryPlanData) actionEvent.getComponent()
+                .getAttributes().get("plan"));
+        _protocolController.setDietPlanBo((DietPlanBo) getSelectedPlan());
+        _protocolController.handlePlanSelected();
         LOGGER.info(getSelectedPlan().getDuration());
     }
 
-    /**
-     * Sets the dietry plan.
-     * 
-     * @param d
-     *            the new dietry plan
-     */
-    public void setDietryPlan(DietryPlanData d)
+    public void saveNutrimentProtocol(ActionEvent actionEvent)
     {
-        _selectedPlan = d;
+        NutritionProtocolBo protocol = _protocolController.getActualProtocol();
+        Set<TimeSpanBo> timespans = new HashSet<TimeSpanBo>();
+        for (MealCodeData meal : _mealLineBean.getAllMeals())
+        {
+            timespans.add(meal.getTimeSpan());
+        }
+        protocol.setTimeSpans(timespans);
+        protocol.setCreatedOn(new Date());
+        
+        protocol.save();
     }
 
     /**

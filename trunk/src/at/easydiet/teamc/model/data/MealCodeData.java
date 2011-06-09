@@ -7,6 +7,8 @@
 
 package at.easydiet.teamc.model.data;
 
+import at.easydiet.teamc.model.TimeSpanBo;
+
 /**
  *
  * @author Stephan Svoboda
@@ -23,4 +25,10 @@ public interface MealCodeData {
      * @return
      */
     String getCode();
+    
+    /**
+     * 
+     * @return
+     */
+    TimeSpanBo getTimeSpan();
 }
