@@ -204,6 +204,7 @@ public class CreateNutritionProtocolController
         if (bean.getStartDate() != null && bean.getEndDate() != null
                 && bean.getStartDate().compareTo(bean.getEndDate()) <= 0 && _dateAlreadySelected==false)
         {
+        	_dateAlreadySelected=true;
             Date current = bean.getStartDate();
             DietPlanBo planBo = null;
             if (bean.getDietPlan() == null)
