@@ -8,5 +8,14 @@ import at.easydiet.model.NutritionProtocol;
 public class NutritionProtocolDAO 
         extends GenericHibernateDAO<NutritionProtocol, Long>
 {
+	@Override
+	public NutritionProtocol makePersistent(NutritionProtocol entity) {
+		if(entity.getDietPlanId()==0){
+		return (NutritionProtocol) getSession().merge(entity);
+	}else{
+		getSession().saveOrUpdate(entity);
+		return entity;
+	}
+	}
 	// implementation in parent class
 }

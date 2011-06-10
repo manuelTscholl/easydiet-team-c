@@ -154,13 +154,13 @@ public class DietryPlanController extends Event<EventArgs> {
             PlanType toSet = null;
             if (types != null) {
                 for (PlanType planType : types) {
-                    if (planType.getName().equals("Di‰tplan")) {
+                    if (planType.getName().equals("Di√§tplan")) {
                         toSet = planType;
                     }
 
                 }
             }else{
-            	toSet= new PlanType("Di‰tplan");
+            	toSet= new PlanType("Di√§tplan");
             }
             // initiates Diatplan with needed values
             _dietPlanBo = new DietPlanBo("", startdate, new PlanTypeBo(toSet),
@@ -196,7 +196,7 @@ public class DietryPlanController extends Event<EventArgs> {
 
             List<PlanType> planTypes = DAOFactory.getInstance().getPlanTypeDAO().findAll();
             for (PlanType planType : types) {
-                if (planType.getName().equalsIgnoreCase("DiÔøΩtplanung")) {
+                if (planType.getName().equalsIgnoreCase("Di√§tplanung")) {
                     _dietPlanBo.setPlanType(new PlanTypeBo(planType));
                 }
             }
