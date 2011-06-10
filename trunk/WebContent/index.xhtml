@@ -73,15 +73,16 @@
 										</p:accordionPanel>
 									</ui:repeat>
 								</p:tab>
-								<p:tab title="Bearbeiten">
+								</p:accordionPanel>
+								<p:panel>
 									<p:commandButton onclick="dlg3.show()"
-										value="Rezept hinzufügen"
+										value="Mahlzeit hinzufügen"
 										actionListener="#{nutrimentProtocolBean.initRecipeDialog}"
 										update="form:mealDataTable">
 										<f:attribute name="timespan" value="#{span}" />
 									</p:commandButton>
-								</p:tab>
-							</p:accordionPanel>
+								</p:panel>
+							
 						</p:column>
 					</p:dataTable>
 					
