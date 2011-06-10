@@ -9,6 +9,12 @@
 	<h:head>
 		<title>EasyDiet</title>
 		<link rel="stylesheet" type="text/css" href="style.css"></link>
+		<script type="text/javascript">
+			function reload() {
+				alert("Daten werden übernommen");
+				window.location.reload();
+			}
+		</script>
 	</h:head>
 	<h:body onload="#{webController.createNewProtocol()}"
 		style="background: url(img/hintergrund.jpg)">
