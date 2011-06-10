@@ -2,11 +2,8 @@ package at.easydiet.teamc.model;
 
 // Generated 02.04.2011 00:41:04 by Hibernate Tools 3.4.0.CR1
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -39,20 +36,20 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 	protected DietPlan _dietPlan;
 
 	/**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString()
-    {
-        
-        return getName() + " start: " +new SimpleDateFormat("dd.MM.yyyy").format(getFirstTimeSpan());
-    }
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
 
-    /**
+		return getName() + " start: "
+				+ new SimpleDateFormat("dd.MM.yyyy").format(getFirstTimeSpan());
+	}
+
+	/**
      *
      */
 	protected DietPlanBo() {
-		this._dietPlan=new DietPlan();
+		this._dietPlan = new DietPlan();
 	}
 
 	/**
@@ -77,20 +74,21 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 		this._planType = planTypeBo;
 		this._creator = creatorBo;
 	}
-	
-	   /**
-     * 
-     * @param name
-     * @param createdOn
-     * @param planTypeBo
-     * @param creatorBo
-     */
-    public DietPlanBo(String name, Date createdOn, PlanTypeBo planTypeBo,
-            SystemUserBo creatorBo) {
-        this(new DietPlan(name, createdOn, planTypeBo.getPlanType(), null, creatorBo.getModel()));
-        this._planType = planTypeBo;
-        this._creator = creatorBo;
-    }
+
+	/**
+	 * 
+	 * @param name
+	 * @param createdOn
+	 * @param planTypeBo
+	 * @param creatorBo
+	 */
+	public DietPlanBo(String name, Date createdOn, PlanTypeBo planTypeBo,
+			SystemUserBo creatorBo) {
+		this(new DietPlan(name, createdOn, planTypeBo.getPlanType(), null,
+				creatorBo.getModel()));
+		this._planType = planTypeBo;
+		this._creator = creatorBo;
+	}
 
 	/**
 	 * 
@@ -227,9 +225,11 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 	 * @return
 	 */
 	public Set<TimeSpanBo> getTimeSpans() {
-	    if(_dietPlan==null)return null;
+		if (_dietPlan == null)
+			return null;
 
-	    Set<TimeSpanBo> temp = new HashSet<TimeSpanBo>(this._dietPlan.getTimeSpans().size());
+		Set<TimeSpanBo> temp = new HashSet<TimeSpanBo>(this._dietPlan
+				.getTimeSpans().size());
 		for (TimeSpan timeSpan : this._dietPlan.getTimeSpans()) {
 			temp.add(new TimeSpanBo(timeSpan));
 		}
@@ -414,7 +414,7 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 				* 60 * 60 * 24);
 		for (TimeSpanBo tsb : this.getTimeSpans()) {
 
-			if (DayDateComparer.compareDays(search, tsb.getStart())){
+			if (DayDateComparer.compareDays(search, tsb.getStart())) {
 				return tsb;
 
 			}
@@ -422,21 +422,22 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 		return null;
 
 	}
-        
-        /**
-         * Returns all Meals associatied to a Diatplan.
-         * 
-         * @return List<MealData>
-         */
-        public List<MealData> getAllMeals(){
-            List<MealData> temp = new ArrayList<MealData>();
-            for(TimeSpanBo tsp: getTimeSpans()){
-                for(MealBo mb: tsp.getMeals()){
-                    temp.add(mb);
-                }
-            }
-            return temp;
-        }
+
+	/**
+	 * Returns all Meals associatied to a Diatplan.
+	 * 
+	 * @return List<MealData>
+	 */
+	@Override
+	public List<MealData> getAllMeals() {
+		List<MealData> temp = new ArrayList<MealData>();
+		for (TimeSpanBo tsp : getTimeSpans()) {
+			for (MealBo mb : tsp.getMeals()) {
+				temp.add(mb);
+			}
+		}
+		return temp;
+	}
 
 	@Override
 	public MealData getMealData() {
@@ -497,7 +498,7 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 	@Override
 	public Set<MealData> getMealsByDay(int day) {
 		Set<MealData> _meals = new HashSet<MealData>();
-		TimeSpan[] timespans = sortByTimespan( _dietPlan.getTimeSpans());
+		TimeSpan[] timespans = sortByTimespan(_dietPlan.getTimeSpans());
 
 		TimeSpan currTimespan = null;
 		for (int i = 0; i <= timespans.length; i++) {
@@ -513,8 +514,8 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 		return _meals;
 
 	}
-	
-	private TimeSpan[] sortByTimespan(Set<TimeSpan> timespans){
+
+	private TimeSpan[] sortByTimespan(Set<TimeSpan> timespans) {
 		List<TimeSpan> temp = new ArrayList<TimeSpan>();
 		for (TimeSpan timeSpan : timespans) {
 			temp.add(timeSpan);
@@ -526,9 +527,8 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 				return o1.getStart().compareTo(o2.getStart());
 			}
 		});
-		
-		return temp.toArray(
-				new TimeSpan[_dietPlan.getTimeSpans().size()]);
+
+		return temp.toArray(new TimeSpan[_dietPlan.getTimeSpans().size()]);
 	}
 
 	public MealData addRecipe(RecipeBo recipeBo, int day, float quantity,
@@ -549,17 +549,22 @@ public class DietPlanBo implements java.io.Serializable, Saveable,
 		return null;
 	}
 
-        public Date getFirstTimeSpan(){
-            Date temp=null;
-            for(TimeSpanBo ts: getTimeSpans()){
-                if(temp==null){
-                    temp=ts.getStart();
-                }else{
-                    if(temp.getTime()>=ts.getStart().getTime()){
-                        temp=ts.getStart();
-                    }
-                }
-            }
-            return temp;
-        }
+	@Override
+	public Date getFirstTimeSpan() {
+		Date temp = null;
+		for (TimeSpanBo ts : getTimeSpans()) {
+			if (temp == null) {
+				temp = ts.getStart();
+			} else {
+				if (temp.getTime() >= ts.getStart().getTime()) {
+					temp = ts.getStart();
+				}
+			}
+		}
+		return temp;
+	}
+
+	public void setDietTreatment(DietTreatmentBo treatment) {
+		_dietPlan.setDietTreatment(treatment.getDietTreatment());
+	}
 }
