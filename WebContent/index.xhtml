@@ -42,8 +42,8 @@
 							showOn="button"
 							selectListener="#{nutrimentProtocolBean.handleDateSelect}"
 							onSelectUpdate="mealTimespans" />
-
-						<p:commandButton onclick="dietPlanSelect.show()" value="zeige"></p:commandButton>
+					<p:panel>oder Diätplan auswählen</p:panel>
+						<p:commandButton onclick="dietPlanSelect.show()" value="Diätplan auswählen"></p:commandButton>
 
 
 					</p>
@@ -101,7 +101,7 @@
 
 		<p:dialog widgetVar="dietPlanSelect">
 			<h:form>
-				<p:panel header="Neue Mahlzeitzeile hinzufügen">
+				<p:panel header="Einen Diätplan auswählen">
 					<p:dataTable value="#{webController.allDietryPlans}" var="plan">
 						<p:column>
 							<h:outputText value="#{plan.toString()}"></h:outputText>
