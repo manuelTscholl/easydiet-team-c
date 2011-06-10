@@ -108,7 +108,7 @@
 						</p:column>
 						<p:column>
 							<p:commandButton update="mealTimespans"
-								actionListener="#{webController.dietryPlanSelected}">
+								actionListener="#{webController.dietryPlanSelected}" onclick="reload();">
 								<f:setPropertyActionListener value="#{plan}"
 									target="#{webController.selectedPlan}" />
 									<f:attribute name="plan" value="#{plan}"/>
