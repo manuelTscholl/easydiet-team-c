@@ -58,10 +58,23 @@ public class WebController {
 	private String _password = "";
 	private boolean _loggedIn = false;
 	private CreateNutritionProtocolController _protocolController;
+
+	
+
 	private MealLineBean _mealLineBean;
 	private String _exception = "";
 	private DietryPlanData _selectedPlan;
 	private String _chosenRecipe;
+	
+	
+	public CreateNutritionProtocolController getProtocolController() {
+		return _protocolController;
+	}
+
+	public void setProtocolController(
+			CreateNutritionProtocolController _protocolController) {
+		this._protocolController = _protocolController;
+	}
 
 	public PatientData getLoggedInUser() {
 		return _loggedInUser;
@@ -132,10 +145,12 @@ public class WebController {
 	 * Create a new dietry protocol. every time called
 	 */
 	public void createNewProtocol() {
-		_protocolController = new CreateNutritionProtocolController();
-		FacesContext context = FacesContext.getCurrentInstance();
-		_mealLineBean = context.getApplication().evaluateExpressionGet(context,
-				"#{mealLineBean}", MealLineBean.class);
+		if (_protocolController == null) {
+			_protocolController = new CreateNutritionProtocolController();
+			FacesContext context = FacesContext.getCurrentInstance();
+			_mealLineBean = context.getApplication().evaluateExpressionGet(
+					context, "#{mealLineBean}", MealLineBean.class);
+		}
 	}
 
 	/**
@@ -150,7 +165,8 @@ public class WebController {
 	/**
 	 * Sets the username.
 	 * 
-	 * @param username the new username
+	 * @param username
+	 *            the new username
 	 */
 	public void setUsername(String username) {
 		_username = username;
@@ -168,7 +184,8 @@ public class WebController {
 	/**
 	 * Sets the password.
 	 * 
-	 * @param password the new password
+	 * @param password
+	 *            the new password
 	 */
 	public void setPassword(String password) {
 		_password = password;
@@ -218,26 +235,6 @@ public class WebController {
 		_protocolController.setDietPlanBo((DietPlanBo) getSelectedPlan());
 		_protocolController.handlePlanSelected();
 		LOGGER.info(getSelectedPlan().getDuration());
-	}
-
-	/**
-	 * 
-	 * @param actionEvent
-	 */
-	public void saveNutrimentProtocol(ActionEvent actionEvent) {
-		NutritionProtocolBo protocol = _protocolController.getActualProtocol();
-		Set<TimeSpanBo> timespans = new HashSet<TimeSpanBo>();
-		for (MealLineBo meal : _mealLineBean.getMealLines()) {
-			if (!timespans.contains(meal.getMealBo().getTimeSpan())) {
-				timespans.add(meal.getMealBo().getTimeSpan());
-			}
-		}
-		protocol.setTimeSpans(timespans);
-		protocol.setCreatedOn(new Date());
-		protocol.setPlanType(new PlanTypeBo("Ernährungsprotokoll"));
-		protocol.setName(new Date().toString());
-		_protocolController.setActualProtocol(protocol);
-		_protocolController.save(_loggedInUser);
 	}
 
 	/**

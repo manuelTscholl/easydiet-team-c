@@ -36,6 +36,7 @@ public class NutrimentProtocolBean extends NutritionProtocolBo
     private MealLineBean     _mealLineBean;
     
     private CreateNutritionProtocolController _controller;
+    private WebController _webController;
 
     private static final org.apache.log4j.Logger LOGGER     = org.apache.log4j.Logger
     .getLogger(NutrimentProtocolBean.class);
@@ -46,7 +47,10 @@ public class NutrimentProtocolBean extends NutritionProtocolBo
         _mealLineBean = context.getApplication()
         .evaluateExpressionGet(context, "#{mealLineBean}",
                 MealLineBean.class);
-        _controller=new CreateNutritionProtocolController();
+        _webController = context.getApplication()
+        .evaluateExpressionGet(context, "#{webController}",
+                WebController.class);
+        _controller=_webController.getProtocolController();
     }
     /**
      * Gets the mealLines.
@@ -120,7 +124,7 @@ public class NutrimentProtocolBean extends NutritionProtocolBo
     public void setEndDate(Date endDate)
     {
         _endDate = endDate;
-        _controller.nutrimentProtocolDateSelect();
+       // _controller.nutrimentProtocolDateSelect();
     }
 
     public List<TimeSpanBo> getTimespans()

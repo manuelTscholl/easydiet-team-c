@@ -268,7 +268,7 @@
   <many-to-one class="PlanType" column="PlanType" name="planType" not-null="true"/>
   <!-- Bidirectional assoc to treatment -->
   <many-to-one class="DietTreatment" column="DietTreatmentId"
-   name="dietTreatment" not-null="true"/>
+   name="dietTreatment" not-null="false"/>
   <set cascade="all,delete-orphan" lazy="true" name="dietParameters"
    sort="unsorted" table="DietPlanDietParameter">
    <key column="DietPlanId" not-null="true"/>

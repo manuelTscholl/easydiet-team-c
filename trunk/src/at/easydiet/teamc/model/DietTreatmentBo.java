@@ -190,7 +190,7 @@ public class DietTreatmentBo  implements java.io.Serializable, Saveable {
     /**
      * @return the _DietTreatment
      */
-    protected DietTreatment getDietTreatment() {
+    public DietTreatment getDietTreatment() {
         return _DietTreatment;
     }
 

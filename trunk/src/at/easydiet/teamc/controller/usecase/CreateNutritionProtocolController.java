@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.faces.context.FacesContext;
 
 import at.easydiet.dao.DAOFactory;
+import at.easydiet.dao.HibernateUtil;
 import at.easydiet.model.DietPlan;
 import at.easydiet.model.PlanType;
 import at.easydiet.teamc.controller.BusinessLogicDelegationController;
@@ -59,7 +60,9 @@ public class CreateNutritionProtocolController {
 	 * Instantiates a new creates the nutrition protocol controller.
 	 */
 	public CreateNutritionProtocolController() {
+		if(_actualProtocol==null){
 		_actualProtocol = new NutritionProtocolBo();
+		}
 
 		// load necessary protocol data
 		_planTypes = BusinessLogicDelegationController.getInstance()
@@ -130,10 +133,17 @@ public class CreateNutritionProtocolController {
 				_actualProtocol.getCreatedOn(), _actualProtocol.getDuration(),
 				"Ernährungsprotokoll", new TreatmentStateBo("Laufend"),
 				(PatientBo) patient);
+		
+		_actualProtocol.setDate(new Date());
+		HibernateUtil.currentSession().beginTransaction();
+		DAOFactory.getInstance().getDietTreatmentDAO().makePersistent(treatment.getDietTreatment());
+		HibernateUtil.currentSession().getTransaction().commit();
 		_actualProtocol.setDietTreatment(treatment);
-
+		HibernateUtil.currentSession().beginTransaction();
 		DAOFactory.getInstance().getNutritionProtocolDAO()
 				.makePersistent(_actualProtocol.getModel());
+		HibernateUtil.currentSession().getTransaction().commit();
+		
 	}
 
 	/**
@@ -193,13 +203,14 @@ public class CreateNutritionProtocolController {
 		NutrimentProtocolBean bean = context.getApplication()
 				.evaluateExpressionGet(context, "#{" + NUTRIMENTBEANNAME + "}",
 						NutrimentProtocolBean.class);
+//		_actualProtocol=bean;
 		if (bean == null) {
 			LOGGER.info("context is null");
 			return;
 		}
 		if (bean.getStartDate() != null && bean.getEndDate() != null
-				&& bean.getStartDate().compareTo(bean.getEndDate()) <= 0
-				&& _dateAlreadySelected == false) {
+				&& bean.getStartDate().before(bean.getEndDate())
+				) {
 			_dateAlreadySelected = true;
 			Date current = bean.getStartDate();
 			DietPlanBo planBo = null;
@@ -210,13 +221,17 @@ public class CreateNutritionProtocolController {
 				planBo = new DietPlanBo(plan);
 				bean.setDietPlan(plan);
 			} else {
-				planBo = new DietPlanBo(bean.getDietPlan());
+				_actualProtocol.setName("new");
+				_actualProtocol.setCreatedOn(new Date());
+				_actualProtocol.setPlanType(new PlanTypeBo("Ernährungsprotokoll"));
+				_actualProtocol.setCreator(LoginController.getInstance().getActualUser());
 			}
 			// add a timespan for each day
 			while (bean.getEndDate().getTime() >= current.getTime()) {
 				Date toInsert = new Date(current.getTime());
 
-				TimeSpanBo span = new TimeSpanBo(toInsert, 1, planBo);
+				TimeSpanBo span = new TimeSpanBo(toInsert, 1, _actualProtocol);
+				_actualProtocol.addTimeSpan(span);
 				bean.addTimeSpan(span);
 				current.setTime(current.getTime() + 1 * 24 * 60 * 60 * 1000);
 				LOGGER.info("one day added");
