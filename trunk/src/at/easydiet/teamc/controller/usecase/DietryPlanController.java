@@ -401,7 +401,7 @@ public class DietryPlanController extends Event<EventArgs> {
     public void saveDietryPlan() {
         try {
             HibernateUtil.currentSession().beginTransaction();
-            HibernateUtil.currentSession().clear();
+//            HibernateUtil.currentSession().clear();
             _dietPlanBo.save();
             HibernateUtil.currentSession().getTransaction().commit();
         } catch (Exception e) {
